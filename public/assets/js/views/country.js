@@ -117,8 +117,13 @@ export default async function country(main, { params, setTitle }) {
   $$('.cf-section', main).forEach((s) => observer.observe(s));
 
   // Research & news
+  const isGuest = !store.user;
   mountFeed($('[data-research]', main), (before) => api.articles({ country: base.code, kind: ['research', 'analysis', 'official'], before, limit: 6 }), {
     layout: 'cards',
+    render: (a, idx) => {
+      const locked = isGuest && idx >= 2;
+      return readCard(a, { locked });
+    },
     empty: emptyState({ title: 'No research collected yet', body: `We haven’t yet collected research or analysis about ${esc(base.name)}. The further reading below links to trusted reference sources.` }),
   });
   let topic = '';

@@ -2,7 +2,7 @@ import { api } from '../api.js';
 import { $, $$, esc, flag, formatIndicator, icon, nf } from '../lib.js';
 import { renderMap } from '../map.js';
 import { store } from '../store.js';
-import { REGION_NAMES, indicatorCard, newsRow, readCard, skeletonCards, skeletonRows } from '../ui.js';
+import { REGION_NAMES, indicatorCard, newsRow, readCard, featureStoryCard, skeletonCards, skeletonRows } from '../ui.js';
 
 const INDICATOR_META = {
   'SP.POP.TOTL': { code: 'SP.POP.TOTL', label: 'Population', format: 'people' },
@@ -404,20 +404,18 @@ async function renderGuestHome(main, { setTitle, navigate }) {
   setTitle('');
   main.style.paddingBottom = '0';
   const { stats, countries, topics } = store.meta;
-  const localMonitors = store.monitors || [];
 
-  // Active filter state for the guest
+  // Active filter state for the guest news stream
   let activeCountry = null;
   let activeTopic = null;
-  let activeMonitorIndex = localMonitors.length > 0 ? 0 : null;
 
   main.innerHTML = `
-    <!-- Airy Editorial Paper Hero -->
+    <!-- Editorial Paper Hero -->
     <section class="hero">
       <div class="wrap"><div class="hero-inner">
         <span class="badge">Pan-African Intelligence · 54 Countries</span>
-        <h1>Understand Africa, <span>one country at a time.</span></h1>
-        <p>Country files, economic indicators and verified reporting on all 54 African countries — cited, dated and linked directly to original publishers.</p>
+        <h1>Understand Africa, <span>one market at a time.</span></h1>
+        <p>Independent reporting, 15-year World Bank indicator trends, and verified intelligence across all 54 African countries — cited, dated and linked directly to original publishers.</p>
         <form class="hero-search" role="search" data-search>
           ${icon('search')}
           <input type="search" name="q" placeholder="Search a country, industry or question…" aria-label="Search Style Vault" list="country-list" autocomplete="off">
@@ -430,125 +428,105 @@ async function renderGuestHome(main, { setTitle, navigate }) {
       </div></div>
     </section>
 
-    <!-- Trust & Open Source Methods Strip -->
-    <section class="trust-strip">
-      <div class="wrap">
-        <div class="trust-item">${icon('map')}<div><strong>54 country files</strong><span>Every African country, from Algeria to Zimbabwe</span></div></div>
-        <div class="trust-item">${icon('chart')}<div><strong>Cited indicators</strong><span>World Bank data with year and source on every figure</span></div></div>
-        <div class="trust-item">${icon('building')}<div><strong>${nf(stats.sources)} sources</strong><span>Newsrooms, think tanks and public institutions</span></div></div>
-        <div class="trust-item">${icon('link')}<div><strong>Always linked</strong><span>Every story leads to the original publisher</span></div></div>
-      </div>
-    </section>
-
-    <!-- In-Browser Personalized Live News Section -->
-    <section class="section" style="padding-top:48px;padding-bottom:56px">
+    <!-- Movement 1: Today's Edition & Editorial Lead Feature (With Images) -->
+    <section class="section" style="padding-top:64px;padding-bottom:72px">
       <div class="wrap">
         <div class="section-head">
           <div>
-            <span class="eyebrow accent">Live Pan-African News</span>
-            <h2>African reporting, filtered to your markets</h2>
-            <p>Follow countries or sectors below to immediately shape your news stream. No account or sign-in needed.</p>
+            <span class="eyebrow accent">Daily Edition · Today Across Africa</span>
+            <h2>Top developments from African newsrooms</h2>
+            <p>Important reporting and market developments verified and updated hourly across 97 independent newsrooms.</p>
           </div>
-          <a class="text-link" href="/news">Full news wire ${icon('arrow-right')}</a>
+          <a class="text-link" href="/news">Live news wire ${icon('arrow-right')}</a>
         </div>
 
-        <!-- In-Browser Personalization Bar -->
-        <div class="personalize-bar">
-          <div class="personalize-head">
-            <h3>${icon('star')} Personalize your feed</h3>
-            <span class="hint">Saved in this browser · Optional cloud sync with a free account</span>
-          </div>
-
-          <div class="personalize-chips" data-filter-chips>
-            <button type="button" class="personalize-chip ${activeMonitorIndex === null && !activeCountry && !activeTopic ? 'active' : ''}" data-action="all">
-              ${icon('globe')} All Top Stories
-            </button>
-
-            ${localMonitors.length > 0 ? `
-              ${localMonitors.map((m, idx) => `
-                <button type="button" class="personalize-chip ${activeMonitorIndex === idx ? 'active' : ''}" data-action="monitor" data-idx="${idx}">
-                  ${icon('star')} ${esc(m.name)}
-                </button>
-              `).join('')}
-            ` : ''}
-
-            <!-- Quick Popular Hubs -->
-            <button type="button" class="personalize-chip ${activeCountry === 'NG' ? 'active' : ''}" data-action="country" data-val="NG">
-              ${flag('NG', 'flag', '')} Nigeria
-            </button>
-            <button type="button" class="personalize-chip ${activeCountry === 'KE' ? 'active' : ''}" data-action="country" data-val="KE">
-              ${flag('KE', 'flag', '')} Kenya
-            </button>
-            <button type="button" class="personalize-chip ${activeCountry === 'ZA' ? 'active' : ''}" data-action="country" data-val="ZA">
-              ${flag('ZA', 'flag', '')} South Africa
-            </button>
-            <button type="button" class="personalize-chip ${activeCountry === 'GH' ? 'active' : ''}" data-action="country" data-val="GH">
-              ${flag('GH', 'flag', '')} Ghana
-            </button>
-            <button type="button" class="personalize-chip ${activeCountry === 'EG' ? 'active' : ''}" data-action="country" data-val="EG">
-              ${flag('EG', 'flag', '')} Egypt
-            </button>
-
-            <!-- Quick Popular Sectors -->
-            <button type="button" class="personalize-chip ${activeTopic === 'business' ? 'active' : ''}" data-action="topic" data-val="business">
-              💼 Business
-            </button>
-            <button type="button" class="personalize-chip ${activeTopic === 'trade' ? 'active' : ''}" data-action="topic" data-val="trade">
-              🚢 AfCFTA &amp; Trade
-            </button>
-            <button type="button" class="personalize-chip ${activeTopic === 'technology' ? 'active' : ''}" data-action="topic" data-val="technology">
-              💡 Technology
-            </button>
-            <button type="button" class="personalize-chip ${activeTopic === 'energy' ? 'active' : ''}" data-action="topic" data-val="energy">
-              ⚡ Energy
-            </button>
-            <button type="button" class="personalize-chip ${activeTopic === 'agriculture' ? 'active' : ''}" data-action="topic" data-val="agriculture">
-              🌱 Agriculture
-            </button>
-
-            <button type="button" class="personalize-chip add-more" data-action="toggle-drawer">
-              ${icon('plus')} More Countries &amp; Sectors
-            </button>
-          </div>
-
-          <!-- Expandable Drawer for All 54 Countries & Sectors -->
-          <div class="filter-drawer" data-drawer>
-            <div class="filter-drawer-grid">
-              <div class="filter-drawer-col">
-                <h4>All 54 African Countries</h4>
-                <div class="filter-drawer-chips">
-                  ${countries.map((c) => `
-                    <button type="button" class="personalize-chip ${activeCountry === c.code ? 'active' : ''}" data-action="country" data-val="${c.code}">
-                      ${flag(c.code, 'flag', '')} ${esc(c.name)}
-                    </button>
-                  `).join('')}
-                </div>
-              </div>
-              <div class="filter-drawer-col">
-                <h4>All 13 Sectors &amp; Topics</h4>
-                <div class="filter-drawer-chips">
-                  ${topics.map((t) => `
-                    <button type="button" class="personalize-chip ${activeTopic === t.slug ? 'active' : ''}" data-action="topic" data-val="${t.slug}">
-                      ${esc(t.name)}
-                    </button>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="personalize-status" data-filter-status>
-            <span>Showing: <strong>Top Stories Across Africa</strong></span>
-            <span><a href="/signup">Sign in</a> to synchronize preferences across your phone and laptop</span>
-          </div>
+        <div class="lead-layout" data-lead-box>
+          ${skeletonRows(2)}
         </div>
-
-        <!-- News Stream Container -->
-        <div data-news-stream>${skeletonRows(4)}</div>
       </div>
     </section>
 
-    <!-- Interactive Continent Explorer -->
+    <!-- Movement 2: Curated Pan-African Growth Channels -->
+    <section class="section warm tight">
+      <div class="wrap">
+        <div class="section-head" style="margin-bottom:28px">
+          <div>
+            <span class="eyebrow">Strategic Channels</span>
+            <h2>Key African growth sectors</h2>
+            <p>Track policy, investment, and market expansion across cross-border economic sectors.</p>
+          </div>
+          <a class="text-link" href="/topics">All 13 topics ${icon('arrow-right')}</a>
+        </div>
+
+        <div class="channel-grid">
+          <div class="channel-card">
+            <span class="channel-icon">🚢</span>
+            <h3><a href="/topic/trade">Trade &amp; AfCFTA</a></h3>
+            <p>Continental free trade, port infrastructure, cross-border corridors, tariff rules, and logistics hubs.</p>
+            <span class="channel-meta">Explore sector ${icon('arrow-right')}</span>
+          </div>
+
+          <div class="channel-card">
+            <span class="channel-icon">💼</span>
+            <h3><a href="/topic/business">Fintech &amp; Banking</a></h3>
+            <p>Venture funding, mobile money rails, banking regulation, central bank policy, and startup rounds.</p>
+            <span class="channel-meta">Explore sector ${icon('arrow-right')}</span>
+          </div>
+
+          <div class="channel-card">
+            <span class="channel-icon">⚡</span>
+            <h3><a href="/topic/energy">Energy &amp; Infrastructure</a></h3>
+            <p>Renewables, off-grid solar, power grids, strategic critical minerals, and industrial projects.</p>
+            <span class="channel-meta">Explore sector ${icon('arrow-right')}</span>
+          </div>
+
+          <div class="channel-card">
+            <span class="channel-icon">🌾</span>
+            <h3><a href="/topic/agriculture">Agriculture &amp; Food</a></h3>
+            <p>Agtech, crop yields, commodity exports, fertilizer value chains, and food security policy.</p>
+            <span class="channel-meta">Explore sector ${icon('arrow-right')}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Movement 3: Market News Wire with Quick Filter -->
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow accent">Market Wire</span>
+            <h2>Filtered intelligence by country &amp; sector</h2>
+            <p>Select any hub to shape your stream. All stories link to their original African publisher.</p>
+          </div>
+          <div class="chips wrap-chips" data-market-filter>
+            <button type="button" class="chip active" data-action="all">${icon('globe')} All Stories</button>
+            <button type="button" class="chip" data-action="country" data-val="NG">${flag('NG', 'flag', '')} Nigeria</button>
+            <button type="button" class="chip" data-action="country" data-val="KE">${flag('KE', 'flag', '')} Kenya</button>
+            <button type="button" class="chip" data-action="country" data-val="ZA">${flag('ZA', 'flag', '')} South Africa</button>
+            <button type="button" class="chip" data-action="country" data-val="GH">${flag('GH', 'flag', '')} Ghana</button>
+            <button type="button" class="chip" data-action="country" data-val="EG">${flag('EG', 'flag', '')} Egypt</button>
+            <button type="button" class="chip" data-action="country" data-val="RW">${flag('RW', 'flag', '')} Rwanda</button>
+            <button type="button" class="chip" data-action="topic" data-val="business">💼 Business</button>
+            <button type="button" class="chip" data-action="topic" data-val="trade">🚢 Trade</button>
+            <button type="button" class="chip" data-action="topic" data-val="technology">💡 Technology</button>
+          </div>
+        </div>
+
+        <div data-wire-container>${skeletonRows(4)}</div>
+
+        <!-- Access Cap Notice for Unsigned Guests -->
+        <div style="margin-top:36px;padding:22px 26px;border-radius:var(--r);background:var(--warm);border:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+          <div>
+            <strong style="color:var(--deep);font-size:0.98rem">Showing top public reports from 97 African newsrooms</strong>
+            <p style="color:var(--muted);font-size:0.86rem;margin-top:4px">Guests can read headline wire stories. Create a free account to unlock historical search, custom country monitors, and saved reading vault.</p>
+          </div>
+          <a class="btn btn-plum btn-sm" href="/signup">Join free for full access</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Movement 4: The 54-Country Interactive Continent Explorer -->
     <section class="section warm">
       <div class="wrap explorer">
         <div data-map aria-busy="true" style="min-height:300px"></div>
@@ -562,54 +540,45 @@ async function renderGuestHome(main, { setTitle, navigate }) {
       </div>
     </section>
 
-    <!-- Deep Research & Analysis -->
+    <!-- Movement 5: Restricted Member Access — Deep Intelligence & Institutional Briefs -->
     <section class="section">
       <div class="wrap">
         <div class="section-head">
-          <div><span class="eyebrow accent">Research &amp; analysis</span><h2>Read deeper</h2>
-            <p>Long-form work from think tanks, universities, survey organisations and public institutions across and about Africa.</p></div>
-          <a class="text-link" href="/research">All research ${icon('arrow-right')}</a>
-        </div>
-        <div data-research>${skeletonCards(3)}</div>
-      </div>
-    </section>
-
-    <!-- Inside a Country File Spotlight -->
-    <section class="section warm">
-      <div class="wrap sample" data-sample></div>
-    </section>
-
-    <!-- Guest Personalization Invitation Banner (Gentle, Not Wall) -->
-    <section class="section tight">
-      <div class="wrap">
-        <div class="guest-invite">
           <div>
-            <span class="eyebrow accent">Your Personal Intelligence Feed</span>
-            <h3>Follow countries and sectors across all your devices</h3>
-            <p>StyleVault remembers your preferences in this browser automatically. Create a free account anytime to sync your followed markets and saved stories between your phone, tablet, and desktop.</p>
+            <span class="eyebrow accent">Restricted Member Access · Vault Intelligence</span>
+            <h2>Institutional research &amp; think tank policy</h2>
+            <p>Peer-reviewed work, macroeconomic surveys, and policy briefs from UNECA, AfDB, Afrobarometer, and 20+ specialized African research institutes.</p>
           </div>
-          <div class="guest-invite-actions">
-            <a class="btn btn-plum" href="/signup">Create free account</a>
-            <a class="btn btn-outline" href="/login">Sign in</a>
+          <a class="text-link" href="/research">View research catalog ${icon('arrow-right')}</a>
+        </div>
+
+        <!-- 3 Locked Preview Cards -->
+        <div data-locked-research>${skeletonCards(3)}</div>
+
+        <!-- StyleVault Intelligence Membership Gate Card -->
+        <div class="gate-card">
+          <div class="gate-copy">
+            <span class="lock-badge">${icon('shield')} Full Membership Preview</span>
+            <h3 style="margin-top:12px">Unlock Full Pan-African Intelligence</h3>
+            <p>Unsigned guests can read top news headlines. Create your free StyleVault account to unlock complete institutional whitepapers, 15-year World Bank indicator datasets, and tailored cross-border trade monitors.</p>
+            <ul class="gate-perks">
+              <li>${icon('check')} <span>Uncapped access to 20+ African think tank &amp; policy libraries</span></li>
+              <li>${icon('check')} <span>15-year historical World Bank indicator datasets for all 54 nations</span></li>
+              <li>${icon('check')} <span>Custom multi-country &amp; industry intelligence monitors</span></li>
+              <li>${icon('check')} <span>Cloud-synced reading vault across your phone and desktop</span></li>
+            </ul>
+          </div>
+          <div class="gate-box">
+            <strong>Join StyleVault Intelligence</strong>
+            <span>Create a free account in 30 seconds. No credit card required.</span>
+            <a class="btn btn-plum btn-block" href="/signup">Create free account</a>
+            <a class="btn btn-outline btn-block" href="/login">Already a member? Sign in</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Trust Pillars -->
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head"><div><span class="eyebrow accent">Why you can trust it</span><h2>Built to be cited, not just read</h2></div></div>
-        <div class="pillars">
-          <div class="pillar"><span class="ic">${icon('chart')}</span><h3>Cited data</h3><p>Country indicators come from the World Bank’s World Development Indicators. Each figure shows its year and links to the source table.</p></div>
-          <div class="pillar"><span class="ic">${icon('link')}</span><h3>Original sources</h3><p>We show a headline, a short teaser and the date, then send you to the publisher. Nothing is rewritten or summarised by AI.</p></div>
-          <div class="pillar"><span class="ic">${icon('shield')}</span><h3>Open methods</h3><p>Every source is listed with how often we check it and whether it’s working. Our rules for sorting stories by country are public.</p>
-            <a class="text-link" href="/sources">Sources &amp; methods ${icon('arrow-right')}</a></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Ria's Colony Band -->
+    <!-- Movement 6: Ria's Colony Band -->
     <section class="colony-band">
       <div class="wrap">
         <div><h2>Going beyond reading about a country?</h2>
@@ -630,167 +599,98 @@ async function renderGuestHome(main, { setTitle, navigate }) {
     navigate(country ? `/country/${country.slug}` : `/search?q=${encodeURIComponent(q)}`);
   });
 
-  // Init Interactive Map, Country Spotlight, and Research
+  // Init Interactive Map
   initMapAndPicker(main, navigate, countries);
-  initSampleCountry(main, countries);
-  initResearchCards(main);
 
-  // ── Live Stream & Filter Manager ──────────────────────────────────────────
-  const newsStreamBox = $('[data-news-stream]', main);
-  const statusBox = $('[data-filter-status]', main);
-  const drawer = $('[data-drawer]', main);
+  // ── Load Movement 1: Editorial Lead Story & Developing Wire ───────────────
+  api.articles({ kind: 'news', limit: 4 }).then(({ items }) => {
+    const leadBox = $('[data-lead-box]', main);
+    if (!leadBox) return;
+    if (!items.length) {
+      leadBox.innerHTML = `<p class="muted">No featured reporting available right now.</p>`;
+      return;
+    }
 
-  function updateStatus(title, isFiltered = false) {
-    if (!statusBox) return;
-    statusBox.innerHTML = `
-      <span>Showing: <strong>${esc(title)}</strong></span>
-      <span>
-        ${isFiltered ? `<button type="button" class="btn btn-sm btn-outline" data-reset-btn style="margin-right:8px;height:30px;padding:0 12px;font-size:0.78rem">Show all stories</button>` : ''}
-        <a href="/signup">Sign in</a> to sync across devices
-      </span>
+    const lead = items[0];
+    const wire = items.slice(1, 4);
+
+    leadBox.innerHTML = `
+      ${featureStoryCard(lead)}
+      <div class="lead-wire">
+        ${wire.map(newsRow).join('')}
+      </div>
     `;
-    const reset = $('[data-reset-btn]', statusBox);
-    if (reset) {
-      reset.addEventListener('click', () => {
-        activeCountry = null;
-        activeTopic = null;
-        activeMonitorIndex = null;
-        $$('.personalize-chip', main).forEach((c) => c.classList.toggle('active', c.dataset.action === 'all'));
-        loadNews();
-      });
-    }
-  }
+  }).catch(() => {});
 
-  function loadNews() {
-    newsStreamBox.innerHTML = skeletonRows(4);
+  // ── Load Movement 3: Market News Wire with Filter ─────────────────────────
+  const wireContainer = $('[data-wire-container]', main);
 
-    let queryObj = { limit: 8 };
-    let statusLabel = 'Top Stories Across Africa';
-    let isFiltered = false;
-
-    if (activeMonitorIndex !== null && localMonitors[activeMonitorIndex]) {
-      const m = localMonitors[activeMonitorIndex];
-      statusLabel = `Your Saved Feed: ${m.name}`;
-      isFiltered = true;
-      if (m.countries?.length) queryObj.country = m.countries;
-      if (m.topics?.length) queryObj.topic = m.topics;
-      if (m.keywords) queryObj.q = m.keywords;
-    } else if (activeCountry || activeTopic) {
-      isFiltered = true;
-      const parts = [];
-      if (activeCountry) {
-        queryObj.country = activeCountry;
-        parts.push(store.countryByCode.get(activeCountry)?.name || activeCountry);
-      }
-      if (activeTopic) {
-        queryObj.topic = activeTopic;
-        parts.push(store.topicBySlug.get(activeTopic)?.name || activeTopic);
-      }
-      statusLabel = parts.join(' · ');
-    }
-
-    updateStatus(statusLabel, isFiltered);
+  function loadWire() {
+    wireContainer.innerHTML = skeletonRows(4);
+    const queryObj = { kind: 'news', limit: 6 };
+    if (activeCountry) queryObj.country = activeCountry;
+    if (activeTopic) queryObj.topic = activeTopic;
 
     api.articles(queryObj).then(({ items }) => {
       if (!items.length) {
-        newsStreamBox.innerHTML = `
+        wireContainer.innerHTML = `
           <div class="empty" style="padding:40px 20px">
             <span class="ic">${icon('search')}</span>
-            <h3>No recent stories found for this filter</h3>
-            <p>We haven't received stories matching this criteria in the last 7 days. Try choosing another country or topic.</p>
-            <button type="button" class="btn btn-outline" data-reset-empty>Show all top stories</button>
+            <h3>No recent stories for this selection</h3>
+            <p>Try selecting another country or topic, or view all stories.</p>
           </div>`;
-        const reset = $('[data-reset-empty]', newsStreamBox);
-        if (reset) {
-          reset.addEventListener('click', () => {
-            activeCountry = null;
-            activeTopic = null;
-            activeMonitorIndex = null;
-            $$('.personalize-chip', main).forEach((c) => c.classList.toggle('active', c.dataset.action === 'all'));
-            loadNews();
-          });
-        }
-      } else {
-        const half = Math.ceil(items.length / 2);
-        newsStreamBox.innerHTML = `
-          <div class="card-grid two" style="gap:0 48px">
-            <div class="news-list">${items.slice(0, half).map(newsRow).join('')}</div>
-            <div class="news-list">${items.slice(half).map(newsRow).join('')}</div>
-          </div>`;
+        return;
       }
+      const half = Math.ceil(items.length / 2);
+      wireContainer.innerHTML = `
+        <div class="card-grid two" style="gap:0 48px">
+          <div class="news-list">${items.slice(0, half).map(newsRow).join('')}</div>
+          <div class="news-list">${items.slice(half).map(newsRow).join('')}</div>
+        </div>`;
     }).catch(() => {
-      newsStreamBox.innerHTML = `<p class="muted" style="padding:24px 0">Unable to load stories at this time.</p>`;
+      wireContainer.innerHTML = `<p class="muted" style="padding:24px 0">Unable to load stories at this time.</p>`;
     });
   }
 
-  // Bind filter chips
-  const chipContainer = $('[data-filter-chips]', main);
-  if (chipContainer) {
-    chipContainer.addEventListener('click', (e) => {
-      const chip = e.target.closest('.personalize-chip');
-      if (!chip) return;
+  const marketFilter = $('[data-market-filter]', main);
+  if (marketFilter) {
+    marketFilter.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      marketFilter.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
 
-      const action = chip.dataset.action;
-      if (action === 'toggle-drawer') {
-        drawer.classList.toggle('open');
-        chip.classList.toggle('active', drawer.classList.contains('open'));
-        return;
-      }
-
-      $$('.personalize-chip', main).forEach((c) => {
-        if (c.dataset.action !== 'toggle-drawer') c.classList.remove('active');
-      });
-      chip.classList.add('active');
-
+      const action = btn.dataset.action;
       if (action === 'all') {
         activeCountry = null;
         activeTopic = null;
-        activeMonitorIndex = null;
-      } else if (action === 'monitor') {
-        activeMonitorIndex = Number(chip.dataset.idx);
-        activeCountry = null;
-        activeTopic = null;
       } else if (action === 'country') {
-        activeCountry = chip.dataset.val;
+        activeCountry = btn.dataset.val;
         activeTopic = null;
-        activeMonitorIndex = null;
       } else if (action === 'topic') {
-        activeTopic = chip.dataset.val;
+        activeTopic = btn.dataset.val;
         activeCountry = null;
-        activeMonitorIndex = null;
       }
-
-      loadNews();
+      loadWire();
     });
   }
 
-  // Drawer chips listener
-  if (drawer) {
-    drawer.addEventListener('click', (e) => {
-      const chip = e.target.closest('.personalize-chip');
-      if (!chip) return;
+  loadWire();
 
-      const action = chip.dataset.action;
-      $$('.personalize-chip', main).forEach((c) => {
-        if (c.dataset.action !== 'toggle-drawer') c.classList.remove('active');
-      });
-      chip.classList.add('active');
-
-      if (action === 'country') {
-        activeCountry = chip.dataset.val;
-        activeTopic = null;
-        activeMonitorIndex = null;
-      } else if (action === 'topic') {
-        activeTopic = chip.dataset.val;
-        activeCountry = null;
-        activeMonitorIndex = null;
-      }
-      loadNews();
-    });
-  }
-
-  // Initial load
-  loadNews();
+  // ── Load Movement 5: Locked Member Research Cards ─────────────────────────
+  Promise.all([
+    api.articles({ kind: 'research', limit: 2 }),
+    api.articles({ kind: 'official', limit: 1 }),
+  ]).then(([res, off]) => {
+    const box = $('[data-locked-research]', main);
+    if (!box) return;
+    const items = [...res.items, ...off.items].slice(0, 3);
+    if (!items.length) {
+      box.innerHTML = '';
+      return;
+    }
+    box.innerHTML = `<div class="card-grid">${items.map((a) => readCard(a, { locked: true })).join('')}</div>`;
+  }).catch(() => {});
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

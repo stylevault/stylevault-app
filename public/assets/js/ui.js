@@ -26,27 +26,40 @@ const shareButton = (a) => `<button class="act" type="button" data-share="${a.id
 const time = (a) => `<time datetime="${new Date(a.publishedAt * 1000).toISOString()}" title="${esc(longDate(a.publishedAt))}">${shortDate(a.publishedAt)}</time>`;
 
 /** Long-form reading: research, analysis and official publications. */
-export function readCard(a) {
+export function readCard(a, { locked = false } = {}) {
   registry.set(a.id, a);
   const kind = a.source.kind || 'news';
+  const imgHtml = a.imageUrl
+    ? `<div class="rc-thumb"><img src="${esc(a.imageUrl)}" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>`
+    : '';
   return `
-  <article class="read-card kind-${kind}">
-    <div class="rc-meta">${kindTag(kind)}<strong>${esc(a.source.name)}</strong></div>
-    <h3><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.title)}</a></h3>
+  <article class="read-card kind-${kind} ${locked ? 'is-locked' : ''}">
+    ${imgHtml}
+    <div class="rc-meta">
+      ${locked ? `<span class="lock-badge">${icon('shield')} Member Access</span>` : kindTag(kind)}
+      <strong>${esc(a.source.name)}</strong>
+    </div>
+    <h3><a href="${locked ? '/signup?reason=research' : esc(a.url)}" ${locked ? '' : 'target="_blank" rel="noopener"'}>${esc(a.title)}</a></h3>
     ${a.summary ? `<p class="summary">${esc(a.summary)}</p>` : ''}
     <div class="rc-foot">
       <span style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${time(a)}${countryLinks(a.countries, 3, false)}</span>
-      <span class="actions">${saveButton(a)}${shareButton(a)}</span>
+      ${locked
+        ? `<a class="lock-link" href="/signup?reason=research">Unlock full report ${icon('arrow-right')}</a>`
+        : `<span class="actions">${saveButton(a)}${shareButton(a)}</span>`}
     </div>
   </article>`;
 }
 
-/** Reporting from newsrooms, as a calm list row. */
+/** Reporting from newsrooms, as a calm list row, with thumbnail if present. */
 export function newsRow(a) {
   registry.set(a.id, a);
+  const imgHtml = a.imageUrl
+    ? `<div class="news-thumb"><img src="${esc(a.imageUrl)}" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>`
+    : '';
   return `
-  <article class="news-row">
-    <div>
+  <article class="news-row ${a.imageUrl ? 'has-thumb' : ''}">
+    ${imgHtml}
+    <div class="nr-content">
       <div class="nr-meta"><strong>${esc(a.source.name)}</strong><span class="dot-sep"></span>${time(a)}${a.countries.length ? `<span class="dot-sep"></span>${countryLinks(a.countries)}` : ''}</div>
       <h3><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.title)}</a></h3>
       ${a.summary ? `<p class="summary">${esc(a.summary)}</p>` : ''}
@@ -56,6 +69,34 @@ export function newsRow(a) {
           const t = store.topicBySlug.get(s);
           return t ? `<a class="tag" href="/topic/${s}">${esc(t.name)}</a>` : '';
         }).join('')}
+        <span class="actions">${saveButton(a)}${shareButton(a)}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+/** Lead editorial feature story card with large typography and media. */
+export function featureStoryCard(a) {
+  if (!a) return '';
+  registry.set(a.id, a);
+  const imgHtml = a.imageUrl
+    ? `<div class="feature-media"><img src="${esc(a.imageUrl)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
+    : '';
+  return `
+  <article class="feature-card">
+    ${imgHtml}
+    <div class="feature-body">
+      <div class="nr-meta">
+        <span class="badge" style="height:26px;font-size:0.7rem">Lead Story</span>
+        <strong>${esc(a.source.name)}</strong>
+        <span class="dot-sep"></span>
+        ${time(a)}
+        ${countryLinks(a.countries, 2)}
+      </div>
+      <h2><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.title)}</a></h2>
+      ${a.summary ? `<p class="summary">${esc(a.summary)}</p>` : ''}
+      <div class="feature-foot">
+        <a class="btn btn-plum btn-sm" href="${esc(a.url)}" target="_blank" rel="noopener">Read full report ${icon('arrow-up-right')}</a>
         <span class="actions">${saveButton(a)}${shareButton(a)}</span>
       </div>
     </div>

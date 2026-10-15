@@ -46,8 +46,37 @@ export default function research(main, { query, setTitle, navigate }) {
   });
   main.querySelectorAll('[data-filter]').forEach((s) => s.addEventListener('change', () => go({ [s.dataset.filter]: s.value })));
 
-  mountFeed($('[data-feed]', main), (before) => api.articles({ kind: kind.split(','), country, topic, before, limit: 12 }), {
+  const isGuest = !store.user;
+
+  mountFeed($('[data-feed]', main), async (before) => {
+    return api.articles({ kind: kind.split(','), country, topic, before, limit: isGuest ? 6 : 12 });
+  }, {
     layout: 'cards',
+    render: (a, idx) => {
+      const locked = isGuest && idx >= 3;
+      return readCard(a, { locked });
+    },
     empty: emptyState({ title: 'Nothing matches yet', body: 'Try another country or topic. New publications are collected every hour.' }),
+  }).then(() => {
+    if (isGuest) {
+      const feedEl = $('[data-feed]', main);
+      if (feedEl && !feedEl.querySelector('.gate-card')) {
+        feedEl.insertAdjacentHTML('beforeend', `
+          <div class="gate-card" style="margin-top:40px">
+            <div class="gate-copy">
+              <span class="lock-badge">Member Access</span>
+              <h3 style="margin-top:12px">Unlock the complete think-tank archive</h3>
+              <p>Unsigned guests can preview selected briefs. Create your free StyleVault account to access full institutional whitepapers and policy studies.</p>
+            </div>
+            <div class="gate-box">
+              <strong>Free Intelligence Account</strong>
+              <span>Instant access in 30 seconds</span>
+              <a class="btn btn-plum btn-block" href="/signup">Create free account</a>
+              <a class="btn btn-outline btn-block" href="/login">Sign in</a>
+            </div>
+          </div>
+        `);
+      }
+    }
   });
 }
