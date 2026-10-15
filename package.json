@@ -1,0 +1,22 @@
+{
+  "name": "stylevault-app",
+  "version": "1.0.0",
+  "description": "StyleVault: Pan-African Intelligence & News Discovery Platform across all 54 African countries, AfCFTA trade corridors, business, and tourism.",
+  "main": "serve.js",
+  "scripts": {
+    "start": "node serve.js"
+  },
+  "keywords": [
+    "africa",
+    "news",
+    "afcfta",
+    "business",
+    "tourism",
+    "trade",
+    "intelligence",
+    "stylevault"
+  ],
+  "author": "StyleVault",
+  "license": "MIT",
+  "private": false
+}
