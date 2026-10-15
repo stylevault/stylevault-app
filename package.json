@@ -1,22 +1,21 @@
 {
-  "name": "stylevault-app",
-  "version": "1.0.0",
-  "description": "StyleVault: Pan-African Intelligence & News Discovery Platform across all 54 African countries, AfCFTA trade corridors, business, and tourism.",
-  "main": "serve.js",
+  "name": "stylevault",
+  "version": "0.1.0",
+  "private": true,
+  "description": "StyleVault: Africa's news, in its own style. A continent-wide news reader and personal monitor covering all 54 African countries.",
+  "type": "module",
   "scripts": {
-    "start": "node serve.js"
+    "dev": "wrangler dev --test-scheduled",
+    "setup": "npm run db:migrate && npm run db:seed",
+    "db:migrate": "wrangler d1 migrations apply stylevault --local",
+    "db:migrate:remote": "wrangler d1 migrations apply stylevault --remote",
+    "db:seed": "node scripts/build-seed.mjs && wrangler d1 execute stylevault --local --file db/seed.sql",
+    "db:seed:remote": "node scripts/build-seed.mjs && wrangler d1 execute stylevault --remote --file db/seed.sql",
+    "collect": "node scripts/collect-local.mjs",
+    "test": "node --test",
+    "deploy": "wrangler deploy"
   },
-  "keywords": [
-    "africa",
-    "news",
-    "afcfta",
-    "business",
-    "tourism",
-    "trade",
-    "intelligence",
-    "stylevault"
-  ],
-  "author": "StyleVault",
-  "license": "MIT",
-  "private": false
+  "devDependencies": {
+    "wrangler": "^4.151.0"
+  }
 }

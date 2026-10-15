@@ -1,0 +1,41 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "stylevault",
+	"main": "src/index.js",
+	"compatibility_date": "2026-10-01",
+	// The single-page app. /api/* always reaches the Worker; every other unknown
+	// path falls back to index.html so client-side routes like /country/kenya work.
+	"assets": {
+		"directory": "./public",
+		"binding": "ASSETS",
+		"not_found_handling": "single-page-application",
+		"run_worker_first": [
+			"/api/*"
+		]
+	},
+	// `wrangler dev` uses a local copy; `wrangler deploy` and `--remote` commands use
+	// the real database created with `npx wrangler d1 create stylevault`.
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "stylevault",
+			"database_id": "3cb69664-0ab4-4940-90cd-a9d1619dfb41",
+			"migrations_dir": "./migrations"
+		}
+	],
+	// Every 5 minutes, check the next COLLECT_BATCH_SIZE sources that are due.
+	// 12 runs/hour × 7 sources ≈ 84 checks/hour, so each active source is polled
+	// about hourly while staying inside the free plan's per-run limits.
+	"triggers": {
+		"crons": [
+			"*/5 * * * *"
+		]
+	},
+	"vars": {
+		"COLLECT_BATCH_SIZE": "7",
+		"ARTICLE_RETENTION_DAYS": "90"
+	},
+	"observability": {
+		"enabled": true
+	}
+}

@@ -1,15 +1,8 @@
-# Dependencies
 node_modules/
-.npm
-
-# OS metadata
+.wrangler/
+.dev.vars
 .DS_Store
 Thumbs.db
-
-# Logs
 *.log
-npm-debug.log*
-
-# Environment
 .env
 .env.local

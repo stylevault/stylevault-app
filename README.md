@@ -1,44 +1,77 @@
-# StyleVault (`stylevault.app`)
-> **Pan-African Intelligence & News Discovery Platform**  
-> Covering Business, Tourism, Aviation, Maritime Ports, and AfCFTA Trade Corridors Across All 54 African Countries.
+# StyleVault (stylevault.app)
 
----
+**Africa, in its own style.** *Style* is the distinctive way something is done. StyleVault gathers the way Africa does business, governs, creates, travels and plays, from newsrooms in all 54 countries, into one place you can browse freely or tune to what you follow.
 
-## 🌟 What is StyleVault?
-StyleVault is a dedicated, zero-cost-first alternative to Google Alerts built specifically for following African markets, industries, and economies.
+## What it does
 
-Instead of configuring dozens of fragmented keyword searches or hitting paywalls, StyleVault provides:
-1. **Africa-Wide Chronological Feed**: Real-time dispatches aggregated from trusted African newsrooms.
-2. **Top Stories Multi-Source Clusters**: Intelligent grouping of developments confirmed and reported by 2+ independent publishers.
-3. **All 54 African Countries Directory**: Filter dispatches instantly by country or African Union region (North, South, East, West, Central).
-4. **My Monitor (Custom Intelligence Streams)**: Build personalized multi-criteria streams (Country + Industry + Filter Keywords) saved in the browser without any forced user registration or account barrier.
-5. **Saved Vault**: One-tap offline bookmarking for reference and deep dives.
-6. **Native Reader Sheet**: Slide-up summary sheet providing metadata, fair-use excerpts, and direct outbound links to the original African publishers.
+- **Today:** a continent-wide feed, newest first, with a separate **Top Stories** section: stories reported by 2+ different newsrooms in the last 24 hours.
+- **All 54 countries:** a page per country, grouped by African Union region, showing how many local sources we read.
+- **Topics:** 13 subject feeds, including *Style & Creative* (fashion, music, film, art, design).
+- **Search:** full-text search with country, topic, publisher and date filters.
+- **My Monitor:** saved combinations of countries + topics + keywords. Starring a country or topic creates one.
+- **Saved stories:** bookmarks.
+- **Accounts:** optional. Without one, monitors and saves live in the browser. Signing up or signing in moves them into the account so they sync across devices.
 
----
+Every story shows headline, publisher, date and a short teaser, and links to the original article. We never store full article text.
 
-## 🛠️ Architecture & Zero Monthly Operating Cost
-- **Frontend**: Clean, lightweight vanilla JavaScript + responsive CSS grid with Plus Jakarta Sans typography.
-- **Hosting**: Cloudflare Pages (Free Tier: unlimited requests, globally distributed edge caching).
-- **Storage**: Client-side `localStorage` for zero-cost stream persistence and bookmarks.
-- **Fair-Use Indexing**: Headings, publication metadata, and fair-use excerpts only. Direct outbound referral links to original newsrooms protect copyright and support African journalism.
+## Architecture (zero monthly cost at launch)
 
----
+| Piece | Tech |
+|---|---|
+| App UI | Vanilla JS single-page app in `public/`, served by Workers Static Assets |
+| API | Cloudflare Worker (`src/index.js`), JSON under `/api/*` |
+| Collection | Cron Trigger every 5 min; each run checks the next 7 sources that are due |
+| Database | Cloudflare D1 (SQLite + FTS5 search) |
+| Auth | PBKDF2-SHA256 password hashes, random session tokens (stored hashed), HttpOnly cookies |
 
-## 🚀 Running Locally
+### How collection works (`src/collector/`)
+
+1. Pick sources whose `next_check_at` has passed (busy sources hourly, quiet ones back off to 6 h, failing ones to 24 h).
+2. Fetch feeds with ETag / If-Modified-Since, then parse RSS, RDF or Atom.
+3. Normalise URLs (strip tracking params) and skip anything already stored.
+4. **Classify** with editable rules (`src/data/countries.js`, `src/data/topics.js`). Countries use *Option B*: a country is tagged only when the story is genuinely about it. A headline mention counts more than a teaser mention, and the publisher's home country is only a tie-breaker. See the header comment in `classify.js`.
+5. **Cluster** near-identical headlines from different publishers into one story (feeds Top Stories). Wire copies are hidden from the feed; same-publisher reposts are dropped.
+6. Write everything in one D1 batch and record source health.
+
+National outlets' world-news items that match no African country are kept for search but hidden from the Africa feeds.
+
+## Run locally
+
 ```bash
-# Start the local development server
-npm start
-# App will run on http://localhost:3000
+npm install
+npm run setup      # create the local D1 database and load countries, topics, sources
+npm run dev        # http://localhost:8787
+npm run collect    # in another terminal: fetch every source now
+npm test           # classifier + parser tests
 ```
 
----
+`npm run collect` uses `ADMIN_TOKEN` from `.dev.vars` (git-ignored). Create that file with a line `ADMIN_TOKEN=<any long random string>`.
 
-## ☁️ Cloudflare Pages Deployment
-1. Connect your GitHub repository (`stylevault/stylevault-app`) to Cloudflare Pages.
-2. Build Settings:
-   - **Framework Preset**: None (Static HTML/JS)
-   - **Build Command**: *(leave empty)*
-   - **Build Output Directory**: `/`
-3. Custom Domain:
-   - Assign `stylevault.app` in Cloudflare Pages dashboard. Every `git push` automatically redeploys in seconds.
+## Deploy to Cloudflare
+
+```bash
+npx wrangler login
+npx wrangler d1 create stylevault        # paste the printed database_id into wrangler.jsonc
+npm run db:migrate:remote
+npm run db:seed:remote
+npx wrangler secret put ADMIN_TOKEN      # for manual POST /api/admin/collect
+npm run deploy
+```
+
+Then add `stylevault.app` as a Custom Domain on the Worker in the Cloudflare dashboard. The edge cache for API responses only operates on a custom domain.
+
+## Editing coverage
+
+- **Add or fix a source:** edit `src/data/sources.js`, then `npm run db:seed:remote`.
+- **Improve classification:** edit `terms` / `exclude` in `src/data/countries.js` or `keywords` in `src/data/topics.js`, add a test in `test/classify.test.js`, run `npm test`, deploy. Rules apply to newly collected stories.
+- **Permissions:** every source starts as `permission_status = 'unreviewed'`. Before public launch, review each publisher's terms and record the result (`permitted` / `restricted` / `denied`) in the `sources` table. `denied` sources are never fetched.
+
+## Free-tier budget
+
+Workers Free allows 100k requests/day, 10 ms CPU and 50 subrequests per invocation; D1 Free allows 5 GB total storage and 500 MB per database. Each cron run uses about 20 subrequests. Articles older than 90 days are pruned daily (saved ones are kept). If the logs show CPU-limit errors on cron runs, lower `COLLECT_BATCH_SIZE` in `wrangler.jsonc`; the Workers Paid plan ($5/mo) removes that ceiling.
+
+## Not built yet (by design)
+
+Password reset by email, email alerts and push notifications (all need a paid email service), AI summaries, personalised ranking, and mobile packaging with Capacitor.
+
+The old static prototype is kept in `legacy-prototype/` for reference and is not deployed.

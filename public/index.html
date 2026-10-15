@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Style Vault · Understand Africa, one country at a time</title>
+  <meta name="description" content="Country files, research and reporting on all 54 African countries, with every figure cited and every story linked to its source. A Ria's Colony product.">
+  <meta name="theme-color" content="#1a0a1e">
+  <meta property="og:title" content="Style Vault · Understand Africa, one country at a time">
+  <meta property="og:description" content="Country files, research and reporting on all 54 African countries. A Ria's Colony product.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/img/hero-map.webp">
+  <link rel="icon" href="/assets/img/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Figtree:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner wrap">
+      <a href="/" class="brand" aria-label="Style Vault, a Ria's Colony product: home">
+        <span class="brand-word">Style Vault</span>
+        <span class="brand-by">by <img src="/assets/img/rc-logo.png" alt="Ria's Colony" width="62" height="32"></span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main">
+        <a href="/countries" data-nav="countries">Countries</a>
+        <a href="/research" data-nav="research">Research</a>
+        <a href="/news" data-nav="news">News</a>
+        <a href="/topics" data-nav="topics">Topics</a>
+        <a href="/following" data-nav="following">Following</a>
+        <a href="/search" class="nav-icon" data-nav="search" aria-label="Search">
+          <svg class="icon" aria-hidden="true"><use href="/assets/img/sprite.svg#search"/></svg>
+        </a>
+        <a href="/saved" class="nav-icon" data-nav="saved" aria-label="Saved stories">
+          <svg class="icon" aria-hidden="true"><use href="/assets/img/sprite.svg#bookmark"/></svg>
+          <span class="count-dot" data-saved-count hidden></span>
+        </a>
+        <span class="account-slot" data-account-slot></span>
+      </nav>
+
+      <div class="mobile-actions">
+        <a href="/search" class="nav-icon" aria-label="Search"><svg class="icon" aria-hidden="true"><use href="/assets/img/sprite.svg#search"/></svg></a>
+        <span class="account-slot" data-account-slot-mobile></span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1"></main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <img src="/assets/img/rc-logo-dark.png" alt="Ria's Colony" width="124" height="65">
+        <p><strong>Style Vault</strong> is a Ria's Colony product.<br>For the life you are becoming.</p>
+      </div>
+      <nav aria-label="Explore">
+        <h2>Explore</h2>
+        <a href="/countries">All 54 countries</a>
+        <a href="/research">Research &amp; analysis</a>
+        <a href="/news">News</a>
+        <a href="/topics">Topics</a>
+      </nav>
+      <nav aria-label="Your vault">
+        <h2>Your vault</h2>
+        <a href="/following">Following</a>
+        <a href="/saved">Saved</a>
+        <a href="/account">Account</a>
+      </nav>
+      <nav aria-label="About">
+        <h2>About</h2>
+        <a href="/about">About Style Vault</a>
+        <a href="/sources">Sources &amp; methods</a>
+        <a href="https://riascolony.org" target="_blank" rel="noopener">Ria's Colony ↗</a>
+      </nav>
+    </div>
+    <div class="wrap footer-legal">
+      <span>© Ria's Colony Ltd</span>
+      <span>Indicator data: World Bank, CC BY 4.0. Headlines and teasers © their publishers.</span>
+    </div>
+  </footer>
+
+  <nav class="tabbar" aria-label="Main">
+    <a href="/" data-nav="home"><svg class="icon"><use href="/assets/img/sprite.svg#home"/></svg><span>Home</span></a>
+    <a href="/countries" data-nav="countries"><svg class="icon"><use href="/assets/img/sprite.svg#globe"/></svg><span>Countries</span></a>
+    <a href="/research" data-nav="research"><svg class="icon"><use href="/assets/img/sprite.svg#book"/></svg><span>Research</span></a>
+    <a href="/following" data-nav="following"><svg class="icon"><use href="/assets/img/sprite.svg#star"/></svg><span>Following</span></a>
+    <a href="/saved" data-nav="saved"><svg class="icon"><use href="/assets/img/sprite.svg#bookmark"/></svg><span>Saved</span><span class="tab-dot" data-saved-dot hidden></span></a>
+  </nav>
+
+  <div class="toast-region" aria-live="polite" data-toasts></div>
+  <dialog class="sheet" data-dialog></dialog>
+
+  <script type="module" src="/assets/js/app.js"></script>
+</body>
+</html>

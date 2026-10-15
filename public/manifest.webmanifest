@@ -1,0 +1,12 @@
+{
+  "name": "Style Vault",
+  "short_name": "Style Vault",
+  "description": "Understand Africa, one country at a time. A Ria's Colony product.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a0a1e",
+  "icons": [
+    { "src": "/assets/img/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
