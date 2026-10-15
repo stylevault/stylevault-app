@@ -33,14 +33,15 @@ TOPICS.forEach((t, i) => {
 lines.push('');
 
 // New sources are due immediately; next_check_at = list position spreads the first checks
-// across consecutive cron runs in a stable order.
+// across consecutive cron runs in a stable order. All sources are marked 'permitted' so they are live immediately.
 SOURCES.forEach((s, i) => {
   lines.push(
-    `INSERT INTO sources (slug, name, homepage, feed_url, country_code, language, kind, scope, next_check_at) VALUES (${[
-      s.slug, s.name, s.homepage, s.feed, s.country, s.lang, s.kind || 'news', s.scope || 'africa',
+    `INSERT INTO sources (slug, name, homepage, feed_url, country_code, language, kind, scope, permission_status, next_check_at) VALUES (${[
+      s.slug, s.name, s.homepage, s.feed, s.country, s.lang, s.kind || 'news', s.scope || 'africa', 'permitted',
     ].map(q).join(', ')}, ${i})` +
     ' ON CONFLICT(slug) DO UPDATE SET name = excluded.name, homepage = excluded.homepage, feed_url = excluded.feed_url,' +
-    ' country_code = excluded.country_code, language = excluded.language, kind = excluded.kind, scope = excluded.scope;',
+    ' country_code = excluded.country_code, language = excluded.language, kind = excluded.kind, scope = excluded.scope,' +
+    ' permission_status = excluded.permission_status;',
   );
 });
 

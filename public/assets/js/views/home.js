@@ -1,129 +1,195 @@
 import { api } from '../api.js';
-import { $, $$, esc, flag, icon, nf, timeAgo, today } from '../lib.js';
+import { $, esc, flag, formatIndicator, icon, nf } from '../lib.js';
+import { renderMap } from '../map.js';
 import { store } from '../store.js';
-import { REGION_COLORS, REGION_NAMES, monitorEditor, mountFeed, storyCard, topCard } from '../ui.js';
+import { REGION_NAMES, indicatorCard, newsRow, readCard, skeletonCards, skeletonRows } from '../ui.js';
 
-export default async function home(main, { setTitle }) {
+const INDICATOR_META = {
+  'SP.POP.TOTL': { code: 'SP.POP.TOTL', label: 'Population', format: 'people' },
+  'NY.GDP.MKTP.KD.ZG': { code: 'NY.GDP.MKTP.KD.ZG', label: 'Economic growth', unit: 'annual GDP growth', format: 'pct' },
+  'SP.DYN.LE00.IN': { code: 'SP.DYN.LE00.IN', label: 'Life expectancy', unit: 'years at birth', format: 'years' },
+  'IT.NET.USER.ZS': { code: 'IT.NET.USER.ZS', label: 'Internet use', unit: 'share of population', format: 'pct' },
+};
+
+function previewHtml(c) {
+  const pop = c.snapshot?.population;
+  const growth = c.snapshot?.growth;
+  return `
+    <div class="pc-head">${flag(c.code, 'flag-lg', `Flag of ${c.name}`)}
+      <div><span class="eyebrow">${REGION_NAMES[c.region]}</span><h3>${esc(c.name)}</h3><div class="pc-sub">Capital: ${esc(c.capital || '—')}</div></div></div>
+    <div class="pc-stats">
+      <div class="pc-stat"><strong>${pop ? formatIndicator(pop.value, 'people') : '—'}</strong><span>Population${pop ? `, ${pop.year}` : ''}</span></div>
+      <div class="pc-stat"><strong>${growth ? formatIndicator(growth.value, 'pct') : '—'}</strong><span>GDP growth${growth ? `, ${growth.year}` : ''}</span></div>
+    </div>
+    <a class="btn btn-plum btn-block" href="/country/${c.slug}">Open the ${esc(c.name)} country file ${icon('arrow-right')}</a>
+    <p class="hint" style="margin-top:12px;text-align:center">Figures: World Bank</p>`;
+}
+
+function regionsHtml() {
+  return `
+    <span class="eyebrow">Explore the continent</span>
+    <h3 style="margin-top:8px">Choose a country</h3>
+    <p>Hover or tap the map to preview a country, or start with a region.</p>
+    <div class="region-list">
+      ${Object.entries(REGION_NAMES).map(([k, v]) => `<a class="region-row" href="/countries?region=${k}">${v}<span>${store.meta.countries.filter((c) => c.region === k).length} countries</span></a>`).join('')}
+    </div>`;
+}
+
+export default async function home(main, { setTitle, navigate }) {
   setTitle('');
-  const { stats, topics, countries } = store.meta;
-  const busiest = [...countries].sort((a, b) => b.recent - a.recent).slice(0, 8);
-  const regionCounts = Object.keys(REGION_NAMES).map((r) => ({
-    region: r,
-    countries: countries.filter((c) => c.region === r).length,
-    stories: countries.filter((c) => c.region === r).reduce((s, c) => s + c.recent, 0),
-  }));
+  main.style.paddingBottom = '0';
+  const { stats, countries } = store.meta;
 
   main.innerHTML = `
     <section class="hero">
-      <div class="hero-date"><span><span class="live-dot"></span>${esc(today())}</span>
-        ${stats.lastCollectedAt ? `<span>Updated ${timeAgo(stats.lastCollectedAt)}</span>` : ''}</div>
-      <h1>Africa, in its <em>own style.</em></h1>
-      <p>How the continent does business, governs, creates, travels and plays, gathered hourly from newsrooms across all 54 countries.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong>54</strong><span>countries</span></div>
-        <div class="hero-stat"><strong>${nf(stats.sources)}</strong><span>African newsrooms</span></div>
-        <div class="hero-stat"><strong>${nf(stats.articles)}</strong><span>stories collected</span></div>
+      <div class="hero-media"><img src="/assets/img/hero-map.webp" alt="" fetchpriority="high"></div>
+      <div class="wrap"><div class="hero-inner">
+        <span class="badge">Learn · A Ria's Colony product</span>
+        <h1>Understand Africa, <span>one country at a time.</span></h1>
+        <p>Country files, research and reporting on all 54 African countries, with every figure cited and every story linked to its source.</p>
+        <form class="hero-search" role="search" data-search>
+          ${icon('search')}
+          <input type="search" name="q" placeholder="Search a country, subject or question…" aria-label="Search Style Vault" list="country-list" autocomplete="off">
+          <datalist id="country-list">${countries.map((c) => `<option value="${esc(c.name)}">`).join('')}</datalist>
+          <button class="btn btn-blue" type="submit">Search</button>
+        </form>
+        <div class="hero-regions"><span>Start with a region:</span>
+          ${Object.entries(REGION_NAMES).map(([k, v]) => `<a href="/countries?region=${k}">${v.replace(' Africa', '')}</a>`).join('')}
+        </div>
+      </div></div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="wrap">
+        <div class="trust-item">${icon('map')}<div><strong>54 country files</strong><span>Every African country, from Algeria to Zimbabwe</span></div></div>
+        <div class="trust-item">${icon('chart')}<div><strong>Cited indicators</strong><span>World Bank data with year and source on every figure</span></div></div>
+        <div class="trust-item">${icon('building')}<div><strong>${nf(stats.sources)} sources</strong><span>Newsrooms, think tanks and public institutions</span></div></div>
+        <div class="trust-item">${icon('link')}<div><strong>Always linked</strong><span>Every story leads to the original publisher</span></div></div>
       </div>
     </section>
 
-    <div class="layout">
-      <div>
-        <div data-monitor-strip></div>
-
-        <section class="section" data-top hidden>
-          <div class="section-head">
-            <div><span class="eyebrow">Top stories</span><h2>What Africa is talking about</h2>
-              <p>Stories reported by more than one newsroom in the last 24 hours.</p></div>
+    <section class="section">
+      <div class="wrap explorer">
+        <div data-map aria-busy="true" style="min-height:300px"></div>
+        <div>
+          <div class="preview-card" data-preview>${regionsHtml()}</div>
+          <div class="map-picker">
+            <select class="select" aria-label="Choose a country" data-picker><option value="">Choose a country…</option>
+              ${countries.map((c) => `<option value="${c.slug}">${esc(c.name)}</option>`).join('')}</select>
           </div>
-          <div class="top-grid" data-top-grid></div>
-        </section>
-
-        <section class="section">
-          <div class="section-head">
-            <div><span class="eyebrow">Latest</span><h2>Across the continent</h2></div>
-          </div>
-          <div class="chips" role="toolbar" aria-label="Filter by topic" data-topic-chips>
-            <button class="chip" type="button" aria-pressed="true" data-topic="">All stories</button>
-            ${topics.map((t) => `<button class="chip" type="button" aria-pressed="false" data-topic="${t.slug}"><span class="dot" style="--c:${t.color}"></span>${esc(t.name)}</button>`).join('')}
-          </div>
-          <div style="margin-top:14px" data-feed></div>
-        </section>
+        </div>
       </div>
+    </section>
 
-      <aside class="sidebar">
-        <div class="panel" data-side-monitor></div>
-        <div class="panel">
-          <h3>Busiest this week</h3>
-          <div class="chips" style="flex-wrap:wrap">
-            ${busiest.map((c) => `<a class="chip" href="/country/${c.slug}">${flag(c.code)} ${esc(c.name)} <span class="n">${nf(c.recent)}</span></a>`).join('')}
-          </div>
+    <section class="section warm">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow blue">Research &amp; analysis</span><h2>Read deeper</h2>
+            <p>Long-form work from think tanks, universities, survey organisations and public institutions across and about Africa.</p></div>
+          <a class="text-link" href="/research">All research ${icon('arrow-right')}</a>
         </div>
-        <div class="panel">
-          <h3>By region</h3>
-          <div class="region-strip" style="grid-template-columns:1fr 1fr">
-            ${regionCounts.map((r) => `<a class="region-tile" href="/countries?region=${r.region}" style="--c:${REGION_COLORS[r.region]}"><strong>${REGION_NAMES[r.region].replace(' Africa', '')}</strong><span>${r.countries} countries · ${nf(r.stories)} this week</span></a>`).join('')}
-          </div>
-        </div>
-        <div class="panel">
-          <h3>Straight from the source</h3>
-          <p>We show the headline, the publisher and a short teaser, then send you to the newsroom that reported it. <a class="link-more" href="/about">How it works ${icon('arrow-right')}</a></p>
-        </div>
-      </aside>
-    </div>`;
+        <div data-research>${skeletonCards(3)}</div>
+      </div>
+    </section>
 
-  // Personal strip & sidebar panel
-  const renderPersonal = () => {
-    const side = $('[data-side-monitor]', main);
-    if (!side) return;
-    if (store.monitors.length) {
-      side.innerHTML = `<h3>Your monitor</h3>
-        <div class="chips" style="flex-wrap:wrap">${store.monitors.slice(0, 8).map((m) => `<a class="chip" href="/monitor?m=${encodeURIComponent(m.id)}">${icon('radar')} ${esc(m.name)}</a>`).join('')}</div>
-        <a class="link-more" style="margin-top:12px" href="/monitor">Open My Monitor ${icon('arrow-right')}</a>`;
-    } else {
-      side.innerHTML = `<h3>Follow what matters to you</h3>
-        <p>Track a market, an industry or a whole region. Pick countries, topics and keywords, and your stories come to you.</p>
-        <button class="btn btn-primary btn-sm" style="margin-top:14px" type="button" data-new-monitor>${icon('plus')} Create a monitor</button>`;
-    }
-  };
-  renderPersonal();
-  const off = store.on(renderPersonal);
-  main.addEventListener('click', async (e) => {
-    if (e.target.closest('[data-new-monitor]')) await monitorEditor();
+    <section class="section">
+      <div class="wrap sample" data-sample></div>
+    </section>
+
+    <section class="section warm">
+      <div class="wrap">
+        <div class="section-head">
+          <div><span class="eyebrow">From African newsrooms</span><h2>Recent reporting</h2>
+            <p>Dated, attributed and linked to the newsroom that published it.</p></div>
+          <a class="text-link" href="/news">All news ${icon('arrow-right')}</a>
+        </div>
+        <div class="card-grid two" style="gap:0 48px" data-news>${skeletonRows(4)}</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow blue">Why you can trust it</span><h2>Built to be cited, not just read</h2></div></div>
+        <div class="pillars">
+          <div class="pillar"><span class="ic">${icon('chart')}</span><h3>Cited data</h3><p>Country indicators come from the World Bank’s World Development Indicators. Each figure shows its year and links to the source table.</p></div>
+          <div class="pillar"><span class="ic">${icon('link')}</span><h3>Original sources</h3><p>We show a headline, a short teaser and the date, then send you to the publisher. Nothing is rewritten or summarised by AI.</p></div>
+          <div class="pillar"><span class="ic">${icon('shield')}</span><h3>Open methods</h3><p>Every source is listed with how often we check it and whether it’s working. Our rules for sorting stories by country are public.</p>
+            <a class="text-link" href="/sources">Sources &amp; methods ${icon('arrow-right')}</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="colony-band">
+      <div class="wrap">
+        <div><h2>Going beyond reading about a country?</h2>
+          <p>Ria’s Colony helps people travel between African countries and do business across their markets, with local guides, introductions and market support.</p></div>
+        <div class="btns">
+          <a class="btn btn-white" href="https://riascolony.org/products" target="_blank" rel="noopener">Explore Ria’s Colony ${icon('arrow-up-right')}</a>
+          <a class="btn btn-outline-light" href="https://riascolony.org/resources" target="_blank" rel="noopener">Country guides</a>
+        </div>
+      </div>
+    </section>`;
+
+  $('[data-search]', main).addEventListener('submit', (e) => {
+    e.preventDefault();
+    const q = e.target.q.value.trim();
+    const country = countries.find((c) => c.name.toLowerCase() === q.toLowerCase());
+    navigate(country ? `/country/${country.slug}` : `/search?q=${encodeURIComponent(q)}`);
   });
 
-  // First monitor preview
-  if (store.monitors.length) {
-    const m = store.monitors[0];
-    api.articles({ country: m.countries, topic: m.topics, keywords: m.keywords, limit: 3 }).then(({ items }) => {
-      const strip = $('[data-monitor-strip]', main);
-      if (!items.length || !strip) return;
-      strip.innerHTML = `<section class="section"><div class="section-head"><div><span class="eyebrow">Your monitor</span><h2>${esc(m.name)}</h2></div>
-        <a class="link-more" href="/monitor?m=${encodeURIComponent(m.id)}">See all ${icon('arrow-right')}</a></div>
-        <div class="feed">${items.map(storyCard).join('')}</div></section>`;
-    }).catch(() => {});
-  }
+  // Map: hover/focus previews; on touch screens the first tap previews and the second opens.
+  const preview = $('[data-preview]', main);
+  const touch = matchMedia('(hover: none)').matches;
+  let previewed = null;
+  renderMap($('[data-map]', main), {
+    onFocus: (c) => { previewed = c.code; preview.innerHTML = previewHtml(c); },
+    onOpen: (c) => {
+      if (touch && previewed !== c.code) { previewed = c.code; preview.innerHTML = previewHtml(c); return; }
+      navigate(`/country/${c.slug}`);
+    },
+  }).then(() => $('[data-map]', main)?.removeAttribute('aria-busy'));
+  $('[data-picker]', main).addEventListener('change', (e) => e.target.value && navigate(`/country/${e.target.value}`));
 
-  // Top stories
-  api.topStories().then(({ items }) => {
-    if (!items.length) return;
-    const section = $('[data-top]', main);
-    if (!section) return;
-    section.hidden = false;
-    $('[data-top-grid]', main).innerHTML = items.slice(0, 4).map((a, i) => topCard(a, i === 0)).join('');
+  // Show a mix: institutional research first, then analysis, newest within each.
+  Promise.all([
+    api.articles({ kind: ['research', 'official'], limit: 3 }),
+    api.articles({ kind: 'analysis', limit: 6 }),
+  ]).then(([inst, analysis]) => {
+    const items = [...inst.items, ...analysis.items].slice(0, 6);
+    const box = $('[data-research]', main);
+    if (box) box.innerHTML = items.length ? `<div class="card-grid">${items.map(readCard).join('')}</div>` : '';
   }).catch(() => {});
 
-  // Latest feed with topic filter
-  const feed = $('[data-feed]', main);
-  let topic = '';
-  const loadFeed = () => mountFeed(feed, (before) => api.articles({ topic, before }));
-  loadFeed();
-  $('[data-topic-chips]', main).addEventListener('click', (e) => {
-    const chip = e.target.closest('[data-topic]');
-    if (!chip) return;
-    $$('[data-topic]', main).forEach((c) => c.setAttribute('aria-pressed', c === chip));
-    topic = chip.dataset.topic;
-    loadFeed();
-  });
+  api.articles({ kind: 'news', limit: 6 }).then(({ items }) => {
+    const box = $('[data-news]', main);
+    if (box) box.innerHTML = `<div class="news-list">${items.slice(0, 3).map(newsRow).join('')}</div><div class="news-list">${items.slice(3, 6).map(newsRow).join('')}</div>`;
+  }).catch(() => {});
 
-  return off;
+  // A real country file, up close. Rotates daily through countries with local newsrooms.
+  const pool = countries.filter((c) => c.sources >= 2);
+  const day = Math.floor(Date.now() / 86_400_000);
+  const featured = pool[day % Math.max(pool.length, 1)] || countries[0];
+  if (featured) {
+    api.country(featured.code).then(({ indicators }) => {
+      const box = $('[data-sample]', main);
+      if (!box) return;
+      box.innerHTML = `
+        <div class="sample-copy">
+          <span class="eyebrow">Inside a country file</span>
+          <h2>Everything you need to understand a country, in one place</h2>
+          <p>Each of the 54 country files brings together reference facts, long-run indicators, research and the latest reporting from local newsrooms.</p>
+          <ul>
+            <li>${icon('check')}<span>Capital, languages, currency and regional blocs at a glance</span></li>
+            <li>${icon('check')}<span>Nine World Bank indicators with 15-year trends</span></li>
+            <li>${icon('check')}<span>Research, analysis and news about that country</span></li>
+          </ul>
+          <a class="btn btn-plum" href="/country/${featured.slug}">Open the ${esc(featured.name)} file ${icon('arrow-right')}</a>
+        </div>
+        <div class="sample-card">
+          <div class="sc-head">${flag(featured.code, '', '')}<div><h3>${esc(featured.name)}</h3><span>${REGION_NAMES[featured.region]} · Capital: ${esc(featured.capital)}</span></div></div>
+          <div class="indicator-grid">${Object.values(INDICATOR_META).map((ind) => indicatorCard(ind, indicators[ind.code], featured)).join('')}</div>
+          <p class="sc-foot">Source: World Bank, World Development Indicators (CC BY 4.0).</p>
+        </div>`;
+    }).catch(() => {});
+  }
 }

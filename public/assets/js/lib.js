@@ -10,25 +10,49 @@ export const icon = (name, cls = 'icon') => `<svg class="${cls}" aria-hidden="tr
 export const flag = (code, cls = 'flag', alt = '') =>
   code ? `<img class="${cls}" src="/flags/${code.toLowerCase()}.svg" alt="${esc(alt)}" width="20" height="15" loading="lazy" decoding="async">` : '';
 
-export function timeAgo(unix) {
-  const s = Math.max(0, Math.floor(Date.now() / 1000 - unix));
-  if (s < 60) return 'just now';
-  if (s < 3600) return `${Math.floor(s / 60)} min ago`;
-  if (s < 86400) return `${Math.floor(s / 3600)} h ago`;
-  if (s < 7 * 86400) return `${Math.floor(s / 86400)} d ago`;
-  return new Date(unix * 1000).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+/** "15 Oct 2026": calm, citable dates rather than "3 min ago". */
+export const shortDate = (unix) =>
+  new Date(unix * 1000).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+export const longDate = (unix) =>
+  new Date(unix * 1000).toLocaleString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+export const nf = (n, digits = 0) => new Intl.NumberFormat('en-GB', { maximumFractionDigits: digits, minimumFractionDigits: digits }).format(n || 0);
+
+/** Formats a World Bank value according to the indicator's kind. */
+export function formatIndicator(value, format) {
+  if (value === null || value === undefined) return '—';
+  const big = (v) => (v >= 1e12 ? `${nf(v / 1e12, 2)} trillion` : v >= 1e9 ? `${nf(v / 1e9, 1)} billion` : v >= 1e6 ? `${nf(v / 1e6, 1)} million` : nf(v));
+  switch (format) {
+    case 'people': return big(value);
+    case 'usd-big': return `$${big(value)}`;
+    case 'usd': return `$${nf(value)}`;
+    case 'pct': return `${nf(value, 1)}%`;
+    case 'years': return `${nf(value, 1)} years`;
+    default: return nf(value, 1);
+  }
 }
 
-export const fullDate = (unix) =>
-  new Date(unix * 1000).toLocaleString(undefined, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-
-export const today = () =>
-  new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-
-export const nf = (n) => new Intl.NumberFormat().format(n || 0);
+/** Small area+line chart for a [year, value] series. */
+export function sparkline(series) {
+  if (!series || series.length < 2) return '';
+  const w = 200, h = 46, pad = 3;
+  const xs = series.map((p) => p[0]);
+  const ys = series.map((p) => p[1]);
+  const [x0, x1] = [Math.min(...xs), Math.max(...xs)];
+  const [y0, y1] = [Math.min(...ys), Math.max(...ys)];
+  const sx = (x) => pad + ((x - x0) / (x1 - x0 || 1)) * (w - pad * 2);
+  const sy = (y) => h - pad - ((y - y0) / (y1 - y0 || 1)) * (h - pad * 2);
+  const pts = series.map(([x, y]) => `${sx(x).toFixed(1)},${sy(y).toFixed(1)}`);
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+    <path class="area" d="M${pts[0]} L${pts.join(' L')} L${sx(x1).toFixed(1)},${h} L${sx(x0).toFixed(1)},${h} Z"/>
+    <path class="line" d="M${pts.join(' L')}"/></svg>`;
+}
 
 export const initials = (name) =>
   String(name || '?').trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+
+export const KIND_LABELS = { research: 'Research', analysis: 'Analysis', official: 'Official', news: 'News' };
 
 export function debounce(fn, ms = 250) {
   let t;

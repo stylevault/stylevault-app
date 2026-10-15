@@ -43,6 +43,9 @@ test('global sport from a national outlet is not tagged with its home country', 
 
 test('ambiguous names are disambiguated', () => {
   assert.deepEqual(codes(classifyCountries({ title: 'Oil spill hits communities in the Niger Delta', summary: '' })), ['NG']);
+  assert.deepEqual(codes(classifyCountries({ title: 'Floods submerge 50 communities in Niger state', summary: '' })), ['NG']);
+  assert.deepEqual(codes(classifyCountries({ title: 'Governor swears in new cabinet in Niger State', summary: '' })), ['NG']);
+  assert.deepEqual(codes(classifyCountries({ title: 'Niamey hosts regional summit on Sahel security', summary: '' })), ['NE']);
   assert.deepEqual(codes(classifyCountries({ title: 'Piracy rises in the Gulf of Guinea', summary: '' })), []);
   assert.deepEqual(codes(classifyCountries({ title: 'South Sudan opens new oil pipeline talks', summary: '' })), ['SS']);
   assert.deepEqual(codes(classifyCountries({ title: 'Kinshasa and Kigali resume peace talks', summary: '' })), ['CD', 'RW']);

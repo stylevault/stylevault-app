@@ -1,18 +1,24 @@
-# StyleVault (stylevault.app)
+# Style Vault (stylevault.app)
 
-**Africa, in its own style.** *Style* is the distinctive way something is done. StyleVault gathers the way Africa does business, governs, creates, travels and plays, from newsrooms in all 54 countries, into one place you can browse freely or tune to what you follow.
+**Understand Africa, one country at a time.** Style Vault is the learning product of Ria's Colony. It brings together country files, research, analysis and reporting on all 54 African countries, with every figure cited and every story linked to its source.
 
 ## What it does
 
-- **Today:** a continent-wide feed, newest first, with a separate **Top Stories** section: stories reported by 2+ different newsrooms in the last 24 hours.
-- **All 54 countries:** a page per country, grouped by African Union region, showing how many local sources we read.
+- **Country files (54):** reference facts (capital, languages, currency, regional blocs), nine World Bank indicators with 15-year trends, research about the country, local reporting, further reading, and the newsrooms we read there.
+- **Research & analysis:** think tanks, survey organisations, universities and UN bodies (SAIIA, Afrobarometer, Mo Ibrahim Foundation, Crisis Group, UNECA, WHO Africa and others) alongside Africa-focused analysis.
+- **News:** reporting from African newsrooms, dated and attributed.
+- **Interactive map** of Africa on the home page to open any country file.
 - **Topics:** 13 subject feeds, including *Style & Creative* (fashion, music, film, art, design).
 - **Search:** full-text search with country, topic, publisher and date filters.
-- **My Monitor:** saved combinations of countries + topics + keywords. Starring a country or topic creates one.
+- **Following:** saved combinations of countries + topics + keywords. Starring a country or topic creates one.
 - **Saved stories:** bookmarks.
 - **Accounts:** optional. Without one, monitors and saves live in the browser. Signing up or signing in moves them into the account so they sync across devices.
 
 Every story shows headline, publisher, date and a short teaser, and links to the original article. We never store full article text.
+
+## Design
+
+Follows the Ria's Colony Visual Identity System: DM Sans + Figtree, Colony Deep / Colony Purple / lavender, with Style Vault's accent, Vault Blue. Photography and logos are Ria's Colony assets.
 
 ## Architecture (zero monthly cost at launch)
 
@@ -20,7 +26,7 @@ Every story shows headline, publisher, date and a short teaser, and links to the
 |---|---|
 | App UI | Vanilla JS single-page app in `public/`, served by Workers Static Assets |
 | API | Cloudflare Worker (`src/index.js`), JSON under `/api/*` |
-| Collection | Cron Trigger every 5 min; each run checks the next 7 sources that are due |
+| Collection | Cron Trigger every 5 min; each run checks the next 7 sources that are due. One slot an hour refreshes World Bank indicators instead (weekly per indicator) |
 | Database | Cloudflare D1 (SQLite + FTS5 search) |
 | Auth | PBKDF2-SHA256 password hashes, random session tokens (stored hashed), HttpOnly cookies |
 
@@ -42,6 +48,7 @@ npm install
 npm run setup      # create the local D1 database and load countries, topics, sources
 npm run dev        # http://localhost:8787
 npm run collect    # in another terminal: fetch every source now
+npm run collect -- --indicators   # load World Bank indicators
 npm test           # classifier + parser tests
 ```
 
@@ -51,7 +58,7 @@ npm test           # classifier + parser tests
 
 ```bash
 npx wrangler login
-npx wrangler d1 create stylevault        # paste the printed database_id into wrangler.jsonc
+# the D1 database already exists; its id is in wrangler.jsonc
 npm run db:migrate:remote
 npm run db:seed:remote
 npx wrangler secret put ADMIN_TOKEN      # for manual POST /api/admin/collect

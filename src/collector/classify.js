@@ -38,7 +38,7 @@ const COUNTRY_RULES = COUNTRIES.map((c) => {
   return {
     code: c.code,
     match: wordRe(terms, ''),
-    exclude: exclude ? new RegExp(exclude, 'gu') : null,
+    exclude: exclude ? new RegExp(exclude, 'giu') : null,
     // ALL-CAPS headlines ("PRESIDENT CONGOLAIS : …") can't be matched case-sensitively.
     matchCaps: wordRe(terms, 'i'),
     excludeCaps: exclude ? new RegExp(exclude, 'giu') : null,

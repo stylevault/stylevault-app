@@ -21,45 +21,48 @@ export default function auth(main, { pathname, query, setTitle, navigate }) {
   const next = safeNext(query.get('next'));
   if (store.user) return navigate(next, { replace: true });
   setTitle(isSignup ? 'Create your account' : 'Sign in');
-
   const localCount = store.savedIds.size + store.monitors.length;
+  const nextQs = next !== '/' ? `?next=${encodeURIComponent(next)}` : '';
 
+  main.style.paddingBottom = '0';
   main.innerHTML = `
     <section class="auth">
       <div class="auth-art">
-        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><use href="/assets/img/sprite.svg#mark"/></svg>
-        <h2>${isSignup ? 'Your own desk for <em>African news.</em>' : 'Welcome back to <em>the vault.</em>'}</h2>
+        <img src="/assets/img/vault-reader.jpg" alt="">
+        <span class="badge" style="align-self:flex-start">Learn · Style Vault</span>
+        <h2>${isSignup ? 'Your own library of African knowledge.' : 'Welcome back to your vault.'}</h2>
         <ul>
-          <li>${icon('radar')}<span>Monitors that follow the countries, industries and keywords you care about.</span></li>
-          <li>${icon('bookmark')}<span>Saved stories that stay with you on your phone, tablet and laptop.</span></li>
-          <li>${icon('globe')}<span>All 54 countries, straight from African newsrooms, free.</span></li>
+          <li>${icon('star')}<span>Follow the countries, subjects and keywords that matter to your work.</span></li>
+          <li>${icon('bookmark')}<span>Save research and reporting, and find it again on any device.</span></li>
+          <li>${icon('shield')}<span>Free. Your email is only used to sign you in.</span></li>
         </ul>
       </div>
-      <div class="auth-form">
+      <div class="auth-form"><div>
         <div>
-          <h1>${isSignup ? 'Create your account' : 'Sign in'}</h1>
-          <p class="lede">${isSignup ? 'Free, and it takes a few seconds.' : 'Pick up where you left off.'}</p>
+          <span class="eyebrow">${isSignup ? 'Join free' : 'Sign in'}</span>
+          <h1 style="margin-top:8px">${isSignup ? 'Create your account' : 'Sign in to Style Vault'}</h1>
+          <p class="muted" style="margin-top:8px">${isSignup ? 'It takes a few seconds. Reading stays free without one.' : 'Pick up where you left off.'}</p>
         </div>
-        ${localCount ? `<div class="sync-note">${icon('check')}<span>The ${localCount} ${localCount === 1 ? 'item' : 'items'} you saved in this browser will move into your account.</span></div>` : ''}
+        ${localCount ? `<div class="note">${icon('check')}<span>The ${localCount} ${localCount === 1 ? 'item' : 'items'} you saved or followed in this browser will move into your account.</span></div>` : ''}
         <form novalidate data-form>
-          ${isSignup ? `<div class="field"><label for="name">Your name</label><input class="input" id="name" name="name" autocomplete="name" maxlength="80" required></div>` : ''}
+          ${isSignup ? '<div class="field"><label for="name">Your name</label><input class="input" id="name" name="name" autocomplete="name" maxlength="80" required></div>' : ''}
           <div class="field"><label for="email">Email</label><input class="input" id="email" name="email" type="email" autocomplete="email" inputmode="email" required></div>
           <div class="field">
             <label for="password">Password</label>
             <div class="input-wrap">
               <input class="input" id="password" name="password" type="password" autocomplete="${isSignup ? 'new-password' : 'current-password'}" minlength="8" required>
-              <button class="icon-btn reveal" type="button" data-reveal aria-label="Show password" aria-pressed="false">${icon('eye')}</button>
+              <button class="reveal" type="button" data-reveal aria-label="Show password" aria-pressed="false">${icon('eye')}</button>
             </div>
             ${isSignup ? '<div class="strength" aria-hidden="true"><i data-strength></i></div><span class="hint">At least 8 characters. A short phrase is easy to remember and hard to guess.</span>' : ''}
           </div>
           <p class="form-error" role="alert" data-error></p>
-          <button class="btn btn-primary btn-block" type="submit" style="height:50px">${isSignup ? 'Create account' : 'Sign in'}</button>
+          <button class="btn btn-plum btn-block" type="submit" style="height:52px">${isSignup ? 'Create account' : 'Sign in'}</button>
         </form>
         <p class="auth-switch">${isSignup
-          ? `Already have an account? <a href="/login${next !== '/' ? `?next=${encodeURIComponent(next)}` : ''}">Sign in</a>`
-          : `New to StyleVault? <a href="/signup${next !== '/' ? `?next=${encodeURIComponent(next)}` : ''}">Create a free account</a>`}</p>
-        <p class="fine">You can read everything without an account. We only use your email to sign you in.</p>
-      </div>
+          ? `Already have an account? <a href="/login${nextQs}">Sign in</a>`
+          : `New to Style Vault? <a href="/signup${nextQs}">Create a free account</a>`}</p>
+        <p class="fine">Style Vault is a Ria’s Colony product.</p>
+      </div></div>
     </section>`;
 
   const form = $('[data-form]', main);
@@ -68,16 +71,15 @@ export default function auth(main, { pathname, query, setTitle, navigate }) {
 
   $('[data-reveal]', main).addEventListener('click', (e) => {
     const btn = e.currentTarget;
-    const input = form.password;
-    const show = input.type === 'password';
-    input.type = show ? 'text' : 'password';
+    const show = form.password.type === 'password';
+    form.password.type = show ? 'text' : 'password';
     btn.setAttribute('aria-pressed', show);
     btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
   });
 
   if (isSignup) {
     const bar = $('[data-strength]', main);
-    const colors = ['var(--danger)', 'var(--danger)', 'var(--gold)', 'var(--malachite)', 'var(--malachite)'];
+    const colors = ['var(--danger)', 'var(--danger)', 'var(--gold)', 'var(--green)', 'var(--green)'];
     form.password.addEventListener('input', () => {
       const s = scorePassword(form.password.value);
       bar.style.width = `${form.password.value ? (s + 1) * 20 : 0}%`;
@@ -101,9 +103,9 @@ export default function auth(main, { pathname, query, setTitle, navigate }) {
     try {
       const { user } = isSignup ? await api.signup(body) : await api.login(body);
       const { imported } = await store.afterSignIn();
-      toast(isSignup ? `Welcome to StyleVault, ${user.name.split(' ')[0]}!` : `Welcome back, ${user.name.split(' ')[0]}`);
-      if (imported) setTimeout(() => toast(`Moved ${imported} saved ${imported === 1 ? 'item' : 'items'} into your account`), 600);
-      navigate(isSignup && next === '/' ? '/monitor' : next, { replace: true });
+      toast(isSignup ? `Welcome to Style Vault, ${user.name.split(' ')[0]}` : `Welcome back, ${user.name.split(' ')[0]}`);
+      if (imported) setTimeout(() => toast(`Moved ${imported} ${imported === 1 ? 'item' : 'items'} into your account`), 600);
+      navigate(isSignup && next === '/' ? '/following' : next, { replace: true });
     } catch (err) {
       showError(err.message);
       btn.disabled = false;
@@ -111,6 +113,5 @@ export default function auth(main, { pathname, query, setTitle, navigate }) {
     }
   });
 
-  (isSignup ? form.name : form.email).focus();
+  (isSignup ? form.name : form.email).focus({ preventScroll: true });
 }
-

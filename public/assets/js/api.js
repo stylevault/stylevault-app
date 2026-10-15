@@ -37,6 +37,7 @@ export const api = {
   articles: (params = {}) => request('GET', `/api/articles${qs(params)}`),
   topStories: (params = {}) => request('GET', `/api/top-stories${qs(params)}`),
   sources: () => request('GET', '/api/sources'),
+  country: (code) => request('GET', `/api/countries/${encodeURIComponent(code)}`),
 
   signup: (body) => request('POST', '/api/auth/signup', body),
   login: (body) => request('POST', '/api/auth/login', body),

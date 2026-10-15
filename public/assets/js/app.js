@@ -6,10 +6,13 @@ const routes = [
   ['/', 'home', () => import('./views/home.js')],
   ['/countries', 'countries', () => import('./views/countries.js')],
   ['/country/:slug', 'countries', () => import('./views/country.js')],
+  ['/research', 'research', () => import('./views/research.js')],
+  ['/news', 'news', () => import('./views/news.js')],
   ['/topics', 'topics', () => import('./views/topics.js')],
   ['/topic/:slug', 'topics', () => import('./views/topic.js')],
   ['/search', 'search', () => import('./views/search.js')],
-  ['/monitor', 'monitor', () => import('./views/monitor.js')],
+  ['/following', 'following', () => import('./views/monitor.js')],
+  ['/monitor', 'following', () => import('./views/monitor.js')],
   ['/saved', 'saved', () => import('./views/saved.js')],
   ['/login', 'account', () => import('./views/auth.js')],
   ['/signup', 'account', () => import('./views/auth.js')],
@@ -25,24 +28,23 @@ let renderToken = 0;
 export function navigate(url, { replace = false } = {}) {
   const target = new URL(url, location.origin);
   if (target.href === location.href && !replace) return render();
-  history[replace ? 'replaceState' : 'pushState']({}, '', target.pathname + target.search);
+  history[replace ? 'replaceState' : 'pushState']({}, '', target.pathname + target.search + target.hash);
   render();
 }
 
 export function setTitle(title) {
-  document.title = title ? `${title} · StyleVault` : 'StyleVault: Africa, in its own style';
+  document.title = title ? `${title} · Style Vault` : 'Style Vault · Understand Africa, one country at a time';
 }
 
 async function render() {
   const token = ++renderToken;
-  const { pathname, searchParams } = new URL(location.href);
+  const { pathname, searchParams, hash } = new URL(location.href);
   const route = routes.find((r) => r.re.test(pathname));
   const match = route?.re.exec(pathname);
 
   cleanup?.();
   cleanup = null;
   setActiveNav(route?.nav);
-  window.scrollTo({ top: 0 });
 
   const mod = route ? await route.load() : await import('./views/notfound.js');
   await store.ready;
@@ -52,15 +54,12 @@ async function render() {
   const fresh = main.cloneNode(false);
   main.replaceWith(fresh);
   main = fresh;
-  const result = await mod.default(main, {
-    params: match?.groups || {},
-    query: searchParams,
-    pathname,
-    navigate,
-    setTitle,
-  });
+  if (!hash) window.scrollTo({ top: 0 });
+
+  const result = await mod.default(main, { params: match?.groups || {}, query: searchParams, pathname, navigate, setTitle });
   if (token === renderToken && typeof result === 'function') cleanup = result;
-  main.focus({ preventScroll: true });
+  if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
+  else main.focus({ preventScroll: true });
 }
 
 function setActiveNav(nav) {
@@ -71,31 +70,31 @@ function setActiveNav(nav) {
 }
 
 // ── Header account area & badges ────────────────────────────────────────────
-function renderChrome() {
-  const slot = $('[data-account-slot]');
+function accountHtml(compact) {
   const u = store.user;
-  if (u) {
-    slot.innerHTML = `
-      <div class="account-menu">
-        <button type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="avatar">${esc(initials(u.name))}</span></button>
-        <div class="menu-pop" role="menu">
-          <div class="menu-head"><strong>${esc(u.name)}</strong><span>${esc(u.email)}</span></div>
-          <a href="/monitor" role="menuitem">${icon('radar')} My Monitor</a>
-          <a href="/saved" role="menuitem">${icon('bookmark')} Saved stories</a>
-          <a href="/account" role="menuitem">${icon('user')} Account settings</a>
-          <button type="button" role="menuitem" data-signout>${icon('logout')} Sign out</button>
-        </div>
-      </div>`;
-  } else {
-    slot.innerHTML = `
-      <a class="btn btn-ghost btn-sm" href="/login">${icon('user')}<span class="btn-signin-text">Sign in</span></a>`;
+  if (!u) {
+    return compact
+      ? `<a class="nav-icon" href="/login" aria-label="Sign in">${icon('user')}</a>`
+      : `<a class="btn btn-blue btn-sm" href="/login">Sign in</a>`;
   }
-  $('[data-tab-account-label]').textContent = u ? 'Account' : 'Sign in';
+  return `
+    <div class="account-menu">
+      <button type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="avatar">${esc(initials(u.name))}</span></button>
+      <div class="menu-pop" role="menu">
+        <div class="menu-head"><strong>${esc(u.name)}</strong><span>${esc(u.email)}</span></div>
+        <a href="/following" role="menuitem">${icon('star')} Following</a>
+        <a href="/saved" role="menuitem">${icon('bookmark')} Saved</a>
+        <a href="/account" role="menuitem">${icon('user')} Account settings</a>
+        <button type="button" role="menuitem" data-signout>${icon('logout')} Sign out</button>
+      </div>
+    </div>`;
+}
 
+function renderChrome() {
+  $('[data-account-slot]').innerHTML = accountHtml(false);
+  $('[data-account-slot-mobile]').innerHTML = accountHtml(true);
   const n = store.savedIds.size;
-  const pill = $('[data-saved-count]');
-  pill.hidden = !n;
-  pill.textContent = n > 99 ? '99+' : n;
+  $('[data-saved-count]').hidden = !n;
   $('[data-saved-dot]').hidden = !n;
 }
 
@@ -119,6 +118,7 @@ function bindChrome() {
     if (a.target === '_blank' || a.hasAttribute('download')) return;
     const url = new URL(a.href, location.href);
     if (url.origin !== location.origin || url.pathname.startsWith('/api/')) return;
+    if (url.pathname === location.pathname && url.search === location.search && url.hash) return; // in-page anchor
     e.preventDefault();
     $$('.account-menu.open').forEach((m) => m.classList.remove('open'));
     navigate(url.href);
@@ -126,32 +126,6 @@ function bindChrome() {
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') $$('.account-menu.open').forEach((m) => m.classList.remove('open'));
-    // "/" focuses search, like most news sites
-    if (e.key === '/' && !e.target.closest('input, textarea, select, [contenteditable]')) {
-      const input = $('.header-search input');
-      if (input && input.offsetParent) {
-        e.preventDefault();
-        input.focus();
-      }
-    }
-  });
-
-  $('.header-search').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const q = e.target.q.value.trim();
-    navigate(q ? `/search?q=${encodeURIComponent(q)}` : '/search');
-    e.target.q.blur();
-  });
-
-  $('[data-theme-toggle]').addEventListener('click', () => {
-    const root = document.documentElement;
-    const isDark = root.dataset.theme
-      ? root.dataset.theme === 'dark'
-      : matchMedia('(prefers-color-scheme: dark)').matches;
-    root.dataset.theme = isDark ? 'light' : 'dark';
-    try {
-      localStorage.setItem('sv.theme', root.dataset.theme); // read raw by theme.js before first paint
-    } catch { /* storage blocked: the choice lasts for this visit */ }
   });
 
   window.addEventListener('popstate', render);
