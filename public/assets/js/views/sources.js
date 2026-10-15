@@ -18,7 +18,7 @@ export default async function sources(main, { setTitle }) {
   setTitle('Sources & methods');
   main.innerHTML = `
     <section class="page-hero"><div class="wrap">
-      <span class="eyebrow blue">Transparency</span>
+      <span class="eyebrow accent">Transparency</span>
       <h1>Sources &amp; methods</h1>
       <p class="lede">Who we read, how often, and how we sort what they publish. Every item links back to the source.</p>
     </div></section>

@@ -18,7 +18,7 @@ export default function research(main, { query, setTitle, navigate }) {
 
   main.innerHTML = `
     <section class="page-hero"><div class="wrap">
-      <span class="eyebrow blue">Research &amp; analysis</span>
+      <span class="eyebrow accent">Research &amp; analysis</span>
       <h1>${country ? `Research on ${esc(store.countryByCode.get(country).name)}` : 'Read deeper'}</h1>
       <p class="lede">Long-form work from think tanks, universities, survey organisations and public institutions, alongside expert analysis from Africa-focused publications.</p>
     </div></section>

@@ -19,12 +19,12 @@ export default function search(main, { query, setTitle, navigate }) {
 
   main.innerHTML = `
     <section class="page-hero"><div class="wrap">
-      <span class="eyebrow blue">Search</span>
+      <span class="eyebrow accent">Search</span>
       <h1>${q ? `Results for “${esc(q)}”` : 'Search Style Vault'}</h1>
       <form class="hero-search" role="search" data-form style="margin-top:22px">
         ${icon('search')}
         <input type="search" name="q" value="${esc(q)}" placeholder="Try “AfCFTA”, “Ghana cocoa” or “Afrobarometer”" aria-label="Search" style="box-shadow:var(--shadow);border:1px solid var(--line)">
-        <button class="btn btn-blue" type="submit">Search</button>
+        <button class="btn btn-accent" type="submit">Search</button>
       </form>
     </div></section>
     <div class="wrap" style="padding-top:32px;max-width:920px">

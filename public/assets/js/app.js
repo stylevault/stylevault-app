@@ -75,7 +75,7 @@ function accountHtml(compact) {
   if (!u) {
     return compact
       ? `<a class="nav-icon" href="/login" aria-label="Sign in">${icon('user')}</a>`
-      : `<a class="btn btn-blue btn-sm" href="/login">Sign in</a>`;
+      : `<a class="btn btn-accent btn-sm" href="/login">Sign in</a>`;
   }
   return `
     <div class="account-menu">
