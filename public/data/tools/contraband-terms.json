@@ -1,0 +1,423 @@
+{
+  "intro": "Customs lists use legal words like \"counterfeit goods\" or \"obscene material\". Here is what they mean in real life, with the kind of things people actually get stopped with.",
+  "terms": [
+    {
+      "id": "counterfeit-goods",
+      "term": "Counterfeit goods",
+      "match": "counterfeit (and pirated )?goods|counterfeit items|counterfeit or substandard|counterfeit money and goods|counterfeit currency and goods|counterfeit goods and money|counterfeit/pirated|counterfeit or pirated|pirated or counterfeit|all counterfeit|counterfeit goods of all kinds|intellectual property|trade description or trademark|trade mark",
+      "means": "Fakes. Goods made to look like a real brand and sold without the brand owner's permission. The law is about the fake logo or name, not about whether the item works well.",
+      "examples": [
+        "Designer bags, belts, shoes and clothes with copied logos, such as Louis Vuitton, Gucci, Nike or Adidas",
+        "Watches and sunglasses copying Rolex, Ray-Ban and similar brands",
+        "Phone chargers, earphones, cables and phone cases copying Apple or Samsung",
+        "Perfumes, make-up and hair products sold under a brand name they do not own",
+        "Medicines, vitamins and slimming pills in copied packs",
+        "Car and motorcycle parts with copied brand names",
+        "Football jerseys, caps and souvenirs with club or tournament logos that are not official"
+      ],
+      "tip": "The law in most countries is aimed at fakes for sale, but customs can still take a single fake item from you. Several copies of the same thing, or items still in shop packs, look like goods for sale. Fake medicines are treated far more seriously than fake fashion. Keep receipts for branded goods you bought, so you can show they are real."
+    },
+    {
+      "id": "pirated-goods",
+      "term": "Pirated goods",
+      "match": "pirat|copyright|copies of literary",
+      "means": "Copies of films, music, games, software or books made without the owner's permission.",
+      "examples": [
+        "Burned DVDs and CDs of films or music",
+        "USB sticks or hard drives loaded with copied films, series or music to sell",
+        "Cracked software and game consoles loaded with copied games",
+        "Photocopied or printed copies of textbooks and novels"
+      ],
+      "tip": "Files for your own use are rarely checked, but boxes of discs or drives, or anything that looks like stock for a shop, will be seized."
+    },
+    {
+      "id": "counterfeit-money",
+      "term": "Counterfeit money",
+      "match": "counterfeit money|counterfeit currency|false money|false or counterfeit money|counterfeit coin|base or counterfeit|counterfeit or non-standard coins|counterfeit coins or bank notes|counterfeit currency notes|money not being of the established|coin currency|could make counterfeit currency|not being legal tender|not legal money|fake money|fake coins|fake banknotes|fake or non-standard|non-standard coins|coins that are not|look like money",
+      "means": "Fake banknotes or coins, and in some laws also real-looking coins that are not the proper metal or weight, or coins that are not legal money in the country.",
+      "examples": [
+        "Fake notes, even ones you were given by mistake as change",
+        "\"Prop money\" or \"movie money\" used for music videos and social media, which looks like real notes",
+        "Novelty or joke notes printed with real currency designs",
+        "Machines or special paper that could be used to print money"
+      ],
+      "tip": "Change money only at banks or licensed bureaus and keep the receipt. Do not pack prop money for a video shoot, even if it says \"for motion picture use\"."
+    },
+    {
+      "id": "narcotics",
+      "term": "Narcotics and controlled drugs",
+      "match": "narcotic|illegal drugs|illicit drugs|drugs and narcotics|controlled drugs|controlled substances|dangerous drugs|habit-forming|psychotropic|marijuana|cannabis|methadone|\\bdrugs\\b",
+      "means": "Drugs that are controlled by United Nations treaties. This covers street drugs, but also some ordinary medicines that contain the same substances.",
+      "examples": [
+        "Cannabis in any form, including CBD oil, gummies and vapes, which are legal in some countries but not in most of Africa",
+        "Cocaine, heroin, crystal meth, ecstasy and Mandrax",
+        "Painkillers and cough syrups with codeine, and tramadol",
+        "Sleeping pills and anxiety medicines such as diazepam (Valium) and other benzodiazepines",
+        "ADHD medicines such as methylphenidate (Ritalin) and some strong painkillers such as morphine and oxycodone",
+        "Khat, which is legal in Djibouti, Ethiopia and Kenya but banned in many other places"
+      ],
+      "tip": "If you take a prescription medicine, carry it in its original pack with your name on it, plus a doctor's letter or prescription, and only bring what you need for the trip. Never carry a bag or parcel for someone else, even a friend of a friend."
+    },
+    {
+      "id": "medicines",
+      "term": "Medicines",
+      "match": "medicine|pharmaceutical|medicated",
+      "means": "Many countries let travellers bring medicines for personal use but control anything that looks like stock for sale, anything not registered with their health regulator, and anything with a controlled drug in it.",
+      "examples": [
+        "Several packs of the same medicine, which can look like stock for sale",
+        "Medicines bought abroad that are not registered locally",
+        "Traditional or herbal remedies with no label",
+        "Injectables such as insulin or fertility drugs, which usually need a doctor's letter"
+      ],
+      "tip": "Keep medicines in the original pack, carry the prescription or a doctor's letter, and bring no more than you need. South Africa, for example, allows up to three months' supply for personal use."
+    },
+    {
+      "id": "obscene-material",
+      "term": "Pornography, obscene or indecent material",
+      "match": "pornograph|obscene|indecent|sexually explicit|sex toys|morality|harmful to public morals",
+      "means": "Anything showing nudity or sex that the country considers offensive. Some countries read this widely and include items that would be seen as ordinary elsewhere.",
+      "examples": [
+        "Adult magazines, DVDs and books",
+        "Explicit photos or videos on your phone, laptop or hard drive, which some officers do look at",
+        "Sex toys, which are banned in some countries such as the Comoros",
+        "Posters, playing cards or clothing with nude images"
+      ],
+      "tip": "Clear your devices of anything explicit before you travel to a strict country. Customs officers in several countries can ask to look through your phone."
+    },
+    {
+      "id": "offensive-material",
+      "term": "Subversive, offensive or \"public order\" material",
+      "match": "subversive|public order|offensive to|offensive material|\\boffend\\b|offends|blasphem|defamatory|contrary to public|breach of the peace|breach of peace|koranic|religious views|books banned|scandalous|books and films about wars|outrage against|outrage a religion",
+      "means": "Printed or recorded material that the government thinks could stir up trouble, insult a religion, or attack the state or its leaders.",
+      "examples": [
+        "Books, leaflets or films critical of the government",
+        "Flags, T-shirts or badges with political slogans",
+        "Items that mock or misuse religious text or symbols, including cloth printed with Koranic writing in Nigeria",
+        "Books and films about wars or terror attacks in Equatorial Guinea"
+      ],
+      "tip": "This is decided case by case. If a book or item could be read as political or religious, and you do not need it, leave it at home."
+    },
+    {
+      "id": "weapons",
+      "term": "Weapons",
+      "match": "weapon(?!s? designed)|firearm|\\bguns?\\b|pistol|ammunition|(?<!coat of )\\barms\\b|knuckle|sword|reloading of cartridges|reloading gun cartridges|cartridge reloading|tear gas|handcuffs",
+      "means": "Anything made to hurt people, and in some countries anything that looks like it. Real guns always need a permit, but the list is wider than guns.",
+      "examples": [
+        "Guns, air guns and air pistols, and their bullets and parts",
+        "Pepper spray, tear gas and stun guns (tasers)",
+        "Knuckle dusters, batons and sword sticks",
+        "Crossbows and bows",
+        "Tools for reloading bullets"
+      ],
+      "tip": "Pepper spray is the item travellers most often forget in a handbag. Many African countries treat it as a weapon."
+    },
+    {
+      "id": "knives",
+      "term": "Knives and \"deadly weapons\"",
+      "match": "knife|knives|deadly weapons|lockable blades|daggers",
+      "means": "Blades that are easy to hide or quick to open are the main target. Ordinary kitchen knives in checked luggage are usually fine, but rules differ.",
+      "examples": [
+        "Flick knives (the blade springs out when you press a button)",
+        "Butterfly knives and gravity knives",
+        "Daggers and knives hidden in other objects, such as belt buckles or pens",
+        "Lockable folding knives in Zimbabwe",
+        "Machetes and large hunting knives, which may be questioned"
+      ],
+      "tip": "Never carry a blade of any kind in hand luggage. A small pocket knife or multitool in checked luggage is usually fine, but not in every country."
+    },
+    {
+      "id": "toy-guns",
+      "term": "Toy and replica guns",
+      "match": "toy gun|toy handgun|toy pistol|replica|pistols disguised",
+      "means": "Toys or copies that look like real guns. Police cannot tell them apart from real ones at a glance, so some countries ban them.",
+      "examples": [
+        "Realistic toy pistols and rifles for children",
+        "Water guns shaped like real guns",
+        "Airsoft and paintball guns",
+        "Lighters or phone cases shaped like guns"
+      ],
+      "tip": "Brightly coloured toy water guns are usually fine. Anything black or metal-looking that could pass for a real gun is not."
+    },
+    {
+      "id": "explosives",
+      "term": "Explosives and fireworks",
+      "match": "explosive|firework|firecracker|flares|detonator|percussion caps",
+      "means": "Anything that can explode or burn fast, including small party items.",
+      "examples": [
+        "Fireworks, bangers, sparklers and firecrackers",
+        "Boat and road flares",
+        "Caps for toy guns",
+        "Gunpowder and blasting caps"
+      ],
+      "tip": "These are also banned on planes, so they should never be in any bag."
+    },
+    {
+      "id": "hazardous-waste",
+      "term": "Hazardous or toxic waste",
+      "match": "hazardous|\\btoxic|sludge|radioactive|poison|electronic waste|pharmaceutical waste|nuclear|waste and sludge",
+      "means": "Rubbish that can harm people or nature. Africa has been used as a dumping ground for rich countries' waste, so many countries ban it. It matters most for people shipping used goods in a container.",
+      "examples": [
+        "Broken TVs, computers and fridges shipped as \"used goods\"",
+        "Old car batteries and loose batteries",
+        "Used engine oil and chemical drums",
+        "Medical waste and out-of-date chemicals"
+      ],
+      "tip": "If you ship used electronics home, make sure they work and are clean. Broken items can be classed as waste and sent back at your cost."
+    },
+    {
+      "id": "mercury-cosmetics",
+      "term": "Mercury cosmetics and skin lighteners",
+      "match": "mercury[- ]based|mercury cosmetics|cosmetics containing mercury|soaps and cosmetic products containing mercury|skin-lighten|skin-whiten|whitening|lightening creams|cosmetic creams",
+      "means": "Creams and soaps that lighten skin often contain mercury, which poisons the kidneys and nerves. Many African countries now ban them.",
+      "examples": [
+        "Skin-lightening or \"toning\" creams, soaps and lotions",
+        "Labels listing mercury, mercurous chloride, calomel, \"mercurio\" or \"hydrargyrum\"",
+        "Creams with no ingredient list at all",
+        "Strong steroid creams such as clobetasol sold as lighteners, which are restricted in many places"
+      ],
+      "tip": "If a cream promises to lighten or bleach the skin, assume it may be taken. The Comoros bans skin lighteners, and Zimbabwe lists them as banned or needing permission."
+    },
+    {
+      "id": "military-clothing",
+      "term": "Military and camouflage clothing",
+      "match": "military (or camouflage )?cloth|military gear|military clothing|military-style clothing|camouflage|army-style",
+      "means": "In several African countries only soldiers may wear army uniforms or camouflage print. Civilians wearing it can be stopped or arrested.",
+      "examples": [
+        "Camouflage trousers, jackets, shorts and caps",
+        "Camouflage bags, backpacks and phone cases",
+        "Children's clothes in camouflage print",
+        "Army-style boots, badges and uniforms"
+      ],
+      "tip": "Leave all camouflage print at home, even fashion items. Ghana, Seychelles and Equatorial Guinea ban it, and the Gambia and Malawi need a permit for military gear or clothing."
+    },
+    {
+      "id": "wildlife",
+      "term": "Protected wildlife (CITES)",
+      "match": "ivory|cites|endangered|protected species|protected wildlife|protected endemic|wildlife|snake skins|animal skins|furs|rhino|coral|tortoise|rosewood|sea creatures|parrots",
+      "means": "Products from animals and plants that are protected by the CITES treaty. Many souvenirs sold openly in markets are illegal to take out of the country.",
+      "examples": [
+        "Ivory carvings, bangles and chopsticks",
+        "Rhino horn and pangolin scales",
+        "Tortoiseshell jewellery and combs",
+        "Coral, and some seashells from beaches",
+        "Bags, belts and shoes made from python or crocodile skin",
+        "Live parrots, especially African grey parrots, and other pet birds",
+        "Rosewood and ebony carvings"
+      ],
+      "tip": "If a seller cannot give you a CITES permit or an official receipt, do not buy it. You can be charged when leaving, and again when you land at home."
+    },
+    {
+      "id": "antiquities",
+      "term": "Antiquities and cultural artefacts",
+      "match": "antiquit|artefact|historical|archaeolog|antiques|historical value|masks",
+      "means": "Old objects that are part of a country's history. Taking them out usually needs an export permit from the culture ministry or national museum.",
+      "examples": [
+        "Old masks, statues and carvings, especially ones used in ceremonies",
+        "Old coins, beads and pottery",
+        "Fossils, stone tools and items from archaeological sites",
+        "Old manuscripts and religious objects"
+      ],
+      "tip": "New crafts made for tourists are usually fine. Ask the seller for a receipt saying the item is new, or get a certificate from the national museum for anything that looks old."
+    },
+    {
+      "id": "second-hand-clothing",
+      "term": "Second-hand clothing and used underwear",
+      "match": "second-hand clothing|secondhand clothes|used underwear|worn underwear|worn \\(used\\) clothes|used undergarments|used clothing|used sanitary",
+      "means": "Bales of used clothes sold in markets. The bans protect local clothing makers and public health. They target goods for sale, not the clothes you are wearing and packed for your trip.",
+      "examples": [
+        "Bales of used clothes (\"okrika\" in Nigeria, \"mitumba\" in East Africa)",
+        "Used underwear, bras and socks in bulk",
+        "Used sanitary products"
+      ],
+      "tip": "Your own worn clothes are fine. A suitcase full of used clothes to give away or sell can be stopped."
+    },
+    {
+      "id": "white-phosphorus-matches",
+      "term": "White phosphorus matches",
+      "match": "white phosphorus|white phosphorous",
+      "means": "An old type of match made with a poisonous chemical. It was banned around the world more than 100 years ago, but the ban is still written into many customs laws.",
+      "examples": [
+        "Very old stocks of matches, which you are unlikely to find today"
+      ],
+      "tip": "Normal safety matches and modern \"strike anywhere\" matches do not use white phosphorus. You do not need to worry about this one."
+    },
+    {
+      "id": "exhausted-tea",
+      "term": "Exhausted tea",
+      "match": "exhausted tea",
+      "means": "Tea leaves that have already been brewed, then dried and sold again as new, or tea mixed with other things to bulk it up. Nigeria's law defines it as tea \"deprived of its proper quality, strength or virtue\".",
+      "examples": [
+        "Used tea leaves repacked for sale",
+        "Tea padded out with sawdust, dye or other leaves"
+      ],
+      "tip": "Normal packed tea bags and loose tea for your own use are fine."
+    },
+    {
+      "id": "cowries",
+      "term": "Cowries and manilas",
+      "match": "cowries|manilas",
+      "means": "Cowrie shells and manilas (brass or copper rings) were once used as money in West Africa. Nigeria's customs law still bans importing them.",
+      "examples": [
+        "Bags of loose cowrie shells",
+        "Old manila rings"
+      ],
+      "tip": "Cowrie jewellery and crafts are sold openly inside Nigeria. The ban is old law, but a bulk bag of loose shells could still be questioned."
+    },
+    {
+      "id": "blank-invoices",
+      "term": "Blank invoices",
+      "match": "blank invoice",
+      "means": "Invoice forms from a supplier with nothing filled in. They could be used to write a false, lower value for goods and pay less duty.",
+      "examples": [
+        "Blank or signed-but-empty invoice pads from a foreign company",
+        "Letterhead paper printed as an invoice"
+      ],
+      "tip": "Carry only real, filled-in invoices for goods you are bringing in."
+    },
+    {
+      "id": "gambling",
+      "term": "Betting coupons and gambling devices",
+      "match": "football pool|gambling|lottery|games prohibited|betting|playing cards|gaming",
+      "means": "Items used for betting or games of chance. Some countries ban foreign betting or all gambling.",
+      "examples": [
+        "Betting slips and coupons from foreign football pools",
+        "Foreign lottery tickets",
+        "Slot machines and card or dice gambling kits",
+        "Playing cards in Somalia (reported)"
+      ],
+      "tip": "A normal pack of cards for a family game is fine in most places. Slot machines and betting coupons are not."
+    },
+    {
+      "id": "harmful-spirits",
+      "term": "Harmful or very strong spirits",
+      "match": "absinthe|harmful oils|harmful additives|harmful essences|injurious|spirits above|spirits made with|spirits containing|spirituous beverages|adulterated alcohol",
+      "means": "Spirits with ingredients seen as poisonous, such as wormwood oil, and in Nigeria any spirit above 48.5 percent alcohol.",
+      "examples": [
+        "Absinthe and other wormwood drinks",
+        "Overproof rum and very strong vodkas above 48.5 percent (Nigeria)",
+        "Home-made or unlabelled spirits"
+      ],
+      "tip": "Ordinary whisky, gin, vodka and rum (around 40 percent) are within the normal travel allowance in most countries. Check the label."
+    },
+    {
+      "id": "false-origin",
+      "term": "False origin labels and coat of arms",
+      "match": "false origin|false algerian|falsely marked|labelled as made in|coat of arms|armorial|special character of manufacture|false maker|place of origin",
+      "means": "Goods labelled as made in one country when they were made somewhere else, or items using a country's official coat of arms without permission.",
+      "examples": [
+        "Goods marked \"Made in Mali\" or \"Made in Algeria\" that were made in another country",
+        "Souvenirs, clothes or stickers using a national coat of arms without approval"
+      ],
+      "tip": "This mostly matters to traders. Travellers rarely meet it."
+    },
+    {
+      "id": "prison-made",
+      "term": "Prison-made goods",
+      "match": "prison[- ]made|prison labour|convict|penitentiary|made in prisons|made by prisoners",
+      "means": "Goods made by prisoners. Several countries ban them to protect normal workers and businesses.",
+      "examples": [
+        "Crafts or furniture sold by a foreign prison workshop"
+      ],
+      "tip": "Zambia makes an exception for a real gift made by a prisoner for a private person's own use."
+    },
+    {
+      "id": "ozone",
+      "term": "Ozone-depleting substances",
+      "match": "ozone|c\\.f\\.c|chlorofluoro|\\bcfc\\b|\\bhcfc\\b",
+      "means": "Old fridge and air conditioner gases (CFCs and HCFCs such as R22) that damage the ozone layer, and the machines that use them.",
+      "examples": [
+        "Old fridges, freezers and air conditioners shipped as used goods",
+        "Aerosol cans using these gases",
+        "Refill cylinders of old refrigerant gas"
+      ],
+      "tip": "If you ship a used fridge or air conditioner, check the gas label on the back. Ghana bans used fridges and air conditioners, and Mauritius bans ones that use these gases."
+    },
+    {
+      "id": "asbestos",
+      "term": "Asbestos",
+      "match": "asbestos|crocidolite",
+      "means": "A mineral fibre that causes lung cancer. It is banned in building materials and car parts in many countries.",
+      "examples": [
+        "Old brake pads and clutch plates",
+        "Roofing sheets and pipes made with asbestos cement"
+      ],
+      "tip": "If you ship car parts, buy new ones labelled asbestos-free."
+    },
+    {
+      "id": "plastic-bags",
+      "term": "Plastic bags",
+      "match": "plastic (carrier |carry )?bags|single-use plastic|plastic articles|non-biodegradable plastics|plastic waste",
+      "means": "Thin carrier bags and some single-use plastics are banned in many countries to cut litter.",
+      "examples": [
+        "Shopping bags and duty-free bags (Kenya and Tanzania can take them at the airport)",
+        "Plastic bags used to pack clothes or shoes in a suitcase",
+        "Single-use plastic items such as straws and cups in Rwanda"
+      ],
+      "tip": "Pack with cloth or paper bags, and remove duty-free bags before you land. Tanzania tolerates one small clear zip bag for toiletries."
+    },
+    {
+      "id": "vapes",
+      "term": "Vapes and new tobacco products",
+      "match": "e-cigarette|vape|e-liquid|heated tobacco|nicotine|rolling papers|roll-your-own|waterpipe|snus|smokeless tobacco|flavoured tobacco",
+      "means": "Electronic cigarettes and newer nicotine products. Some countries ban them fully, even for personal use.",
+      "examples": [
+        "Vapes, pods and e-liquids",
+        "Heated tobacco devices such as IQOS",
+        "Nicotine pouches and snus",
+        "Rolling papers and hookah (shisha) tobacco in Mauritius"
+      ],
+      "tip": "Mauritius fines travellers for vapes. Leave them at home or be ready to hand them over."
+    },
+    {
+      "id": "drones",
+      "term": "Drones",
+      "match": "drone",
+      "means": "Any flying camera or remote-controlled aircraft. Most African countries need you to get a permit before you arrive, and some almost never give one to visitors.",
+      "examples": [
+        "Small camera drones such as the DJI Mini, even the lightest models",
+        "FPV and racing drones",
+        "Toy drones with a camera"
+      ],
+      "tip": "Apply to the country's civil aviation authority weeks before you travel. Without a permit, customs usually holds the drone until you leave, and may not give it back."
+    },
+    {
+      "id": "radio-equipment",
+      "term": "Radio and communication equipment",
+      "match": "\\bradios?\\b|radio equipment|transceiver|transmitter|satellite phone|telecom|intercept",
+      "means": "Devices that send radio signals can interfere with the military or phone networks, so many countries need a licence for them.",
+      "examples": [
+        "Walkie-talkies and two-way radios",
+        "Satellite phones",
+        "Mobile signal boosters and jammers",
+        "Ham radio and long-range transmitters"
+      ],
+      "tip": "Normal phones, laptops and Bluetooth devices are fine. Satellite phones need registering in South Sudan and advance notice in Togo."
+    },
+    {
+      "id": "food-plants-animals",
+      "term": "Food, plants, seeds and animal products",
+      "match": "^(?!.*(endangered|protected|wild animal|cites)).*(\\bmeat\\b|\\bplants?\\b|seed|soil|honey|dairy|live animals|all animals|fruit|poultry|eggs|carcass|provisions|unfit|offal|\\bpets\\b|live birds)",
+      "means": "Food and farm products can carry pests and animal diseases, so most countries control them with health certificates. Rules are strict for meat and anything fresh.",
+      "examples": [
+        "Dried or smoked meat, such as kilishi or biltong",
+        "Bushmeat, which is also often illegal to hunt",
+        "Fresh fruit, vegetables, seeds, cuttings and soil",
+        "Honey, milk, cheese and eggs",
+        "Pets and live birds"
+      ],
+      "tip": "Sealed, labelled, shop-bought dry food is usually fine. Home-made, fresh or unlabelled meat and plants are the most likely to be taken."
+    },
+    {
+      "id": "precious-stones",
+      "term": "Precious stones and metals",
+      "match": "diamond|gem|gold|precious|jewellery|unwrought",
+      "means": "Rough diamonds, gemstones and raw gold are tightly controlled to stop smuggling and protect tax income. Most need a licence and certificate.",
+      "examples": [
+        "Rough (uncut) diamonds and gemstones bought from dealers",
+        "Gold nuggets, dust or bars",
+        "Large amounts of new jewellery, which can look like stock for sale"
+      ],
+      "tip": "Buy only from licensed dealers and keep the certificate and receipt. Your own jewellery that you wear is fine, but declare valuable pieces on arrival in strict countries."
+    }
+  ]
+}

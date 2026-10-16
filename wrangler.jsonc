@@ -10,7 +10,16 @@
 		"binding": "ASSETS",
 		"not_found_handling": "single-page-application",
 		"run_worker_first": [
-			"/api/*"
+			"/api/*",
+			"/country/*",
+			"/topic/*",
+			"/tools/*",
+			"/research",
+			"/news",
+			"/countries",
+			"/about",
+			"/sources",
+			"/privacy"
 		]
 	},
 	// `wrangler dev` uses a local copy; `wrangler deploy` and `--remote` commands use
@@ -31,6 +40,11 @@
 			"*/5 * * * *"
 		]
 	},
+	"send_email": [
+		{
+			"name": "EMAIL"
+		}
+	],
 	"vars": {
 		"COLLECT_BATCH_SIZE": "7",
 		"ARTICLE_RETENTION_DAYS": "90"

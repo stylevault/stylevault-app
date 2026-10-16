@@ -16,7 +16,7 @@ export function getMeta(request, env, ctx) {
 
     const [countries, topics, stats, lastRun] = await env.DB.batch([
       env.DB.prepare(
-        `SELECT c.code, c.name, c.slug, c.region, c.capital,
+        `SELECT c.code, c.name, c.slug, c.region, c.capital, c.currency,
                 (SELECT COUNT(*) FROM sources s WHERE s.country_code = c.code AND s.active = 1) AS sources,
                 (SELECT COUNT(*) FROM article_countries ac WHERE ac.country_code = c.code AND ac.article_id >= ?) AS recent
            FROM countries c ORDER BY c.name`,

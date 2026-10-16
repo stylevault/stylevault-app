@@ -1,0 +1,2969 @@
+{
+  "built": "4 October 2026",
+  "licence": "UK text: Crown copyright, Open Government Licence v3.0. US text: US State Department, public domain.",
+  "countries": {
+    "Algeria": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Algeria border areas",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 30km of Algeria’s borders with: Libya, Mauritania, Mali, Niger, Tunisia, in the provinces of Illizi and Ouargla and in the Chaambi mountains area"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Rest of the Algeria-Tunisia border",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Within 30km of the rest of Algeria’s border with Tunisia"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Sexual acts between people of the same sex are illegal in Algeria.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 1021",
+            "Fire: 14",
+            "Police: 17 or 1548"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-08-25",
+        "reasons": [
+          "terrorism",
+          "kidnapping"
+        ],
+        "doNotTravel": "Areas near the eastern, and southern borders, Bordj Badji Mokhtar, Illiz, In Guezzsam, In Salah, Tamanrasset, the mountainous areas of the Wilaya of Tebessa, and Tindouf",
+        "women": []
+      }
+    },
+    "Egypt": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Egypt-Libya border",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Within 20km of the Egypt-Libya border, except for the town of El Salloum, where the UK advises against all but essential travel"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "North Sinai",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The North Sinai Governorate"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Northern part of South Sinai",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The northern part of the South Sinai Governorate, beyond the St Catherine-Nuweibaa road, except for the coastal areas along the west and east of the peninsula"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Eastern part of Ismailiyah Governorate",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The Ismailiyah Governorate east of the Suez Canal"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Western Desert",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The area west of the Nile Valley and Nile Delta regions, except for: Luxor, Qina, Aswan, Abu Simbel and the Valley of the Kings, the Faiyum Governorate, the coastal areas between the Nile Delta and Marsa Matruh, the Marsa Matruh-Siwa road, the oasis town of Siwa, the Giza Governorate north-east of the Bahariya Oasis, the White Desert and Black Desert, the oasis towns of Bahariya, Farafra, Dakhla (Mut) and Kharga, the following roads and the desert area between them and the Nile valley: the road between Giza and Farafra and within 50km either side of this road (but the UK advises against all but essential travel on the road between Bahariya and Siwa), the road between Farafra, Dakhla (Mut) and Kharga, the road between Kharga and Baris, the road between Baris and Luxor"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Hala’ib Triangle and Bir Tawil Trapezoid",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The Hala’ib Triangle and the Bir Tawil Trapezoid"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Sexual assault and harassment",
+            "blocks": [
+              {
+                "p": "The majority of cases that have been reported took place in tourist resorts in the Red Sea region, often committed by someone the victim had already met, including hotel workers and excursion staff. There have also been reports of hotel staff discouraging incidents being reported to local police."
+              },
+              {
+                "p": "Female travellers should exercise caution when travelling alone, particularly at night, in taxis."
+              },
+              {
+                "p": "Take extra precautions:"
+              },
+              {
+                "items": [
+                  "do not leave children unaccompanied",
+                  "do not allow hotel staff to enter your room when you are alone, try to ensure a friend or relative is present",
+                  "avoid travelling in a taxi alone, if this is not possible, apply extra security by sharing the details of your driver, trip and live location with a friend",
+                  "use reputable providers for any services and excursions, and carry out research beforehand",
+                  "avoid sharing personal contact or social media details"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "Dress modestly, especially in rural areas, mosques and souqs (markets)."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is not explicitly criminalised in Egypt. However, the Egyptian authorities have prosecuted LGBT+ people under ‘debauchery’ laws, including people flying rainbow flags at public events.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 123",
+            "Fire: 180",
+            "Police: 122",
+            "Tourist police: 126"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-07-15",
+        "reasons": [
+          "terrorism",
+          "crime",
+          "health"
+        ],
+        "doNotTravel": "The Northern and Middle Sinai Peninsula",
+        "women": [
+          "Harassment of women, including foreigners, is a problem in Egypt."
+        ]
+      }
+    },
+    "Libya": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": null,
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Libya except for the cities of: Tripoli, Benghazi, Al-Bayda and Derna, and the surrounding area known as Jebel Akhdar, either side of the coastal and desert roads between and including the towns of Al-Maqrun and Al-Tamimi, Misrata"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The cities of: Tripoli, Benghazi, Al-Bayda and Derna, and the surrounding area knows as Jebel Akhdar, either side of the coastal and desert roads between and including the towns of Al-Maqrun and Al-Tamimi, Misrata"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Consensual same-sex sexual activity is illegal for men and women in Libya, with penalties of up to five years imprisonment.",
+        "emergency": {
+          "lines": [
+            "1415 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2025-07-16",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "unexploded landmines",
+          "civil unrest",
+          "kidnapping",
+          "armed conflict"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Morocco": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Marriage fraud",
+            "blocks": [
+              {
+                "p": "Be cautious if you travel to Morocco for a relationship or to find someone you met on the internet. Make sure you keep your return ticket, passport and personal belongings safe."
+              }
+            ]
+          },
+          {
+            "heading": "Sexual relations outside of marriage",
+            "blocks": [
+              {
+                "p": "Sexual activity between unmarried people and adultery are illegal for Moroccan nationals, this includes sharing a hotel room, particularly with foreign nationals."
+              },
+              {
+                "p": "The law regarding unmarried people sharing a hotel room does not generally apply to visiting foreign nationals, particularly in popular tourist areas."
+              },
+              {
+                "p": "Avoid showing affection in public, particularly near religious sites as well as in tourist areas."
+              },
+              {
+                "p": "Using dating applications in Morocco may break laws relating to sexual relations outside of marriage. Be aware of the legal and personal safety risks when using these applications."
+              }
+            ]
+          },
+          {
+            "heading": "Women travellers",
+            "blocks": [
+              {
+                "p": "Women may receive unwanted attention in Morocco, especially when travelling alone. Consider wearing loose-fitting clothing which cover the arms, legs and chest."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual relations are illegal in Morocco. Showing affection in public can lead to prosecution.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 150",
+            "Fire: 150",
+            "Police: 190",
+            "Gendarmerie (military police): 177"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-04-21",
+        "reasons": [
+          "terrorism"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Sudan": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": null,
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Sudan because of the ongoing military conflict in Khartoum and other parts of the country. This does not include the Hala’ib Triangle and the Bir Tawil Trapezoid where the UK advises against all but essential travel"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "Non-Muslim women do not have to wear a veil or cover their heads. Men and women should dress modestly and respect local customs and sensitivities."
+              }
+            ]
+          },
+          {
+            "heading": "Relationships outside marriage",
+            "blocks": [
+              {
+                "p": "It’s illegal to have extramarital relations and there are severe penalties. It’s illegal to live together, or to share the same hotel room, with someone of the opposite sex if you’re not married or closely related."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal in Sudan and not tolerated in Sudanese society. This includes inviting guests into hotel rooms.",
+        "emergency": {
+          "lines": [
+            "999 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-05-15",
+        "reasons": [
+          "unrest",
+          "crime",
+          "kidnapping",
+          "terrorism",
+          "landmines",
+          "health risks"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "Crime, including kidnapping, assault, rape, armed robbery, home invasion, looting, and carjacking, is a common threat throughout the country."
+        ]
+      }
+    },
+    "Tunisia": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Western Tunisia, including the Tunisia-Algeria border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The Chaambi Mountains National Park",
+                  "The designated military operations zones: Mount Salloum, Mount Sammamma, Mount Mghila"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": "In addition",
+                "items": [
+                  "Areas north and west of the town of Ghardimaou in Jendouba Governorate, including El Feidja National Park",
+                  "Within 20km of the Tunisia-Algeria border in El Kef and Jendouba governorates, south of the town of Jendouba",
+                  "Kasserine Governorate, including the town of Sbeitla",
+                  "Within 10km of the rest of the Tunisia-Algeria border south of Kasserine Governorate",
+                  "Within 10km of Mount Mghila",
+                  "Mount Orbata"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Southern Tunisia, including the Tunisia-Libya border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The militarised zone south of the towns of El Borma and Dhehiba",
+                  "Within 20km of the rest of the Tunisia-Libya border area north of Dhehiba",
+                  "The town of Ben Guerdane and immediate surrounding area"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": "In addition",
+                "items": [
+                  "Within 75km of the Tunisia-Libya border, including Remada and El Borma but excluding Zarzis, the C118 road and all areas in Medenine Governorate north of the road"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Sexual harassment and sexual assault",
+            "blocks": [
+              {
+                "p": "Reports of sexual harassment and sexual assault statistically increase in the summer months. Reports include trouble in busy public places at night and quieter public parks and beaches during the daytime."
+              }
+            ]
+          },
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "Beach-appropriate clothing in holiday resorts is acceptable, however when visiting religious sites or remote areas of the country, local custom is to dress modestly."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal in Tunisia. Members of the LGBT+ community have been targeted by criminals.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 190",
+            "Fire and car accidents: 198",
+            "Police (when in towns and cities): 197",
+            "National Guard (when in rural areas and small villages): 193"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-05-21",
+        "reasons": [
+          "terrorism",
+          "crime",
+          "unrest"
+        ],
+        "doNotTravel": "Within 16 km of the Algerian border",
+        "women": []
+      }
+    },
+    "Benin": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Northern border regions",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The Parc du W National Park and the hunting zones of Mékrou and Djona. The park is tri-national, sharing an open border with Burkina Faso and Niger. There is a risk of terrorist attacks and kidnapping throughout the park"
+                ]
+              },
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The area between the Parc du W and the border with Niger",
+                  "The Pendjari National Park and adjacent hunting grounds",
+                  "All other areas within 5km of the border with Burkina Faso"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Eastern Benin",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The area between the Interstate Highway (RNIE) 2 from Tchaourou to Malanville and the Benin-Nigeria border, due to increasing criminality"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Alibori and Atacora",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The rest of the Alibori and Atacora departments"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is legal, but same-sex relationships are not widely accepted. Showing affection in public can receive negative attention.",
+        "emergency": {
+          "lines": [
+            "Fire and ambulance: 118",
+            "Police: 117"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-01-07",
+        "reasons": [
+          "unrest",
+          "crime",
+          "terrorism",
+          "kidnapping"
+        ],
+        "doNotTravel": "Areas of Benin bordering Burkina Faso; Niger; and the Nigerian states of Kebbi, Niger, and Kwara",
+        "women": []
+      }
+    },
+    "Burkina Faso": {
+      "uk": {
+        "worst": "whole",
+        "areas": [
+          {
+            "heading": null,
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Burkina Faso"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Same sex sexual activity and the ‘promotion’ of same-sex relationships is a criminal offence in Burkina Faso. If convicted, such charges could lead to prison sentences of up to 5 years.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 18",
+            "Fire: 18",
+            "Police: 17"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-05-04",
+        "reasons": [
+          "crime",
+          "kidnapping",
+          "terrorism",
+          "health"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Cabo Verde": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": null,
+        "emergency": {
+          "lines": [
+            "Ambulance: 130",
+            "Fire: 131",
+            "Police: 132"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 1,
+        "updated": "2025-12-18",
+        "reasons": [],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Côte d'Ivoire": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Borders with Burkina Faso and Mali",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 40km of the borders with Burkina Faso and Mali",
+                  "Northern Zanzan and Savanes provinces",
+                  "Comoé National Park"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Côte d’Ivoire-Liberia border",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Within 20km of the border with Liberia owing to the risk of serious violence by local militias"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "Dress modestly when visiting religious places or buildings."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is not illegal in Côte d’Ivoire, but the law does not recognise same-sex partnerships or marriage. Attitudes are less tolerant and there is no specific anti-discrimination law to protect LGBT+ people.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 185",
+            "Fire: 180",
+            "Police: 110, 111 or 170"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-02-18",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "unrest",
+          "health",
+          "piracy in nearby waters"
+        ],
+        "doNotTravel": "The northern border region",
+        "women": []
+      }
+    },
+    "Gambia": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "There is a zero tolerance towards LGBT+ people in The Gambia. Same-sex relationships are illegal and could lead to lengthy prison sentences.",
+        "emergency": {
+          "lines": [],
+          "note": "There is no single national emergency number in The Gambia. Individual police stations and fire stations have their own numbers (these are often mobile numbers, as many do not have a landline). There are no publications listing these numbers so it is best to visit in-person to ask for emergency contact details at local stations."
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-01-16",
+        "reasons": [
+          "crime",
+          "unrest",
+          "inadequate health infrastructure"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Ghana": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Bawku Municipality",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The Bawku Municipal area in the Upper East region of Ghana"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Crime",
+            "blocks": [
+              {
+                "items": [
+                  "Theft is the main problem at beaches, but there have been isolated incidents of violent crime and sexual assault in areas popular with tourists."
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "Dress modestly in public. Shorts and t-shirts are acceptable for both males and females, but it is best not to wear anything too revealing."
+              },
+              {
+                "p": "Wearing military clothing including camouflage is illegal."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Some same-sex sexual acts could lead to a prison sentence of between 3 and 25 years. Although there are no records of this being enforced, there were arrests at a gathering of the LGBT+ community in 2021.",
+        "emergency": {
+          "lines": [
+            "999 or 112 (ambulance, fire, police, coast guard and mountain rescue)",
+            "192 (police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-07-07",
+        "reasons": [
+          "crime",
+          "poor health infrastructure",
+          "violence against women",
+          "violence against lesbian and gay travelers"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "Exercise increased caution when traveling to Ghana due to crime, poor health infrastructure, violence against women, and violence against lesbian and gay travelers.",
+          "Violent crime, such as carjacking, street mugging, assault, and rape occurs in Ghana.",
+          "Sexual assault, such as rape, is significantly underreported in Ghana."
+        ]
+      }
+    },
+    "Guinea": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is illegal. Penalties range from 6 months to 3 years in prison and a fine of 500,000 to 1 million Guinean francs.",
+        "emergency": {
+          "lines": [
+            "Clinique Pasteur: +224 621 35 01 01 or +224 664 26 98 53",
+            "Clinique Ambroise Paré: +224 631 40 10 40"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-02-25",
+        "reasons": [
+          "crime",
+          "unrest",
+          "inadequate health infrastructure"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Guinea-Bissau": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual relationships are not criminalised. However, Guinea-Bissau is a conservative society and same-sex couples showing affection in public may attract unwanted and negative attention.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 1313",
+            "Fire: 1313",
+            "Police: 117"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 3,
+        "updated": "2025-12-11",
+        "reasons": [
+          "unrest",
+          "inadequate health infrastructure",
+          "landmines"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Liberia": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Sexual assault",
+            "blocks": [
+              {
+                "p": "Liberia has a high rate of rape and sexual assault. There have been cases of rapes and attempted rapes of foreign women, although these are rare."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal in Liberia.",
+        "emergency": {
+          "lines": [
+            "Police: +231 770 800 911"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-12-11",
+        "reasons": [
+          "crime",
+          "unrest",
+          "health"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Mali": {
+      "uk": {
+        "worst": "whole",
+        "areas": [
+          {
+            "heading": null,
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The whole of the Mali due to the unpredictable security conditions"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Homosexuality is illegal in Mali. In December 2024, Mali’s National Transitional Council promulgated a new Penal Code which criminalises the promotion or participation in consensual same-sex relationships.",
+        "emergency": {
+          "lines": [
+            "Police: 17",
+            "Ambulance: 15",
+            "Fire: 18"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-06-08",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "kidnapping",
+          "unrest",
+          "health"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Mauritania": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Eastern Mauritania",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Areas east of a line drawn between but excluding the towns of Kankossa, Akhreijit, Ghallaouia, Zouerat, Fderîck and onwards west to the border with Western Sahara"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Mauritania-Mali border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Areas within 25km of the Malian border in the south, including Khabou"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Mauritania-Western Sahara border",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Areas within 25km of the Western Sahara border, excluding the section of the Nouakchott-Nouadhibou road and the city of Nouadhibou"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Tiris Zemmour, Adrar, Tagant, Hodh el Gharbi, Assaba, Gorgol and Guidimaka provinces",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The rest of the province of Tiris Zemmour, Assaba, Hodh el Gharbi, Gorgol and Guidimaka, and areas of Adrar and Tagant provinces, west of a line drawn between the towns of Ghallaouia, Akhreijit and Kankossa. This excludes: the areas west of a line running between Choum, Ouadane and where the 10th Meridian West meets latitude 18° 40°, the town of Ouadane, the Tidjikja-Tichit road, the Aleg to Tidjikja road via Moudjeria and all areas of Tagant west of that road, the Bogue to Kaedi road via Bababe"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "You should dress modestly when not on the beach. Women should cover their shoulders and not wear short skirts. Men should not wear sleeveless tops or shorts."
+              }
+            ]
+          }
+        ],
+        "lgbt": "There are no laws in Mauritania to protect LGBT+ people from discrimination.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 101",
+            "Fire: 118",
+            "Police: 117"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 3,
+        "updated": "2026-08-18",
+        "reasons": [
+          "terrorism",
+          "crime",
+          "limited health infrastructure"
+        ],
+        "doNotTravel": "Areas marked off-limits by the Mauritanian military",
+        "women": []
+      }
+    },
+    "Niger": {
+      "uk": {
+        "worst": "whole",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex relationships are illegal in Niger. Penalties include prison sentences of 5 to 10 years and fines.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 15",
+            "Fire: 18",
+            "Police: 17"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-07-09",
+        "reasons": [
+          "crime",
+          "unrest",
+          "terrorism",
+          "health",
+          "kidnapping"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Nigeria": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "North East Nigeria",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Borno State",
+                  "Yobe State",
+                  "Adamawa State",
+                  "Gombe State"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Bauchi State"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "North West Nigeria",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Katsina State",
+                  "Zamfara State"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Kaduna State",
+                  "Kano State",
+                  "Kebbi State",
+                  "Jigawa State",
+                  "Sokoto State"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "North Central Nigeria and the Federal Capital Territory, including Abuja",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Niger State",
+                  "Kogi State",
+                  "Plateau State",
+                  "Taraba State",
+                  "Kwara State",
+                  "Benue State"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "South East and South South Nigeria",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The riverine areas (the river and swamp locations accessible by boat, but not by road) of Delta, Bayelsa, Rivers, Akwa Ibom and Cross River states"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Abia State",
+                  "Non-riverine areas of Delta, Bayelsa, and Rivers States",
+                  "Anambra State",
+                  "Imo State"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is illegal in Nigeria with penalties of up to 14 years in prison. Some northern states observe Sharia Law which can prescribe the death penalty for same-sex sexual activity.",
+        "emergency": {
+          "lines": [
+            "112 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 3,
+        "updated": "2026-06-12",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "unrest",
+          "kidnapping",
+          "inconsistent availability of health care services"
+        ],
+        "doNotTravel": "Borno, Jigawa, Kogi, Kwara, Niger, Plateau, Taraba, Yobe, northern Adamawa states",
+        "women": [
+          "Violent crime is common throughout Nigeria. This includes armed robbery, assault, carjacking, kidnapping, hostage-taking, roadside banditry, and rape."
+        ]
+      }
+    },
+    "Senegal": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual acts are illegal in Senegal. The law is enforced and has led to arrests.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 15",
+            "Fire: 18",
+            "Police: 17",
+            "Call 123 for the military police, who may be more responsive if you are in the countryside."
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 1,
+        "updated": "2025-12-01",
+        "reasons": [
+          "crime",
+          "landmines"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Sierra Leone": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex relations between men are illegal in Sierra Leone, even if they are consensual. Penalties can include imprisonment.",
+        "emergency": {
+          "lines": [
+            "117 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-09-15",
+        "reasons": [
+          "crime",
+          "civil unrest",
+          "inadequate health infrastructure"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Togo": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Togo-Burkina Faso border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 30km of the border with Burkina Faso, except for: the city of Dapaong and the N1 highway leading to it from the south"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Savanes Region",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The rest of the Savanes region"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Same-sex sexual relationships are illegal in Togo and penalties are severe. You could be fined or given a prison sentence.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 8200",
+            "Fire: 118",
+            "Police: 117 or 177"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-03-09",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "unrest",
+          "kidnapping",
+          "health"
+        ],
+        "doNotTravel": "Northern border region near Burkina Faso",
+        "women": []
+      }
+    },
+    "Angola": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Cabinda Province, except Cabinda city",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Cabinda Province, except to Cabinda city. This is due to separatist groups carrying out targeted attacks on foreigners and the risk of kidnap"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Border areas in Lunda Norte Province",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Within 1km of the border with the Democratic Republic of the Congo (DRC) in Lunda Norte province, except for official border crossings and their access roads. This is due to poor conditions, insecurity and banditry"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Sexual assault",
+            "blocks": [
+              {
+                "p": "Incidents of rape have been reported in popular nightlife areas, as well as in private homes. Never travel alone at night."
+              }
+            ]
+          }
+        ],
+        "lgbt": "In January 2019, Angola’s parliament made it illegal to discriminate against people on the basis of sexual orientation. However, public attitudes towards same-sex relationships are less tolerant than in the UK.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 112",
+            "Fire: 118",
+            "Police: 110"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2024-09-23",
+        "reasons": [
+          "crime",
+          "health",
+          "unrest",
+          "landmines"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Cameroon": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Bakassi Peninsula",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Bakassi Peninsula"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Cameroon-Central African Republic border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 40km of the border with Central African Republic"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Cameroon-Chad border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 40km of the border with Chad"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Cameroon-Nigeria border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 40km of the border with Nigeria, except for Garoua in the North Region"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Far-North Region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The Far-North Region, except for: a 20km radius to the north, east and west of Maroua, 30km south of Maroua"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "North-West Region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The North-West Region"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "South-West Region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The South-West Region, including the towns of Buea, Muyuka and Tiko in Fako Division. Except for: Limbé, the 35km stretch of the N3 road connecting Limbé to the Littoral Region in Fako Division"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Limbé",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Limbé and the 35km stretch of the N3 road connecting Limbé to the Littoral Region in Fako Division, South-West Region"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "North Region, Adamawa Region and Maroua",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The North Region, including Garoua, and a 20km radius to the north, east and west of Maroua, and 30km south of Maroua, in Far-North Region"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Adamawa Region",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Within 20km of the border with the North region of Cameroon. The UK advises against all travel to within 40km of the Central African Republic (CAR) and Nigeria borders"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Camouflage clothing",
+            "blocks": [
+              {
+                "p": "It is illegal to wear camouflage clothing unless you are in the armed forces. Penalties may include a fine and detention."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex relationships are not widely accepted in central African society, and same-sex sexual acts are illegal in Cameroon. Same-sex partners have been arrested and prosecuted.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 112",
+            "Fire: 119",
+            "Police: 117"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-05-15",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "unrest",
+          "health",
+          "kidnapping",
+          "improvised explosive devices (IEDs)"
+        ],
+        "doNotTravel": "The Southwest, Northwest, and Far North Regions",
+        "women": []
+      }
+    },
+    "Central African Republic": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": null,
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The whole of the Central African Republic, including the areas of Bimbo, Begoua and Coline, except to the capital, Bangui"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Bangui, including Bangui M’Poko International Airport"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "While homosexuality is not illegal, same-sex relationships are not widely accepted in Central African society. LGBT+ travellers may face arrest for “public expressions of love”.",
+        "emergency": {
+          "lines": [
+            "117 (ambulance, fire, police)",
+            "Ambulance: 610600",
+            "Fire: 118",
+            "Military police (‘gendarmerie’): 2161 2200"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-01-15",
+        "reasons": [
+          "unrest",
+          "crime",
+          "kidnapping",
+          "landmines",
+          "health",
+          "terrorism"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Chad": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Borkou, Ennedi Ouest, Ennedi Est and Tibesti provinces",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The northern provinces of Chad: Borkou Province, Ennedi Ouest Province, Ennedi Est Province, Tibesti Province"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Kanem Province, including Nokou",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The western part of Kanem Province, including the town of Nokou"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Lake Chad region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The Lake Chad region"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Within 30km of all Chad’s other borders",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 30km of all of Chad’s other borders"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "The rest of Chad",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The rest of Chad, including the capital, N’Djamena"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is illegal in Chad, with penalties of imprisonment ranging from 3 months to 2 years and a fine of between 50,000 and 500,000 CFA francs. Same-sex relationships are not widely accepted by Chadian society.",
+        "emergency": {
+          "lines": [
+            "Ambulance and fire: 1212",
+            "Police: 2020"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-04-28",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "unrest",
+          "inadequate health infrastructure",
+          "kidnapping",
+          "landmines"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "Violent crimes include muggings, purse snatching, armed robbery, home invasion, carjacking, and sexual assault."
+        ]
+      }
+    },
+    "Republic of the Congo": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Republic of Congo-Central African Republic border area in Likouala Region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 50km of the Republic of Congo-Central African Republic border in Likouala Region"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": null,
+        "emergency": {
+          "lines": [
+            "There’s no central number for emergency services in the Republic of Congo. You can report crimes to local police on 06 665 4804. Few police will speak English."
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2024-10-02",
+        "reasons": [
+          "crime"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "DR Congo": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Areas in Kinshasa Province",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The districts of N’djili and Kimbanseke in Kinshasa city south of the main access road to N’djili airport, in Nsele commune",
+                  "The N1 road in Kinshasa Province, between and including Menkao to the west, Kenge to the east, the border of Mai-Ndombe province to the north, and 10km to the south"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "DRC-Central African Republic border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 50km of the border with the Central African Republic"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Eastern DRC",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The provinces of: Haut-Uélé and Ituri, including the entire DRC-South Sudan border, North Kivu, South Kivu, Maniema, Tanganyika, Haut-Lomami"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "South-East DRC",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Upemba National Park. If you choose to travel to Upemba National Park against UK advice, notify the park authorities about your travel plans"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Territory in Mai-Ndombe Province",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The Kwamouth territory of Mai-Ndombe Province. This is between, and including, the towns of Kwamouth, Bandundu and the southern border of Mai-Ndombe province"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Kisangani airport",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Bangoka International Airport, Kisangani due to multiple drone attacks in the area of Kisangani airport"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Camouflage clothing",
+            "blocks": [
+              {
+                "p": "If you wear any military-style clothing you could be misidentified as military personnel and be vulnerable to attack or detention."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is not illegal in DRC but is frowned upon by many. There is no legal recognition of same-sex couples or same-sex marriage, and there are no specific anti-discrimination laws protecting LBGT+ people.",
+        "emergency": {
+          "lines": [],
+          "note": "There is no general emergency medical number in Kinshasa or elsewhere in the Democratic Republic of the Congo (DRC)."
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-07-15",
+        "reasons": [
+          "health",
+          "crime",
+          "unrest",
+          "terrorism",
+          "kidnapping"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Equatorial Guinea": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex relationships are not illegal in Equatorial Guinea, but there is no legal protection against discrimination based on sexual orientation. Society is very conservative and discrimination can be a problem for those open about their sexual identity.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 3101",
+            "Police: 666 404040 or 666 303030"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-10-07",
+        "reasons": [
+          "crime",
+          "health",
+          "arbitrary enforcement of laws"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Gabon": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Crime",
+            "blocks": [
+              {
+                "items": [
+                  "There have been incidents of robbery, armed attacks and rape in Gabon."
+                ]
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is not illegal. There are no laws against discrimination on the grounds of sexual orientation.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 117. Depending on your mobile network, call: 1300, 0174 or 0880 for SOS Médecins. Operators may only speak French.",
+            "Fire: 177",
+            "Police: 177"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-03-30",
+        "reasons": [
+          "unrest",
+          "crime",
+          "health"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "São Tomé and Príncipe": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is legal in São Tomé and Príncipe. Attitudes towards same-sex relationships are less tolerant than in the UK and showing affection in public may attract unwanted and negative attention.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 222 22 22",
+            "Fire: 112",
+            "Police: 113 or 222 22 22"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-09-04",
+        "reasons": [
+          "health risks"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Burundi": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Parts of Bujumbura Province",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Mugina, Cibitoke, Bukinyayana, Bubanza and Mpanda communes due to the risk of the presence of a rebel group in the Kibira National Park and possible armed incursions from the Democratic Republic of the Congo (DRC)"
+                ]
+              },
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Parts of Ntahangwa commune, specifically the RN5 road north of Melchior Ndadaye International Airport in Bujumbura towards Cibitoke and west of the Rusizi river towards the border with DRC, including Rusizi National Park (also known as Rusizi Delta Nature Reserve). This is due to possible armed incursions from DRC"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Same-sex sexual acts are illegal. Punishment includes a prison sentence of between 3 months and 2 years and a fine.",
+        "emergency": {
+          "lines": [
+            "112 (ambulance, fire, police)",
+            "You can also request help from the Red Cross by calling 109."
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 3,
+        "updated": "2025-04-29",
+        "reasons": [
+          "political violence",
+          "crime",
+          "health"
+        ],
+        "doNotTravel": "The former Central Market located on Chaussee Prince Louis Rwagasore in Bujumbura",
+        "women": []
+      }
+    },
+    "Comoros": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Dress and behaviour codes",
+            "blocks": [
+              {
+                "p": "Clothing for men and women needs to cover the body loosely, from the shoulders to the knees."
+              },
+              {
+                "p": "Islanders mostly consider outward displays of intimacy to be contrary to public decency."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal in Comoros. If convicted you could get a prison sentence of up to 5 years and heavy fines.",
+        "emergency": {
+          "lines": [
+            "Fire: 113 or 114",
+            "Police: 117"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-01-12",
+        "reasons": [
+          "crime",
+          "health"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Djibouti": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Djibouti-Eritrea border",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The Djibouti-Eritrea border"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Same-sex sexual behaviour is not illegal but is not common in Djiboutian public life. Same-sex couples showing affection in public could attract the attention of the authorities under laws around “good morals”.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 21 35 09 62 or 21 35 27 12",
+            "Fire: 18",
+            "Police: 17"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-03-06",
+        "reasons": [
+          "terrorism"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Eritrea": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Within 25km of Eritrea’s land borders",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 25km of all of Eritrea’s land borders"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Crime",
+            "blocks": [
+              {
+                "items": [
+                  "Women travellers can experience verbal and physical harassment by individuals or groups of men."
+                ]
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal. If convicted, you can get a prison sentence.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 122244",
+            "Fire: 116",
+            "Police: 113"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2023-07-31",
+        "reasons": [
+          "travel restrictions",
+          "limited consular assistance",
+          "landmines",
+          "wrongful detentions"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Ethiopia": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Border areas",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 20km of the border with Sudan",
+                  "Within 10km of the border with South Sudan",
+                  "Within 100km of the Ethiopian border with Somalia and Kenya in Ethiopia’s Somali region, and within 30km of the Ethiopian border with Somalia in Fafan zone, except the border town and crossing at Wajale, and the principal road between Jijiga and Wajale",
+                  "Within 10km of the border with Kenya, except for principal roads and towns",
+                  "Within 20km of the border with Eritrea"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Tigray region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Tigray region"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Amhara region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Amhara region"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Afar region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 20km of the border with Eritrea"
+                ]
+              },
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 50km of the boundary with Tigray region"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The rest of Afar"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Gambela region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Gambela region"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Oromia region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 10km of the border with Kenya, except for principal roads and towns",
+                  "North of (but not including) the A4 road in West Shewa zone",
+                  "South and west of the A3 road in North Shewa zone, including the A3 road itself in North Shewa",
+                  "West Wollega zone (including the main Addis Ababa to Gambela road), East Wollega zone, Kellem Wollega and Horo Gudru Wollega"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "All of East Shewa zone except the Addis Ababa to Adama Expressway, 10km either side of the Addis Ababa to Adaba expressway between Addis Ababa and Bishoftu, and the A7 from junction with the Addis Ababa to Adama expressway down to Hawassa",
+                  "The A4 road between Addis Ababa and Cheliya, except for the section in the Finfine special zone",
+                  "The remainder of North Shewa zone",
+                  "West Guji and Guji zones (except the Hawassa to Mega road)"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Somali region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 30km of the Ethiopia-Somalia border in Fafan zone, except the border town and crossing at Wajale, and the principal road between Jijiga and Wajale",
+                  "Within 100km of the Ethiopian border with Somalia and Kenya in the rest of the region"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The Siti zone",
+                  "The Nogob (previously Fik)",
+                  "Jarar (previously Degehabur)",
+                  "Shabelle (previously Gode)",
+                  "Korahe and Dollo (previously Warder)",
+                  "Areas of Liben and Afder zones more than 100km from the Somalia and Kenya borders"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Central, Southern, Sidama and South West regions (formerly SNNPR)",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 10km of the borders with South Sudan and Kenya including the shores of Lake Turkana"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Benishangul-Gumuz region",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Within 20km of the border with Sudan",
+                  "The Metekel zone",
+                  "The Maokomo special zone"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The rest of Benishangul-Gumuz region"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Crime",
+            "blocks": [
+              {
+                "items": [
+                  "There have been a number of incidents of sexual harassment of women."
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "Women are expected to dress conservatively, especially when visiting religious sites."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex acts (applying to both sexes) are illegal and carry penalties of between 1 and 15 years in prison. Local authorities intimidate and detain owners and clients of hotels, bars and restaurants in Addis Ababa where same-sex activity is alleged to take place.",
+        "emergency": {
+          "lines": [
+            "Police and emergency: 911",
+            "Ambulance (Addis Ababa): 907"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 3,
+        "updated": "2026-08-27",
+        "reasons": [
+          "unrest",
+          "crime",
+          "kidnapping",
+          "terrorism",
+          "landmines",
+          "communications disruptions",
+          "exit bans"
+        ],
+        "doNotTravel": "Tigray region and border with Eritrea",
+        "women": []
+      }
+    },
+    "Kenya": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Kenya-Somalia border and northern parts of the east coast",
+            "rules": [
+              {
+                "level": "all",
+                "note": "Due to the risk of terrorism from groups based in Somalia",
+                "items": [
+                  "Mandera County",
+                  "Tarbaj and Wajir East constituencies in Wajir County, except for Wajir Town",
+                  "Areas of Wajir County within 60km of Kenya’s border with Somalia",
+                  "Garissa County, except for Garissa Town, the constituency of Lagdera and the areas of Balambala constituency which lie north and west of the main road which runs from Saka on the Tana River up to the intersection with the C81 Road",
+                  "Lamu County, except for Lamu Island and Manda Island"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Garissa Town",
+                  "Tana River County north of the Tana River as far as the town of Saka",
+                  "Within 15km of the east coast between the Tana River and the Galana (Athi-Galana-Sabaki) River"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Drink and food spiking",
+            "blocks": [
+              {
+                "p": "Do not accept drinks or food from strangers in bars or clubs. Criminals spike drinks to weaken and confuse their victims and then commit theft or sexual assault."
+              }
+            ]
+          },
+          {
+            "heading": "Attacks and sexual assault",
+            "blocks": [
+              {
+                "p": "Sexual assaults are rare, but do happen, and can affect both male and female travellers."
+              }
+            ]
+          },
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "The coastal areas of Kenya are mainly Muslim. Show courtesy by dressing conservatively away from tourist resorts and hotels, particularly in Mombasa. Wearing holiday-style clothing is likely to get negative attention at religious sites or buildings."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal and same-sex relationships are not tolerated in Kenya’s conservative society. Showing affection in public could lead to arrest and imprisonment.",
+        "emergency": {
+          "lines": [
+            "999 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-07-28",
+        "reasons": [
+          "crime",
+          "kidnapping",
+          "terrorism",
+          "unrest",
+          "health",
+          "traffic safety"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "Violent crimes include armed carjacking, mugging, home invasion, sexual assault, and kidnapping for ransom.",
+          "Some Americans have been victims of sexual assault in bars and resorts/hotels."
+        ]
+      }
+    },
+    "Madagascar": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is legal among persons of at least 21 years old. However public attitudes are less tolerant than in the UK and showing affection in public may receive negative attention.",
+        "emergency": {
+          "lines": [
+            "Ambulance or police emergency: 17",
+            "Ambulance or police emergency: Mobile: 117",
+            "Ambulance or police emergency: To contact the police station directly, call 19, or 119 from a mobile phone.",
+            "Fire: 18",
+            "Fire: Mobile: 118"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-12-05",
+        "reasons": [
+          "crime",
+          "unrest",
+          "health"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Malawi": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Drink and food spiking",
+            "blocks": [
+              {
+                "p": "People have been robbed after eating drugged food. Do not accept food or drink from strangers."
+              }
+            ]
+          },
+          {
+            "heading": "Clothing sensitivities",
+            "blocks": [
+              {
+                "p": "Outside the main tourist areas, dress conservatively to avoid offending local sensitivities."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal and may result in a custodial sentence. Malawi is a socially conservative society and showing affection in public may receive unwanted and negative attention.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 998",
+            "Fire: 999",
+            "Police: 990 or 997"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-02-25",
+        "reasons": [
+          "crime",
+          "unrest"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Mauritius": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual activity was decriminalised in October 2023. Mauritius is a relatively conservative society and local attitudes to the LGBT+ community vary across the country.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 999 or 114",
+            "Fire: 999 or 115",
+            "Police: 999 or 112"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-12-08",
+        "reasons": [
+          "crime"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Mozambique": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Cabo Delgado Province",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Cabo Delgado Province, except for Palma town and the area around Pemba and Afungi"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Palma town and the area around Pemba and Afungi"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Nampula Province",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The districts of Memba and Eráti in Nampula Province"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Niassa Province",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "The districts of Mecula and Marrupa in Niassa Province"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "There are no laws against same-sex sexual activity. Attitudes in Maputo tend to be more liberal than in more remote rural areas of the country.",
+        "emergency": {
+          "lines": [
+            "Call 112 (ambulance, fire, police)",
+            "Ambulance: 848888 or 823388",
+            "Fire: 198",
+            "Police: 112"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-06-16",
+        "reasons": [
+          "health issues",
+          "crime",
+          "civil unrest",
+          "terrorism"
+        ],
+        "doNotTravel": "Cabo Delgado Province, the Niassa Special Reserve inside Niassa Province, and certain districts in the north of Nampula Province",
+        "women": []
+      }
+    },
+    "Rwanda": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Rusizi District",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The parts of Rusizi District which are within 10km of the border with the Democratic Republic of Congo (DRC), including the Rwandan islands in Lake Kivu and Kamembe Airport"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Consensual same-sex sexual acts are not illegal in Rwanda, but can be frowned upon by locals.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 112",
+            "Police: 112",
+            "Fire: 111"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 3,
+        "updated": "2026-05-11",
+        "reasons": [
+          "crime",
+          "unrest"
+        ],
+        "doNotTravel": "Within 10 kilometers of Rwanda’s border with the Democratic Republic of the Congo",
+        "women": []
+      }
+    },
+    "Seychelles": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is legal in Seychelles, but attitudes vary. Same-sex marriage is not recognised.",
+        "emergency": {
+          "lines": [
+            "999 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 1,
+        "updated": "2025-12-09",
+        "reasons": [
+          "health risks"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Somalia": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Parts of Somalia, including Somaliland",
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "Somalia, including Somaliland, except for the regions of Awdal, Maroodijeh, and Sahil"
+                ]
+              },
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "The regions of Awdal, Maroodijeh, and Sahil"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is illegal in Somalia. LGBT+ partners should not show affection in public.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 999",
+            "Fire: 555",
+            "Police: 888",
+            "These emergency numbers can be unreliable. The Somali Red Crescent operates a free number for all emergency services on 446."
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-05-21",
+        "reasons": [
+          "crime",
+          "kidnapping",
+          "terrorism",
+          "unrest",
+          "health",
+          "landmines",
+          "systematic mistreatment of women",
+          "systematic mistreatment of gay and lesbian individuals",
+          "piracy",
+          "abuse of residents in rehabilitation centers",
+          "confiscation of passports by family members"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "There are documented patterns of rape.",
+          "Female genital mutilation or cutting (FGM/C) is practiced throughout the country.",
+          "Up to 98 percent of Somali women have undergone FGM/C."
+        ]
+      }
+    },
+    "South Sudan": {
+      "uk": {
+        "worst": "whole",
+        "areas": [
+          {
+            "heading": null,
+            "rules": [
+              {
+                "level": "all",
+                "note": null,
+                "items": [
+                  "South Sudan due to the risk of armed violence and criminality"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Crime",
+            "blocks": [
+              {
+                "items": [
+                  "Armed men at checkpoints have been known to demand money from drivers and abuse people, especially women."
+                ]
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex relationships are not culturally accepted. Same-sex sexual activity between men is illegal and punishable by a prison sentence of up to 14 years.",
+        "emergency": {
+          "lines": [],
+          "note": "There are no central emergency numbers in South Sudan."
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2026-05-17",
+        "reasons": [
+          "unrest",
+          "crime",
+          "kidnapping",
+          "landmines",
+          "health threats"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "Foreign nationals have been the victims of rape, sexual assault, armed robberies, and other violent crimes."
+        ]
+      }
+    },
+    "Tanzania": {
+      "uk": {
+        "worst": "parts",
+        "areas": [
+          {
+            "heading": "Tanzania",
+            "rules": [
+              {
+                "level": "essential",
+                "note": null,
+                "items": [
+                  "Any area within 20km of the Tanzanian border with the Cabo Delgado province of Mozambique, due to attacks by groups linked with Islamic extremism"
+                ]
+              }
+            ]
+          }
+        ],
+        "women": [
+          {
+            "heading": "Sexual Assault",
+            "blocks": [
+              {
+                "p": "Incidents of assault, rape and sexual aggression against foreigners have occurred, including at beach resorts."
+              },
+              {
+                "p": "You can take steps to reduce your risk:"
+              },
+              {
+                "items": [
+                  "avoid walking alone at night",
+                  "do not leave drinks unattended",
+                  "be wary when dealing with strangers, and anyone offering rides or other invitations"
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Harassment",
+            "blocks": [
+              {
+                "p": "There have been cases where women travelling alone and in small groups have been verbally harassed."
+              }
+            ]
+          },
+          {
+            "heading": "Dress code",
+            "blocks": [
+              {
+                "p": "Dress modestly throughout Tanzania. Women wearing shorts or sleeveless tops away from tourist resorts in Zanzibar and Pemba, particularly in Stone Town, may cause offence to the local population."
+              },
+              {
+                "p": "Zanzibari authorities can fine you 700 US dollars or more if you’re wearing what they consider inappropriate clothing in public. For guides or tour operators, the fine can be at least 1,000 US dollars."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal in Tanzania, including Zanzibar. Same-sex relationships are not tolerated in Tanzania’s conservative society.",
+        "emergency": {
+          "lines": [
+            "112 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 3,
+        "updated": "2025-10-31",
+        "reasons": [
+          "unrest",
+          "crime",
+          "terrorism",
+          "targeting of gay and lesbian individuals"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "Violent crime is common. It includes assault, sexual assault, robberies, mugging, and carjacking."
+        ]
+      }
+    },
+    "Uganda": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Food and drink spiking",
+            "blocks": [
+              {
+                "p": "Travellers have been drugged and robbed on public transport and in bars. Do not accept food and drink from strangers."
+              }
+            ]
+          },
+          {
+            "heading": "Wearing military-style clothing",
+            "blocks": [
+              {
+                "p": "It is illegal for anyone, including children, to dress in military-style clothing. This includes clothing with marks, badges or symbols and accessories associated with the Ugandan military, camouflage clothing and red berets. The offence carries a maximum sentence of life imprisonment when convicted."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is illegal in Uganda.",
+        "emergency": {
+          "lines": [
+            "999 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 4,
+        "updated": "2025-12-08",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "unrest"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "Violent crime is a real danger in Uganda. This includes armed robbery, home invasion, and sexual assault."
+        ]
+      }
+    },
+    "Zambia": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is illegal in Zambia, and anyone convicted can get a long prison sentence.",
+        "emergency": {
+          "lines": [
+            "Police: 991",
+            "Ambulance: 992",
+            "Fire: 993"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 1,
+        "updated": "2023-07-31",
+        "reasons": [],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Zimbabwe": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Camouflage clothing",
+            "blocks": [
+              {
+                "p": "It is illegal for civilians to wear any form of clothing made from camouflage material."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Sex between men and same-sex marriage are illegal in Zimbabwe. Zimbabwean society remains conservative towards same-sex relations, especially between men.",
+        "emergency": {
+          "lines": [
+            "112 (ambulance, fire, police)",
+            "Econet (mobile service provider) subscribers: 112",
+            "NetOne (mobile service provider) subscribers: 114",
+            "Landline: 0800 3222 911"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2023-06-27",
+        "reasons": [
+          "crime",
+          "official harassment of US citizens"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Botswana": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Sexual assault",
+            "blocks": [
+              {
+                "p": "Botswana has a high number of sexual assaults. While foreign visitors are unlikely to be targeted, women should take care when walking and avoid walking alone at night."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Although same-sex sexual activity is no longer prohibited by law, public attitudes are less tolerant than in the UK and displaying affection in public may attract negative attention.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 997",
+            "Fire: 998",
+            "Police: 999"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-06-17",
+        "reasons": [
+          "crime"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Eswatini": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex sexual activity is illegal in Eswatini. LGBT+ people experience discrimination, and many are not open about their sexual orientation or gender identity.",
+        "emergency": {
+          "lines": [
+            "Ambulance: 977",
+            "Fire: 933",
+            "Police: 999"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-07-10",
+        "reasons": [
+          "crime",
+          "civil unrest"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Lesotho": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Crime",
+            "blocks": [
+              {
+                "items": [
+                  "Most crimes based on gender are between people who already know each other, but violence towards women and girls happens in all areas of the country."
+                ]
+              }
+            ]
+          }
+        ],
+        "lgbt": "Showing affection in public may attract unwanted and negative attention.",
+        "emergency": {
+          "lines": [
+            "112 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-06-17",
+        "reasons": [
+          "crime",
+          "health"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "Namibia": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [],
+        "lgbt": "Same-sex relationships are not illegal in Namibia. Certain same-sex sexual acts are illegal, but generally not prosecuted.",
+        "emergency": {
+          "lines": [
+            "10111, 999, 112 (ambulance, fire, police)"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2026-05-15",
+        "reasons": [
+          "crime",
+          "health"
+        ],
+        "doNotTravel": null,
+        "women": []
+      }
+    },
+    "South Africa": {
+      "uk": {
+        "worst": "none",
+        "areas": [],
+        "women": [
+          {
+            "heading": "Crime",
+            "blocks": [
+              {
+                "items": [
+                  "rape and sexual assault",
+                  "Criminals use dating apps to rob, rape or sexually assault victims.",
+                  "There have been instances of drink spiking involving robbery and sexual assault with both male and female victims.",
+                  "If you think your drink has been spiked, seek immediate medical help and contact the police."
+                ]
+              }
+            ]
+          },
+          {
+            "heading": "Solo and women travellers",
+            "blocks": [
+              {
+                "p": "Solo and women travellers have received unwanted attention and have been assaulted."
+              }
+            ]
+          }
+        ],
+        "lgbt": "Same-sex sexual activity is legal. It is illegal to discriminate based on sexual orientation.",
+        "emergency": {
+          "lines": [
+            "All emergencies from mobiles: 112",
+            "Ambulance and fire: 10177",
+            "Police: 10111",
+            "National Sea and Rescue Institute: 112 or +27 87 094 9774",
+            "Wilderness Search and Rescue: +27 21 937 0300"
+          ],
+          "note": null
+        }
+      },
+      "us": {
+        "level": 2,
+        "updated": "2025-05-27",
+        "reasons": [
+          "crime",
+          "terrorism",
+          "civil unrest",
+          "kidnapping"
+        ],
+        "doNotTravel": null,
+        "women": [
+          "Violent crime is common and includes robbery, rape, carjacking and mugging."
+        ]
+      }
+    }
+  }
+}

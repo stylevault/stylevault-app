@@ -17,6 +17,19 @@ export default function search(main, { query, setTitle, navigate }) {
   // A query that is exactly a country name goes straight to its file.
   const exact = store.meta.countries.find((c) => c.name.toLowerCase() === q.toLowerCase());
 
+  const activeCountry = store.meta.countries.find((c) => c.code === country);
+  const activeTopic = store.meta.topics.find((t) => t.slug === topic);
+  const activeKind = KINDS[kind] && kind ? KINDS[kind] : '';
+  const activeDays = RANGES[days] && days ? RANGES[days] : '';
+
+  const activeList = [
+    activeCountry ? activeCountry.name : null,
+    activeTopic ? activeTopic.name : null,
+    activeKind,
+    activeDays,
+  ].filter(Boolean);
+  const hasFilters = activeList.length > 0;
+
   main.innerHTML = `
     <section class="page-hero"><div class="wrap">
       <span class="eyebrow accent">Search</span>
@@ -29,14 +42,44 @@ export default function search(main, { query, setTitle, navigate }) {
     </div></section>
     <div class="wrap" style="padding-top:32px;max-width:920px">
       ${exact ? `<a class="note plum" href="/country/${exact.slug}" style="margin-bottom:20px;text-decoration:none">${icon('map')}<span>Looking for the country? <strong>Open the ${esc(exact.name)} country file →</strong></span></a>` : ''}
-      <div class="toolbar">
-        <select class="select" name="country" aria-label="Country"><option value="">All countries</option>
-          ${store.meta.countries.map((c) => `<option value="${c.code}" ${c.code === country ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select>
-        <select class="select" name="topic" aria-label="Topic"><option value="">All topics</option>
-          ${store.meta.topics.map((t) => `<option value="${t.slug}" ${t.slug === topic ? 'selected' : ''}>${esc(t.name)}</option>`).join('')}</select>
-        <select class="select" name="kind" aria-label="Type of source">${Object.entries(KINDS).map(([k, v]) => `<option value="${k}" ${k === kind ? 'selected' : ''}>${v}</option>`).join('')}</select>
-        <select class="select" name="days" aria-label="Date">${Object.entries(RANGES).map(([k, v]) => `<option value="${k}" ${k === days ? 'selected' : ''}>${v}</option>`).join('')}</select>
-      </div>
+      <details class="search-filter-panel" ${hasFilters ? 'open' : ''}>
+        <summary class="search-filter-summary">
+          <div class="sfs-left">
+            <span class="sfs-icon">${icon('sliders')}</span>
+            <span class="sfs-title">Filters ${hasFilters ? `<span class="sfs-badge">${activeList.length}</span>` : ''}</span>
+            <span class="sfs-hint">${hasFilters ? esc(activeList.join(' · ')) : 'Narrow by country, topic, source or date'}</span>
+          </div>
+          <span class="sfs-chevron">${icon('chevron-down')}</span>
+        </summary>
+        <div class="search-filters-body">
+          <div class="search-filters-grid">
+            <div class="sf-field">
+              <label class="sf-label" for="sf-country">Country</label>
+              <select class="select" id="sf-country" name="country" aria-label="Country"><option value="">All countries</option>
+                ${store.meta.countries.map((c) => `<option value="${c.code}" ${c.code === country ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select>
+            </div>
+            <div class="sf-field">
+              <label class="sf-label" for="sf-topic">Topic</label>
+              <select class="select" id="sf-topic" name="topic" aria-label="Topic"><option value="">All topics</option>
+                ${store.meta.topics.map((t) => `<option value="${t.slug}" ${t.slug === topic ? 'selected' : ''}>${esc(t.name)}</option>`).join('')}</select>
+            </div>
+            <div class="sf-field">
+              <label class="sf-label" for="sf-kind">Source Type</label>
+              <select class="select" id="sf-kind" name="kind" aria-label="Type of source">${Object.entries(KINDS).map(([k, v]) => `<option value="${k}" ${k === kind ? 'selected' : ''}>${v}</option>`).join('')}</select>
+            </div>
+            <div class="sf-field">
+              <label class="sf-label" for="sf-days">Date Range</label>
+              <select class="select" id="sf-days" name="days" aria-label="Date">${Object.entries(RANGES).map(([k, v]) => `<option value="${k}" ${k === days ? 'selected' : ''}>${v}</option>`).join('')}</select>
+            </div>
+          </div>
+          ${hasFilters ? `
+            <div class="search-filters-foot">
+              <span>${activeList.length} filter${activeList.length === 1 ? '' : 's'} applied</span>
+              <button type="button" class="search-clear-btn" data-clear-filters>Reset filters</button>
+            </div>
+          ` : ''}
+        </div>
+      </details>
       <div data-feed></div>
     </div>`;
 
@@ -47,7 +90,15 @@ export default function search(main, { query, setTitle, navigate }) {
     navigate(`/search${p.toString() ? `?${p}` : ''}`, { replace: true });
   };
   $('[data-form]', main).addEventListener('submit', (e) => { e.preventDefault(); go(); });
-  main.querySelectorAll('.toolbar select').forEach((s) => s.addEventListener('change', go));
+  main.querySelectorAll('.search-filters-grid select').forEach((s) => s.addEventListener('change', go));
+
+  const clearBtn = main.querySelector('[data-clear-filters]');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      main.querySelectorAll('.search-filters-grid select').forEach((s) => { s.value = ''; });
+      go();
+    });
+  }
 
   const feed = $('[data-feed]', main);
   if (!q && !country && !topic && !kind) {

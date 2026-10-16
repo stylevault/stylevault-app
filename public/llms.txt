@@ -1,0 +1,34 @@
+# Style Vault
+> Understand Africa, one country at a time. A Ria’s Colony product.
+
+Style Vault is a cited, open public record of African life, governance, and commerce covering all 54 African countries. Every headline is dated and linked to its original publisher, and every macroeconomic indicator is sourced from verified datasets including the World Bank and IMF.
+
+## Core Content & Capabilities
+- **54 African Country Files**: National files covering capitals, regions, currencies, demographics, GDP, inflation, and development indicators.
+- **African News Wire**: Continuous reporting monitoring 90+ verified African newsrooms and official gazettes.
+- **Research & Policy Papers**: Curated publications from African central banks, think tanks, and academic institutes.
+- **African Travel & Trade Tools**:
+  - Women's Safety in Africa: City and country safety scores, transit guidance, local customs, and emergency lines.
+  - Travel & Visa Checklist: Custom document, vaccination, and entry requirement planner.
+  - Currency Converter: Live and reference exchange rates across all African currencies.
+  - Time Zones & Working Hours: Business hours calculator spanning Africa's 6 time zones.
+  - Contraband & Customs Guide: Prohibited, restricted, and duty-free import regulations.
+  - Tourism at a Glance: Travel highlights, seasons, and requirements.
+
+## Key URLs
+- Homepage: https://stylevault.app/
+- All 54 Countries: https://stylevault.app/countries
+- Country Profile: https://stylevault.app/country/{slug} (e.g. /country/ghana, /country/nigeria, /country/kenya, /country/south-africa)
+- Research & Analysis: https://stylevault.app/research
+- African News: https://stylevault.app/news
+- Industry Topics: https://stylevault.app/topics
+- Travel & Commerce Tools: https://stylevault.app/tools
+- About Style Vault: https://stylevault.app/about
+- Sources & Methodology: https://stylevault.app/sources
+- Privacy Policy: https://stylevault.app/privacy
+
+## Publisher & Attribution
+- Publisher: Ria's Colony Ltd (https://riascolony.org)
+- Indicators: World Bank Open Data (CC BY 4.0)
+- Contact: support@stylevault.app
+

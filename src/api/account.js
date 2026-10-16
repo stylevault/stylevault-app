@@ -2,12 +2,75 @@ import { HttpError, json, readJson } from '../lib/http.js';
 import {
   clearRateLimit, clearSessionCookie, createSession, destroySession, getUser, hashPassword,
   rateLimit, requireUser, validateCredentials, verifyPassword,
+  createPasswordReset, verifyPasswordReset, consumePasswordReset,
 } from '../lib/auth.js';
 import { getArticlesByIds } from '../lib/articles.js';
 
 const now = () => Math.floor(Date.now() / 1000);
 const clientIp = (request) => request.headers.get('CF-Connecting-IP') || 'local';
 const publicUser = (u) => ({ id: u.id, email: u.email, name: u.name, createdAt: u.created_at });
+
+async function sendPasswordResetEmail({ env, to, name, resetUrl }) {
+  const subject = 'Reset your Style Vault password';
+  const html = `
+    <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:540px;margin:0 auto;padding:28px 20px;color:#1a0a1e;line-height:1.6">
+      <div style="margin-bottom:20px;border-bottom:1px solid #ebddef;padding-bottom:16px">
+        <h2 style="margin:0;color:#5c0060;font-size:1.35rem">Style Vault</h2>
+        <span style="font-size:0.75rem;color:#6b5f70;text-transform:uppercase;letter-spacing:0.06em">Account Security</span>
+      </div>
+      <p style="font-size:1rem;margin-bottom:16px">Hello ${name ? name.split(' ')[0] : 'there'},</p>
+      <p style="margin-bottom:20px">We received a request to reset your Style Vault password. You can set a new password by clicking the button below:</p>
+      <p style="margin:26px 0">
+        <a href="${resetUrl}" style="background:#5c0060;color:#ffffff;padding:12px 26px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;font-size:0.92rem">Reset password</a>
+      </p>
+      <p style="color:#6b5f70;font-size:0.84rem;line-height:1.5">Or copy and paste this link into your browser:<br><a href="${resetUrl}" style="color:#0d7470;word-break:break-all">${resetUrl}</a></p>
+      <p style="color:#8a7e8f;font-size:0.80rem;margin-top:32px;border-top:1px solid #ebddef;padding-top:16px">This link is single-use and will expire in 1 hour. If you didn't request a password reset, you can safely ignore this email.</p>
+    </div>
+  `;
+
+  // 1. Send via Resend if RESEND_API_KEY is configured
+  if (env?.RESEND_API_KEY) {
+    try {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: env.EMAIL_FROM || 'Style Vault <support@stylevault.app>',
+          to: [to],
+          subject,
+          html,
+        }),
+      });
+      if (!res.ok) console.error('Resend email error:', await res.text());
+      return;
+    } catch (e) {
+      console.error('Failed to send email via Resend:', e);
+    }
+  }
+
+  // 2. Send via Cloudflare Email Routing binding if available
+  if (env?.EMAIL && typeof env.EMAIL.send === 'function') {
+    try {
+      const { EmailMessage } = await import('cloudflare:email');
+      const sender = env.EMAIL_FROM || 'support@stylevault.app';
+      const msg = new EmailMessage(
+        sender,
+        to,
+        `From: Style Vault <${sender}>\r\nTo: ${to}\r\nSubject: ${subject}\r\nMIME-Version: 1.0\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n${html}`
+      );
+      await env.EMAIL.send(msg);
+      return;
+    } catch (e) {
+      console.error('Failed to send email via Cloudflare Email binding:', e);
+    }
+  }
+
+  // 3. Dev / audit log
+  console.log(`[PASSWORD RESET] Link generated for ${to}: ${resetUrl}`);
+}
 
 // ── Authentication ──────────────────────────────────────────────────────────
 
@@ -49,6 +112,60 @@ export async function login(request, env) {
 export async function logout(request, env) {
   await destroySession(env.DB, request);
   return json({ ok: true }, { headers: { 'Set-Cookie': clearSessionCookie(request) } });
+}
+
+export async function forgotPassword(request, env) {
+  const body = await readJson(request);
+  const email = String(body.email || '').trim().toLowerCase();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    throw new HttpError(400, 'Enter a valid email address');
+  }
+
+  await rateLimit(env.DB, `forgot-ip:${clientIp(request)}`, 10, 900);
+  await rateLimit(env.DB, `forgot:${email}`, 5, 900);
+
+  const row = await env.DB.prepare('SELECT id, email, name FROM users WHERE email = ?').bind(email).first();
+  let devLink = null;
+  if (row) {
+    const token = await createPasswordReset(env.DB, row.id);
+    const origin = new URL(request.url).origin;
+    const resetUrl = `${origin}/reset-password?token=${encodeURIComponent(token)}`;
+    devLink = resetUrl;
+    await sendPasswordResetEmail({ env, to: row.email, name: row.name, resetUrl });
+  }
+
+  return json({
+    ok: true,
+    message: 'If an account exists with that email, a password reset link has been sent.',
+  });
+}
+
+export async function resetPassword(request, env) {
+  const body = await readJson(request);
+  const token = String(body.token || '').trim();
+  const password = String(body.password || '');
+
+  if (!token) throw new HttpError(400, 'Missing reset token');
+  if (password.length < 8) throw new HttpError(400, 'Password must be at least 8 characters');
+  if (password.length > 200) throw new HttpError(400, 'Password is too long');
+
+  await rateLimit(env.DB, `reset-ip:${clientIp(request)}`, 15, 900);
+
+  const reset = await verifyPasswordReset(env.DB, token);
+  if (!reset) {
+    throw new HttpError(400, 'This password reset link is invalid or has expired. Please request a new one.');
+  }
+
+  const hash = await hashPassword(password);
+  await env.DB.batch([
+    env.DB.prepare('UPDATE users SET password_hash = ? WHERE id = ?').bind(hash, reset.user_id),
+    env.DB.prepare('DELETE FROM sessions WHERE user_id = ?').bind(reset.user_id),
+  ]);
+  await consumePasswordReset(env.DB, token);
+
+  const user = await env.DB.prepare('SELECT id, email, name, created_at FROM users WHERE id = ?').bind(reset.user_id).first();
+  const cookie = await createSession(env.DB, reset.user_id, request);
+  return json({ user: publicUser(user), message: 'Password reset successfully' }, { headers: { 'Set-Cookie': cookie } });
 }
 
 // ── Profile ─────────────────────────────────────────────────────────────────

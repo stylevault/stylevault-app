@@ -119,6 +119,43 @@ export const store = {
     return this.localSaved;
   },
 
+  // ── Custom saved links from other places ─────────────────────────────────
+  getCustomLinks() {
+    return storage.get('sv.custom_links', []);
+  },
+
+  saveCustomLink({ url, title, source = '', note = '', country = '', topic = '' }) {
+    if (!url?.trim()) throw new Error('Please enter a link URL');
+    let validUrl = url.trim();
+    if (!/^https?:\/\//i.test(validUrl)) validUrl = 'https://' + validUrl;
+    let autoSource = source.trim();
+    if (!autoSource) {
+      try { autoSource = new URL(validUrl).hostname.replace(/^www\./, ''); } catch { autoSource = 'Web Link'; }
+    }
+    const cleanTitle = (title || '').trim() || autoSource;
+    const item = {
+      id: `custom-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`,
+      url: validUrl,
+      title: cleanTitle,
+      source: autoSource,
+      note: (note || '').trim(),
+      country: (country || '').trim(),
+      topic: (topic || '').trim(),
+      isCustom: true,
+      createdAt: Date.now(),
+    };
+    const list = [item, ...this.getCustomLinks()].slice(0, 300);
+    storage.set('sv.custom_links', list);
+    emit();
+    return item;
+  },
+
+  removeCustomLink(id) {
+    const list = this.getCustomLinks().filter((x) => x.id !== id);
+    storage.set('sv.custom_links', list);
+    emit();
+  },
+
   // ── Monitors ────────────────────────────────────────────────────────────
   async saveMonitor(monitor, id = null) {
     if (this.user) {
@@ -168,5 +205,57 @@ export const store = {
       keywords: '',
     });
     return true;
+  },
+
+  // ── Reading activity tracking ──────────────────────────────────────────────
+  recordRead(article) {
+    if (!article || !article.id) return;
+    try {
+      const history = JSON.parse(localStorage.getItem('sv_reading_activity') || '[]');
+      const filtered = history.filter((x) => x.id !== article.id);
+      filtered.unshift({
+        id: article.id,
+        title: article.title,
+        countries: article.countries || [],
+        topics: article.topics || [],
+        source: article.source?.name,
+        at: Date.now(),
+      });
+      localStorage.setItem('sv_reading_activity', JSON.stringify(filtered.slice(0, 30)));
+    } catch {}
+  },
+
+  recordVisit(kind, key) {
+    if (!kind || !key) return;
+    try {
+      const history = JSON.parse(localStorage.getItem('sv_reading_activity') || '[]');
+      history.unshift({
+        visitKind: kind,
+        key,
+        countries: kind === 'country' ? [key] : [],
+        topics: kind === 'topic' ? [key] : [],
+        at: Date.now(),
+      });
+      localStorage.setItem('sv_reading_activity', JSON.stringify(history.slice(0, 30)));
+    } catch {}
+  },
+
+  getReadingActivity() {
+    try {
+      const raw = JSON.parse(localStorage.getItem('sv_reading_activity') || '[]');
+      const countryCounts = {};
+      const topicCounts = {};
+      const readIds = new Set();
+      for (const item of raw) {
+        if (item.id) readIds.add(item.id);
+        (item.countries || []).forEach((c) => { countryCounts[c] = (countryCounts[c] || 0) + 1; });
+        (item.topics || []).forEach((t) => { topicCounts[t] = (topicCounts[t] || 0) + 1; });
+      }
+      const topCountries = Object.entries(countryCounts).sort((a, b) => b[1] - a[1]).map(([c]) => c);
+      const topTopics = Object.entries(topicCounts).sort((a, b) => b[1] - a[1]).map(([t]) => t);
+      return { topCountries, topTopics, readIds: [...readIds], totalEvents: raw.length };
+    } catch {
+      return { topCountries: [], topTopics: [], readIds: [], totalEvents: 0 };
+    }
   },
 };

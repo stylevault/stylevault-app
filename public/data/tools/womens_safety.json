@@ -1,0 +1,1898 @@
+{
+  "built": "4 October 2026",
+  "countries": [
+    {
+      "country": "Algeria",
+      "region": "North Africa",
+      "wps": {
+        "rank": 123,
+        "score": 0.621
+      },
+      "womenFeelSafe": {
+        "value": 71,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 10.5,
+        "estimated": true
+      },
+      "maternalDeaths": 62,
+      "legalScore": 57.5,
+      "nearConflict": 2.6,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-08-25",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.dza.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-09-25",
+        "url": "https://www.gov.uk/foreign-travel-advice/algeria"
+      },
+      "notes": []
+    },
+    {
+      "country": "Egypt",
+      "region": "North Africa",
+      "wps": {
+        "rank": 125,
+        "score": 0.617
+      },
+      "womenFeelSafe": {
+        "value": 76,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 15.1,
+        "estimated": false
+      },
+      "maternalDeaths": 17,
+      "legalScore": 50.6,
+      "nearConflict": 52.1,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-07-15",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.egy.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-08-04",
+        "url": "https://www.gov.uk/foreign-travel-advice/egypt"
+      },
+      "notes": [
+        "Most women say they feel safe at night, but its laws give women fewer equal rights than almost anywhere else in Africa.",
+        "Made the biggest improvements to women's rights at work of any country in the world, including longer parental leave and equal pay (World Bank, 2026).",
+        "The UK says sexual assaults have been reported to its embassy."
+      ]
+    },
+    {
+      "country": "Libya",
+      "region": "North Africa",
+      "wps": {
+        "rank": 128,
+        "score": 0.608
+      },
+      "womenFeelSafe": {
+        "value": 77,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 12.7,
+        "estimated": true
+      },
+      "maternalDeaths": 59,
+      "legalScore": 50,
+      "nearConflict": 34.2,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2025-07-16",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/libya-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-07-21",
+        "url": "https://www.gov.uk/foreign-travel-advice/libya"
+      },
+      "notes": []
+    },
+    {
+      "country": "Morocco",
+      "region": "North Africa",
+      "wps": {
+        "rank": 102,
+        "score": 0.668
+      },
+      "womenFeelSafe": {
+        "value": 57,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 10.5,
+        "estimated": false
+      },
+      "maternalDeaths": 70,
+      "legalScore": 75.6,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-04-21",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/morocco-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-08-19",
+        "url": "https://www.gov.uk/foreign-travel-advice/morocco"
+      },
+      "notes": [
+        "The UK says women may get unwanted attention, especially when travelling alone."
+      ]
+    },
+    {
+      "country": "Sudan",
+      "region": "North Africa",
+      "wps": {
+        "rank": 177,
+        "score": 0.397
+      },
+      "womenFeelSafe": {
+        "value": 52,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 16.7,
+        "estimated": false
+      },
+      "maternalDeaths": 256,
+      "legalScore": 32.5,
+      "nearConflict": 63.4,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-05-15",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.sdn.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-05-11",
+        "url": "https://www.gov.uk/foreign-travel-advice/sudan"
+      },
+      "notes": []
+    },
+    {
+      "country": "Tunisia",
+      "region": "North Africa",
+      "wps": {
+        "rank": 100,
+        "score": 0.671
+      },
+      "womenFeelSafe": {
+        "value": 55,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 10.1,
+        "estimated": false
+      },
+      "maternalDeaths": 36,
+      "legalScore": 64.4,
+      "nearConflict": 7,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-05-21",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/tunisia-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-07-24",
+        "url": "https://www.gov.uk/foreign-travel-advice/tunisia"
+      },
+      "notes": [
+        "The UK says reports of sexual harassment and assault go up in the summer."
+      ]
+    },
+    {
+      "country": "Benin",
+      "region": "West Africa",
+      "wps": {
+        "rank": 138,
+        "score": 0.587
+      },
+      "womenFeelSafe": {
+        "value": 58,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 14.6,
+        "estimated": false
+      },
+      "maternalDeaths": 518,
+      "legalScore": 83.8,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-01-07",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/benin-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2025-12-15",
+        "url": "https://www.gov.uk/foreign-travel-advice/benin"
+      },
+      "notes": []
+    },
+    {
+      "country": "Burkina Faso",
+      "region": "West Africa",
+      "wps": {
+        "rank": 160,
+        "score": 0.507
+      },
+      "womenFeelSafe": {
+        "value": 63,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 11.2,
+        "estimated": false
+      },
+      "maternalDeaths": 242,
+      "legalScore": 82.5,
+      "nearConflict": 84.8,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-05-04",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/burkina-faso-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to the whole country",
+        "worst": "whole",
+        "updated": "2025-12-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/burkina-faso"
+      },
+      "notes": []
+    },
+    {
+      "country": "Cabo Verde",
+      "region": "West Africa",
+      "wps": {
+        "rank": 62,
+        "score": 0.741
+      },
+      "womenFeelSafe": {
+        "value": 58,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 10.9,
+        "estimated": false
+      },
+      "maternalDeaths": 40,
+      "legalScore": 86.3,
+      "nearConflict": 0,
+      "us": {
+        "level": 1,
+        "label": "Exercise Normal Precautions",
+        "updated": "2025-12-18",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.cpv.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-07-28",
+        "url": "https://www.gov.uk/foreign-travel-advice/cape-verde"
+      },
+      "notes": [
+        "Second best in Africa for women overall."
+      ]
+    },
+    {
+      "country": "Côte d'Ivoire",
+      "region": "West Africa",
+      "wps": {
+        "rank": 137,
+        "score": 0.589
+      },
+      "womenFeelSafe": {
+        "value": 60,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 16.4,
+        "estimated": false
+      },
+      "maternalDeaths": 359,
+      "legalScore": 95,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-02-18",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/cote-d-ivoire-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-05-29",
+        "url": "https://www.gov.uk/foreign-travel-advice/cote-d-ivoire"
+      },
+      "notes": []
+    },
+    {
+      "country": "Gambia",
+      "region": "West Africa",
+      "wps": {
+        "rank": 153,
+        "score": 0.528
+      },
+      "womenFeelSafe": {
+        "value": 39,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 10,
+        "estimated": false
+      },
+      "maternalDeaths": 354,
+      "legalScore": 69.4,
+      "nearConflict": 9.3,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-01-16",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.gmb.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-07-07",
+        "url": "https://www.gov.uk/foreign-travel-advice/the-gambia"
+      },
+      "notes": []
+    },
+    {
+      "country": "Ghana",
+      "region": "West Africa",
+      "wps": {
+        "rank": 117,
+        "score": 0.639
+      },
+      "womenFeelSafe": {
+        "value": 62,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 10.2,
+        "estimated": false
+      },
+      "maternalDeaths": 234,
+      "legalScore": 75,
+      "nearConflict": 5.9,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-07-07",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/ghana-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-07-02",
+        "url": "https://www.gov.uk/foreign-travel-advice/ghana"
+      },
+      "notes": [
+        "Moved up 32 places in the world ranking for equality between women and men (World Economic Forum, 2026).",
+        "The UK warns of sexual assault in places popular with tourists."
+      ]
+    },
+    {
+      "country": "Guinea",
+      "region": "West Africa",
+      "wps": {
+        "rank": 154,
+        "score": 0.527
+      },
+      "womenFeelSafe": {
+        "value": 56,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 20.8,
+        "estimated": false
+      },
+      "maternalDeaths": 494,
+      "legalScore": 73.8,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-02-25",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/guinea-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-08-12",
+        "url": "https://www.gov.uk/foreign-travel-advice/guinea"
+      },
+      "notes": []
+    },
+    {
+      "country": "Guinea-Bissau",
+      "region": "West Africa",
+      "wps": {
+        "rank": 159,
+        "score": 0.508
+      },
+      "womenFeelSafe": {
+        "value": 48,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 21.2,
+        "estimated": true
+      },
+      "maternalDeaths": 505,
+      "legalScore": 51.9,
+      "nearConflict": 0,
+      "us": {
+        "level": 3,
+        "label": "Reconsider Travel",
+        "updated": "2025-12-11",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.gnb.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2025-12-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/guinea-bissau"
+      },
+      "notes": []
+    },
+    {
+      "country": "Liberia",
+      "region": "West Africa",
+      "wps": {
+        "rank": 157,
+        "score": 0.512
+      },
+      "womenFeelSafe": {
+        "value": 29,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 26.9,
+        "estimated": false
+      },
+      "maternalDeaths": 628,
+      "legalScore": 81.3,
+      "nearConflict": 41.6,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-12-11",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/liberia-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-05-27",
+        "url": "https://www.gov.uk/foreign-travel-advice/liberia"
+      },
+      "notes": []
+    },
+    {
+      "country": "Mali",
+      "region": "West Africa",
+      "wps": {
+        "rank": 164,
+        "score": 0.478
+      },
+      "womenFeelSafe": {
+        "value": 67,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 18.4,
+        "estimated": false
+      },
+      "maternalDeaths": 367,
+      "legalScore": 63.8,
+      "nearConflict": 66.4,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-06-08",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/mali-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to the whole country",
+        "worst": "whole",
+        "updated": "2026-07-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/mali"
+      },
+      "notes": [
+        "One of only two countries south of the Sahara with a law against the killing of women because they are women (World Bank, 2026)."
+      ]
+    },
+    {
+      "country": "Mauritania",
+      "region": "West Africa",
+      "wps": {
+        "rank": 166,
+        "score": 0.475
+      },
+      "womenFeelSafe": {
+        "value": 60,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 18.3,
+        "estimated": true
+      },
+      "maternalDeaths": 381,
+      "legalScore": 48.1,
+      "nearConflict": 57,
+      "us": {
+        "level": 3,
+        "label": "Reconsider Travel",
+        "updated": "2026-08-18",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.mrt.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-03-24",
+        "url": "https://www.gov.uk/foreign-travel-advice/mauritania"
+      },
+      "notes": []
+    },
+    {
+      "country": "Niger",
+      "region": "West Africa",
+      "wps": {
+        "rank": 163,
+        "score": 0.492
+      },
+      "womenFeelSafe": {
+        "value": 63,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 12.9,
+        "estimated": false
+      },
+      "maternalDeaths": 350,
+      "legalScore": 53.8,
+      "nearConflict": 29.8,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-07-09",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.ner.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to the whole country",
+        "worst": "whole",
+        "updated": "2026-08-29",
+        "url": "https://www.gov.uk/foreign-travel-advice/niger"
+      },
+      "notes": []
+    },
+    {
+      "country": "Nigeria",
+      "region": "West Africa",
+      "wps": {
+        "rank": 162,
+        "score": 0.495
+      },
+      "womenFeelSafe": {
+        "value": 51,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 13.2,
+        "estimated": false
+      },
+      "maternalDeaths": 993,
+      "legalScore": 66.3,
+      "nearConflict": 60.1,
+      "us": {
+        "level": 3,
+        "label": "Reconsider Travel",
+        "updated": "2026-06-12",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/nigeria-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-09-28",
+        "url": "https://www.gov.uk/foreign-travel-advice/nigeria"
+      },
+      "notes": [
+        "More mothers die in childbirth here than in any other country in the world."
+      ]
+    },
+    {
+      "country": "Senegal",
+      "region": "West Africa",
+      "wps": {
+        "rank": 110,
+        "score": 0.657
+      },
+      "womenFeelSafe": {
+        "value": 48,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 12.4,
+        "estimated": false
+      },
+      "maternalDeaths": 237,
+      "legalScore": 72.5,
+      "nearConflict": 0,
+      "us": {
+        "level": 1,
+        "label": "Exercise Normal Precautions",
+        "updated": "2025-12-01",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.sen.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-05-13",
+        "url": "https://www.gov.uk/foreign-travel-advice/senegal"
+      },
+      "notes": []
+    },
+    {
+      "country": "Sierra Leone",
+      "region": "West Africa",
+      "wps": {
+        "rank": 133,
+        "score": 0.601
+      },
+      "womenFeelSafe": {
+        "value": 50,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 19.8,
+        "estimated": false
+      },
+      "maternalDeaths": 354,
+      "legalScore": 92.5,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-09-15",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.sle.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-06-19",
+        "url": "https://www.gov.uk/foreign-travel-advice/sierra-leone"
+      },
+      "notes": []
+    },
+    {
+      "country": "Togo",
+      "region": "West Africa",
+      "wps": {
+        "rank": 143,
+        "score": 0.562
+      },
+      "womenFeelSafe": {
+        "value": 43,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 12.7,
+        "estimated": false
+      },
+      "maternalDeaths": 349,
+      "legalScore": 97.5,
+      "nearConflict": 16.4,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-03-09",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/togo-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2025-12-15",
+        "url": "https://www.gov.uk/foreign-travel-advice/togo"
+      },
+      "notes": [
+        "Its laws give women the most equal rights at work and with money of any country in Africa."
+      ]
+    },
+    {
+      "country": "Angola",
+      "region": "Central Africa",
+      "wps": {
+        "rank": 133,
+        "score": 0.601
+      },
+      "womenFeelSafe": {
+        "value": 58,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 24.7,
+        "estimated": false
+      },
+      "maternalDeaths": 183,
+      "legalScore": 79.4,
+      "nearConflict": 2.3,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2024-09-23",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/angola-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-05-28",
+        "url": "https://www.gov.uk/foreign-travel-advice/angola"
+      },
+      "notes": [
+        "Moved up 30 places in the world ranking for equality between women and men (World Economic Forum, 2026)."
+      ]
+    },
+    {
+      "country": "Cameroon",
+      "region": "Central Africa",
+      "wps": {
+        "rank": 171,
+        "score": 0.451
+      },
+      "womenFeelSafe": {
+        "value": 41,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 22,
+        "estimated": false
+      },
+      "maternalDeaths": 258,
+      "legalScore": 60,
+      "nearConflict": 89.4,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-05-15",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/cameroon-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-02-09",
+        "url": "https://www.gov.uk/foreign-travel-advice/cameroon"
+      },
+      "notes": []
+    },
+    {
+      "country": "Central African Republic",
+      "region": "Central Africa",
+      "wps": {
+        "rank": 179,
+        "score": 0.362
+      },
+      "womenFeelSafe": {
+        "value": 50,
+        "estimated": false,
+        "year": 2017
+      },
+      "partnerViolence": {
+        "value": 20.9,
+        "estimated": false
+      },
+      "maternalDeaths": 692,
+      "legalScore": 77.5,
+      "nearConflict": 86.1,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-01-15",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.caf.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-05-28",
+        "url": "https://www.gov.uk/foreign-travel-advice/central-african-republic"
+      },
+      "notes": []
+    },
+    {
+      "country": "Chad",
+      "region": "Central Africa",
+      "wps": {
+        "rank": 165,
+        "score": 0.476
+      },
+      "womenFeelSafe": {
+        "value": 43,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 16.2,
+        "estimated": false
+      },
+      "maternalDeaths": 748,
+      "legalScore": 66.3,
+      "nearConflict": 18.6,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-04-28",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/chad-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-08-06",
+        "url": "https://www.gov.uk/foreign-travel-advice/chad"
+      },
+      "notes": [
+        "One of the lowest scores in the world for equality between women and men (World Economic Forum, 2026)."
+      ]
+    },
+    {
+      "country": "Republic of the Congo",
+      "region": "Central Africa",
+      "wps": {
+        "rank": 140,
+        "score": 0.583
+      },
+      "womenFeelSafe": {
+        "value": 45,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 18.5,
+        "estimated": true
+      },
+      "maternalDeaths": 241,
+      "legalScore": 58.1,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2024-10-02",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/republic-of-the-congo-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-06-02",
+        "url": "https://www.gov.uk/foreign-travel-advice/congo"
+      },
+      "notes": [
+        "One of only three countries south of the Sahara whose laws fully protect women from sexual harassment (World Bank, 2026)."
+      ]
+    },
+    {
+      "country": "DR Congo",
+      "region": "Central Africa",
+      "wps": {
+        "rank": 175,
+        "score": 0.405
+      },
+      "womenFeelSafe": {
+        "value": 45,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 35.6,
+        "estimated": false
+      },
+      "maternalDeaths": 427,
+      "legalScore": 78.8,
+      "nearConflict": 31.3,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-07-15",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.cod.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-09-16",
+        "url": "https://www.gov.uk/foreign-travel-advice/democratic-republic-of-the-congo"
+      },
+      "notes": [
+        "More women are hurt by a partner here than anywhere else in Africa: about 1 in 3 in the past year."
+      ]
+    },
+    {
+      "country": "Equatorial Guinea",
+      "region": "Central Africa",
+      "wps": null,
+      "womenFeelSafe": {
+        "value": 62,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 28.7,
+        "estimated": false
+      },
+      "maternalDeaths": 174,
+      "legalScore": 58.1,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-10-07",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.gnq.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-01-08",
+        "url": "https://www.gov.uk/foreign-travel-advice/equatorial-guinea"
+      },
+      "notes": [
+        "Second most peaceful country in Africa (Global Peace Index, 2026)."
+      ]
+    },
+    {
+      "country": "Gabon",
+      "region": "Central Africa",
+      "wps": {
+        "rank": 94,
+        "score": 0.679
+      },
+      "womenFeelSafe": {
+        "value": 34,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 22,
+        "estimated": false
+      },
+      "maternalDeaths": 233,
+      "legalScore": 95,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-03-30",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.gab.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2025-12-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/gabon"
+      },
+      "notes": [
+        "One of only two countries south of the Sahara with a law against the killing of women because they are women (World Bank, 2026).",
+        "But only about 1 in 3 women feel safe walking at night."
+      ]
+    },
+    {
+      "country": "São Tomé and Príncipe",
+      "region": "Central Africa",
+      "wps": {
+        "rank": 124,
+        "score": 0.62
+      },
+      "womenFeelSafe": {
+        "value": 56,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 18.1,
+        "estimated": false
+      },
+      "maternalDeaths": 75,
+      "legalScore": 83.1,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-09-04",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.stp.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2025-12-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/sao-tome-and-principe"
+      },
+      "notes": []
+    },
+    {
+      "country": "Burundi",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 174,
+        "score": 0.407
+      },
+      "womenFeelSafe": {
+        "value": 62,
+        "estimated": false,
+        "year": 2018
+      },
+      "partnerViolence": {
+        "value": 22.1,
+        "estimated": false
+      },
+      "maternalDeaths": 392,
+      "legalScore": 76.3,
+      "nearConflict": 100,
+      "us": {
+        "level": 3,
+        "label": "Reconsider Travel",
+        "updated": "2025-04-29",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/burundi-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-05-21",
+        "url": "https://www.gov.uk/foreign-travel-advice/burundi"
+      },
+      "notes": []
+    },
+    {
+      "country": "Comoros",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 135,
+        "score": 0.59
+      },
+      "womenFeelSafe": {
+        "value": 60,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 8.2,
+        "estimated": false
+      },
+      "maternalDeaths": 179,
+      "legalScore": 65,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-01-12",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.com.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2025-12-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/comoros"
+      },
+      "notes": []
+    },
+    {
+      "country": "Djibouti",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 146,
+        "score": 0.56
+      },
+      "womenFeelSafe": {
+        "value": 58,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 17.5,
+        "estimated": true
+      },
+      "maternalDeaths": 162,
+      "legalScore": 71.3,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-03-06",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.dji.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-07-27",
+        "url": "https://www.gov.uk/foreign-travel-advice/djibouti"
+      },
+      "notes": []
+    },
+    {
+      "country": "Eritrea",
+      "region": "East Africa and the islands",
+      "wps": null,
+      "womenFeelSafe": {
+        "value": 48,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 21.2,
+        "estimated": true
+      },
+      "maternalDeaths": 291,
+      "legalScore": 69.4,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2023-07-31",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/eritrea-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-07-27",
+        "url": "https://www.gov.uk/foreign-travel-advice/eritrea"
+      },
+      "notes": []
+    },
+    {
+      "country": "Ethiopia",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 156,
+        "score": 0.516
+      },
+      "womenFeelSafe": {
+        "value": 52,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 26.5,
+        "estimated": false
+      },
+      "maternalDeaths": 195,
+      "legalScore": 80,
+      "nearConflict": 67.6,
+      "us": {
+        "level": 3,
+        "label": "Reconsider Travel",
+        "updated": "2026-08-27",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.eth.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-10-01",
+        "url": "https://www.gov.uk/foreign-travel-advice/ethiopia"
+      },
+      "notes": [
+        "One of only three countries south of the Sahara whose laws fully protect women from sexual harassment (World Bank, 2026)."
+      ]
+    },
+    {
+      "country": "Kenya",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 152,
+        "score": 0.542
+      },
+      "womenFeelSafe": {
+        "value": 40,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 22.8,
+        "estimated": false
+      },
+      "maternalDeaths": 379,
+      "legalScore": 83.8,
+      "nearConflict": 20.9,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-07-28",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.ken.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-09-04",
+        "url": "https://www.gov.uk/foreign-travel-advice/kenya"
+      },
+      "notes": [
+        "Moved up 33 places in the world ranking for equality between women and men, the biggest jump of any country (World Economic Forum, 2026).",
+        "The UK says sexual assaults are rare but do happen, to men and women."
+      ]
+    },
+    {
+      "country": "Madagascar",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 168,
+        "score": 0.466
+      },
+      "womenFeelSafe": {
+        "value": 38,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 21.9,
+        "estimated": true
+      },
+      "maternalDeaths": 445,
+      "legalScore": 69.4,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-12-05",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.mdg.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-09-09",
+        "url": "https://www.gov.uk/foreign-travel-advice/madagascar"
+      },
+      "notes": [
+        "Recently allowed women to work in jobs that used to be closed to them (World Bank, 2026)."
+      ]
+    },
+    {
+      "country": "Malawi",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 150,
+        "score": 0.549
+      },
+      "womenFeelSafe": {
+        "value": 46,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 16.6,
+        "estimated": false
+      },
+      "maternalDeaths": 225,
+      "legalScore": 80,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-02-25",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/malawi-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-07-03",
+        "url": "https://www.gov.uk/foreign-travel-advice/malawi"
+      },
+      "notes": []
+    },
+    {
+      "country": "Mauritius",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 94,
+        "score": 0.679
+      },
+      "womenFeelSafe": {
+        "value": 53,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 11.4,
+        "estimated": true
+      },
+      "maternalDeaths": 66,
+      "legalScore": 89.4,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-12-08",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.mus.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-09-04",
+        "url": "https://www.gov.uk/foreign-travel-advice/mauritius"
+      },
+      "notes": [
+        "The most peaceful country in Africa (Global Peace Index, 2026).",
+        "But the US warns of \"verbal harassment and other crimes towards women traveling alone\", and the UK mentions sexual assaults on tourists."
+      ]
+    },
+    {
+      "country": "Mozambique",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 151,
+        "score": 0.548
+      },
+      "womenFeelSafe": {
+        "value": 45,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 16.4,
+        "estimated": false
+      },
+      "maternalDeaths": 82,
+      "legalScore": 82.5,
+      "nearConflict": 46.5,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-06-16",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/mozambique-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas; Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-08-20",
+        "url": "https://www.gov.uk/foreign-travel-advice/mozambique"
+      },
+      "notes": []
+    },
+    {
+      "country": "Rwanda",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 121,
+        "score": 0.624
+      },
+      "womenFeelSafe": {
+        "value": 76,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 23.5,
+        "estimated": false
+      },
+      "maternalDeaths": 229,
+      "legalScore": 91.9,
+      "nearConflict": 17.6,
+      "us": {
+        "level": 3,
+        "label": "Reconsider Travel",
+        "updated": "2026-05-11",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/rwanda-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-09-04",
+        "url": "https://www.gov.uk/foreign-travel-advice/rwanda"
+      },
+      "notes": [
+        "One of the highest shares of women in Africa who feel safe walking at night.",
+        "The US says think twice mainly because of fighting near the DR Congo border. It says not to go within 10 km of that border."
+      ]
+    },
+    {
+      "country": "Seychelles",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 40,
+        "score": 0.81
+      },
+      "womenFeelSafe": {
+        "value": 59,
+        "estimated": true,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 10.2,
+        "estimated": true
+      },
+      "maternalDeaths": 42,
+      "legalScore": 76.3,
+      "nearConflict": 0,
+      "us": {
+        "level": 1,
+        "label": "Exercise Normal Precautions",
+        "updated": "2025-12-09",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.syc.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-01-21",
+        "url": "https://www.gov.uk/foreign-travel-advice/seychelles"
+      },
+      "notes": [
+        "The best country in Africa for women overall.",
+        "The US calls it \"generally a safe destination\"."
+      ]
+    },
+    {
+      "country": "Somalia",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 170,
+        "score": 0.455
+      },
+      "womenFeelSafe": {
+        "value": 82,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 19.8,
+        "estimated": true
+      },
+      "maternalDeaths": 563,
+      "legalScore": 46.9,
+      "nearConflict": 45.2,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-05-21",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/somalia-travel-advisory.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to some areas",
+        "worst": "parts",
+        "updated": "2026-06-04",
+        "url": "https://www.gov.uk/foreign-travel-advice/somalia"
+      },
+      "notes": [
+        "More women here say they feel safe at night than anywhere else in Africa, yet the US and UK both say do not go. Feeling safe where you live is not the same as being safe as a visitor."
+      ]
+    },
+    {
+      "country": "South Sudan",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 173,
+        "score": 0.411
+      },
+      "womenFeelSafe": {
+        "value": 43,
+        "estimated": false,
+        "year": 2017
+      },
+      "partnerViolence": {
+        "value": 26.7,
+        "estimated": false
+      },
+      "maternalDeaths": 692,
+      "legalScore": 67.5,
+      "nearConflict": 42.2,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2026-05-17",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.ssd.html"
+      },
+      "uk": {
+        "status": "Advises against all travel to the whole country",
+        "worst": "whole",
+        "updated": "2026-08-25",
+        "url": "https://www.gov.uk/foreign-travel-advice/south-sudan"
+      },
+      "notes": []
+    },
+    {
+      "country": "Tanzania",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 121,
+        "score": 0.624
+      },
+      "womenFeelSafe": {
+        "value": 60,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 24.3,
+        "estimated": false
+      },
+      "maternalDeaths": 276,
+      "legalScore": 81.3,
+      "nearConflict": 15.8,
+      "us": {
+        "level": 3,
+        "label": "Reconsider Travel",
+        "updated": "2025-10-31",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.tza.html"
+      },
+      "uk": {
+        "status": "Advises against all but essential travel to some areas",
+        "worst": "parts",
+        "updated": "2026-10-01",
+        "url": "https://www.gov.uk/foreign-travel-advice/tanzania"
+      },
+      "notes": [
+        "The US warns of unrest, violent crime including sexual assault, and the targeting of gay and lesbian people.",
+        "The UK warns that foreigners have been raped or sexually attacked, including at beach resorts."
+      ]
+    },
+    {
+      "country": "Uganda",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 138,
+        "score": 0.587
+      },
+      "womenFeelSafe": {
+        "value": 44,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 26.1,
+        "estimated": false
+      },
+      "maternalDeaths": 170,
+      "legalScore": 83.8,
+      "nearConflict": 16.3,
+      "us": {
+        "level": 4,
+        "label": "Do Not Travel",
+        "updated": "2025-12-08",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/uganda-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-09-02",
+        "url": "https://www.gov.uk/foreign-travel-advice/uganda"
+      },
+      "notes": [
+        "The US says do not go, and names violent crime including sexual assault."
+      ]
+    },
+    {
+      "country": "Zambia",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 142,
+        "score": 0.566
+      },
+      "womenFeelSafe": {
+        "value": 35,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 27.8,
+        "estimated": false
+      },
+      "maternalDeaths": 85,
+      "legalScore": 81.3,
+      "nearConflict": 0,
+      "us": {
+        "level": 1,
+        "label": "Exercise Normal Precautions",
+        "updated": "2023-07-31",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.zmb.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-06-01",
+        "url": "https://www.gov.uk/foreign-travel-advice/zambia"
+      },
+      "notes": [
+        "One of only three countries south of the Sahara whose laws fully protect women from sexual harassment (World Bank, 2026)."
+      ]
+    },
+    {
+      "country": "Zimbabwe",
+      "region": "East Africa and the islands",
+      "wps": {
+        "rank": 135,
+        "score": 0.59
+      },
+      "womenFeelSafe": {
+        "value": 33,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 18.2,
+        "estimated": false
+      },
+      "maternalDeaths": 358,
+      "legalScore": 86.9,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2023-06-27",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.zwe.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-07-15",
+        "url": "https://www.gov.uk/foreign-travel-advice/zimbabwe"
+      },
+      "notes": []
+    },
+    {
+      "country": "Botswana",
+      "region": "Southern Africa",
+      "wps": {
+        "rank": 108,
+        "score": 0.658
+      },
+      "womenFeelSafe": {
+        "value": 27,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 17.1,
+        "estimated": false
+      },
+      "maternalDeaths": 155,
+      "legalScore": 63.8,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-06-17",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/botswana-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-06-01",
+        "url": "https://www.gov.uk/foreign-travel-advice/botswana"
+      },
+      "notes": [
+        "One of the most peaceful countries in Africa, but only about 1 in 4 women feel safe walking at night.",
+        "The US warns of break-ins, muggings and thefts from cars."
+      ]
+    },
+    {
+      "country": "Eswatini",
+      "region": "Southern Africa",
+      "wps": {
+        "rank": 148,
+        "score": 0.556
+      },
+      "womenFeelSafe": {
+        "value": 32,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 17.7,
+        "estimated": false
+      },
+      "maternalDeaths": 118,
+      "legalScore": 46.3,
+      "nearConflict": 100,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-07-10",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/eswatini-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2025-12-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/eswatini"
+      },
+      "notes": []
+    },
+    {
+      "country": "Lesotho",
+      "region": "Southern Africa",
+      "wps": {
+        "rank": 126,
+        "score": 0.614
+      },
+      "womenFeelSafe": {
+        "value": 29,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 16.5,
+        "estimated": false
+      },
+      "maternalDeaths": 478,
+      "legalScore": 80.6,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-06-17",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/lesotho-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2025-12-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/lesotho"
+      },
+      "notes": []
+    },
+    {
+      "country": "Namibia",
+      "region": "Southern Africa",
+      "wps": {
+        "rank": 128,
+        "score": 0.608
+      },
+      "womenFeelSafe": {
+        "value": 44,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 15.9,
+        "estimated": false
+      },
+      "maternalDeaths": 139,
+      "legalScore": 80,
+      "nearConflict": 0,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2026-05-15",
+        "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/namibia-travel-advisory.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2025-12-10",
+        "url": "https://www.gov.uk/foreign-travel-advice/namibia"
+      },
+      "notes": [
+        "4th in the world for equality between women and men, the best south of the Sahara (World Economic Forum, 2026).",
+        "But fewer than half of women feel safe walking at night."
+      ]
+    },
+    {
+      "country": "South Africa",
+      "region": "Southern Africa",
+      "wps": {
+        "rank": 113,
+        "score": 0.648
+      },
+      "womenFeelSafe": {
+        "value": 25,
+        "estimated": false,
+        "year": null
+      },
+      "partnerViolence": {
+        "value": 13.1,
+        "estimated": false
+      },
+      "maternalDeaths": 118,
+      "legalScore": 88.1,
+      "nearConflict": 47.6,
+      "us": {
+        "level": 2,
+        "label": "Exercise Increased Caution",
+        "updated": "2025-05-27",
+        "url": "https://travel.state.gov/content/tsg_aem/us/en/home/international-travel/travel-advisories/destination.zaf.html"
+      },
+      "uk": {
+        "status": "No areas to avoid",
+        "worst": "none",
+        "updated": "2026-07-08",
+        "url": "https://www.gov.uk/foreign-travel-advice/south-africa"
+      },
+      "notes": [
+        "Fewer people feel safe at night here than in any other country Gallup asked: 1 in 4 women, compared with 4 in 10 men.",
+        "The UK says women and solo travellers have received unwanted attention and have been assaulted."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "name": "Women, Peace and Security Index 2025/26",
+      "org": "Georgetown Institute for Women, Peace and Security and PRIO",
+      "used": "WPS rank and score, share of women who feel safe at night, partner violence, maternal deaths, legal score, share of women near conflict",
+      "url": "https://giwps.georgetown.edu/the-index/",
+      "data": "https://giwps.georgetown.edu/wp-content/uploads/2025/10/WPS-Index-2025-Data.xlsx"
+    },
+    {
+      "name": "US travel advisories",
+      "org": "US Department of State",
+      "used": "Advisory level and date for each country, read from the live feed",
+      "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories.html"
+    },
+    {
+      "name": "UK foreign travel advice",
+      "org": "UK Foreign, Commonwealth and Development Office",
+      "used": "Areas the UK advises against, and warnings for women travellers",
+      "url": "https://www.gov.uk/foreign-travel-advice"
+    },
+    {
+      "name": "Global Safety Report 2025",
+      "org": "Gallup",
+      "used": "Women and men who feel safe at night, worldwide and in South Africa",
+      "url": "https://news.gallup.com/poll/695240/people-feel-safe-even-global-conflicts-rise.aspx"
+    },
+    {
+      "name": "Women, Business and the Law 2026",
+      "org": "World Bank",
+      "used": "Femicide and sexual harassment laws, regional legal and enforcement scores",
+      "url": "https://www.worldbank.org/en/news/press-release/2026/02/24/women-s-economic-opportunity-laws-only-half-enforced-globally"
+    },
+    {
+      "name": "Femicides in 2024",
+      "org": "UNODC and UN Women",
+      "used": "Women killed by partners or family members, by region",
+      "url": "https://www.unodc.org/documents/data-and-analysis/briefs/Femicide_Brief_2025.pdf"
+    },
+    {
+      "name": "Global Gender Gap Report 2026",
+      "org": "World Economic Forum",
+      "used": "Gender gap ranks for Namibia, Kenya, Ghana, Angola and Chad",
+      "url": "https://www.weforum.org/publications/global-gender-gap-report-2026/digest/"
+    },
+    {
+      "name": "Global Peace Index 2026",
+      "org": "Institute for Economics and Peace",
+      "used": "Peace ranks for Mauritius and Equatorial Guinea",
+      "url": "https://www.visionofhumanity.org/maps/"
+    }
+  ]
+}

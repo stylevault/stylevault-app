@@ -1,6 +1,6 @@
 const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-/** Escapes text for safe interpolation into HTML templates. */
-export const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ESC[c]);
+/** Escapes text for safe interpolation into HTML templates and removes em-dashes. */
+export const esc = (v) => String(v ?? '').replace(/\s*—\s*/g, ' - ').replace(/[&<>"']/g, (c) => ESC[c]);
 
 export const $ = (sel, root = document) => root.querySelector(sel);
 export const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -21,7 +21,7 @@ export const nf = (n, digits = 0) => new Intl.NumberFormat('en-GB', { maximumFra
 
 /** Formats a World Bank value according to the indicator's kind. */
 export function formatIndicator(value, format) {
-  if (value === null || value === undefined) return '—';
+  if (value === null || value === undefined) return 'N/A';
   const big = (v) => (v >= 1e12 ? `${nf(v / 1e12, 2)} trillion` : v >= 1e9 ? `${nf(v / 1e9, 1)} billion` : v >= 1e6 ? `${nf(v / 1e6, 1)} million` : nf(v));
   switch (format) {
     case 'people': return big(value);

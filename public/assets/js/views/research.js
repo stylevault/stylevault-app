@@ -1,7 +1,7 @@
 import { api } from '../api.js';
-import { $, esc } from '../lib.js';
+import { $, esc, flag, icon } from '../lib.js';
 import { store } from '../store.js';
-import { emptyState, mountFeed } from '../ui.js';
+import { emptyState, mountFeed, openOptionPicker, readCard } from '../ui.js';
 
 const KINDS = [
   ['research,analysis,official', 'Everything'],
@@ -9,6 +9,14 @@ const KINDS = [
   ['analysis', 'Analysis'],
   ['official', 'Official'],
 ];
+const KIND_ICONS = { 'research,analysis,official': 'layers', research: 'book', analysis: 'chart', official: 'building' };
+
+const filterButton = (key, label, value, badge, isSet) => `
+  <button type="button" class="rf-btn ${isSet ? 'is-set' : ''}" data-pick="${key}" aria-haspopup="dialog" aria-label="${label}: ${esc(value)}">
+    <span class="rf-ico" aria-hidden="true">${badge}</span>
+    <span class="rf-copy"><small>${label}</small><strong>${esc(value)}</strong></span>
+    ${icon('chevron-down', 'icon rf-chev')}
+  </button>`;
 
 export default function research(main, { query, setTitle, navigate }) {
   setTitle('Research & analysis');
@@ -17,20 +25,16 @@ export default function research(main, { query, setTitle, navigate }) {
   const topic = store.topicBySlug.has(query.get('topic')) ? query.get('topic') : '';
 
   main.innerHTML = `
-    <section class="page-hero"><div class="wrap">
-      <span class="eyebrow accent">Research &amp; analysis</span>
+    <section class="page-hero research-hero"><div class="wrap">
+      <span class="eyebrow accent">Research &amp; reports</span>
       <h1>${country ? `Research on ${esc(store.countryByCode.get(country).name)}` : 'Read deeper'}</h1>
-      <p class="lede">Long-form work from think tanks, universities, survey organisations and public institutions, alongside expert analysis from Africa-focused publications.</p>
+      <p class="lede">Reports and studies from think tanks, universities, and public institutions across Africa.</p>
     </div></section>
     <div class="wrap" style="padding-top:36px">
-      <div class="toolbar">
-        <div class="chips" role="toolbar" aria-label="Type">
-          ${KINDS.map(([k, label]) => `<button class="chip" type="button" data-kind="${k}" aria-pressed="${k === kind}">${label}</button>`).join('')}
-        </div>
-        <select class="select" data-filter="country" aria-label="Country"><option value="">All countries</option>
-          ${store.meta.countries.map((c) => `<option value="${c.code}" ${c.code === country ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select>
-        <select class="select" data-filter="topic" aria-label="Topic"><option value="">All topics</option>
-          ${store.meta.topics.map((t) => `<option value="${t.slug}" ${t.slug === topic ? 'selected' : ''}>${esc(t.name)}</option>`).join('')}</select>
+      <div class="rf-bar">
+        ${filterButton('kind', 'Type', KINDS.find(([k]) => k === kind)[1], icon('layers'), kind !== KINDS[0][0])}
+        ${filterButton('country', 'Country', country ? store.countryByCode.get(country).name : 'All countries', country ? flag(country, 'flag', '') : icon('globe'), !!country)}
+        ${filterButton('topic', 'Topic', topic ? store.topicBySlug.get(topic).name : 'All topics', icon('book'), !!topic)}
       </div>
       <div data-feed></div>
     </div>`;
@@ -40,11 +44,27 @@ export default function research(main, { query, setTitle, navigate }) {
     for (const [k, v] of [...p]) if (!v || (k === 'kind' && v === KINDS[0][0])) p.delete(k);
     navigate(`/research${p.toString() ? `?${p}` : ''}`, { replace: true });
   };
+  const pickers = {
+    kind: () => openOptionPicker({
+      title: 'Type of reading', kicker: 'Filter research', iconName: 'layers', selected: kind,
+      options: KINDS.map(([k, label]) => ({ value: k, label, icon: KIND_ICONS[k] })),
+      onSelect: (v) => go({ kind: v }),
+    }),
+    country: () => openOptionPicker({
+      title: 'Choose a country', kicker: 'Filter research', iconName: 'globe', selected: country, searchable: true,
+      options: [{ value: '', label: 'All countries', icon: 'globe' }, ...store.meta.countries.map((c) => ({ value: c.code, label: c.name, flag: c.code }))],
+      onSelect: (v) => go({ country: v }),
+    }),
+    topic: () => openOptionPicker({
+      title: 'Choose a topic', kicker: 'Filter research', iconName: 'book', selected: topic,
+      options: [{ value: '', label: 'All topics', icon: 'layers' }, ...store.meta.topics.map((t) => ({ value: t.slug, label: t.name, icon: 'book' }))],
+      onSelect: (v) => go({ topic: v }),
+    }),
+  };
   main.addEventListener('click', (e) => {
-    const chip = e.target.closest('[data-kind]');
-    if (chip) go({ kind: chip.dataset.kind });
+    const btn = e.target.closest('[data-pick]');
+    if (btn) pickers[btn.dataset.pick]();
   });
-  main.querySelectorAll('[data-filter]').forEach((s) => s.addEventListener('change', () => go({ [s.dataset.filter]: s.value })));
 
   const isGuest = !store.user;
 
@@ -56,7 +76,7 @@ export default function research(main, { query, setTitle, navigate }) {
       const locked = isGuest && idx >= 3;
       return readCard(a, { locked });
     },
-    empty: emptyState({ title: 'Nothing matches yet', body: 'Try another country or topic. New publications are collected every hour.' }),
+    empty: emptyState({ title: 'Nothing matches yet', body: 'Try another country or topic. We check for new reports every hour.' }),
   }).then(() => {
     if (isGuest) {
       const feedEl = $('[data-feed]', main);
@@ -65,12 +85,12 @@ export default function research(main, { query, setTitle, navigate }) {
           <div class="gate-card" style="margin-top:40px">
             <div class="gate-copy">
               <span class="lock-badge">Member Access</span>
-              <h3 style="margin-top:12px">Unlock the complete think-tank archive</h3>
-              <p>Unsigned guests can preview selected briefs. Create your free StyleVault account to access full institutional whitepapers and policy studies.</p>
+              <h3 style="margin-top:12px">Read the full research library</h3>
+              <p>Guests can preview the first few reports. Create a free account to open every research paper and study.</p>
             </div>
             <div class="gate-box">
-              <strong>Free Intelligence Account</strong>
-              <span>Instant access in 30 seconds</span>
+              <strong>Free Account</strong>
+              <span>Takes 30 seconds</span>
               <a class="btn btn-plum btn-block" href="/signup">Create free account</a>
               <a class="btn btn-outline btn-block" href="/login">Sign in</a>
             </div>

@@ -1,0 +1,414 @@
+{
+  "note": "Official lists are written in plain words here. The meaning follows the source, and the link goes to the original wording.",
+  "lists": {
+    "eac": {
+      "title": "East African Community customs law (EAC Customs Management Act 2004, Second Schedule)",
+      "summary": "Kenya, Uganda, Tanzania, Rwanda and Burundi share one customs law, so this list applies in all five. Each country can add its own bans on top.",
+      "source": {
+        "text": "Kenya Revenue Authority copy of the Second Schedule",
+        "url": "https://www.kra.go.ke/images/publications/Prohibited%20and%20Restricted%20Goods%20Under%20the%20Second%20and%20Third%20Schedule%20of%20the%20Eac%20Customs%20Management%20Act,%202004.pdf"
+      },
+      "sections": [
+        {
+          "type": "ban",
+          "heading": "Banned imports (Part A)",
+          "items": [
+            "Anything banned by any other law of the country",
+            "Fake money, and fake or non-standard coins and notes",
+            "Pornography in any form, and any indecent or obscene prints, paintings, books, cards or other items",
+            "Matches made with white phosphorus",
+            "Anything using a member country's coat of arms without permission, or a copy close enough to fool people",
+            "Spirits containing harmful oils or chemicals, including thujone, star anise, benzoic aldehyde, salicylic esters, hyssop and absinthe (anise liqueurs with no more than 0.1 percent anise oil are allowed)",
+            "Narcotic drugs under international control",
+            "Hazardous waste",
+            "All soaps and cosmetics containing mercury",
+            "Used tyres for cars and light commercial vehicles",
+            "Farm chemicals: 2,4,5-T, aldrin, captafol, chlordimeform, chlorobenzilate, DDT, dieldrin, EDB, fluoroacetamide, HCH, heptachlor, hexachlorobenzene, lindane, mercury compounds, some monocrotophos products, methamidophos, phosphamidon, methyl parathion and parathion",
+            "Industrial chemicals: crocidolite (blue asbestos), PBBs, PCBs, PCTs, tris (2,3-dibromopropyl) phosphate and methyl bromide",
+            "Counterfeit goods of all kinds"
+          ]
+        },
+        {
+          "type": "restrict",
+          "heading": "Restricted imports, need a permit (Part B)",
+          "items": [
+            "Anything controlled by any other law of the country",
+            "Postal franking machines",
+            "Traps that can kill or catch wild animals",
+            "Raw (unworked) precious metals and precious stones",
+            "Guns and ammunition",
+            "Bones, horn and horn cores, raw or simply prepared, and their powder and waste",
+            "Elephant ivory, hippo teeth and rhino horn, raw or simply prepared",
+            "Worked ivory and anything made of ivory",
+            "Tortoiseshell, whalebone, horns, antlers, hooves, claws and beaks",
+            "Coral, shells and similar materials, raw or simply prepared",
+            "Carvings and items made from bone, tortoiseshell, horn, antler, coral or mother-of-pearl",
+            "Natural sponges of animal origin",
+            "Used nuclear reactor fuel",
+            "Ozone-depleting substances (Montreal Protocol)",
+            "Genetically modified products",
+            "Fish species, or their eggs, that are not native to the region",
+            "Endangered plants and animals and their products (CITES)",
+            "Second-hand tyres (commercial casings)",
+            "Psychotropic drugs under international control",
+            "Historical artefacts",
+            "Explosives items such as percussion caps, detonators and signal flares",
+            "Parts of guns and ammunition, in metal or plastic",
+            "Armoured fighting vehicles",
+            "Telescopic sights and other gun sights, unless on or with the gun they belong to",
+            "Bows, arrows and fencing foils",
+            "Antique and collectors' guns and ammunition"
+          ]
+        }
+      ]
+    },
+    "nigeria": {
+      "title": "Nigeria Customs Service: goods whose import is absolutely banned",
+      "summary": "This is the older, permanent list in the customs law. It sits alongside the Finance Ministry list from April 2026 shown above.",
+      "source": {
+        "text": "US trade.gov copy of the Nigeria Customs list",
+        "url": "https://www.trade.gov/country-commercial-guides/nigeria-prohibited-and-restricted-imports"
+      },
+      "sections": [
+        {
+          "type": "ban",
+          "heading": "Absolutely banned imports",
+          "items": [
+            "Air pistols",
+            "Airmail photographic printing paper",
+            "All counterfeit or pirated materials and articles, including fake coins of any country",
+            "Beads made of flammable celluloid or similar material",
+            "Blank invoices",
+            "Coupons for foreign football pools or other betting",
+            "Cowries",
+            "Exhausted tea, or tea mixed with other substances",
+            "Tools for reloading gun cartridges",
+            "Indecent or obscene prints, paintings, books, cards, engravings or other items",
+            "Manilas (old brass or copper ring money)",
+            "Matches made with white phosphorus",
+            "Any material with a design likely to cause a breach of the peace or offend religious views",
+            "Meat, vegetables or other food declared unfit to eat by a health officer",
+            "Cloth, textiles and clothing bearing Koranic writing",
+            "Pistols disguised as another object",
+            "Second-hand clothing",
+            "Silver or metal coins that are not legal money in Nigeria",
+            "Nuclear, industrial and other toxic waste",
+            "Any spirit above 48.5 percent alcohol, and some spirits apart from common types such as brandy, gin, rum and whisky",
+            "Weapons made to spray a harmful liquid or gas, such as tear gas, and ammunition for them"
+          ]
+        },
+        {
+          "type": "ban",
+          "heading": "Banned exports",
+          "items": [
+            "Maize",
+            "Rough or sawn timber",
+            "Raw hides and skins, including wet blue and unfinished leather",
+            "Scrap metal",
+            "Unprocessed rubber latex and rubber lumps",
+            "Artefacts and antiquities",
+            "Endangered wildlife and their products, such as crocodiles, elephants and eagles",
+            "All imported goods (you cannot re-export goods that were imported)"
+          ]
+        }
+      ]
+    },
+    "ghana": {
+      "title": "Ghana Revenue Authority: import and export bans",
+      "summary": "Ghana's Customs Act 2015 also bans importing right-hand drive vehicles unless the minister approves.",
+      "source": {
+        "text": "Ghana Revenue Authority import list",
+        "url": "https://gra.gov.gh/customs/import-prohibitions-and-restrictions/"
+      },
+      "sections": [
+        {
+          "type": "ban",
+          "heading": "Banned imports",
+          "items": [
+            "Animals or carcasses with a disease under the Diseases of Animals Act",
+            "Beads made of flammable celluloid or similar material",
+            "Raw coffee brought in by road or inland waterway",
+            "Foreign coins that are not of the proper standard",
+            "Food declared unfit to eat by a health officer",
+            "Knuckle dusters and life preservers (small clubs)",
+            "Books, newspapers and printed matter that are defamatory, scandalous or demoralising",
+            "Fake coins and fake banknotes",
+            "Indecent or obscene prints, paintings, photos, books, cards and other items",
+            "Flick knives and other knives treated as dangerous weapons",
+            "Anything banned by any other law of Ghana"
+          ]
+        },
+        {
+          "type": "restrict",
+          "heading": "Restricted imports, with who gives the permit",
+          "items": [
+            "Currency, travellers' cheques and securities: Bank of Ghana",
+            "Rough or uncut diamonds: Ministry of Mines",
+            "Mercury: Ministry of Mines",
+            "Items printed to look like money: Ministry of Finance",
+            "Gambling machines: Gaming Commission",
+            "Plants, seeds, soil and anything that can carry plant disease: Ministry of Food and Agriculture",
+            "Guns, ammunition and explosives: Ministry of the Interior",
+            "Handcuffs and key-cutting machines: Ministry of the Interior",
+            "Weapons that spray a harmful liquid or gas: Ministry of the Interior",
+            "Some spirits and alcoholic drinks: Commissioner-General of the GRA",
+            "Cinema films: Commissioner-General, and only at some ports"
+          ]
+        },
+        {
+          "type": "ban",
+          "heading": "Banned exports",
+          "items": [
+            "Round logs of 12 timber species, including rosewood",
+            "Narcotics and psychotropic drugs",
+            "African grey parrots",
+            "Endangered animal species",
+            "Currency above USD 10,000",
+            "Rattan canes and bamboo",
+            "Obscene and pornographic material",
+            "Anything banned by international law"
+          ]
+        }
+      ]
+    },
+    "gambia": {
+      "title": "Gambia Revenue Authority: Customs and Excise Act 2010",
+      "summary": null,
+      "source": {
+        "text": "Gambia Revenue Authority customs FAQs",
+        "url": "https://www.gra.gm/custom-faqs"
+      },
+      "sections": [
+        {
+          "type": "ban",
+          "heading": "Banned imports (section 38)",
+          "items": [
+            "Fake or non-standard coins and banknotes",
+            "Indecent items, including pornography",
+            "Guns and ammunition without a licence",
+            "Illegal drugs",
+            "Expired food, drinks and medicines",
+            "Waste and sludge",
+            "Any organic phosphorus compound",
+            "Goods meant to break someone's intellectual property rights, such as fakes",
+            "Asbestos in any form",
+            "Ivory and ivory items, wild animal skins, snake skins, turtle shell items and wild plants",
+            "Plastic bags",
+            "Anything banned by an international treaty the Gambia has signed",
+            "Live fish, except native species with a licence",
+            "Goods that fail Gambia Standards Bureau checks"
+          ]
+        },
+        {
+          "type": "restrict",
+          "heading": "Restricted imports, need a permit",
+          "items": [
+            "Guns: licence from the Ministry of the Interior",
+            "Key-cutting machines",
+            "Handcuffs: licence from the Ministry of the Interior",
+            "Tear gas",
+            "Live birds and animals from other African countries",
+            "Camera drones: clearance from the Ministry of Information and Communication",
+            "Military gear",
+            "Non-native live fish: licence from the Fisheries Ministry"
+          ]
+        },
+        {
+          "type": "ban",
+          "heading": "Banned exports (section 99)",
+          "items": [
+            "Guns and ammunition sent by post",
+            "Illegal drugs",
+            "Asbestos",
+            "Anything else banned by Gambian law"
+          ]
+        }
+      ]
+    },
+    "south-africa": {
+      "title": "South African Revenue Service: what travellers cannot bring in",
+      "summary": "This is the traveller version. The full list for traders is a spreadsheet of tariff codes on the SARS website.",
+      "source": {
+        "text": "SARS traveller's guide",
+        "url": "https://www.ispdhome.org/common/Uploaded%20files/ISPD2025/SARS_TravellersGuide_Customs.pdf"
+      },
+      "sections": [
+        {
+          "type": "ban",
+          "heading": "Banned",
+          "items": [
+            "All narcotic and psychotropic drugs, and habit-forming drugs such as cannabis, heroin, cocaine, Mandrax and ecstasy, plus anything used to take them",
+            "Fully automatic, military and unnumbered guns",
+            "Explosives and fireworks",
+            "Weapons of mass destruction",
+            "Poisons and other toxic substances",
+            "Cigarettes weighing more than 2 kg per 1,000",
+            "Goods with a trade mark or trade description used against the law, such as counterfeit goods",
+            "Illegal copies of anything protected by copyright",
+            "Goods made in prisons"
+          ]
+        },
+        {
+          "type": "restrict",
+          "heading": "Restricted, need a permit or must be declared",
+          "items": [
+            "South African banknotes above R25,000, gold coins, coin and stamp collections, and raw gold",
+            "Endangered plants and animals, alive or dead, and anything made from them",
+            "All plants and plant products, such as seeds, flowers, fruit, honey, margarine and vegetable oils",
+            "All animals, birds and poultry and their products, such as dairy, butter and eggs",
+            "Medicines beyond three months' supply for personal use, which need a doctor's letter or prescription"
+          ]
+        }
+      ]
+    },
+    "zambia": {
+      "title": "Zambia Revenue Authority: passenger clearance leaflet",
+      "summary": null,
+      "source": {
+        "text": "ZRA passenger clearance leaflet",
+        "url": "https://www.zra.org.zm/wp-content/uploads/2019/12/PASSENGER-CLEARANCE.pdf"
+      },
+      "sections": [
+        {
+          "type": "ban",
+          "heading": "Banned imports",
+          "items": [
+            "Fake coins or banknotes",
+            "Anything indecent, obscene or objectionable",
+            "Pirated or counterfeit goods",
+            "Goods made in prisons",
+            "Spirits containing harmful extracts, essences or chemicals",
+            "Anything banned under any other law",
+            "Narcotic drugs, which will lead to prison",
+            "Methadone, unless you have a licence or permit"
+          ]
+        },
+        {
+          "type": "restrict",
+          "heading": "Restricted, need a licence or permit",
+          "items": [
+            "Farm produce such as fresh fruit, vegetables, meat and livestock, and plants",
+            "Wheat grain and seed",
+            "Medicines and drugs",
+            "Mineral ores and precious stones",
+            "Guns and ammunition",
+            "Pets"
+          ]
+        }
+      ]
+    },
+    "mauritius": {
+      "title": "Mauritius Revenue Authority: banned and restricted goods",
+      "summary": "The MRA says this list is not complete. Items most likely to affect travellers are listed first.",
+      "source": {
+        "text": "MRA prohibited and restricted goods list",
+        "url": "https://www.mra.mu/download/ProhibitedRestricted.pdf"
+      },
+      "sections": [
+        {
+          "type": "ban",
+          "heading": "Banned tobacco and nicotine products (2022 rules)",
+          "items": [
+            "E-cigarettes and vapes, their e-liquids, devices and accessories",
+            "Any other nicotine product made to replace tobacco, except nicotine replacement therapy prescribed by a doctor",
+            "Heated tobacco products and their devices",
+            "Hookah (waterpipes) and waterpipe tobacco",
+            "Flavoured tobacco",
+            "Smokeless tobacco",
+            "Roll-your-own tobacco, papers and filters",
+            "Covers or cases made to hide the health warnings on cigarette packs"
+          ]
+        },
+        {
+          "type": "ban",
+          "heading": "Other banned imports",
+          "items": [
+            "Fake coins",
+            "Goods with a false maker's name, trade mark or place of origin",
+            "Ivory and tortoiseshell",
+            "Toy pistols and guns that fire projectiles, and caps for toy guns",
+            "Underwater fishing guns (spearguns)",
+            "Laser pointers and pens of 1 milliwatt or more",
+            "Firecrackers known as pétards rapés",
+            "Any goods, paintings or designs likely to outrage a religion or good morals",
+            "Cosmetics containing vitamin K1",
+            "White phosphorus matches",
+            "Batteries containing mercury",
+            "Sweets and gum shaped like cigarettes",
+            "Jelly sweets in mini cups or capsules containing konjac or certain thickeners",
+            "Toy motorcycle helmets, and full-face motorcycle helmets with a tinted visor",
+            "PVC teethers and teething rings",
+            "Yoyo water ball toys",
+            "Remoulded, recapped or regrooved car tyres",
+            "Fridges, freezers, air conditioners and aerosols using CFC or HCFC gases",
+            "Blue asbestos, PBBs, PCBs and PCTs",
+            "Aerosol sprays containing benzene",
+            "Kerosene stoves known as lampes vertes",
+            "Most ordinary incandescent light bulbs",
+            "Electric water heaters with a bare element",
+            "Bull bars for cars",
+            "Small fishing hooks",
+            "Hand-rolling machines for cigarettes",
+            "Many used car parts, such as brake linings, shock absorbers, filters and tyres",
+            "Second-hand cars outside the allowed age range (except an individual's first car)",
+            "Round logs and timber from Liberia",
+            "COVID-19 rapid antibody tests"
+          ]
+        },
+        {
+          "type": "restrict",
+          "heading": "Restricted, need a permit",
+          "items": [
+            "Fireworks and firecrackers",
+            "Rough diamonds and raw gold",
+            "Guns, ammunition, explosives and stun torches: Police",
+            "Medicines and e-cigarette products: Pharmacy Board",
+            "Plants, plant products and sugar cane cuttings: National Plant Protection Office",
+            "Animals, including cats and dogs: Veterinary Services",
+            "Endangered plants and animals: National Parks and Conservation Service",
+            "Telecom equipment and anything that can intercept messages: ICT Authority",
+            "Hemp products such as hemp oil and hemp soap: Mauritius Standards Bureau",
+            "Plastic bags and hazardous waste: Ministry of Environment",
+            "Coin-operated gaming machines",
+            "Second-hand vehicles"
+          ]
+        }
+      ]
+    }
+  },
+  "countries": {
+    "Kenya": [
+      "eac"
+    ],
+    "Uganda": [
+      "eac"
+    ],
+    "Tanzania": [
+      "eac"
+    ],
+    "Rwanda": [
+      "eac"
+    ],
+    "Burundi": [
+      "eac"
+    ],
+    "Nigeria": [
+      "nigeria"
+    ],
+    "Ghana": [
+      "ghana"
+    ],
+    "Gambia": [
+      "gambia"
+    ],
+    "South Africa": [
+      "south-africa"
+    ],
+    "Zambia": [
+      "zambia"
+    ],
+    "Mauritius": [
+      "mauritius"
+    ]
+  }
+}

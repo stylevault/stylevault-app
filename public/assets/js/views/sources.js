@@ -52,7 +52,7 @@ export default async function sources(main, { setTitle }) {
           const country = store.countryByCode.get(s.country);
           return `<div class="source-row">
             <span class="health ${cls}" title="${esc(label)}"></span>
-            <div><a class="name" href="${esc(s.homepage)}" target="_blank" rel="noopener">${esc(s.name)}</a>
+            <div><a class="name" href="${esc(s.homepage)}">${esc(s.name)}</a>
               <div class="sub">${country ? `${flag(country.code)} ${esc(country.name)}` : 'Pan-African'} · ${LANG[s.language] || s.language} · ${esc(label)} · ${nf(s.articles)} items</div></div>
             <span class="tag kind-${s.kind || 'news'}">${KIND_LABELS[s.kind || 'news']}</span>
           </div>`;

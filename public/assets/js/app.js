@@ -1,6 +1,6 @@
 import { $, $$, esc, icon, initials } from './lib.js';
 import { store } from './store.js';
-import { bindGlobalActions, toast } from './ui.js';
+import { bindGlobalActions, openSignupPromptModal, toast } from './ui.js';
 
 const routes = [
   ['/', 'home', () => import('./views/home.js')],
@@ -14,12 +14,27 @@ const routes = [
   ['/following', 'following', () => import('./views/monitor.js')],
   ['/monitor', 'following', () => import('./views/monitor.js')],
   ['/saved', 'saved', () => import('./views/saved.js')],
+  ['/tools', 'tools', () => import('./views/tools.js')],
+  ['/tools/:tool', 'tools', () => import('./views/tools.js')],
+  ['/eta-tracker', 'tools', () => import('./views/tools.js')],
+  ['/contraband-guide', 'tools', () => import('./views/tools.js')],
+  ['/womens-safety-africa', 'tools', () => import('./views/tools.js')],
+  ['/tourism-at-a-glance', 'tools', () => import('./views/tools.js')],
   ['/login', 'account', () => import('./views/auth.js')],
   ['/signup', 'account', () => import('./views/auth.js')],
+  ['/forgot-password', 'account', () => import('./views/auth.js')],
+  ['/reset-password', 'account', () => import('./views/auth.js')],
   ['/account', 'account', () => import('./views/account.js')],
   ['/sources', null, () => import('./views/sources.js')],
   ['/about', null, () => import('./views/about.js')],
+  ['/privacy', null, () => import('./views/privacy.js')],
 ].map(([path, nav, load]) => ({ nav, load, re: new RegExp(`^${path.replace(/:(\w+)/g, '(?<$1>[^/]+)')}/?$`) }));
+
+export function isRestrictedRoute(pathname) {
+  if (pathname === '/tools' || pathname.startsWith('/tools/') || pathname === '/eta-tracker' || pathname === '/contraband-guide' || pathname === '/womens-safety-africa' || pathname === '/tourism-at-a-glance') return false;
+  const publicPaths = ['/', '/login', '/signup', '/forgot-password', '/reset-password', '/about', '/sources', '/privacy'];
+  return !publicPaths.includes(pathname);
+}
 
 let main = $('#main');
 let cleanup = null;
@@ -32,13 +47,35 @@ export function navigate(url, { replace = false } = {}) {
   render();
 }
 
-export function setTitle(title) {
+export function setTitle(title, desc) {
   document.title = title ? `${title} · Style Vault` : 'Style Vault · Understand Africa, one country at a time';
+  if (desc) {
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', desc);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc) ogDesc.setAttribute('content', desc);
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    if (twDesc) twDesc.setAttribute('content', desc);
+  }
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.setAttribute('content', document.title);
+  const twTitle = document.querySelector('meta[name="twitter:title"]');
+  if (twTitle) twTitle.setAttribute('content', document.title);
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', location.href);
 }
 
 async function render() {
   const token = ++renderToken;
   const { pathname, searchParams, hash } = new URL(location.href);
+  await store.ready;
+
+  // Protect internal routes from unauthenticated guest access
+  if (!store.user && isRestrictedRoute(pathname)) {
+    const qs = searchParams.toString() ? `?${searchParams.toString()}` : '';
+    return navigate(`/signup?next=${encodeURIComponent(pathname + qs)}`, { replace: true });
+  }
+
   const route = routes.find((r) => r.re.test(pathname));
   const match = route?.re.exec(pathname);
 
@@ -47,7 +84,6 @@ async function render() {
   setActiveNav(route?.nav);
 
   const mod = route ? await route.load() : await import('./views/notfound.js');
-  await store.ready;
   if (token !== renderToken) return; // a newer navigation started
 
   // A fresh <main> per page, so listeners a view attached to the old one are dropped.
@@ -82,8 +118,8 @@ function accountHtml(compact) {
       <button type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="avatar">${esc(initials(u.name))}</span></button>
       <div class="menu-pop" role="menu">
         <div class="menu-head"><strong>${esc(u.name)}</strong><span>${esc(u.email)}</span></div>
-        <a href="/following" role="menuitem">${icon('star')} Following</a>
-        <a href="/saved" role="menuitem">${icon('bookmark')} Saved</a>
+        <a href="/tools" role="menuitem">${icon('layers')} Travel tools</a>
+        <a href="/about" role="menuitem">${icon('globe')} About Style Vault</a>
         <a href="/account" role="menuitem">${icon('user')} Account settings</a>
         <button type="button" role="menuitem" data-signout>${icon('logout')} Sign out</button>
       </div>
@@ -91,6 +127,9 @@ function accountHtml(compact) {
 }
 
 function renderChrome() {
+  const isGuest = !store.user;
+  document.body.classList.toggle('is-guest', isGuest);
+  $$('.site-footer nav[aria-label="For you"]').forEach((nav) => { nav.hidden = isGuest; });
   $('[data-account-slot]').innerHTML = accountHtml(false);
   $('[data-account-slot-mobile]').innerHTML = accountHtml(true);
   const n = store.savedIds.size;
@@ -121,6 +160,16 @@ function bindChrome() {
     if (url.pathname === location.pathname && url.search === location.search && url.hash) return; // in-page anchor
     e.preventDefault();
     $$('.account-menu.open').forEach((m) => m.classList.remove('open'));
+
+    // If an unauthenticated guest clicks an internal restricted link, prompt with cute modal
+    if (!store.user && isRestrictedRoute(url.pathname)) {
+      openSignupPromptModal({
+        destination: url.pathname + url.search,
+        navigate,
+      });
+      return;
+    }
+
     navigate(url.href);
   });
 

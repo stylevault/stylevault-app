@@ -1,0 +1,3465 @@
+{
+  "built": "13 October 2026",
+  "intro": [
+    "This guide brings together banned and restricted items, and the fines found, for all 54 African countries, drawn from customs, trade and government sources plus some travel and freight sites. Rules differ for commercial imports, passenger baggage, exports and criminal law, so read each entry as a practical guide, not a full legal code. Rules also change often. South Africa, for example, updated its list on 10 September 2026. Niger and the Central African Republic have limited coverage because little was published.",
+    "Banned means the item cannot legally cross the border under the rule cited. Restricted means it can cross with a permit, licence, certificate or declaration. Most countries do not publish one fixed fine for carrying a banned item. The usual outcome is seizure of the goods, a penalty set by the customs code or a court, and prison for drugs, weapons or wildlife. Where a fixed penalty could not be confirmed from an official source, no figure is given. Figures from travel or freight sites are marked as reported, not confirmed."
+  ],
+  "countries": [
+    {
+      "n": 1,
+      "country": "Algeria",
+      "region": "North Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Drugs and narcotics",
+                "Weapons and ammunition",
+                "Explosives including firecrackers",
+                "Counterfeit goods",
+                "Toy handguns",
+                "Used and retreaded tyres",
+                "Goods with false Algerian origin marks",
+                "Books or films judged harmful to public morals"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "The Algerian dinar cannot be brought in, and only a small amount can be taken out (the Algiers airport site says up to 10,000 DZD). Foreign currency above 1,000 euros must be declared. Animals need a vet check. Radios and similar devices need approval."
+            },
+            {
+              "p": "Since 25 July 2026 the currency declaration can be filled in online before you travel. News reports say non-residents must also show bank or exchange-office receipts for the money they changed in Algeria when they leave."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Undeclared currency can be seized at exit. A 2026 Finance Law tightened currency rules for non-residents. No fixed fine figure was found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "country": "Egypt",
+      "region": "North Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Prohibited on the US Commerce customs list (November 2025)",
+          "segments": [
+            {
+              "items": [
+                "Items offensive to religious beliefs",
+                "Asbestos and asbestos brake pads",
+                "Certain pesticides and chemicals",
+                "Poultry parts and offal",
+                "Two-stroke motorcycles"
+              ]
+            },
+            {
+              "p": "Used vehicles are generally banned unless under one year old, used or refurbished medical equipment is banned, and used computers older than five years are banned."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Other rules from travel and security sources, not on that list",
+          "segments": [
+            {
+              "items": [
+                "Narcotics",
+                "Firearms and toy guns",
+                "Drones without a permit (since 2017)",
+                "Exporting antiquities, corals and sea creatures"
+              ]
+            },
+            {
+              "p": "Some travel sites also list raw cotton and birds."
+            },
+            {
+              "p": "Phones: since 21 January 2026, travellers no longer get one phone free of customs duty. A tourist's own phone works in Egypt for 90 days without paying. After that, or for a phone you bring in and leave behind, duty and fees are charged."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Cash",
+          "segments": [
+            {
+              "p": "Travel sites say USD 10,000 or more must be declared and only EGP 5,000 may be carried in or out. Check the current rule with Egyptian customs."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "One travel site reports 2 to 5 years in prison and/or a fine of EGP 25,000 to 250,000 for customs violations, and a USD 1,000 fine for taking out coral. Treat these as reported, not confirmed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "country": "Libya",
+      "region": "North Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Alcohol",
+                "Drugs",
+                "Pork and pork products",
+                "Pornography",
+                "Weapons and toy guns",
+                "Knives",
+                "Counterfeit money and goods"
+              ]
+            },
+            {
+              "p": "Plants and pets need permission. Goods linked to Israel are banned according to one travel source."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Firearms, religious materials, antiquities, medicines and currency are all under strict customs rules. Libyan dinars cannot be brought in or taken out."
+            },
+            {
+              "p": "Since 4 October 2026 (Economy Ministry Decision 493), farm products other than dates, and Libyan-made foods, cannot be exported, and imported goods cannot be re-exported. Since 30 September 2026 (Decision 449), goods for trade can be imported only if they are paid for through banks. Both rules are aimed at traders, and how they apply to personal luggage is not clear."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Drug smuggling can bring life in prison or the death penalty according to Singapore's foreign ministry. The US State Department warns of long jail terms and heavy fines for drugs, and severe penalties for alcohol. No customs fine figure was found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "country": "Morocco",
+      "region": "North Africa",
+      "blocks": [
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Drones need prior permission, and travellers cannot realistically get one. Cigarette and alcohol limits apply per person and cannot be pooled between travellers."
+            }
+          ]
+        },
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "Drugs, weapons and counterfeit goods."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Unauthorised drones are confiscated and may attract fines (UK advice). Some travellers report the drone is held and returned on departure. No fixed fine figure was confirmed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "country": "Sudan",
+      "region": "North Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Alcohol",
+                "Narcotics",
+                "Pornography",
+                "Pork",
+                "Goods from Israel",
+                "Counterfeit items",
+                "Cosmetic creams not registered with the Health Ministry",
+                "Potassium bromide"
+              ]
+            },
+            {
+              "p": "Sudanese pounds cannot be imported. Sudan allowed non-Muslims to drink alcohol in 2020, but the US State Department says rules and enforcement are unclear."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Firearms need Interior Ministry permission. Fruit, vegetables, meat and fish need approval from the animal resources ministry. Bags are routinely searched at Khartoum airport. Since April 2026 (Decree No. 174), Sudan has banned imports of more than 40 kinds of goods it calls luxuries, including cosmetics, sweets, juices, furniture and textiles. The ban is aimed at traders, and how it applies to personal luggage is not clear."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The US State Department says drug convictions bring long jail terms and big fines. Alcohol was punished with 40 lashes historically. No fixed customs fine found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "country": "Tunisia",
+      "region": "North Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Narcotics",
+                "Pornography",
+                "Counterfeit goods",
+                "Cultural and historical artefacts",
+                "Explosives and fireworks",
+                "Most weapons other than licensed hunting arms",
+                "Dangerous dogs"
+              ]
+            },
+            {
+              "p": "Some sources also list henna and palm products."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "The Tunisian dinar cannot be brought in or out. Drones need prior written permission. The cash declaration threshold is reported differently on different sites (from TND 5,000 for non-residents up to TND 20,000 or more), so check the current rule."
+            },
+            {
+              "p": "In 2026 Tunisian customs officials said foreign cash must be declared above the equivalent of TND 20,000, and that it is wise to declare from TND 5,000: without the declaration made on arrival, you can take out only the equivalent of TND 5,000."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Narcotics offences are criminal and can bring severe penalties. Travellers report that CBD products have been seized. No reliable fixed customs fine was confirmed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "country": "Benin",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Guns and ammunition",
+                "Narcotics (except for medical use)",
+                "Materials that harm the environment",
+                "Hazardous material",
+                "Asbestos",
+                "Knives and deadly weapons",
+                "Ivory",
+                "Furs",
+                "Precious metals and stones",
+                "Gambling devices",
+                "Counterfeit money and goods",
+                "Pornography"
+              ]
+            },
+            {
+              "p": "Some guides also list plants, meat and live animals unless permitted."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Firearms need authorisation from the local administration, and hunting weapons need a hunting permit. One travel guide gives a cash reporting limit of USD 10,000."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None. Duty is paid on declared goods, and undeclared valuables risk fines."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "country": "Burkina Faso",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "intro": "The 2025 import ban list includes:",
+              "items": [
+                "Adulterated alcohol",
+                "Alcoholic energy drinks",
+                "Mercury-based cosmetics",
+                "Some medicines",
+                "Specific herbicides",
+                "Non-biodegradable plastics"
+              ]
+            },
+            {
+              "p": "Traveller guides also list narcotics, counterfeit goods, pornography, knives and hazardous materials."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Weapons and ammunition need special authorisation (up to 2 shotguns and 50 rounds with safety approval). Gold, seeds, medicines and some foods need Trade Ministry authorisation. Plants need a plant health certificate and meat needs a health certificate. Exporting masks, religious items and antiquities needs Culture Ministry approval."
+            },
+            {
+              "p": "Rice imports have been suspended since 29 April 2026, with no end date. Since 9 October 2026, millet, maize and sorghum flour cannot be exported. Both rules are aimed at traders."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "country": "Cabo Verde",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Drugs and narcotics",
+                "Weapons and explosives",
+                "Other illegal or risky substances"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Medicines, fuel and weapons need prior authorisation. Animals, plants and animal products need health and plant health certificates. Tobacco is limited to 200 cigarettes or 250 g per adult."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None. The customs decree-laws are 139/91 and 23/2014."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "country": "Côte d'Ivoire",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Prohibited (US Commerce guide, May 2026)",
+          "segments": [
+            {
+              "items": [
+                "Sugar",
+                "Analogue television sets and those that do not meet digital broadcasting standards",
+                "Ordinary plastic bags, including biodegradable ones (production, import, sale, possession and use are all banned)"
+              ]
+            },
+            {
+              "p": "Bakery flour is restricted."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Some textiles need Commerce Ministry approval, petroleum products need approval, live animals and animal products need veterinary clearance, alcohol above 20 percent needs an import licence, and pharmaceutical, medical and cosmetic products must be registered."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Other rules from traveller guides",
+          "segments": [
+            {
+              "items": [
+                "Drugs",
+                "Weapons",
+                "Explosives",
+                "Knives",
+                "Counterfeit money and goods",
+                "Pornography",
+                "Books banned by the government"
+              ]
+            },
+            {
+              "p": "Non-residents must declare foreign currency above CFA 1,000,000. Vehicles older than 7 years face extra taxes and penalties."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "No fixed figure."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "country": "Gambia",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "False or counterfeit money",
+                "Indecent or obscene articles",
+                "Firearms and ammunition (unless permitted)",
+                "White phosphorus matches",
+                "Organophosphorus compounds",
+                "Asbestos",
+                "Skimmed milk",
+                "Exhausted tea",
+                "Ivory",
+                "Snake skins",
+                "Military gear",
+                "Plastic bags (import ban since 1 July 2015)"
+              ]
+            },
+            {
+              "p": "Prohibited imports are listed in the Eighth Schedule of the Customs and Excise Act 2010."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Firearms need a police permit, plants need an Agriculture Director permit, and radio equipment needs Interior Ministry authorisation. Meat and many animal products are barred."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "country": "Ghana",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Narcotics",
+                "Used underwear and used sanitary products",
+                "Animal carcasses and diseased animals",
+                "Contaminated or unfit food",
+                "Counterfeit currency",
+                "Obscene material",
+                "Dangerous weapons",
+                "Mercury-based medicated soap",
+                "Toxic waste",
+                "Military or camouflage clothing"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Arms and ammunition need a permit from the Interior Ministry. Rough diamonds need a mining licence. Cash rules are in flux: sources give USD 1,000 (declare) and USD 10,000 (limit), and the Bank of Ghana issued new notices in July 2026. Carrying more than two new phones can be treated as a commercial import and taxed."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Seizure, penalties and prosecution under the Customs Act 2015 (Act 891). British advice says even small amounts of marijuana can bring a prison term of more than 5 years. No fixed customs fine was found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "country": "Guinea",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned or restricted imports",
+          "segments": [
+            {
+              "items": [
+                "Live animals and fresh meat",
+                "Firearms, ammunition and explosives",
+                "Military equipment",
+                "Pornographic publications",
+                "Poisonous and narcotic substances",
+                "Machines that could make counterfeit currency",
+                "Medals and coins",
+                "Live plants and soil fertilizers",
+                "Fuel",
+                "Asbestos products",
+                "Used vehicles over 13 years old (since 15 July 2021)"
+              ]
+            },
+            {
+              "p": "Since 21 September 2026, single-use plastic bags and packaging cannot be made, imported, sold or used anywhere in Guinea. On 7 October 2026 the government gave makers of drinking-water sachets six more months. Everything else stays banned. News reports say goods that break the rule can be seized, destroyed or sent back, with fines that double for repeat offences."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "The Guinean franc cannot be brought in or taken out beyond a small limit, foreign cash must be declared, and the US State Department says no more than 100,000 GNF or USD 5,000 may leave. Exporting precious gems needs a licence. Taking out weapons, plants, animals, food and obscene or religious literature is barred."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Attempted gem smuggling can bring imprisonment, and street currency exchange can bring arrest and military detention. No fixed fine found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 14,
+      "country": "Guinea-Bissau",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Illegal narcotics",
+                "Unlicensed firearms and explosives",
+                "Knives and deadly weapons",
+                "Counterfeit goods and pirated media",
+                "Pornographic or subversive material",
+                "Hazardous waste"
+              ]
+            },
+            {
+              "p": "Live plants and animals need permits."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Weapons need written authorisation from the defence or interior ministry. The local currency cannot be brought in or taken out. Foreign cash must be declared above USD 10,000 (or CFA 5,000,000 from ECOWAS countries)."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "One guide reports heavy fines, imprisonment or deportation. Counterfeit and pirated items are reported destroyed on the spot. No fixed figure found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "country": "Liberia",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Illegal drugs",
+                "Controlled substances and chemicals without a prescription",
+                "Weapons",
+                "Explosives and ammunition",
+                "Knives",
+                "Convict-made goods",
+                "Counterfeit money and goods",
+                "Pornography",
+                "Meat products"
+              ]
+            },
+            {
+              "p": "Flowers, seeds, pets and other animals are barred unless permitted."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Rough diamonds can be traded only under strict international rules. Cash above USD 10,000 must be declared on entry, and cash above USD 7,500 on exit. Live animals and plants need health certificates."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Australian advice says drug offences bring large fines and long jail terms. No fixed customs fine found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 16,
+      "country": "Mali",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "Narcotics, and foreign products labelled as made in Mali. Some guides list alcohol as prohibited, while the IATA guide gives an allowance of two bottles, so sources disagree. Books, films and pictures that offend local custom can be confiscated."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Arms and ammunition, medicines, veterinary products and tobacco products need ministry approval. Tourist sporting guns need customs authorisation within 24 hours of arrival. Plants need a plant health certificate. Exporting Malian archaeological objects, especially from the Niger River Valley, is restricted. Non-residents must declare foreign cash above CFA 1,000,000."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 17,
+      "country": "Mauritania",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "The US Commerce guide (February 2026) says visitors cannot import alcohol, pork or sexually explicit material."
+            },
+            {
+              "intro": "The customs code (Article 157) also bans:",
+              "items": [
+                "Narcotics",
+                "Arms and ammunition (except for the army and security forces)",
+                "Pornographic material",
+                "Anything contrary to public order",
+                "Products falsely marked as Mauritanian"
+              ]
+            },
+            {
+              "p": "A WTO review notes the customs code itself does not name alcohol or pork, so the ban may rest on other law."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Firearms and sporting guns need a licence. The ouguiya cannot be brought in by non-residents. Some companies get permission to import alcohol for foreign staff."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "One freight guide reports fines up to 50 percent of shipment value plus seizure (reported, not confirmed). Drug laws are severe, and possession can bring prison."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 18,
+      "country": "Niger",
+      "region": "West Africa",
+      "limited": true,
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "Traveller guides list no prohibited items. A freight guide lists alcohol, firearms, drugs, explosives, fresh foods and plants as banned for shipments (reported). Canada's advice says alcohol is tolerated outside Ramadan. Niamey, the capital, is now enforcing its 2014 ban on plastic carrier bags: from the start of 2027 they cannot be made, imported, sold or used there."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "The value of baggage must be declared on arrival. Cash above USD 10,000 must be declared. Pets need a vet health certificate. Exporting ivory, archaeological items and crafts over 50 years old needs a Ministry of Culture permit (travel guide)."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "One freight guide says violations lead to confiscation. No fine figure found. The US State Department advises against all travel to Niger. In Niamey, importing plastic carrier bags can bring 6 months to a year in prison, and using them at home a fine of 100 CFA francs per bag."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 19,
+      "country": "Nigeria",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned imports (Finance Ministry list dated 1 April 2026)",
+          "segments": [
+            {
+              "items": [
+                "Live or dead birds including frozen poultry",
+                "Pork and beef",
+                "Bird eggs, except hatching eggs for breeding",
+                "Refined vegetable oils in packs of 5 litres or less",
+                "Sugar in retail packs",
+                "Cocoa products, including large chocolate blocks",
+                "Tomato paste and processed tomatoes",
+                "Bottled mineral and fizzy water",
+                "Common medicines, including paracetamol, metronidazole, cotrimoxazole, chloroquine, aspirin, folic acid and multivitamins",
+                "Pharmaceutical waste",
+                "Soaps and detergents in retail packs",
+                "Ballpoint pens and refills",
+                "Bagged cement",
+                "NPK fertilisers",
+                "Corrugated paper and cartons",
+                "Glass bottles over 150 ml",
+                "Corrugated steel sheets over 600 mm wide"
+              ]
+            },
+            {
+              "p": "The list applies to goods from outside ECOWAS. It took effect on 1 April 2026, with full enforcement, including seizure, from 1 July 2026. Earlier lists also banned items such as noodles, juice, beer, carpets, footwear, bags and old used cars. News reports of the new list do not include them, but check with the Customs Service before shipping any of them."
+            },
+            {
+              "intro": "The Customs Service also lists as absolutely prohibited:",
+              "items": [
+                "Air pistols",
+                "Counterfeit and pirated goods",
+                "Blank invoices",
+                "Foreign football pool coupons",
+                "Cowries",
+                "Exhausted tea",
+                "Cartridge reloading tools",
+                "Indecent material",
+                "White phosphorus matches",
+                "Second-hand clothing",
+                "Toxic waste",
+                "Spirits above 48.5 percent alcohol",
+                "Certain weapons"
+              ]
+            },
+            {
+              "p": "Some of these can enter with a Finance Ministry waiver."
+            }
+          ]
+        },
+        {
+          "type": "ban",
+          "label": "Banned exports",
+          "segments": [
+            {
+              "items": [
+                "Maize",
+                "Rough or sawn timber",
+                "Raw hides and skins",
+                "Scrap metal",
+                "Unprocessed rubber latex",
+                "Artefacts and antiquities",
+                "Endangered wildlife"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Seizure, confiscation and possible prosecution. One clearing firm reports financial penalties of 100 to 300 percent of the duty evaded, plus audits going back up to 5 years (reported, not confirmed)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 20,
+      "country": "Senegal",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "Obscene publications, subversive publications, hazardous and electronic waste, and products from endangered species such as ivory and skins."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Weapons need authorisation from the responsible minister, and transceivers need approval."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Fines, legal action and destruction of goods for waste imports, with no figure given."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 21,
+      "country": "Sierra Leone",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "Narcotics and pornography. Section 63 of the Customs Act No. 9 of 2011 sets the full list of prohibited and restricted goods, which covers certain foods, drugs, pharmaceuticals, hazardous products, seeds, weapons, explosives and antiques."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Controlled medicines such as opioids and benzodiazepines need a written prescription. Weapons need a police permit and are held by Customs until it is issued. Non-residents may carry up to 50,000 in local currency and must declare foreign cash on arrival."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 22,
+      "country": "Togo",
+      "region": "West Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "intro": "The US Commerce guide (June 2026) lists:",
+              "items": [
+                "Alcohol and tobacco (likely as commercial imports, since travellers get allowances)",
+                "Counterfeit goods",
+                "Hazardous waste",
+                "Illegal drugs",
+                "Weapons",
+                "Ammunition",
+                "Military equipment",
+                "Unapproved pharmaceuticals",
+                "Chemicals and foods",
+                "Telecommunications equipment"
+              ]
+            },
+            {
+              "p": "Traveller guides add obscene and subversive publications."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Arms and ammunition need Interior Ministry authorisation. Medicines beyond personal need need a Health Ministry visa. Meat needs a health certificate. Satellite phones need notice to the regulator 15 days ahead. Exporting hides, skins and gold needs approval. Foreign cash above CFA 2,000,000 must be declared."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None. Drug penalties are described as strict."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 23,
+      "country": "Angola",
+      "region": "Central Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Counterfeit and pirated goods",
+                "Illegal drugs",
+                "Goods that break morality or copyright rules"
+              ]
+            },
+            {
+              "p": "Weapons, ammunition, fireworks and explosives need an Interior Ministry licence. Radios and transmitters, plants and seeds, poisons and human medicines also need approval."
+            },
+            {
+              "p": "Since 22 September 2026, plastic bags thinner than 50 microns, plastic straws, drink stirrers and cotton buds with plastic stems cannot be made, imported, sold or used in Angola (Presidential Decree 170/25). No single-use plastic is allowed on beaches or in conservation areas, museums and heritage sites."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Only Kz 50,000 in local currency can be carried in or out. Non-residents must declare foreign cash above USD 5,000 (residents above USD 10,000)."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Undeclared cash above the limits is seized and passed to the National Bank of Angola. The US State Department warns that amounts over USD 10,000 may be confiscated. False declarations are a customs offence."
+            },
+            {
+              "p": "For the plastics ban, one news report gives fines for individuals of Kz 25,000 to Kz 5 million, and says banned items brought in are taken by the state (reported, not confirmed)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 24,
+      "country": "Cameroon",
+      "region": "Central Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Prohibited (US Commerce guide, April 2026)",
+          "segments": [
+            {
+              "items": [
+                "Counterfeit goods",
+                "Narcotics",
+                "Toxic waste",
+                "Vehicles over 15 years old"
+              ]
+            },
+            {
+              "p": "Used clothing and some secondhand electronics face bans or limits."
+            },
+            {
+              "intro": "Traveller guides also list:",
+              "items": [
+                "Firearms",
+                "Explosives",
+                "Pornography",
+                "Protected species such as elephants, rhinos, big cats, parrots and marine turtles"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Weapons, pharmaceuticals, alcohol, tobacco and chemicals need special permits. Hunting weapons, swords and live plants and animals need permits. Cash above XAF 1 million to 5 million must be declared (sources differ). Drones and professional camera gear may need permission."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Confiscation and fines for counterfeit goods, and imprisonment for drugs. No figures found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 25,
+      "country": "Central African Republic",
+      "region": "Central Africa",
+      "limited": true,
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned or controlled",
+          "segments": [
+            {
+              "p": "Narcotics, and firearms and ammunition without authorisation. Diamonds and wildlife products, including animal skins, are tightly controlled and may need permits. Cameras, film, currency and weapons must be declared."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Cultural artefacts carry an export tax. Dogs and cats need a rabies certificate."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None. Rules are described as strict and not always clearly defined. The UK advises against all travel outside Bangui."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 26,
+      "country": "Chad",
+      "region": "Central Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Arms",
+                "Ammunition and explosives",
+                "Illegal drugs",
+                "Pornography",
+                "Charcoal",
+                "Plastic bags (the US Commerce guide notes a ban in N'Djamena)"
+              ]
+            },
+            {
+              "p": "Live animals need proof of vaccination."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "All photography needs a government permit, and film and cameras may be confiscated without notice. Foreign cash must be declared on arrival, and only up to XAF 10,000 of local currency can leave (2023 guide)."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 27,
+      "country": "Congo, Republic of",
+      "region": "Central Africa",
+      "blocks": [
+        {
+          "type": "note",
+          "label": "Imports",
+          "segments": [
+            {
+              "p": "The US Commerce guide (2024) says all categories of products may be imported except sugar and eggs, and that the Interior Ministry controls private firearms and ammunition. Traveller guides add narcotics, weapons, counterfeit goods and protected wildlife, but those were not on the US Commerce list."
+            }
+          ]
+        },
+        {
+          "type": "ban",
+          "label": "Banned exports",
+          "segments": [
+            {
+              "p": "Items of historical value such as carved wood pieces, sculptures and paintings."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Arts and crafts, especially wooden objects, carry an export tax. Cash brought in should not exceed CFA 5 million (about USD 8,000), and CFA over 1 million must be declared on exit. Animals need a vet certificate showing rabies vaccination."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The Brazzaville airport customs page says the fine for moving more than CFA 100,000 in breach of the rules is 50 percent of the sum. The US State Department says artefact violators risk imprisonment and heavy fines."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 28,
+      "country": "Congo, Democratic Republic of the",
+      "region": "Central Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned or controlled",
+          "segments": [
+            {
+              "p": "Two medicines, dipyrone (metamizole) and alpha beta-arteether, cannot be imported."
+            },
+            {
+              "intro": "The US Commerce guide also lists:",
+              "items": [
+                "Counterfeit currency",
+                "Obscene publications",
+                "Narcotics",
+                "Some pharmaceuticals and explosive precursors"
+              ]
+            },
+            {
+              "p": "Weapons and ammunition need special permission. Animal products face veterinary controls."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Imports valued at USD 2,500 or more need a BIVAC inspection certificate. Photography of public buildings, airports, ports, military sites and border areas is prohibited in some areas."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "A movers' guide reports a fine of 100 percent of customs duties when the BIVAC certificate is missing, and a freight guide reports up to 200 percent for other breaches. Treat both as reported, not confirmed. Photography breaches can mean confiscated equipment, arrest and fines."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 29,
+      "country": "Equatorial Guinea",
+      "region": "Central Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned or controlled",
+          "segments": [
+            {
+              "items": [
+                "Drugs",
+                "Pornographic, defamatory or obscene publications",
+                "Army-style clothing",
+                "Books and films about wars or terrorist events",
+                "Binoculars and high-tech cameras",
+                "Firearms, ammunition and knives without local authorisation"
+              ]
+            },
+            {
+              "p": "A freight guide lists alcohol and fresh food as banned for shipments, while the traveller guide gives an allowance of 1 litre of wine and 1 litre of spirits, so sources differ."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Visitors must declare currency above XAF 50,000. Photographing the presidential palace, ports, airports and military sites is prohibited and can bring imprisonment. Dogs need a rabies certificate."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "One freight guide reports fines up to 200 percent plus seizure (reported, not confirmed)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 30,
+      "country": "Gabon",
+      "region": "Central Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "The US Commerce guide says nearly everything can be imported except sugar and eggs."
+            },
+            {
+              "intro": "Traveller guides list:",
+              "items": [
+                "Illegal drugs",
+                "Guns without a licence",
+                "Knives",
+                "Counterfeit money and goods",
+                "Pornography",
+                "Plant material"
+              ]
+            },
+            {
+              "p": "Cars older than five years cannot be imported (US Commerce guide). A 2026 movers' guide gives a stricter limit of three years."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "The Interior Ministry controls all private firearms and ammunition. A movers' guide says anything in a shipment that is less than six months old is taxed in full and needs its purchase invoice. Photographing military sites and government buildings is forbidden."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Prohibited goods can be seized. No fine figure found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 31,
+      "country": "São Tomé and Príncipe",
+      "region": "Central Africa",
+      "blocks": [
+        {
+          "type": "note",
+          "label": "Imports",
+          "segments": [
+            {
+              "p": "The US Commerce guide says there is no general prohibition or restriction on imports, but some products need authorisation from the relevant authority."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Other lists from visa-guide sites (not confirmed by the US guide)",
+          "segments": [
+            {
+              "items": [
+                "Narcotics",
+                "Pornographic media",
+                "Explosives",
+                "Counterfeit copies of literary and artistic works",
+                "Harmful medicines and food",
+                "Spirits made with certain harmful essences such as wormwood",
+                "Games prohibited by law",
+                "Alcohol",
+                "Lottery tickets"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Devices for making alcohol need a Commerce Ministry permit, poisons need Health Ministry authorisation, gold and silver need export permission, and animal and plant products need a certificate of origin and inspection."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The US State Department warns of severe penalties for all drug offences. No general customs fine figure was confirmed."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 32,
+      "country": "Burundi",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Counterfeit currency and goods",
+                "Pornographic and obscene media",
+                "White phosphorus matches",
+                "Spirits made with harmful oils or chemicals",
+                "Narcotic drugs",
+                "Hazardous waste",
+                "Articles bearing a partner state's coat of arms without authority"
+              ]
+            },
+            {
+              "intro": "Traveller guides also list:",
+              "items": [
+                "Weapons",
+                "Explosives",
+                "Knives",
+                "Plants",
+                "Meat"
+              ]
+            },
+            {
+              "p": "Exporting wood charcoal, East African timber, scrap iron and fresh Nile perch or tilapia is banned."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Arms and ammunition need authorisation from the local administration. Cash above USD 10,000 is limited on entry and exit. Pets need an import permit and health certificate. Protected species need a CITES permit."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 33,
+      "country": "Comoros",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Marijuana",
+                "Cannabis and CBD products",
+                "Skin-whitening products",
+                "Sex toys",
+                "Anything pornographic"
+              ]
+            },
+            {
+              "intro": "Guides also list:",
+              "items": [
+                "Weapons and ammunition",
+                "Knives",
+                "Radioactive and hazardous material",
+                "Plants"
+              ]
+            },
+            {
+              "p": "Alcohol rules are mixed: travellers get an allowance of one bottle, alcohol can be imported with a government permit, and drinking in public is illegal."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Plants and soil need an import permit and plant health certificate. Pets need health and rabies certificates. Photographing government buildings and military sites is illegal."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The US State Department says travellers with skin-whitening products, sex toys or pornography face fines and seizure, and cannabis can bring arrest and long detention. Public drinking brings fines and possible imprisonment (Canada). No figures given."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 34,
+      "country": "Djibouti",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Illegal drugs",
+                "Weapons and ammunition",
+                "Knives and other deadly weapons",
+                "Pornographic or offensive material"
+              ]
+            },
+            {
+              "p": "Khat is legal in Djibouti, but it is banned in many other countries, so do not carry it out. One freight guide lists alcohol as banned for shipments, while travellers get an allowance, so sources differ. Drones may be checked at the airport."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Photographing military sites, ports, airports and bridges is illegal, and so is hunting."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Cannabis offences can bring fines or up to five years in prison. One travel site says export violations can bring heavy fines, prison or deportation (reported). No fixed customs fine found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 35,
+      "country": "Eritrea",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Illegal drugs",
+                "Weapons",
+                "Explosives and ammunition",
+                "Pornography"
+              ]
+            },
+            {
+              "p": "A freight guide also lists alcohol, live animals and chemicals as banned for shipments, though travellers get an alcohol allowance, so sources differ."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "All electronics, including laptops, phones and cameras, must be declared on arrival or they can be confiscated on departure. Keep receipts for purchases and currency exchanges. Taking out more than ERN 500 is prohibited. Photographing military sites, police, government buildings and infrastructure is prohibited."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The US State Department says failing to report foreign currency or electronics can bring confiscation, fines and imprisonment. No figures given."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 36,
+      "country": "Ethiopia",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "Illicit narcotics and worn (used) clothes."
+            },
+            {
+              "p": "Single-use plastic bags have been banned across Ethiopia since 31 January 2026. They cannot be made, imported, sold or used."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Medicines, food and drink, communication equipment, fertilizers, seeds and live animals need approval from the right agency. A passenger may take out only 2 kg of coffee products without special authorisation. Binoculars face acceptance limits. Plastic barrels and drums cannot be used to pack personal effects sent to Addis Ababa."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The customs proclamation sets both administrative and criminal penalties, from fines to rigorous imprisonment. No fixed figure was found."
+            },
+            {
+              "p": "For plastic bags, news reports give fines of ETB 2,000 to 5,000 for a person using or carrying one, and up to ETB 200,000 and five years in prison for makers, importers and sellers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 37,
+      "country": "Kenya",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "False money",
+                "Pornography",
+                "Narcotics",
+                "Used tyres for light commercial vehicles",
+                "Mercury cosmetics",
+                "Single-use plastic carrier bags (banned since 2017)",
+                "Nicotine pouches and other nicotine products (the Health Ministry said in 2026 the import ban stays)"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Firearms need a certificate from the Central Firearms Bureau. Drones need a Kenya Civil Aviation Authority permit. Ivory, unworked precious metals and stones, spent cartridges and historical artefacts are restricted."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "For plastic bags, a 2017 press report gave up to four years in jail or a fine of about USD 19,000. Reported figures conflict, so no current fixed fine is confirmed. Undeclared taxable goods must be paid for at the airport. Wildlife products and narcotics lead to arrest and prosecution."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 38,
+      "country": "Madagascar",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned imports",
+          "segments": [
+            {
+              "items": [
+                "Pornographic material",
+                "Counterfeit and pirated goods",
+                "Goods with false origin labels",
+                "Radioactive and hazardous waste"
+              ]
+            },
+            {
+              "p": "Weapons, explosives, drugs, diamonds, gemstones, gold and platinum jewellery and vanilla need prior authorisation."
+            }
+          ]
+        },
+        {
+          "type": "ban",
+          "label": "Banned exports",
+          "segments": [
+            {
+              "items": [
+                "Rough gemstones",
+                "Rosewood and ebony items",
+                "Zebus",
+                "Protected endemic plants and animals",
+                "CITES species",
+                "Scrap iron, aluminium and copper"
+              ]
+            },
+            {
+              "p": "Other wood crafts are limited to 7 kg per person and need a certificate."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Cash",
+          "segments": [
+            {
+              "p": "You cannot leave with more than 10,000 euros, and amounts over 1,000 euros need bank receipts. Declaration thresholds differ by source (EUR 1,000 to EUR 7,500). Ariary above 400,000 cannot be carried."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Drug offences bring long prison sentences. No fixed customs fine found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 39,
+      "country": "Malawi",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Ozone-depleting substances",
+                "Dangerous drugs (cannabis, heroin, marijuana, cocaine, Mandrax)",
+                "Hazardous waste"
+              ]
+            },
+            {
+              "p": "Restricted goods brought in without a permit are treated as prohibited."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Announced but not enforced",
+          "segments": [
+            {
+              "intro": "In March 2025 Malawi announced a two-year import ban on locally produced goods, including:",
+              "items": [
+                "Maize flour",
+                "Rice",
+                "Fresh milk",
+                "Peanut butter",
+                "Honey",
+                "Matches",
+                "Bottled water",
+                "Table eggs",
+                "Potatoes",
+                "Garlic",
+                "Ginger",
+                "Onions"
+              ]
+            },
+            {
+              "p": "The US Commerce guide (June 2026) says the ban has not been enforced."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Military-style clothing, medicines and unmanufactured gold need licences. Wild animals and their products, live fish, bird eggs, bee products and meat need approval. Underwear cannot be imported, and secondhand clothes above one bale need a permit."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The Revenue Authority seizes goods and issues a seizure notice. The Exchange Control Act, as published by the Malawi Legal Information Institute (2014 version), sets a maximum of K100,000 and five years in prison for individuals. Check the current amount."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 40,
+      "country": "Mauritius",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "E-cigarettes",
+                "Vapes",
+                "E-liquids and their accessories (banned since 31 May 2023)",
+                "Heated tobacco products such as IQOS",
+                "Nicotine pouches",
+                "Cigarette rolling papers",
+                "Counterfeit goods",
+                "Obscene material",
+                "Sugarcane cuttings and plants",
+                "Flick knives",
+                "Sword sticks",
+                "Knuckle dusters",
+                "Spearfishing gear"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Firearms need a police permit. Cash above Rs 500,000 must be declared. Personal medicines need a prescription. Tobacco is limited to 250 g per adult."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Fines of Rs 5,000 to Rs 10,000 and up to one year in prison for vape offences. One source says commercial-scale offences can bring up to 10 years and a Rs 100,000 fine (reported)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 41,
+      "country": "Mozambique",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Narcotic drugs",
+                "Psychotropic substances",
+                "Counterfeit currency and goods",
+                "Pornography",
+                "Hazardous waste",
+                "Unauthorised genetically modified organisms",
+                "Firearms without a licence"
+              ]
+            },
+            {
+              "p": "Buying or trading ivory and rhino horn without a licence is illegal."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "The metical cannot be brought in or taken out. Foreign cash above USD 5,000 must be declared (one source says USD 10,000), and so must more than MZN 10,000 in local cash. Meat can be confiscated at the border when animal diseases are around."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Australian advice says drug offences bring prison sentences. No fixed customs fine found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 42,
+      "country": "Rwanda",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Plastic carry bags and single-use plastic items (Law 17/2019, which replaced the earlier 2008 plastic bag law)",
+                "Narcotics",
+                "Firearms",
+                "Ammunition",
+                "Explosives",
+                "Pornography",
+                "Counterfeit goods",
+                "Protected wildlife"
+              ]
+            },
+            {
+              "p": "Parts of guns, detonators, signalling flares and armoured vehicles are on the customs list."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Drones need advance permits. Genetically modified products need a licence. A 0.2 percent levy applies to imported goods packed in plastic."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found (Law 17/2019)",
+          "segments": [
+            {
+              "items": [
+                "Makers: closure, seizure and FRW 10,000,000",
+                "Importers: seizure and a fine of ten times the value of the items",
+                "Wholesalers: FRW 700,000 and seizure",
+                "Retailers: FRW 300,000 and seizure",
+                "Dumping plastic waste in the wrong place: FRW 50,000"
+              ]
+            },
+            {
+              "p": "Repeat offences double the fine."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 43,
+      "country": "Seychelles",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Firearms and ammunition including replicas",
+                "Offensive weapons such as grenades, knuckle dusters, tear gas, daggers and whips",
+                "Controlled drugs",
+                "Radioactive substances",
+                "Toxic chemicals including asbestos",
+                "Counterfeit currency",
+                "Pornographic or indecent material",
+                "Camouflage clothing and fabric",
+                "Sweets or products made to look like tobacco"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Fruit and vegetables, radio equipment and satellite phones, pets, and wildlife products, corals and shells need permits."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Heavy fines, seizure and possible criminal prosecution for undeclared or banned goods. No figures given."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 44,
+      "country": "Somalia",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Pork and pork products",
+                "Frog meat",
+                "Liquors and intoxicants of all kinds",
+                "Gambling equipment (US Commerce guide)"
+              ]
+            },
+            {
+              "intro": "A recent government list bans three categories:",
+              "items": [
+                "Environmental resources such as charcoal",
+                "Narcotics and controlled substances",
+                "Counterfeit goods"
+              ]
+            },
+            {
+              "p": "One hotel guide also reports that nicotine replacement products and snus, drones and playing cards can be confiscated (reported)."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Airport customs may frisk travellers and decide on the spot what is allowed. Extra phones and electronics attract scrutiny and sometimes fees."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Drug laws are described as very harsh. No fine figure found. Several governments advise against all travel to Somalia."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 45,
+      "country": "South Sudan",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned or controlled",
+          "segments": [
+            {
+              "p": "Satellite phones must be registered, military and dual-use items (including commercial drones) get strict checks, metal detectors are tightly controlled, and professional photography gear draws extra scrutiny. Large cash sums need government permission. Freight guides list alcohol, narcotics, weapons, counterfeit goods, hazardous materials and some animal products as banned (reported)."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The US State Department says controlled items can be confiscated and can lead to arrest. No fine figure found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 46,
+      "country": "Tanzania",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "All plastic carrier bags of any thickness (mainland, since 1 June 2019)",
+                "Counterfeit currency and goods",
+                "Hazardous waste",
+                "Mercury cosmetics"
+              ]
+            },
+            {
+              "p": "A small clear zip bag for toiletries is tolerated if you keep it."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Firearms, ammunition and gun parts need permits. Drones need Tanzania Civil Aviation Authority approval. Worked ivory is effectively not allowed."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found (2019 plastic bag regulations)",
+          "segments": [
+            {
+              "items": [
+                "Manufacturing or importing: TZS 20 million to 1 billion or up to 2 years",
+                "Exporting: TZS 5 million to 20 million or up to 2 years",
+                "Storing, supplying or distributing: TZS 5 million to 50 million or up to 2 years",
+                "Selling: TZS 100,000 to 500,000 or up to 3 months",
+                "Possessing or using: TZS 30,000 to 200,000 or up to 7 days"
+              ]
+            },
+            {
+              "p": "Imported bags are sent back at the importer's cost, and offences can be settled by paying the penalty."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 47,
+      "country": "Uganda",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Used computers and laptops",
+                "Used fridges and TVs",
+                "Worn underwear",
+                "Counterfeit currency and goods",
+                "Pornography",
+                "White phosphorus matches",
+                "Plastic articles under 30 microns",
+                "Jelly sweets containing konjac"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Drones, live animals, minerals, medicines, animal products and wildlife items need clearance."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The Uganda Revenue Authority says importing prohibited items can bring up to 5 years in prison, or a penalty of 50 percent of the goods' value, or both, plus destruction costs."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 48,
+      "country": "Zambia",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Narcotics (methadone needs a licence)",
+                "Counterfeit currency and goods",
+                "Indecent or obscene goods",
+                "Goods made with prison labour",
+                "Spirits containing harmful additives"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Animals, and farm produce such as meat, fruit, vegetables and grain, need permits. Cash above USD 5,000 must be declared."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "False declarations bring forfeiture, penalties and possible prosecution. For ivory, rhino horn, tortoise shell and similar items, the penalty ranges from significant fines to a mandatory minimum five-year prison term, with asset forfeiture."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 49,
+      "country": "Zimbabwe",
+      "region": "East Africa and the islands",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Prohibited or needing special permission (US Commerce guide, March 2026)",
+          "segments": [
+            {
+              "items": [
+                "Pornography",
+                "Flick knives and lockable blades",
+                "Skin-lightening creams",
+                "Soaps and lotions",
+                "Nuclear reactors and radioactive materials",
+                "Arms and ammunition",
+                "Precious and semi-precious gems",
+                "Jewellery",
+                "Carbonated drinks for resale",
+                "Textiles and clothing",
+                "Secondhand clothes for resale"
+              ]
+            },
+            {
+              "p": "Meat imports run on a quota. Restricted imports are also set by Statutory Instrument 89 of 2021 and controlled by the Revenue Authority. Firearms, including hunting rifles, must go through the Red Route."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "The Customs and Excise Act sets offences and penalties. A standard scale of fines, in US dollars payable in Zimbabwe dollars, was set by Statutory Instrument 14A of 2023, but we could not get the table."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 50,
+      "country": "Botswana",
+      "region": "Southern Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Narcotic and habit-forming drugs in any form",
+                "Military firearms, ammunition and explosives",
+                "Indecent or obscene material such as pornographic books and videos",
+                "Semi-precious stones such as agate, amethyst, jade and tiger's eye"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Other firearms need a police permit from the Central Arms Registry. Plants, seeds and soil need agriculture permits. Wild animal products and trophies need a wildlife permit. Cash of P10,000 or more must be declared on entry and exit."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Fines or confiscation for undeclared cash. Trading in protected wildlife is prosecuted, with severe sentences. No fixed figure found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 51,
+      "country": "Eswatini",
+      "region": "Southern Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "p": "Illicit drugs and arms of war (US Commerce guide)."
+            },
+            {
+              "intro": "The Revenue Service also lists:",
+              "items": [
+                "Unlicensed medicines",
+                "Pornography",
+                "Counterfeit or substandard goods",
+                "Endangered species products under CITES rules"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "Goods worth less than E15,000 are declared on Form E. Duty-free allowances apply only to people arriving from outside the Southern African Customs Union."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Fine found",
+          "segments": [
+            {
+              "p": "None. One visa-guide page for Eswatini turned out to be a copy of Sudan's rules, so it was not used."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 52,
+      "country": "Lesotho",
+      "region": "Southern Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned",
+          "segments": [
+            {
+              "items": [
+                "Drugs and narcotics",
+                "Counterfeit goods and money",
+                "Calcium carbide",
+                "Hazardous waste",
+                "Chemicals",
+                "Weapons",
+                "Military clothing for sale",
+                "Indecent or obscene material",
+                "Prison-made goods (WTO review)"
+              ]
+            },
+            {
+              "intro": "Traveller guides add:",
+              "items": [
+                "Gambling machines",
+                "Blasphemous material",
+                "Dairy and meat products",
+                "Plants or animals without permission"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Restricted",
+          "segments": [
+            {
+              "p": "South African nationals cannot import alcohol. Goods worth more than LSL 5,000 need a SAD500 form. Cash or cheques of LSL 25,000 or more must be declared."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Australian advice says undeclared cash can be seized and you could be fined. Prohibited goods can lead to seizure and prosecution. No figures given."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 53,
+      "country": "Namibia",
+      "region": "Southern Africa",
+      "blocks": [
+        {
+          "type": "restrict",
+          "label": "Restricted (US Commerce guide, February 2024)",
+          "segments": [
+            {
+              "items": [
+                "Firearms and ammunition",
+                "Explosives and fireworks",
+                "Honey",
+                "Live plants and products",
+                "All live animals",
+                "Meat and offal",
+                "Wheat",
+                "Maize and cereals",
+                "Used pneumatic tyres",
+                "Raw hides and skins",
+                "Diamonds and gold"
+              ]
+            },
+            {
+              "p": "Each needs an import or export permit or licence. Namibia uses the same list as the other Southern African Customs Union members, which is the South African list."
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "label": "Declarations",
+          "segments": [
+            {
+              "p": "Use the green channel only if you carry no prohibited or restricted goods, nothing for resale and no goods carried for other people. Cars and items you take out may need a declaration form (NA 305)."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Goods that are not properly declared can be seized. No fixed figure found."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 54,
+      "country": "South Africa",
+      "region": "Southern Africa",
+      "blocks": [
+        {
+          "type": "ban",
+          "label": "Banned and restricted",
+          "segments": [
+            {
+              "p": "The Revenue Service keeps a Prohibited and Restricted Imports and Exports list tied to tariff headings, last updated on 10 September 2026. Prohibited goods can never enter or leave. Restricted goods can enter or leave only with a permit, certificate or letter of authority from bodies such as the trade commission (ITAC), the standards regulator (NRCS), the Reserve Bank or the Border Management Authority. The rules apply to all goods and all transport, not only to travellers. Counterfeit goods are banned, including importing them, having them for trade, exporting them, and selling them."
+            }
+          ]
+        },
+        {
+          "type": "restrict",
+          "label": "Cash",
+          "segments": [
+            {
+              "p": "Since 1 July 2026, anyone crossing South Africa's borders with cash, currency or bearer instruments worth more than R100,000 must declare it in the Revenue Service's online traveller declaration system. The rule comes from the Financial Intelligence Centre Act."
+            }
+          ]
+        },
+        {
+          "type": "penalty",
+          "label": "Penalty found",
+          "segments": [
+            {
+              "p": "Goods can be detained, seized, destroyed or sent back. Rights holders can ask the Commissioner to seize counterfeit goods under the Counterfeit Goods Act 1997. No fixed fine figure found."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "intro": "Findings come from search result excerpts read on 20 September 2026. Nigeria's import list was re-checked on 24 September 2026, and the official lists were read from the source documents on 30 September 2026. Government and official pages are listed first in each group. Blog and travel-site figures are marked as reported in the text above. On 4 October 2026 every source link was checked again and the news was searched for changes since the first round. What changed is listed in the last group.",
+    "groups": [
+      {
+        "heading": null,
+        "items": [
+          {
+            "label": "Nigeria",
+            "links": [
+              {
+                "text": "Nigeria Customs Service prohibition list",
+                "url": "https://customs.gov.ng/?page_id=3079"
+              },
+              {
+                "text": "Arise News on the 1 April 2026 prohibition list",
+                "url": "https://www.arise.tv/nigeria-bans-importation-of-medicines-food-items-others-to-boost-local-industry-conserve-forex/"
+              },
+              {
+                "text": "Tribune on the ECOWAS exemption and transition period",
+                "url": "https://tribuneonlineng.com/the-implications-of-nigerias-new-importation-ban/"
+              },
+              {
+                "text": "Legit.ng on the medicines list",
+                "url": "https://www.legit.ng/business-economy/economy/1706861-food-drugs-fg-updates-list-banned-import-items-trade-policy/"
+              },
+              {
+                "text": "export.gov Nigeria guide",
+                "url": "https://legacy.export.gov/article?id=Nigeria-Prohibited-and-Restricted-Imports"
+              },
+              {
+                "text": "WTO trade policy profile",
+                "url": "https://qr.wto.org/es/profile/nigeria"
+              },
+              {
+                "text": "SGK Global import guide",
+                "url": "https://sgkglobal.com/nigeria-customs-import-regulations-2026/"
+              }
+            ]
+          },
+          {
+            "label": "Kenya",
+            "links": [
+              {
+                "text": "Kenya Trade Portal",
+                "url": "https://infotradekenya.go.ke/menu/825"
+              },
+              {
+                "text": "Nairobi airport customs page",
+                "url": "https://www.nairobi-airport.com/en/customs_nairobi_airport.php"
+              },
+              {
+                "text": "Kenyans.co.ke on KRA screening",
+                "url": "https://www.kenyans.co.ke/news/121990-kra-explains-restricted-prohibited-items-details-verification-process-while-entering"
+              },
+              {
+                "text": "plastic bag ban report, 2017",
+                "url": "https://www.pressreader.com/usa/the-columbus-dispatch/20170829/281513636287679"
+              },
+              {
+                "text": "Roafly Kenya guide",
+                "url": "https://www.roafly.com/blog/kenya-airport-customs-rules"
+              }
+            ]
+          },
+          {
+            "label": "South Africa",
+            "links": [
+              {
+                "text": "SARS prohibited, restricted and counterfeit goods",
+                "url": "https://www.sars.gov.za/customs-and-excise/prohibited-restricted-and-counterfeit-goods/"
+              },
+              {
+                "text": "SARS policy SC-CC-32",
+                "url": "https://www.sars.gov.za/wp-content/uploads/Ops/Policies/SC-CC-32-Prohibited-and-Restricted-Goods-External-Policy.pdf"
+              }
+            ]
+          },
+          {
+            "label": "Egypt",
+            "links": [
+              {
+                "text": "Explore Luxor customs guide",
+                "url": "https://exploreluxor.org/customs/"
+              },
+              {
+                "text": "Nasha Planeta Egypt customs",
+                "url": "https://nashaplaneta.net/africa/egypt/tamozhennye-pravila-egipta_en"
+              },
+              {
+                "text": "Egypt Country Commercial Guide",
+                "url": "https://www.trade.gov/country-commercial-guides/egypt-business-travel"
+              }
+            ]
+          },
+          {
+            "label": "Ghana",
+            "links": [
+              {
+                "text": "GRA passenger obligations",
+                "url": "https://gra.gov.gh/customs/passengers-obligations-at-customs/"
+              },
+              {
+                "text": "Pulse Ghana on GRA lists",
+                "url": "https://www.pulse.com.gh/story/gra-prohibited-restricted-goods-ghana-2026082517052028049"
+              },
+              {
+                "text": "Accra airport customs page",
+                "url": "https://www.accra-airport.com/en/customs_accra_airport.php"
+              },
+              {
+                "text": "MyJoyOnline on phone limits",
+                "url": "https://www.myjoyonline.com/flying-into-ghana-with-more-than-2-phones-may-face-commercial-import-charges-gra/"
+              }
+            ]
+          },
+          {
+            "label": "Tanzania",
+            "links": [
+              {
+                "text": "FB Attorneys on the plastic regulations",
+                "url": "https://fbattorneys.co.tz/legal-update-20-may-2019/"
+              },
+              {
+                "text": "Down To Earth",
+                "url": "https://www.downtoearth.org.in/waste/tanzania-bans-plastic-bags-64934"
+              },
+              {
+                "text": "Daily Trust",
+                "url": "https://dailytrust.com/tanzania-imposes-ban-on-plastic-shopping-bags/"
+              },
+              {
+                "text": "Tanzania Safaris",
+                "url": "https://www.tanzania-safaris.com/post/what-can-i-not-bring-into-tanzania"
+              }
+            ]
+          },
+          {
+            "label": "Rwanda",
+            "links": [
+              {
+                "text": "Law 17/2019 text",
+                "url": "https://leap.unep.org/en/countries/rw/national-legislation/law-no-172019-relating-prohibition-manufacturing-importation-use"
+              },
+              {
+                "text": "Laws.Africa copy",
+                "url": "https://rwandalii.org/akn/rw/act/law/2019/17/eng@2019-09-23/source.pdf"
+              },
+              {
+                "text": "RRA prohibited goods",
+                "url": "https://www.rra.gov.rw/en/customs-services/travelers/prohibited-goods"
+              },
+              {
+                "text": "Rwanda Country Commercial Guide",
+                "url": "https://www.trade.gov/country-commercial-guides/rwanda-prohibited-and-restricted-items"
+              }
+            ]
+          },
+          {
+            "label": "Morocco",
+            "links": [
+              {
+                "text": "Bladi on customs and drones",
+                "url": "https://en.bladi.net/moroccan-customs-crackdown-drones-banned-scooters-limited-returning-expats,115386.html"
+              },
+              {
+                "text": "Sahara Atlas Tours",
+                "url": "https://saharaatlastours.com/post/drone-regulations-in-morocco---travel-tips-for-visitors"
+              },
+              {
+                "text": "Aubin Aerial Photographer",
+                "url": "https://www.aubindronephoto.fr/en/post/why-are-drones-banned-in-morocco"
+              }
+            ]
+          },
+          {
+            "label": "Algeria",
+            "links": [
+              {
+                "text": "US Embassy Algiers customs page",
+                "url": "https://dz.usembassy.gov/additional-resources-for-u-s-citizens/customs-information/"
+              },
+              {
+                "text": "Algiers airport customs rules",
+                "url": "https://www.aeroport-alger.com/en/customs_algiers_airport.php"
+              },
+              {
+                "text": "APAnews on 2026 currency controls",
+                "url": "https://apanews.net/algeria-enforces-strict-new-currency-controls/"
+              },
+              {
+                "text": "US State Department Algeria page",
+                "url": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Algeria.html"
+              }
+            ]
+          },
+          {
+            "label": "Tunisia",
+            "links": [
+              {
+                "text": "eTunisie customs guide",
+                "url": "https://etunisie.net/plan/customs"
+              },
+              {
+                "text": "VisaHQ Tunisia customs",
+                "url": "https://www.visahq.com/tunisia/customs/"
+              },
+              {
+                "text": "Roafly Tunisia laws",
+                "url": "https://www.roafly.com/bg/blog/tunisia-tourist-bans-laws"
+              }
+            ]
+          },
+          {
+            "label": "Libya",
+            "links": [
+              {
+                "text": "US State Department Libya advisory",
+                "url": "https://travel.state.gov/en/international-travel/travel-advisories/libya.html"
+              },
+              {
+                "text": "Singapore Ministry of Foreign Affairs",
+                "url": "https://www.mfa.gov.sg/travelling-overseas/travel-advisories-notices-and-visa-information/libya/"
+              },
+              {
+                "text": "VisaHQ Libya customs",
+                "url": "https://www.visahq.com/libya/customs/"
+              }
+            ]
+          },
+          {
+            "label": "Uganda",
+            "links": [
+              {
+                "text": "Uganda Revenue Authority prohibited goods (archived copy, February 2026)",
+                "url": "https://web.archive.org/web/20260212030313/https://ura.go.ug/en/prohibited-and-restricted-goods-reviewed-docx/"
+              },
+              {
+                "text": "URA Entebbe FAQ",
+                "url": "https://ura.go.ug/en/frequently-asked-questions-for-goods-handled-at-entebbe-airport/"
+              }
+            ]
+          },
+          {
+            "label": "Ethiopia",
+            "links": [
+              {
+                "text": "Ethiopian Airlines customs notice",
+                "url": "https://www.ethiopianairlines.com/travel-update/ethiopian-customs-regulation"
+              },
+              {
+                "text": "Ethiopia Customs Guide",
+                "url": "https://www.slideshare.net/slideshow/ethiopiacustomsguidepdf/252612802"
+              },
+              {
+                "text": "2merkato on customs regulations",
+                "url": "https://www.2merkato.com/articles/customs/34-customs-regulations-in-ethiopia"
+              }
+            ]
+          },
+          {
+            "label": "Zimbabwe",
+            "links": [
+              {
+                "text": "ZIMRA restricted and prohibited goods",
+                "url": "https://www.zimra.co.zw/customs/restricted-and-prohibited-goods"
+              },
+              {
+                "text": "ZIMRA offences and standard scale of fines",
+                "url": "https://zimra.co.zw/news/2179-offences-and-standard-scale-of-fines"
+              },
+              {
+                "text": "Harare airport customs page",
+                "url": "https://www.harare-airport.com/en/customs_harare_airport.php"
+              }
+            ]
+          },
+          {
+            "label": "Mauritius",
+            "links": [
+              {
+                "text": "Air Mauritius dangerous goods note",
+                "url": "https://www.airmauritius.com/en/before-you-fly/baggage/dangerous-goods"
+              },
+              {
+                "text": "Ile Maurice guide",
+                "url": "https://www.ilemaurice.im/en/what-you-can-and-can%27t-bring-on-holiday-to-mauritius/a-complete-guide/"
+              },
+              {
+                "text": "Expat.com forum",
+                "url": "https://www.expat.com/en/forum/africa/mauritius/1031467-ban-on-vaping-and-other-news.html"
+              }
+            ]
+          },
+          {
+            "label": "Botswana and Namibia",
+            "links": [
+              {
+                "text": "Botswana Unified Revenue Service: prohibited goods",
+                "url": "https://www.burs.org.bw/index.php/customsexcisemain/prohibitions-and-restrictions-of-goods/prohibited-goods"
+              },
+              {
+                "text": "Botswana Unified Revenue Service: restricted goods",
+                "url": "https://www.burs.org.bw/index.php/customsexcisemain/prohibitions-and-restrictions-of-goods/restricted-goods"
+              },
+              {
+                "text": "Botswana Unified Revenue Service: declaration of currency",
+                "url": "https://www.burs.org.bw/index.php/customsexcisemain/customs-clearance/declaration-of-currency"
+              },
+              {
+                "text": "IATA Botswana details",
+                "url": "https://www.iatatravelcentre.com/BW-Botswana-customs-currency-airport-tax-regulations-details.htm"
+              },
+              {
+                "text": "NamRA traveller guide",
+                "url": "https://www.namra.org.na/documents/cms/uploaded/customs-procedure-travellers-guide-information-1579b9600b.pdf"
+              },
+              {
+                "text": "NamibWeb customs page",
+                "url": "https://www.namibweb.com/customs.htm"
+              }
+            ]
+          },
+          {
+            "label": "Senegal and Côte d'Ivoire",
+            "links": [
+              {
+                "text": "Hinterland Travel Senegal",
+                "url": "https://www.hinterlandtravel.com/senegal/customs"
+              },
+              {
+                "text": "Countryaah Senegal",
+                "url": "https://www.countryaah.com/senegal-import-restrictions/"
+              },
+              {
+                "text": "VisaHQ Côte d'Ivoire",
+                "url": "https://www.visahq.com/ivory-coast/customs/"
+              },
+              {
+                "text": "Hinterland Travel Côte d'Ivoire",
+                "url": "https://www.hinterlandtravel.com/ivory-coast/customs"
+              }
+            ]
+          },
+          {
+            "label": "Zambia",
+            "links": [
+              {
+                "text": "Zambia Country Commercial Guide",
+                "url": "https://trade.gov/country-commercial-guides/zambia-customs-regulations"
+              },
+              {
+                "text": "Hinterland Travel Zambia",
+                "url": "https://www.hinterlandtravel.com/zambia/customs"
+              }
+            ]
+          },
+          {
+            "label": "Angola",
+            "links": [
+              {
+                "text": "Luanda airport customs page",
+                "url": "https://www.aeroporto-luanda.com/en/customs_luanda_airport.php"
+              },
+              {
+                "text": "US State Department Angola page",
+                "url": "https://adoption.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Angola.html"
+              },
+              {
+                "text": "Hinterland Travel Angola",
+                "url": "https://www.hinterlandtravel.com/angola/customs"
+              }
+            ]
+          },
+          {
+            "label": "Cameroon",
+            "links": [
+              {
+                "text": "Douala airport customs page",
+                "url": "https://www.aeroport-douala.com/en/customs_douala_airport.php"
+              },
+              {
+                "text": "VisaHQ Cameroon",
+                "url": "https://www.visahq.com/cameroon/customs/"
+              },
+              {
+                "text": "Commonwealth Portal",
+                "url": "https://www.commonwealthportal.org/country/cameroon/planning-your-trip/legal-requirements/"
+              }
+            ]
+          },
+          {
+            "label": "Congo (Republic and Democratic Republic)",
+            "links": [
+              {
+                "text": "US State Department Republic of the Congo",
+                "url": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/RepublicoftheCongo.html"
+              },
+              {
+                "text": "US State Department DRC advisory",
+                "url": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/DemocraticRepublicoftheCongoDRC.html"
+              },
+              {
+                "text": "IAM DRC country guide",
+                "url": "https://iamovers.org/country-guide/congo-drc/"
+              },
+              {
+                "text": "FreightAmigo DRC",
+                "url": "https://www.freightamigo.com/en/blog/logistics/navigating-customs-regulations-for-shipping-to-the-democratic-republic-of-congo/"
+              }
+            ]
+          },
+          {
+            "label": "Seychelles",
+            "links": [
+              {
+                "text": "Seychelles Revenue Commission",
+                "url": "https://src.gov.sc/customs-and-excises/"
+              },
+              {
+                "text": "US State Department Seychelles page",
+                "url": "https://www.travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Seychelles.html"
+              },
+              {
+                "text": "Roafly Seychelles",
+                "url": "https://www.roafly.com/blog/seychelles-airport-customs-rules"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Added in the second round of research",
+        "items": [
+          {
+            "label": "Benin, Burkina Faso, Cabo Verde, Gambia",
+            "links": [
+              {
+                "text": "US Commerce Benin guide",
+                "url": "https://www.trade.gov/country-commercial-guides/benin-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "VisaHQ Benin",
+                "url": "https://www.visahq.com/benin/customs/"
+              },
+              {
+                "text": "US Commerce Burkina Faso guide",
+                "url": "https://www.trade.gov/country-commercial-guides/burkina-faso-prohibited-restricted-imports"
+              },
+              {
+                "text": "UK advice on Burkina Faso",
+                "url": "https://www.gov.uk/foreign-travel-advice/burkina-faso/local-laws-and-customs"
+              },
+              {
+                "text": "US Commerce Cabo Verde guide",
+                "url": "https://www.trade.gov/country-commercial-guides/cabo-verde-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Feel Cape Verde",
+                "url": "https://feelcaboverde.com/en/customs-and-regulations-cape-verde/"
+              },
+              {
+                "text": "WTO Gambia profile",
+                "url": "https://qr.wto.org/es/profile/the-gambia"
+              },
+              {
+                "text": "The Point on the plastic bag ban",
+                "url": "https://thepoint.gm/africa/gambia/article/plastic-bag-use-importation-to-be-banned-in-gambia"
+              }
+            ]
+          },
+          {
+            "label": "Guinea, Guinea-Bissau, Liberia, Mali",
+            "links": [
+              {
+                "text": "US Commerce Guinea guide",
+                "url": "https://trade.gov/country-commercial-guides/guinea-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "World Nomads on Guinea",
+                "url": "https://www.worldnomads.com/travel-safety/western-africa/guinea/guinea-etiquette-and-local-laws"
+              },
+              {
+                "text": "US State Department Guinea-Bissau",
+                "url": "https://travel.state.gov/en/international-travel/travel-advisories/guinea-bissau.html"
+              },
+              {
+                "text": "Guinea-Bissau logistics assessment",
+                "url": "https://lca.logcluster.org/13-guinea-bissau-customs-information"
+              },
+              {
+                "text": "Smartraveller Liberia",
+                "url": "https://www.smartraveller.gov.au/destinations/africa/liberia"
+              },
+              {
+                "text": "VisaHQ Liberia",
+                "url": "https://www.visahq.com/liberia/customs/"
+              },
+              {
+                "text": "IATA Mali",
+                "url": "https://www.iatatravelcentre.com/ML-Mali-customs-currency-airport-tax-regulations-details.htm"
+              },
+              {
+                "text": "Canada on Mali",
+                "url": "https://travel.gc.ca/destinations/mali"
+              }
+            ]
+          },
+          {
+            "label": "Mauritania, Niger, Sierra Leone, Togo",
+            "links": [
+              {
+                "text": "US Commerce Mauritania guide",
+                "url": "https://www.trade.gov/country-commercial-guides/mauritania-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "WTO Mauritania profile",
+                "url": "https://qr.wto.org/en/profile/mauritania"
+              },
+              {
+                "text": "FreightAmigo Mauritania",
+                "url": "https://www.freightamigo.com/en/blog/logistics/understanding-mauritanias-customs-regulations-essential-guide-for-shippers/"
+              },
+              {
+                "text": "US State Department Niger",
+                "url": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Niger.html"
+              },
+              {
+                "text": "US Commerce Sierra Leone guide",
+                "url": "https://www.trade.gov/country-commercial-guides/sierra-leone-prohibited-and-restricted-items"
+              },
+              {
+                "text": "VisaHQ Sierra Leone",
+                "url": "https://www.visahq.com/sierra-leone/customs/"
+              },
+              {
+                "text": "US Commerce Togo guide",
+                "url": "https://www.trade.gov/country-commercial-guides/togo-prohibited-restricted-imports"
+              },
+              {
+                "text": "IATA Togo",
+                "url": "https://www.iatatravelcentre.com/TG-Togo-customs-currency-airport-tax-regulations-details.htm"
+              }
+            ]
+          },
+          {
+            "label": "Central Africa",
+            "links": [
+              {
+                "text": "Chad US Commerce guide",
+                "url": "https://www.trade.gov/country-commercial-guides/chad-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Brazzaville airport customs page",
+                "url": "https://www.aeroport-brazzaville.com/en/customs_brazzaville_airport.php"
+              },
+              {
+                "text": "US State Department Republic of the Congo",
+                "url": "https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/RepublicoftheCongo.html"
+              },
+              {
+                "text": "FIDI Equatorial Guinea guide",
+                "url": "https://www.fidi.org/sites/default/files/public/2024-04/EQUATORIAL%20GUINEA%20Import%20%E2%80%93%20FIDI%20Customs%20Guide.pdf"
+              },
+              {
+                "text": "International Association of Movers guide to Gabon",
+                "url": "https://iamovers.org/country-guide/gabon/"
+              },
+              {
+                "text": "US Commerce Gabon guide",
+                "url": "https://trade.gov/country-commercial-guides/gabon-prohibited-restricted-imports"
+              },
+              {
+                "text": "US Commerce Sao Tome guide",
+                "url": "https://www.trade.gov/country-commercial-guides/sao-tome-and-principe-prohibited-and-restricted-items"
+              },
+              {
+                "text": "VisaHQ Central African Republic",
+                "url": "https://www.visahq.com/central-african-republic/customs/"
+              }
+            ]
+          },
+          {
+            "label": "East Africa and islands",
+            "links": [
+              {
+                "text": "Burundi on VisaList",
+                "url": "https://visalist.io/burundi/customs"
+              },
+              {
+                "text": "US State Department Comoros",
+                "url": "https://travel.state.gov/en/international-travel/travel-advisories/comoros.html"
+              },
+              {
+                "text": "Smartraveller Djibouti",
+                "url": "https://www.smartraveller.gov.au/destinations/africa/djibouti"
+              },
+              {
+                "text": "US State Department Eritrea",
+                "url": "https://travel.state.gov/content/passports/en/country/eritrea.html"
+              },
+              {
+                "text": "US Commerce Madagascar guide",
+                "url": "https://trade.gov/country-commercial-guides/madagascar-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "WTO Madagascar profile",
+                "url": "https://qr.wto.org/es/profile/madagascar"
+              },
+              {
+                "text": "Malawi Revenue Authority prohibited goods",
+                "url": "https://www.mra.mw/custom-and-excise/prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Malawi Exchange Control Act (Malawi Legal Information Institute)",
+                "url": "https://malawilii.org/akn/mw/act/1984/17/eng@2014-12-31"
+              },
+              {
+                "text": "AllAfrica on the 2025 import ban",
+                "url": "https://allafrica.com/stories/202503170098.html"
+              },
+              {
+                "text": "Smartraveller Mozambique",
+                "url": "https://www.smartraveller.gov.au/destinations/africa/mozambique"
+              },
+              {
+                "text": "US Commerce Somalia guide",
+                "url": "https://www.trade.gov/country-commercial-guides/somalia-prohibited-restricted-imports"
+              },
+              {
+                "text": "US State Department South Sudan",
+                "url": "https://travel.state.gov/en/international-travel/travel-advisories/south-sudan.html"
+              }
+            ]
+          },
+          {
+            "label": "Sudan, Eswatini, Lesotho",
+            "links": [
+              {
+                "text": "Canada on Sudan",
+                "url": "https://travel.gc.ca/destinations/sudan"
+              },
+              {
+                "text": "US State Department Sudan",
+                "url": "https://travel.state.gov/en/international-travel/travel-advisories/sudan.html"
+              },
+              {
+                "text": "US Commerce Eswatini guide",
+                "url": "https://www.trade.gov/country-commercial-guides/eswatini-prohibited-restricted-imports"
+              },
+              {
+                "text": "Eswatini Revenue Service",
+                "url": "https://www.ers.org.sz/CustomExcise/GeneralRules"
+              },
+              {
+                "text": "Smartraveller Lesotho",
+                "url": "https://www.smartraveller.gov.au/destinations/africa/lesotho"
+              },
+              {
+                "text": "WTO trade review with Lesotho's list",
+                "url": "https://qr.wto.org/es/profile/south-africa"
+              },
+              {
+                "text": "IATA Lesotho",
+                "url": "https://www.iatatravelcentre.com/LS-Lesotho-customs-currency-airport-tax-regulations-details.htm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Added in the review round, read in full on 20 September 2026",
+        "items": [
+          {
+            "label": "",
+            "links": [
+              {
+                "text": "Nigeria US Commerce list",
+                "url": "https://www.trade.gov/country-commercial-guides/nigeria-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Egypt US Commerce list",
+                "url": "https://www.trade.gov/country-commercial-guides/egypt-prohibited-restricted-imports"
+              },
+              {
+                "text": "Côte d'Ivoire US Commerce list",
+                "url": "https://www.trade.gov/country-commercial-guides/cote-divoire-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Cameroon US Commerce list",
+                "url": "https://www.trade.gov/country-commercial-guides/cameroon-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Republic of the Congo US Commerce list",
+                "url": "https://www.trade.gov/country-commercial-guides/congo-republic-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Malawi US Commerce list",
+                "url": "https://www.trade.gov/country-commercial-guides/malawi-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Namibia US Commerce list",
+                "url": "https://www.trade.gov/country-commercial-guides/namibia-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Zimbabwe US Commerce list",
+                "url": "https://www.trade.gov/country-commercial-guides/zimbabwe-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "South Africa SARS page",
+                "url": "https://www.sars.gov.za/customs-and-excise/prohibited-restricted-and-counterfeit-goods/"
+              },
+              {
+                "text": "Tanzania plastic bag regulations",
+                "url": "https://fbattorneys.co.tz/legal-update-20-may-2019/"
+              },
+              {
+                "text": "Rwanda National Police on Law 17/2019",
+                "url": "https://police.gov.rw/media/news-detail/news/fighting-sell-and-use-of-polythene-bags-in-rwanda/"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Official lists, added 30 September 2026",
+        "items": [
+          {
+            "label": "Kenya, Uganda, Tanzania, Rwanda, Burundi",
+            "links": [
+              {
+                "text": "Kenya Revenue Authority copy of the Second Schedule",
+                "url": "https://www.kra.go.ke/images/publications/Prohibited%20and%20Restricted%20Goods%20Under%20the%20Second%20and%20Third%20Schedule%20of%20the%20Eac%20Customs%20Management%20Act,%202004.pdf"
+              }
+            ]
+          },
+          {
+            "label": "Nigeria",
+            "links": [
+              {
+                "text": "US trade.gov copy of the Nigeria Customs list",
+                "url": "https://www.trade.gov/country-commercial-guides/nigeria-prohibited-and-restricted-imports"
+              },
+              {
+                "text": "Ronish Logistics copy of the Nigeria Customs schedule",
+                "url": "https://www.ronishlogistics.com/import-prohibition-list/"
+              }
+            ]
+          },
+          {
+            "label": "Ghana",
+            "links": [
+              {
+                "text": "Ghana Revenue Authority import list",
+                "url": "https://gra.gov.gh/customs/import-prohibitions-and-restrictions/"
+              },
+              {
+                "text": "Ghana Revenue Authority export list",
+                "url": "https://gra.gov.gh/customs/export-restrictions-and-prohibitions/"
+              },
+              {
+                "text": "Ghana Customs Act 2015 (Act 891)",
+                "url": "https://gra.gov.gh/wp-content/uploads/2023/08/Customs-Act-2015.pdf"
+              }
+            ]
+          },
+          {
+            "label": "Gambia",
+            "links": [
+              {
+                "text": "Gambia Revenue Authority customs FAQs",
+                "url": "https://www.gra.gm/custom-faqs"
+              }
+            ]
+          },
+          {
+            "label": "South Africa",
+            "links": [
+              {
+                "text": "SARS traveller's guide",
+                "url": "https://www.ispdhome.org/common/Uploaded%20files/ISPD2025/SARS_TravellersGuide_Customs.pdf"
+              },
+              {
+                "text": "SARS travellers leaflet (2021)",
+                "url": "https://www.sars.gov.za/wp-content/uploads/Docs/Customs-Excise/Brochures/Travelers-A5-leaflet-March-2021-v7-4-panel.pdf"
+              }
+            ]
+          },
+          {
+            "label": "Zambia",
+            "links": [
+              {
+                "text": "ZRA passenger clearance leaflet",
+                "url": "https://www.zra.org.zm/wp-content/uploads/2019/12/PASSENGER-CLEARANCE.pdf"
+              }
+            ]
+          },
+          {
+            "label": "Mauritius",
+            "links": [
+              {
+                "text": "MRA prohibited and restricted goods list",
+                "url": "https://www.mra.mu/download/ProhibitedRestricted.pdf"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Update check, 4 October 2026",
+        "items": [
+          {
+            "label": "South Africa",
+            "links": [
+              {
+                "text": "Engineering News on the R100,000 cash declaration",
+                "url": "https://www.engineeringnews.co.za/article/domestic-foreign-travellers-must-now-declare-cash-of-more-than-r100-000-fic-2026-07-01"
+              }
+            ]
+          },
+          {
+            "label": "Kenya",
+            "links": [
+              {
+                "text": "People Daily on the nicotine import ban",
+                "url": "https://peopledaily.digital/news/nicotine-products-importation-ban-here-to-stay-heath-ministry-says"
+              }
+            ]
+          },
+          {
+            "label": "Niger",
+            "links": [
+              {
+                "text": "Africanews on Niamey's plastic bag ban",
+                "url": "https://www.africanews.com/2026/07/03/niamey-cracks-down-on-plastic-pollution-with-ban-on-carrier-bags/"
+              }
+            ]
+          },
+          {
+            "label": "Sudan",
+            "links": [
+              {
+                "text": "AllAfrica on the April 2026 import ban",
+                "url": "https://allafrica.com/stories/202604280334.html"
+              },
+              {
+                "text": "Dabanga on the April 2026 import ban",
+                "url": "https://www.dabangasudan.org/en?p=20131447"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Update check, 13 October 2026",
+        "items": [
+          {
+            "label": "Angola",
+            "links": [
+              {
+                "text": "Rio Times on Angola's single-use plastics ban",
+                "url": "https://www.riotimesonline.com/angola-single-use-plastics-ban-2026/"
+              },
+              {
+                "text": "SAPO (Lusa) on the ban taking effect",
+                "url": "https://sapo.pt/artigo/angola-proibe-a-partir-de-hoje-determinados-plasticos-de-utilizacao-unica-6ab2e526ab066172069b7814"
+              }
+            ]
+          },
+          {
+            "label": "Guinea",
+            "links": [
+              {
+                "text": "Africaguinee on the single-use plastics ban",
+                "url": "https://www.africaguinee.com/interdiction-des-sachets-plastiques-en-guinee-reduire-la-pollution-a-la-source-est-necessaire-selon-lenvironnementaliste-mouctar-diallo/"
+              },
+              {
+                "text": "Guineematin on the six-month reprieve for water sachets",
+                "url": "https://guineematin.com/2026/10/07/interdiction-des-plastiques-a-usage-unique-en-guinee-le-gouvernement-accorde-un-moratoire-de-six-mois-pour-les-sachets-deau/"
+              }
+            ]
+          },
+          {
+            "label": "Ethiopia",
+            "links": [
+              {
+                "text": "Packaging Insights on the plastic bag ban",
+                "url": "https://www.packaginginsights.com/news/ethiopia-single-use-plastic-ban.html"
+              },
+              {
+                "text": "Xinhua on the ban taking effect",
+                "url": "https://english.news.cn/20260221/01fc1660a88842eeb527bc65a8ccc043/c.html"
+              }
+            ]
+          },
+          {
+            "label": "Egypt",
+            "links": [
+              {
+                "text": "Egyptian Streets on the end of the phone exemption",
+                "url": "https://egyptianstreets.com/2026/01/20/egypt-ends-customs-exemption-on-imported-phones-carried-by-passengers/"
+              }
+            ]
+          },
+          {
+            "label": "Libya",
+            "links": [
+              {
+                "text": "Banker News on the export ban (in Arabic)",
+                "url": "https://banker.news/154991"
+              },
+              {
+                "text": "Italian Trade Agency on Decision 449/2026",
+                "url": "https://www.ice.it/it/news/notizie-dal-mondo/308958"
+              }
+            ]
+          },
+          {
+            "label": "Burkina Faso",
+            "links": [
+              {
+                "text": "Financial Afrik on the rice import suspension",
+                "url": "https://www.financialafrik.com/en/2026/04/30/burkina-faso-suspends-rice-imports-governments-immediate-decision/"
+              },
+              {
+                "text": "Burkina24 on the flour export suspension",
+                "url": "https://burkina24.com/?p=457050"
+              }
+            ]
+          },
+          {
+            "label": "Algeria",
+            "links": [
+              {
+                "text": "Algérie360 on the currency declaration rules",
+                "url": "https://www.algerie360.com/declaration-de-devises-en-algerie-les-nouvelles-regles-que-les-voyageurs-doivent-connaitre/"
+              }
+            ]
+          },
+          {
+            "label": "Tunisia",
+            "links": [
+              {
+                "text": "La Presse (AllAfrica) on customs and currency rules",
+                "url": "https://fr.allafrica.com/stories/202605290593.html"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

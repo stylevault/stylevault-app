@@ -1,15 +1,102 @@
 import { api } from '../api.js';
-import { $, $$, esc, flag, formatIndicator, icon, nf } from '../lib.js';
+import { $, $$, esc, flag, formatIndicator, icon, KIND_LABELS, nf, shortDate } from '../lib.js';
 import { renderMap } from '../map.js';
 import { store } from '../store.js';
-import { REGION_NAMES, indicatorCard, newsRow, readCard, featureStoryCard, skeletonCards, skeletonRows } from '../ui.js';
+import { REGION_NAMES, editionItem, editionLead, homeReadCard, openCountryPickerModal, openDialog, openHomeFeedSwitcherModal, openSectorPickerModal, openSignupPromptModal, skeletonRows, wireCard } from '../ui.js';
+import { TOPIC_BLURBS } from './topics.js';
 
-const INDICATOR_META = {
-  'SP.POP.TOTL': { code: 'SP.POP.TOTL', label: 'Population', format: 'people' },
-  'NY.GDP.MKTP.KD.ZG': { code: 'NY.GDP.MKTP.KD.ZG', label: 'Economic growth', unit: 'annual GDP growth', format: 'pct' },
-  'SP.DYN.LE00.IN': { code: 'SP.DYN.LE00.IN', label: 'Life expectancy', unit: 'years at birth', format: 'years' },
-  'IT.NET.USER.ZS': { code: 'IT.NET.USER.ZS', label: 'Internet use', unit: 'share of population', format: 'pct' },
+const TOPIC_ICONS = {
+  business: '💼',
+  trade: '🚢',
+  technology: '📱',
+  energy: '⚡',
+  agriculture: '🌾',
+  tourism: '✈️',
+  politics: '🏛️',
+  education: '🎓',
+  style: '🎨',
+  health: '🏥',
+  climate: '🌍',
+  security: '🛡️',
+  sport: '⚽',
 };
+
+function renderSuggestedCards(followedCountries = [], followedTopics = []) {
+  const unFollowedCountries = POPULAR_COUNTRIES.filter((c) => !followedCountries.includes(c.code));
+  const unFollowedTopics = POPULAR_TOPICS.filter((t) => !followedTopics.includes(t.slug));
+
+  const items = [
+    ...unFollowedCountries.slice(0, 2).map((c) => {
+      const countryObj = store.countryByCode.get(c.code) || c;
+      return {
+        kind: 'country',
+        code: c.code,
+        name: c.name,
+        sub: `${REGION_NAMES[countryObj.region] || 'Africa'} · News & economic indicators`,
+        flag: flag(c.code, 'flag-md', ''),
+      };
+    }),
+    ...unFollowedTopics.slice(0, 2).map((t) => ({
+      kind: 'topic',
+      code: t.slug,
+      name: t.name,
+      sub: TOPIC_BLURBS[t.slug] || 'Latest updates across Africa',
+      flag: `<span style="font-size:1.4rem">${TOPIC_ICONS[t.slug] || '📌'}</span>`,
+    })),
+  ];
+
+  return items.map((item) => `
+    <div class="uh-suggest-card" data-suggest-card="${item.kind}-${item.code}">
+      <div class="usc-top">
+        <div class="usc-flag">${item.flag}</div>
+        <div class="usc-meta">
+          <span class="eyebrow" style="font-size:0.68rem;letter-spacing:0.08em">${item.kind === 'country' ? 'Country' : 'Topic'}</span>
+          <h3 class="usc-title">${esc(item.name)}</h3>
+          <p class="usc-sub">${esc(item.sub)}</p>
+        </div>
+      </div>
+      <div class="usc-action">
+        <button type="button" class="btn btn-outline btn-sm usc-follow-btn" data-suggest-follow="${item.kind}" data-val="${item.code}">
+          ${icon('plus')} Follow
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function homeCuratedCard(a, activity = {}) {
+  const c = a.countries?.length ? store.countryByCode.get(a.countries[0]) : null;
+  const t = a.topics?.length ? store.topicBySlug.get(a.topics[0]) : null;
+  const matchLabel = c && activity.topCountries?.includes(c.code)
+    ? `Matches your reading in ${c.name}`
+    : (t && activity.topTopics?.includes(t.slug) ? `Based on your interest in ${t.name}` : 'Curated story');
+
+  return `
+    <article class="uh-curated-card" data-article-card="${esc(a.id)}">
+      ${a.imageUrl ? `
+        <div class="uhc-thumb">
+          <img src="${esc(a.imageUrl)}" alt="" loading="lazy" onerror="this.parentElement.remove()">
+        </div>` : ''}
+      <div class="uhc-content">
+        <div class="uhc-meta">
+          <span class="uhc-match-pill">${icon('sparkles')} ${esc(matchLabel)}</span>
+          <span class="dot-sep"></span>
+          <span class="uhc-source">${esc(a.source?.name || 'Newsroom')}</span>
+        </div>
+        <h3 class="uhc-title">
+          <a href="${esc(a.url)}" data-open-article="${esc(a.id)}">${esc(a.title)}</a>
+        </h3>
+        ${a.summary ? `<p class="uhc-summary">${esc(a.summary)}</p>` : ''}
+        <div class="uhc-foot">
+          <time class="uhc-time">${shortDate(a.publishedAt)}</time>
+          <a class="uhc-read-btn" href="${esc(a.url)}" data-open-article="${esc(a.id)}">
+            Read story ${icon('arrow-right')}
+          </a>
+        </div>
+      </div>
+    </article>
+  `;
+}
 
 const POPULAR_COUNTRIES = [
   { code: 'NG', name: 'Nigeria' },
@@ -26,6 +113,10 @@ const POPULAR_COUNTRIES = [
   { code: 'UG', name: 'Uganda' },
 ];
 
+// Hubs offered as Market Wire filters on the guest home page.
+const WIRE_COUNTRIES = ['NG', 'KE', 'ZA', 'GH', 'EG', 'RW', 'MA', 'ET'];
+const WIRE_TOPICS = ['business', 'trade', 'technology', 'energy', 'agriculture'];
+
 const POPULAR_TOPICS = [
   { slug: 'business', name: 'Business & Finance' },
   { slug: 'trade', name: 'Trade & AfCFTA' },
@@ -38,25 +129,135 @@ const POPULAR_TOPICS = [
 function previewHtml(c) {
   const pop = c.snapshot?.population;
   const growth = c.snapshot?.growth;
+  const hasStats = Boolean(pop || growth);
+
+  let statsHtml = '';
+  if (hasStats) {
+    statsHtml = `
+      <div class="pc-stats">
+        <div class="pc-stat"><strong>${pop ? formatIndicator(pop.value, 'people') : 'N/A'}</strong><span>Population${pop ? `, ${pop.year}` : ''}</span></div>
+        <div class="pc-stat"><strong>${growth ? formatIndicator(growth.value, 'pct') : 'N/A'}</strong><span>GDP growth${growth ? `, ${growth.year}` : ''}</span></div>
+      </div>`;
+  } else {
+    const rawCurr = c.currency || '';
+    const currCode = rawCurr.match(/\(([^)]+)\)/)?.[1] || '';
+    const currName = rawCurr ? rawCurr.split('(')[0].trim() : 'Local market';
+    const sourceCount = c.sources || 1;
+    statsHtml = `
+      <div class="pc-stats">
+        <div class="pc-stat"><strong>${esc(currName)}</strong><span>${currCode ? `Currency (${esc(currCode)})` : 'National currency'}</span></div>
+        <div class="pc-stat"><strong>${sourceCount} ${sourceCount === 1 ? 'outlet' : 'outlets'}</strong><span>Local newsrooms</span></div>
+      </div>`;
+  }
+
   return `
     <div class="pc-head">${flag(c.code, 'flag-lg', `Flag of ${c.name}`)}
-      <div><span class="eyebrow">${REGION_NAMES[c.region]}</span><h3>${esc(c.name)}</h3><div class="pc-sub">Capital: ${esc(c.capital || '—')}</div></div></div>
-    <div class="pc-stats">
-      <div class="pc-stat"><strong>${pop ? formatIndicator(pop.value, 'people') : '—'}</strong><span>Population${pop ? `, ${pop.year}` : ''}</span></div>
-      <div class="pc-stat"><strong>${growth ? formatIndicator(growth.value, 'pct') : '—'}</strong><span>GDP growth${growth ? `, ${growth.year}` : ''}</span></div>
+      <div><span class="eyebrow" style="color:var(--plum);font-weight:700">${REGION_NAMES[c.region]}</span><h3>${esc(c.name)}</h3><div class="pc-sub">Capital: <strong>${esc(c.capital || 'N/A')}</strong></div></div></div>
+    ${statsHtml}
+    <a class="btn btn-plum btn-block pc-btn" href="/country/${c.slug}">Explore ${esc(c.name)} ${icon('arrow-right')}</a>
+    <p class="hint pc-hint">${hasStats ? 'Figures from the World Bank' : 'Country profile · StyleVault'}</p>`;
+}
+
+function openRegionModal(navigate) {
+  const regions = [
+    { key: 'North', name: 'North Africa', count: store.meta.countries.filter((c) => c.region === 'North').length, samples: 'Egypt, Morocco, Algeria, Tunisia, Libya, Mauritania', icon: '🏛️' },
+    { key: 'West', name: 'West Africa', count: store.meta.countries.filter((c) => c.region === 'West').length, samples: 'Nigeria, Ghana, Senegal, Côte d’Ivoire, Benin, Togo...', icon: '🌴' },
+    { key: 'Central', name: 'Central Africa', count: store.meta.countries.filter((c) => c.region === 'Central').length, samples: 'DR Congo, Cameroon, Gabon, Congo, Chad, CAR...', icon: '🌿' },
+    { key: 'East', name: 'East Africa', count: store.meta.countries.filter((c) => c.region === 'East').length, samples: 'Kenya, Ethiopia, Rwanda, Tanzania, Uganda, Mauritius...', icon: '⛰️' },
+    { key: 'Southern', name: 'Southern Africa', count: store.meta.countries.filter((c) => c.region === 'Southern').length, samples: 'South Africa, Angola, Botswana, Namibia, Zambia...', icon: '🌊' },
+  ];
+
+  openDialog(`
+    <div class="sheet-drag-handle" aria-hidden="true"></div>
+    <div class="sheet-head">
+      <div>
+        <span class="eyebrow accent">${icon('compass')} Browse by Region</span>
+        <h2 style="margin-top:4px">Pick a Region in Africa</h2>
+      </div>
+      <button type="button" class="icon-btn" data-close aria-label="Close">${icon('close')}</button>
     </div>
-    <a class="btn btn-plum btn-block" href="/country/${c.slug}">Open the ${esc(c.name)} country file ${icon('arrow-right')}</a>
-    <p class="hint" style="margin-top:12px;text-align:center">Figures: World Bank</p>`;
+    <div class="sheet-body region-modal-sheet">
+      <p class="region-modal-note">See local news, economic numbers, and all 54 countries grouped by region.</p>
+      <div class="region-modal-grid">
+        ${regions.map((r) => `
+          <a href="/countries?region=${r.key}" class="region-modal-card" data-modal-region="${r.key}">
+            <div class="rmc-icon-badge" aria-hidden="true">${r.icon}</div>
+            <div class="rmc-info">
+              <div class="rmc-title-row">
+                <strong class="rmc-title">${esc(r.name)}</strong>
+              </div>
+              <div class="rmc-sub-row">
+                <span class="rmc-count-pill">${r.count} countries</span>
+                <span class="rmc-dot" aria-hidden="true">·</span>
+                <span class="rmc-sample-text">${esc(r.samples)}</span>
+              </div>
+            </div>
+            <div class="rmc-arrow-btn" aria-hidden="true">${icon('arrow-right')}</div>
+          </a>
+        `).join('')}
+      </div>
+      <div class="region-modal-footer">
+        <a href="/countries" class="btn btn-plum btn-block" data-modal-all>See all 54 countries ${icon('arrow-right')}</a>
+      </div>
+    </div>
+  `, (dialog, close) => {
+    $$('[data-modal-region], [data-modal-all]', dialog).forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = el.getAttribute('href');
+        close();
+        if (!store.user) {
+          openSignupPromptModal({
+            title: 'Explore African Regions',
+            subtitle: 'Create a free StyleVault account to explore all 54 countries, local news, and economic numbers.',
+            destination: href,
+            navigate,
+          });
+        } else {
+          navigate(href);
+        }
+      });
+    });
+  });
 }
 
 function regionsHtml() {
+  const regions = [
+    { key: 'North', name: 'North Africa', count: store.meta.countries.filter((c) => c.region === 'North').length, icon: '🏛️' },
+    { key: 'West', name: 'West Africa', count: store.meta.countries.filter((c) => c.region === 'West').length, icon: '🌴' },
+    { key: 'Central', name: 'Central Africa', count: store.meta.countries.filter((c) => c.region === 'Central').length, icon: '🌿' },
+    { key: 'East', name: 'East Africa', count: store.meta.countries.filter((c) => c.region === 'East').length, icon: '⛰️' },
+    { key: 'Southern', name: 'Southern Africa', count: store.meta.countries.filter((c) => c.region === 'Southern').length, icon: '🌊' },
+  ];
+
   return `
-    <span class="eyebrow">Explore the continent</span>
-    <h3 style="margin-top:8px">Choose a country</h3>
-    <p>Hover or tap the map to preview a country, or start with a region.</p>
-    <div class="region-list">
-      ${Object.entries(REGION_NAMES).map(([k, v]) => `<a class="region-row" href="/countries?region=${k}">${v}<span>${store.meta.countries.filter((c) => c.region === k).length} countries</span></a>`).join('')}
-    </div>`;
+    <div class="reg-card-head">
+      <span class="eyebrow accent">${icon('globe')} All 54 Countries</span>
+      <h3 style="margin-top:4px">Explore by Region</h3>
+      <p style="font-size:0.86rem;color:var(--ink-2);margin-top:4px">Pick a region or search for any country below.</p>
+    </div>
+    <div class="cute-region-grid">
+      ${regions.map((r) => `
+        <button type="button" class="cute-reg-row" data-preview-region="${r.key}">
+          <div class="crr-left">
+            <span class="crr-icon" aria-hidden="true">${r.icon}</span>
+            <strong class="crr-name">${esc(r.name)}</strong>
+          </div>
+          <div class="crr-right">
+            <span class="crr-count">${r.count} countries</span>
+            <span class="crr-arrow" aria-hidden="true">${icon('arrow-right')}</span>
+          </div>
+        </button>
+      `).join('')}
+    </div>
+    <button type="button" class="cute-country-search-btn" data-trigger-country-modal>
+      <div class="ccsb-icon" aria-hidden="true">${icon('search')}</div>
+      <div class="ccsb-text">
+        <strong>Choose a country…</strong>
+        <span>Search all 54 countries</span>
+      </div>
+      <span class="cute-btn-pill">54 Countries</span>
+    </button>`;
 }
 
 function initMapAndPicker(main, navigate, countries) {
@@ -64,336 +265,609 @@ function initMapAndPicker(main, navigate, countries) {
   if (!preview) return;
   const touch = matchMedia('(hover: none)').matches;
   let previewed = null;
+  const isGuest = !store.user;
+
+  function bindPreviewInteractions(el) {
+    $$('[data-preview-region]', el).forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const region = btn.dataset.previewRegion;
+        if (isGuest) {
+          openSignupPromptModal({
+            title: `Explore ${REGION_NAMES[region]}`,
+            subtitle: `Create a free StyleVault account to read local news and check economic numbers across ${REGION_NAMES[region]}.`,
+            destination: `/countries?region=${region}`,
+            navigate,
+          });
+        } else {
+          navigate(`/countries?region=${region}`);
+        }
+      });
+    });
+
+    const searchBtn = $('[data-trigger-country-modal]', el);
+    if (searchBtn) {
+      searchBtn.addEventListener('click', () => {
+        openCountryPickerModal({
+          isGuest,
+          navigate,
+          onSelect: (c) => {
+            if (isGuest) {
+              openSignupPromptModal({
+                title: `Explore ${c.name}`,
+                subtitle: `Create a free StyleVault account to see ${c.name}'s full page, World Bank numbers, and local news.`,
+                destination: `/country/${c.slug}`,
+                navigate,
+              });
+            } else {
+              navigate(`/country/${c.slug}`);
+            }
+          },
+        });
+      });
+    }
+
+    const fileBtn = $('.pc-btn', el);
+    if (fileBtn && isGuest) {
+      fileBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = fileBtn.getAttribute('href');
+        openSignupPromptModal({
+          title: 'Unlock Country Page',
+          subtitle: 'Create a free StyleVault account to see this country’s full profile, World Bank data, and local news.',
+          destination: href,
+          navigate,
+        });
+      });
+    }
+  }
+
+  bindPreviewInteractions(preview);
+
   const mapEl = $('[data-map]', main);
   if (mapEl) {
     renderMap(mapEl, {
-      onFocus: (c) => { previewed = c.code; preview.innerHTML = previewHtml(c); },
+      onFocus: (c) => {
+        previewed = c.code;
+        preview.innerHTML = previewHtml(c);
+        bindPreviewInteractions(preview);
+      },
       onOpen: (c) => {
-        if (touch && previewed !== c.code) { previewed = c.code; preview.innerHTML = previewHtml(c); return; }
-        navigate(`/country/${c.slug}`);
+        if (touch && previewed !== c.code) {
+          previewed = c.code;
+          preview.innerHTML = previewHtml(c);
+          bindPreviewInteractions(preview);
+          return;
+        }
+        if (isGuest) {
+          openSignupPromptModal({
+            title: `Explore ${c.name}`,
+            subtitle: `Create a free StyleVault account to see ${c.name}'s full page, World Bank numbers, and local news.`,
+            destination: `/country/${c.slug}`,
+            navigate,
+          });
+        } else {
+          navigate(`/country/${c.slug}`);
+        }
       },
     }).then(() => mapEl.removeAttribute('aria-busy'));
   }
-  const picker = $('[data-picker]', main);
-  if (picker) {
-    picker.addEventListener('change', (e) => e.target.value && navigate(`/country/${e.target.value}`));
-  }
-}
-
-function initSampleCountry(main, countries) {
-  const pool = countries.filter((c) => c.sources >= 2);
-  const day = Math.floor(Date.now() / 86_400_000);
-  const featured = pool[day % Math.max(pool.length, 1)] || countries[0];
-  if (!featured) return;
-  api.country(featured.code).then(({ indicators }) => {
-    const box = $('[data-sample]', main);
-    if (!box) return;
-    box.innerHTML = `
-      <div class="sample-copy">
-        <span class="eyebrow">Inside a country file</span>
-        <h2>Everything you need to understand a country, in one place</h2>
-        <p>Each of the 54 country files brings together reference facts, long-run indicators, research and the latest reporting from local newsrooms.</p>
-        <ul>
-          <li>${icon('check')}<span>Capital, languages, currency and regional blocs at a glance</span></li>
-          <li>${icon('check')}<span>Nine World Bank indicators with 15-year trends</span></li>
-          <li>${icon('check')}<span>Research, analysis and news about that country</span></li>
-        </ul>
-        <a class="btn btn-plum" href="/country/${featured.slug}">Open the ${esc(featured.name)} file ${icon('arrow-right')}</a>
-      </div>
-      <div class="sample-card">
-        <div class="sc-head">${flag(featured.code, '', '')}<div><h3>${esc(featured.name)}</h3><span>${REGION_NAMES[featured.region]} · Capital: ${esc(featured.capital)}</span></div></div>
-        <div class="indicator-grid">${Object.values(INDICATOR_META).map((ind) => indicatorCard(ind, indicators[ind.code], featured)).join('')}</div>
-        <p class="sc-foot">Source: World Bank, World Development Indicators (CC BY 4.0).</p>
-      </div>`;
-  }).catch(() => {});
-}
-
-function initResearchCards(main) {
-  Promise.all([
-    api.articles({ kind: ['research', 'official'], limit: 3 }),
-    api.articles({ kind: 'analysis', limit: 6 }),
-  ]).then(([inst, analysis]) => {
-    const items = [...inst.items, ...analysis.items].slice(0, 6);
-    const box = $('[data-research]', main);
-    if (box) box.innerHTML = items.length ? `<div class="card-grid">${items.map(readCard).join('')}</div>` : '';
-  }).catch(() => {});
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // SIGNED-IN PERSONALIZED HOME VIEW
 // ─────────────────────────────────────────────────────────────────────────────
+const unique = (arr) => [...new Set(arr)];
+
+function greeting() {
+  const h = new Date().getHours();
+  return h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+}
+
+/** "Nigeria, Kenya and Trade & AfCFTA" with each name linking to its page. */
+function followsSentence(countryCodes, topicSlugs) {
+  const links = [
+    ...countryCodes.map((code) => store.countryByCode.get(code)).filter(Boolean)
+      .map((c) => `<a href="/country/${c.slug}">${esc(c.name)}</a>`),
+    ...topicSlugs.map((slug) => store.topicBySlug.get(slug)).filter(Boolean)
+      .map((t) => `<a href="/topic/${t.slug}">${esc(t.name)}</a>`),
+  ];
+  const shown = links.slice(0, 3);
+  const extra = links.length - shown.length;
+  if (extra > 0) return `${shown.join(', ')} and ${extra} more`;
+  if (shown.length < 2) return shown.join('');
+  return `${shown.slice(0, -1).join(', ')} and ${shown.at(-1)}`;
+}
+
+function followedCountryCard(c) {
+  const pop = c.snapshot?.population;
+  const growth = c.snapshot?.growth;
+  return `
+    <article class="uh-country">
+      <div class="uh-country-top">
+        ${flag(c.code, 'flag', '')}
+        <div>
+          <h3><a href="/country/${c.slug}">${esc(c.name)}</a></h3>
+          <span class="uh-country-region">${REGION_NAMES[c.region] || ''}${c.capital ? ` · ${esc(c.capital)}` : ''}</span>
+        </div>
+      </div>
+      <div class="uh-country-stats">
+        <div><span>Population${pop ? ` <em>${pop.year}</em>` : ''}</span><strong>${pop ? formatIndicator(pop.value, 'people') : 'N/A'}</strong></div>
+        <div><span>GDP growth${growth ? ` <em>${growth.year}</em>` : ''}</span><strong>${growth ? formatIndicator(growth.value, 'pct') : 'N/A'}</strong></div>
+      </div>
+    </article>`;
+}
+
+/** Diversify stories so the same publisher doesn't appear 3 times in a row. */
+function diversifyBySource(items, max = 4) {
+  const result = [];
+  const usedPerSource = new Map();
+  for (const item of items) {
+    const src = item.source?.name || '';
+    const count = usedPerSource.get(src) || 0;
+    if (count === 0) {
+      result.push(item);
+      usedPerSource.set(src, 1);
+      if (result.length >= max) return result;
+    }
+  }
+  for (const item of items) {
+    if (!result.includes(item)) {
+      result.push(item);
+      if (result.length >= max) return result;
+    }
+  }
+  return result;
+}
+
 async function renderUserHome(main, { setTitle, navigate }) {
-  setTitle('Your Briefing');
+  setTitle('Home');
   main.style.paddingBottom = '0';
-  const { stats, countries } = store.meta;
   const user = store.user;
   const monitors = store.monitors || [];
   const firstName = user.name ? user.name.split(' ')[0] : user.email.split('@')[0];
+  const followedCountries = unique(monitors.flatMap((m) => m.countries || []));
+  const followedTopics = unique(monitors.flatMap((m) => m.topics || []));
+  const savedCount = store.savedIds.size;
+  const rerender = () => renderUserHome(main, { setTitle, navigate });
 
-  const todayStr = new Intl.DateTimeFormat('en-GB', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(new Date());
+  const todayStr = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
+
+  const lede = monitors.length
+    ? `Here is the latest from ${followsSentence(followedCountries, followedTopics) || 'the places and topics you follow'}.`
+    : 'Pick a few countries and topics below so we can bring you the stories that matter to you.';
 
   main.innerHTML = `
-    <section class="user-hero">
-      <div class="wrap">
-        <div class="uh-grid">
-          <div class="uh-main">
-            <span class="badge">Personal Intelligence Briefing</span>
-            <h1>Welcome back, ${esc(firstName)}</h1>
-            <p class="uh-date">${todayStr} · Curated reporting and market intelligence across Africa.</p>
-          </div>
-          <div class="uh-stats">
-            <div class="uh-stat-card">
-              <div class="uh-stat-num">${monitors.length}</div>
-              <div class="uh-stat-lbl">Active Monitors</div>
-              <a href="/following" class="uh-stat-link">Manage ${icon('arrow-right')}</a>
-            </div>
-            <div class="uh-stat-card">
-              <div class="uh-stat-num">${store.savedIds.size}</div>
-              <div class="uh-stat-lbl">Saved Stories</div>
-              <a href="/saved" class="uh-stat-link">View Vault ${icon('arrow-right')}</a>
-            </div>
-            <div class="uh-stat-card">
-              <div class="uh-stat-num">54</div>
-              <div class="uh-stat-lbl">Country Files</div>
-              <a href="/countries" class="uh-stat-link">Explore ${icon('arrow-right')}</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="uh-shortcuts">
-          <span style="font-size:0.84rem;font-weight:600;color:var(--muted);margin-right:4px">Quick jumps:</span>
-          <a href="/following" class="chip active">${icon('star')} Monitored Feed</a>
-          <a href="/countries" class="chip">${icon('globe')} All Countries</a>
-          <a href="/research" class="chip">${icon('book')} Deep Research</a>
-          <a href="/news" class="chip">${icon('link')} Live News Wire</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Personalized Feed Section -->
-    <section class="section" style="padding-top:44px;padding-bottom:56px">
-      <div class="wrap">
-        <div class="section-head">
+    <div class="uh">
+      <header class="uh-hello">
+        <div class="wrap uh-hello-inner">
           <div>
-            <span class="eyebrow accent">Your Monitored Stream</span>
-            <h2>Tailored to your interests</h2>
-            <p>Stories from African newsrooms filtered to your followed countries, topics, and monitors.</p>
+            <span class="uh-date"><span class="live-dot-sm"></span> ${esc(todayStr)}</span>
+            <h1>${greeting()}, ${esc(firstName)}</h1>
+            <p class="uh-lede">${lede}</p>
           </div>
-          <a class="text-link" href="/following">Edit monitors ${icon('arrow-right')}</a>
+          <nav class="uh-quick" aria-label="Quick links">
+            <a href="/saved" class="uh-quick-pill">${icon('bookmark')} <span>Saved${savedCount ? ` (${savedCount})` : ''}</span></a>
+            <a href="/following" class="uh-quick-pill">${icon('star')} <span>Following${monitors.length ? ` (${monitors.length})` : ''}</span></a>
+            <a href="/countries" class="uh-quick-pill">${icon('globe')} <span>54 Countries</span></a>
+          </nav>
         </div>
+      </header>
 
-        ${monitors.length > 0 ? `
-          <div class="feed-filter-bar">
-            <div class="feed-tabs" data-feed-tabs>
-              <button class="feed-tab active" type="button" data-tab="all">${icon('star')} All Monitored (${monitors.length})</button>
-              ${monitors.slice(0, 6).map((m, idx) => `
-                <button class="feed-tab" type="button" data-tab="${idx}">${esc(m.name)}</button>
-              `).join('')}
+      ${monitors.length ? `
+        <section class="uh-block">
+          <div class="wrap">
+            <div class="uh-head">
+              <div>
+                <span class="eyebrow">Picked for you</span>
+                <h2>Stories for you</h2>
+                <p>Recent news from the countries and topics you follow.</p>
+              </div>
+              <a class="btn btn-outline btn-sm" href="/following">Change what you follow ${icon('arrow-right')}</a>
+            </div>
+            ${monitors.length > 1 ? `
+              <div class="uh-switcher-bar">
+                <button type="button" class="flw-dropdown-btn" data-open-home-switcher aria-haspopup="dialog" title="Filter stories for you">
+                  <span class="flw-dd-indicator"><span class="flw-dd-dot"></span></span>
+                  <span class="flw-dd-label" style="opacity:0.8;font-weight:400;margin-right:2px">Viewing:</span>
+                  <span class="flw-dd-name" data-home-tab-name>Everything</span>
+                  <span class="flw-dd-count">${monitors.length}</span>
+                  <span class="flw-dd-chev" aria-hidden="true">${icon('chevron-down')}</span>
+                </button>
+              </div>` : ''}
+            <div class="ed-grid" data-brief>
+              <div class="skeleton ed-sk-lead"></div>
+              <div>${skeletonRows(3)}</div>
             </div>
           </div>
-          <div data-feed-list>${skeletonRows(4)}</div>
-        ` : `
-          <!-- Onboarding Curation Card if user has no monitors yet -->
-          <div class="curate-card" data-curate-box>
-            <h3>Personalize your daily briefing</h3>
-            <p>Select the countries and industries you follow to instantly shape your StyleVault home screen.</p>
-            
-            <div class="curate-group">
-              <span class="curate-group-lbl">Countries to follow</span>
-              <div class="curate-chips" data-country-chips>
-                ${POPULAR_COUNTRIES.map((c) => `
-                  <button type="button" class="curate-chip" data-code="${c.code}" aria-pressed="false">
-                    ${flag(c.code, 'flag', '')} ${esc(c.name)}
-                  </button>
-                `).join('')}
+        </section>
+
+        <!-- Behavioral Curation: Based on your reading -->
+        <section class="uh-block warm" data-curated-section>
+          <div class="wrap">
+            <div class="uh-head">
+              <div>
+                <span class="eyebrow accent">${icon('sparkles')} Curated for you</span>
+                <h2>Based on your recent reading</h2>
+                <p data-curated-subtitle>Stories matched to what you’ve been exploring across StyleVault.</p>
+              </div>
+              <span class="uh-curated-badge">${icon('compass')} Personalized</span>
+            </div>
+            <div class="uh-curated-grid" data-curated-feed>
+              ${skeletonRows(3)}
+            </div>
+          </div>
+        </section>
+
+        <!-- Suggestions to follow with 1-click -->
+        <section class="uh-block" data-suggestions-section>
+          <div class="wrap">
+            <div class="uh-head">
+              <div>
+                <span class="eyebrow">${icon('compass')} Suggestions</span>
+                <h2>Places and topics you might like</h2>
+                <p>Follow in one tap to add live updates into your home feed.</p>
+              </div>
+              <a class="text-link" href="/following">See all following ${icon('arrow-right')}</a>
+            </div>
+            <div class="uh-suggest-grid" data-suggestions-grid>
+              ${renderSuggestedCards(followedCountries, followedTopics)}
+            </div>
+          </div>
+        </section>
+
+        <section class="uh-block warm">
+          <div class="wrap">
+            <div class="uh-head">
+              <div>
+                <span class="eyebrow accent">Country snapshots</span>
+                <h2>Countries you follow</h2>
+                <p>Population and economic growth numbers from the World Bank.</p>
+              </div>
+              <a class="text-link" href="/countries">See all 54 countries ${icon('arrow-right')}</a>
+            </div>
+            <div class="uh-countries">
+              ${followedCountries.slice(0, 7).map((code) => store.countryByCode.get(code)).filter(Boolean).map(followedCountryCard).join('')}
+              <button type="button" class="uh-add" data-follow-country>${icon('plus')}<span>Follow another country</span></button>
+            </div>
+          </div>
+        </section>
+      ` : `
+        <section class="uh-block">
+          <div class="wrap">
+            <div class="uh-setup">
+              <div class="uh-setup-intro">
+                <span class="eyebrow">Make it yours</span>
+                <h2>What would you like to follow?</h2>
+                <p>Tap a few countries and topics below to build your personal home page.</p>
+              </div>
+              <div class="uh-setup-group">
+                <div class="uh-setup-label">
+                  <h3>Countries</h3>
+                  <button type="button" class="text-link" data-more-countries>See all 54</button>
+                </div>
+                <div class="chips wrap-chips" data-country-chips>
+                  ${POPULAR_COUNTRIES.slice(0, 10).map((c) => `<button type="button" class="chip" data-code="${c.code}" aria-pressed="false">${flag(c.code, 'flag', '')} ${esc(c.name)}</button>`).join('')}
+                </div>
+              </div>
+              <div class="uh-setup-group">
+                <div class="uh-setup-label"><h3>Topics</h3></div>
+                <div class="chips wrap-chips" data-topic-chips>
+                  ${POPULAR_TOPICS.map((t) => `<button type="button" class="chip" data-slug="${t.slug}" aria-pressed="false">${esc(t.name)}</button>`).join('')}
+                </div>
+              </div>
+              <div class="uh-setup-foot">
+                <span class="hint" data-setup-hint>You can change this anytime on your Following page.</span>
+                <button type="button" class="btn btn-plum btn-sm" data-save-setup>Save my choices ${icon('arrow-right')}</button>
               </div>
             </div>
+          </div>
+        </section>
+      `}
 
-            <div class="curate-group">
-              <span class="curate-group-lbl">Key Sectors</span>
-              <div class="curate-chips" data-topic-chips>
-                ${POPULAR_TOPICS.map((t) => `
-                  <button type="button" class="curate-chip" data-slug="${t.slug}" aria-pressed="false">
-                    ${esc(t.name)}
-                  </button>
-                `).join('')}
+      <!-- Colorful Topic Cards -->
+      <section class="uh-block uh-topics-band">
+        <div class="wrap">
+          <div class="uh-head">
+            <div>
+              <span class="eyebrow">Browse by topic</span>
+              <h2>Explore key topics across Africa</h2>
+              <p>Jump straight into business, trade, energy, or farming news.</p>
+            </div>
+            <a class="text-link" href="/topics">All 13 topics ${icon('arrow-right')}</a>
+          </div>
+          <div class="channel-grid">
+            <div class="channel-card">
+              <span class="channel-icon">🚢</span>
+              <h3><a href="/topic/trade">Trade &amp; AfCFTA</a></h3>
+              <p>Cross-border trade, ports, shipping routes, and new rules making it easier to do business across Africa.</p>
+              <span class="channel-meta">Read trade stories ${icon('arrow-right')}</span>
+            </div>
+            <div class="channel-card">
+              <span class="channel-icon">💼</span>
+              <h3><a href="/topic/business">Business &amp; Banking</a></h3>
+              <p>Startups, mobile money, banking news, central bank decisions, and company investments.</p>
+              <span class="channel-meta">Read business stories ${icon('arrow-right')}</span>
+            </div>
+            <div class="channel-card">
+              <span class="channel-icon">⚡</span>
+              <h3><a href="/topic/energy">Energy &amp; Power</a></h3>
+              <p>Solar projects, power grids, clean energy, mining, and major building projects.</p>
+              <span class="channel-meta">Read energy stories ${icon('arrow-right')}</span>
+            </div>
+            <div class="channel-card">
+              <span class="channel-icon">🌾</span>
+              <h3><a href="/topic/agriculture">Farming &amp; Food</a></h3>
+              <p>Food harvests, crop exports, farming tech, and how countries are keeping food affordable.</p>
+              <span class="channel-meta">Read farming stories ${icon('arrow-right')}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="uh-block warm">
+        <div class="wrap uh-split">
+          <div class="uh-panel uh-panel-news">
+            <div class="uh-head">
+              <div>
+                <h2>Across Africa today</h2>
+                <p>More big stories happening around the continent right now.</p>
               </div>
+              <a class="text-link" href="/news">All news ${icon('arrow-right')}</a>
             </div>
-
-            <div class="curate-foot">
-              <button type="button" class="btn btn-accent" data-save-curation>Save &amp; Curate My Feed</button>
-              <span class="hint">You can change these anytime in your Following tab.</span>
+            <div class="uh-reads" data-wider>${skeletonRows(4)}</div>
+          </div>
+          <div class="uh-panel uh-panel-vault">
+            <div class="uh-head">
+              <div>
+                <h2>${followedCountries.length || followedTopics.length ? 'Research for you' : 'Research &amp; reports'}</h2>
+                <p>Deeper reports and policy papers from African institutions.</p>
+              </div>
+              <a class="text-link" href="/research">All reports ${icon('arrow-right')}</a>
             </div>
-          </div>
-        `}
-      </div>
-    </section>
-
-    <!-- Top Stories Across the Continent -->
-    <section class="section warm">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow">Continent-Wide News</span>
-            <h2>Top developments across Africa today</h2>
-            <p>Important reporting across all 54 African countries from verified independent publishers.</p>
-          </div>
-          <a class="text-link" href="/news">All news ${icon('arrow-right')}</a>
-        </div>
-        <div class="card-grid two" style="gap:0 48px" data-top-news>${skeletonRows(4)}</div>
-      </div>
-    </section>
-
-    <!-- Interactive Continent Map Explorer -->
-    <section class="section">
-      <div class="wrap explorer">
-        <div data-map aria-busy="true" style="min-height:300px"></div>
-        <div>
-          <div class="preview-card" data-preview>${regionsHtml()}</div>
-          <div class="map-picker">
-            <select class="select" aria-label="Choose a country" data-picker><option value="">Choose a country…</option>
-              ${countries.map((c) => `<option value="${c.slug}">${esc(c.name)}</option>`).join('')}</select>
+            <div class="uh-reads" data-research>${skeletonRows(3)}</div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Deep Research & Policy -->
-    <section class="section warm">
-      <div class="wrap">
-        <div class="section-head">
-          <div><span class="eyebrow accent">Research &amp; analysis</span><h2>Read deeper</h2>
-            <p>Long-form work from think tanks, universities, survey organisations and public institutions across Africa.</p></div>
-          <a class="text-link" href="/research">All research ${icon('arrow-right')}</a>
+      <section class="colony-band">
+        <div class="wrap colony-band-wrap">
+          <div class="colony-band-copy">
+            <h2>Planning a trip or doing business in Africa?</h2>
+            <p>Ria’s Colony helps people travel and work across African countries with local guides, warm introductions, and practical on-the-ground support.</p>
+          </div>
+          <div class="btns colony-band-btns">
+            <a class="btn btn-white" href="/tools">Explore travel tools ${icon('arrow-right')}</a>
+            <a class="btn btn-outline-light" href="/tools">Browse all tools</a>
+          </div>
         </div>
-        <div data-research>${skeletonCards(3)}</div>
-      </div>
-    </section>
-
-    <!-- Featured Country File Spotlight -->
-    <section class="section">
-      <div class="wrap sample" data-sample></div>
-    </section>
+      </section>
+    </div>
   `;
 
-  // Initialize interactive map and featured country
-  initMapAndPicker(main, navigate, countries);
-  initSampleCountry(main, countries);
-  initResearchCards(main);
+  // ── Stories for you: lead story plus a short numbered list ────────────────
+  const briefIds = new Set();
+  let briefReq = Promise.resolve([]);
 
-  // Load continent-wide top news
-  api.articles({ kind: 'news', limit: 6 }).then(({ items }) => {
-    const box = $('[data-top-news]', main);
-    if (box) box.innerHTML = `<div class="news-list">${items.slice(0, 3).map(newsRow).join('')}</div><div class="news-list">${items.slice(3, 6).map(newsRow).join('')}</div>`;
-  }).catch(() => {});
+  function monitorQuery(tab) {
+    const q = { limit: 8 };
+    if (tab === 'all') {
+      if (followedCountries.length) q.country = followedCountries.slice(0, 10);
+      if (followedTopics.length) q.topic = followedTopics.slice(0, 5);
+      const keywords = monitors.map((m) => m.keywords).filter(Boolean);
+      if (!q.country && !q.topic && keywords.length) q.q = keywords[0];
+    } else {
+      const m = monitors[Number(tab)];
+      if (m?.countries?.length) q.country = m.countries;
+      if (m?.topics?.length) q.topic = m.topics;
+      if (m?.keywords) q.q = m.keywords;
+    }
+    return q;
+  }
 
-  // Load Monitored Feed
-  if (monitors.length > 0) {
-    const feedBox = $('[data-feed-list]', main);
-    const loadMonitorArticles = (monitorIndex) => {
-      feedBox.innerHTML = skeletonRows(4);
-      let queryObj = { limit: 8 };
-      if (monitorIndex === 'all') {
-        const allCountries = [...new Set(monitors.flatMap((m) => m.countries || []))];
-        const allTopics = [...new Set(monitors.flatMap((m) => m.topics || []))];
-        if (allCountries.length) queryObj.country = allCountries.slice(0, 5);
-        if (allTopics.length) queryObj.topic = allTopics.slice(0, 3);
-      } else {
-        const m = monitors[Number(monitorIndex)];
-        if (m) {
-          if (m.countries?.length) queryObj.country = m.countries;
-          if (m.topics?.length) queryObj.topic = m.topics;
-          if (m.keywords) queryObj.q = m.keywords;
-        }
+  function loadBrief(tab) {
+    const box = $('[data-brief]', main);
+    box.innerHTML = `<div class="skeleton ed-sk-lead"></div><div>${skeletonRows(3)}</div>`;
+    const req = api.articles(monitorQuery(tab)).then(({ items }) => items || []);
+    req.then((items) => {
+      if (!items.length) {
+        box.innerHTML = `
+          <div class="uh-empty">
+            <p>No new stories here over the last few days. Try following a few more countries or topics to see more updates.</p>
+            <a class="text-link" href="/following">Change what you follow ${icon('arrow-right')}</a>
+          </div>`;
+        return;
       }
-
-      api.articles(queryObj).then(({ items }) => {
-        if (!items.length) {
-          feedBox.innerHTML = `
-            <div class="empty" style="padding:40px 20px">
-              <span class="ic">${icon('star')}</span>
-              <h3>No recent stories in this monitor</h3>
-              <p>We haven't received stories matching this criteria in the last 7 days. Try adding more countries or topics.</p>
-              <a class="btn btn-outline" href="/following">Adjust monitor</a>
-            </div>`;
-        } else {
-          feedBox.innerHTML = `<div class="news-list">${items.map(newsRow).join('')}</div>`;
-        }
-      }).catch(() => {
-        feedBox.innerHTML = `<p class="muted" style="padding:20px 0">Unable to load your monitored feed right now.</p>`;
-      });
-    };
-
-    loadMonitorArticles('all');
-
-    const tabs = $$('[data-tab]', main);
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        tabs.forEach((t) => t.classList.remove('active'));
-        tab.classList.add('active');
-        loadMonitorArticles(tab.dataset.tab);
-      });
+      items.forEach((a) => briefIds.add(a.id));
+      const lead = items.find((a) => a.imageUrl) || items[0];
+      const rest = items.filter((a) => a !== lead).slice(0, 4);
+      box.innerHTML = `
+        ${editionLead(lead)}
+        <div class="ed-list"><span class="ed-list-lbl">More stories for you</span>${rest.map((a, i) => editionItem(a, i + 2)).join('')}</div>`;
+    }).catch(() => {
+      box.innerHTML = `<div class="uh-empty"><p>We couldn’t load your stories right now. Please try again in a moment.</p></div>`;
     });
-  } else {
-    // Handle Interactive Curation Card
-    const countryChips = $$('[data-country-chips] .curate-chip', main);
-    countryChips.forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const on = chip.getAttribute('aria-pressed') !== 'true';
-        chip.setAttribute('aria-pressed', on);
-        chip.classList.toggle('active', on);
-      });
-    });
+    return req.catch(() => []);
+  }
 
-    const topicChips = $$('[data-topic-chips] .curate-chip', main);
-    topicChips.forEach((chip) => {
-      chip.addEventListener('click', () => {
-        const on = chip.getAttribute('aria-pressed') !== 'true';
-        chip.setAttribute('aria-pressed', on);
-        chip.classList.toggle('active', on);
-      });
-    });
+  if (monitors.length) {
+    let activeTab = 'all';
+    briefReq = loadBrief('all');
 
-    const saveBtn = $('[data-save-curation]', main);
-    if (saveBtn) {
-      saveBtn.addEventListener('click', async () => {
-        const selectedCountries = $$('[data-country-chips] .curate-chip.active', main).map((c) => c.dataset.code);
-        const selectedTopics = $$('[data-topic-chips] .curate-chip.active', main).map((t) => t.dataset.slug);
-
-        if (!selectedCountries.length && !selectedTopics.length) {
-          alert('Please choose at least one country or sector to follow.');
-          return;
-        }
-
-        saveBtn.disabled = true;
-        saveBtn.textContent = 'Saving preferences…';
-
-        const nameParts = [
-          ...selectedCountries.slice(0, 2).map((c) => store.countryByCode.get(c)?.name),
-          ...selectedTopics.slice(0, 2).map((t) => store.topicBySlug.get(t)?.name),
-        ].filter(Boolean);
-
-        try {
-          await store.saveMonitor({
-            name: nameParts.join(' · ') || 'My Intelligence Feed',
-            countries: selectedCountries,
-            topics: selectedTopics,
-            keywords: '',
-          });
-          // Re-render home to show active personalized feed
-          renderUserHome(main, { setTitle, navigate });
-        } catch (err) {
-          alert(err.message);
-          saveBtn.disabled = false;
-          saveBtn.textContent = 'Save & Curate My Feed';
-        }
+    const switcherBtn = $('[data-open-home-switcher]', main);
+    if (switcherBtn) {
+      switcherBtn.addEventListener('click', () => {
+        openHomeFeedSwitcherModal({
+          list: monitors,
+          activeTab,
+          onSelect: (tab, name) => {
+            activeTab = tab;
+            const labelEl = $('[data-home-tab-name]', main);
+            if (labelEl) labelEl.textContent = name;
+            loadBrief(tab);
+          },
+        });
       });
     }
+
+    $('[data-follow-country]', main)?.addEventListener('click', () => {
+      openCountryPickerModal({
+        onSelect: async (c) => {
+          if (!c || followedCountries.includes(c.code)) return;
+          await store.toggleFollow('country', c.code).catch(() => {});
+          rerender();
+        },
+      });
+    });
+  }
+
+  // ── Suggestions 1-click follow handler ───────────────────────────────────
+  main.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-suggest-follow]');
+    if (!btn) return;
+    const kind = btn.dataset.suggestFollow;
+    const val = btn.dataset.val;
+    try {
+      const nowOn = await store.toggleFollow(kind, val);
+      if (nowOn) {
+        btn.classList.remove('btn-outline');
+        btn.classList.add('btn-plum', 'is-on');
+        btn.innerHTML = `${icon('check')} Following`;
+        const name = kind === 'country' ? store.countryByCode.get(val)?.name : store.topicBySlug.get(val)?.name;
+        toast(`Following ${name || val}`);
+      } else {
+        btn.classList.add('btn-outline');
+        btn.classList.remove('btn-plum', 'is-on');
+        btn.innerHTML = `${icon('plus')} Follow`;
+      }
+    } catch (err) {
+      toast(err.message, 'error');
+    }
+  });
+
+  // ── Behavioral Curation: load stories tailored to user activity ──────────
+  const activity = store.getReadingActivity();
+  const curatedBox = $('[data-curated-feed]', main);
+  const curatedSub = $('[data-curated-subtitle]', main);
+
+  const curQuery = { kind: 'news', limit: 8 };
+  if (activity.topCountries.length) {
+    curQuery.country = activity.topCountries.slice(0, 3);
+  } else if (followedCountries.length) {
+    curQuery.country = followedCountries.slice(0, 3);
+  }
+  if (activity.topTopics.length) {
+    curQuery.topic = activity.topTopics.slice(0, 2);
+  } else if (followedTopics.length) {
+    curQuery.topic = followedTopics.slice(0, 2);
+  }
+
+  api.articles(curQuery).then(({ items }) => {
+    if (!curatedBox) return;
+    let curated = (items || []).filter((a) => !briefIds.has(a.id));
+    if (!curated.length) curated = items || [];
+    curated = curated.slice(0, 3);
+
+    if (!curated.length) {
+      curatedBox.innerHTML = '<p class="hint">Read articles and explore country profiles to see stories curated for your interests here.</p>';
+      return;
+    }
+
+    if (activity.topCountries.length || activity.topTopics.length) {
+      const cNames = activity.topCountries.slice(0, 2).map((c) => store.countryByCode.get(c)?.name).filter(Boolean);
+      const tNames = activity.topTopics.slice(0, 2).map((t) => store.topicBySlug.get(t)?.name).filter(Boolean);
+      const matched = [...cNames, ...tNames].join(', ');
+      if (curatedSub && matched) {
+        curatedSub.textContent = `Tailored from your recent interest in ${matched}.`;
+      }
+    }
+
+    curatedBox.innerHTML = curated.map((a) => homeCuratedCard(a, activity)).join('');
+  }).catch(() => {
+    if (curatedBox) curatedBox.innerHTML = '<p class="hint">Stories couldn’t load just now.</p>';
+  });
+
+  // ── Across Africa today: general news not already shown above ─────────────
+  Promise.all([briefReq, api.articles({ kind: 'news', limit: 16 }).then((r) => r.items || [])]).then(([, items]) => {
+    const box = $('[data-wider]', main);
+    if (!box) return;
+    const fresh = diversifyBySource(items.filter((a) => !briefIds.has(a.id)), 4);
+    box.innerHTML = fresh.length
+      ? fresh.map(homeReadCard).join('')
+      : `<p class="hint">No new stories yet today. <a class="text-link" href="/news">See all news</a></p>`;
+  }).catch(() => {
+    const box = $('[data-wider]', main);
+    if (box) box.innerHTML = '<p class="hint">Stories couldn’t load just now.</p>';
+  });
+
+  // ── Research for you: reports on followed countries, then general reports ─
+  const kinds = ['research', 'analysis', 'official'];
+  const personal = followedCountries.length || followedTopics.length
+    ? api.articles({ kind: kinds, country: followedCountries.slice(0, 10), topic: followedTopics.slice(0, 5), limit: 6 }).then((r) => r.items || [])
+    : Promise.resolve([]);
+  personal
+    .then((items) => (items.length ? items : api.articles({ kind: kinds, limit: 6 }).then((r) => r.items || [])))
+    .then((items) => {
+      const box = $('[data-research]', main);
+      if (!box) return;
+      const picked = diversifyBySource(items, 4);
+      box.innerHTML = picked.length
+        ? picked.map(homeReadCard).join('')
+        : '<p class="hint">New reports will show up here as soon as they are published.</p>';
+    })
+    .catch(() => {
+      const box = $('[data-research]', main);
+      if (box) box.innerHTML = '<p class="hint">Reports couldn’t load just now.</p>';
+    });
+
+  // ── First-run setup: pick countries and topics, save as one item ──────────
+  if (!monitors.length) {
+    const bindChip = (chip) => chip.addEventListener('click', () => {
+      chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true'));
+    });
+    $$('[data-country-chips] .chip, [data-topic-chips] .chip', main).forEach(bindChip);
+
+    $('[data-more-countries]', main)?.addEventListener('click', () => {
+      openCountryPickerModal({
+        onSelect: (c) => {
+          if (!c) return;
+          const chipBox = $('[data-country-chips]', main);
+          let chip = chipBox.querySelector(`[data-code="${c.code}"]`);
+          if (!chip) {
+            chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'chip';
+            chip.dataset.code = c.code;
+            chip.innerHTML = `${flag(c.code, 'flag', '')} ${esc(c.name)}`;
+            bindChip(chip);
+            chipBox.appendChild(chip);
+          }
+          chip.setAttribute('aria-pressed', 'true');
+        },
+      });
+    });
+
+    const saveBtn = $('[data-save-setup]', main);
+    const hint = $('[data-setup-hint]', main);
+    saveBtn.addEventListener('click', async () => {
+      const countries = $$('[data-country-chips] .chip[aria-pressed="true"]', main).map((c) => c.dataset.code);
+      const topics = $$('[data-topic-chips] .chip[aria-pressed="true"]', main).map((t) => t.dataset.slug);
+      if (!countries.length && !topics.length) {
+        hint.textContent = 'Pick at least one country or topic to get started.';
+        return;
+      }
+      saveBtn.disabled = true;
+      const name = [
+        ...countries.slice(0, 2).map((c) => store.countryByCode.get(c)?.name),
+        ...topics.slice(0, 2).map((t) => store.topicBySlug.get(t)?.name),
+      ].filter(Boolean).join(' · ');
+      try {
+        await store.saveMonitor({ name: name || 'My feed', countries, topics, keywords: '' });
+        rerender();
+      } catch (err) {
+        hint.textContent = err.message;
+        saveBtn.disabled = false;
+      }
+    });
   }
 }
 
@@ -403,57 +877,94 @@ async function renderUserHome(main, { setTitle, navigate }) {
 async function renderGuestHome(main, { setTitle, navigate }) {
   setTitle('');
   main.style.paddingBottom = '0';
-  const { stats, countries, topics } = store.meta;
+  const { stats, countries } = store.meta;
+  const todayStr = new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
 
-  // Active filter state for the guest news stream
+  // Active filter state for the guest news feed
   let activeCountry = null;
   let activeTopic = null;
 
   main.innerHTML = `
-    <!-- Editorial Paper Hero -->
-    <section class="hero">
-      <div class="wrap"><div class="hero-inner">
-        <span class="badge">Pan-African Intelligence · 54 Countries</span>
-        <h1>Understand Africa, <span>one market at a time.</span></h1>
-        <p>Independent reporting, 15-year World Bank indicator trends, and verified intelligence across all 54 African countries — cited, dated and linked directly to original publishers.</p>
+    <!-- Photo hero with plum overlay -->
+    <section class="gh-hero">
+      <img class="gh-hero-img" src="/assets/img/hero-map.webp" alt="" fetchpriority="high">
+      <div class="wrap gh-hero-inner">
+        <h1>Understand Africa, <em>one country at a time.</em></h1>
+        <p>Local news, 15 years of World Bank numbers, and research from across the continent.<span class="gh-more"> Every story is dated and links straight to the original publisher.</span></p>
         <form class="hero-search" role="search" data-search>
           ${icon('search')}
-          <input type="search" name="q" placeholder="Search a country, industry or question…" aria-label="Search Style Vault" list="country-list" autocomplete="off">
+          <input type="search" name="q" placeholder="Search for a country, topic, or question…" aria-label="Search Style Vault" list="country-list" autocomplete="off">
           <datalist id="country-list">${countries.map((c) => `<option value="${esc(c.name)}">`).join('')}</datalist>
-          <button class="btn btn-plum" type="submit">Search</button>
+          <button class="btn btn-accent" type="submit">Search</button>
         </form>
-        <div class="hero-regions"><span>Start with a region:</span>
-          ${Object.entries(REGION_NAMES).map(([k, v]) => `<a href="/countries?region=${k}">${v.replace(' Africa', '')}</a>`).join('')}
-        </div>
-      </div></div>
-    </section>
-
-    <!-- Movement 1: Today's Edition & Editorial Lead Feature (With Images) -->
-    <section class="section" style="padding-top:64px;padding-bottom:72px">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow accent">Daily Edition · Today Across Africa</span>
-            <h2>Top developments from African newsrooms</h2>
-            <p>Important reporting and market developments verified and updated hourly across 97 independent newsrooms.</p>
-          </div>
-          <a class="text-link" href="/news">Live news wire ${icon('arrow-right')}</a>
-        </div>
-
-        <div class="lead-layout" data-lead-box>
-          ${skeletonRows(2)}
+      </div>
+      <div class="gh-bar">
+        <div class="wrap gh-bar-inner">
+          <span class="gh-bar-text">Start following countries and saving stories:</span>
+          <a class="gh-bar-btn" href="/signup">Create an account</a>
+          <span class="gh-bar-or">or</span>
+          <a class="gh-bar-link" href="/login">Sign in</a>
         </div>
       </div>
     </section>
 
-    <!-- Movement 2: Curated Pan-African Growth Channels -->
+    <!-- Dedicated Movement: Regional Gateways -->
+    <section class="section-region-bar">
+      <div class="wrap">
+        <div class="rg-bar">
+          <div class="rg-copy">
+            <span class="eyebrow accent">Browse by Region</span>
+            <h2>Explore Africa by Region</h2>
+            <p>See local news, economic trends, and country profiles grouped by region.</p>
+          </div>
+          <div class="rg-actions">
+            <button type="button" class="rg-trigger" data-region-modal-trigger aria-haspopup="dialog">
+              <span class="rg-trigger-label">${icon('map')} <span>Pick a region…</span></span>
+              <span class="rg-trigger-arrow">${icon('chevron-down')}</span>
+            </button>
+            <div class="rg-chips">
+              ${Object.entries(REGION_NAMES).map(([k, v]) => `
+                <a href="/countries?region=${k}" class="rg-chip">
+                  <span>${v}</span>
+                  <span class="rg-chip-count">${store.meta.countries.filter((c) => c.region === k).length}</span>
+                </a>
+              `).join('')}
+              <a href="/countries" class="rg-chip rg-chip-all">All 54 Countries ${icon('arrow-right')}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Movement 1: Daily Edition -->
+    <section class="section edition">
+      <div class="wrap">
+        <div class="ed-head">
+          <div>
+            <div class="ed-mast">
+              <span class="ed-badge">Today’s Top Stories</span>
+              <span class="ed-date">${esc(todayStr)}</span>
+            </div>
+            <h2>Big stories from African newsrooms</h2>
+            <p>The most important news today, gathered from trusted local publishers across the continent.</p>
+          </div>
+          <a class="btn btn-outline btn-sm ed-wire-btn" href="/news">See all news ${icon('arrow-right')}</a>
+        </div>
+        <div class="ed-grid" data-lead-box>
+          <div class="skeleton ed-sk-lead"></div>
+          <div>${skeletonRows(3)}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Movement 2: Key Topics -->
     <section class="section warm tight">
       <div class="wrap">
         <div class="section-head" style="margin-bottom:28px">
           <div>
-            <span class="eyebrow">Strategic Channels</span>
-            <h2>Key African growth sectors</h2>
-            <p>Track policy, investment, and market expansion across cross-border economic sectors.</p>
+            <span class="eyebrow">Browse by topic</span>
+            <h2>Major topics across Africa</h2>
+            <p>Follow new laws, business deals, and everyday changes shaping the continent.</p>
           </div>
           <a class="text-link" href="/topics">All 13 topics ${icon('arrow-right')}</a>
         </div>
@@ -462,66 +973,88 @@ async function renderGuestHome(main, { setTitle, navigate }) {
           <div class="channel-card">
             <span class="channel-icon">🚢</span>
             <h3><a href="/topic/trade">Trade &amp; AfCFTA</a></h3>
-            <p>Continental free trade, port infrastructure, cross-border corridors, tariff rules, and logistics hubs.</p>
-            <span class="channel-meta">Explore sector ${icon('arrow-right')}</span>
+            <p>Cross-border trade, ports, shipping routes, and new rules making it easier to do business across Africa.</p>
+            <span class="channel-meta">Read trade stories ${icon('arrow-right')}</span>
           </div>
 
           <div class="channel-card">
             <span class="channel-icon">💼</span>
-            <h3><a href="/topic/business">Fintech &amp; Banking</a></h3>
-            <p>Venture funding, mobile money rails, banking regulation, central bank policy, and startup rounds.</p>
-            <span class="channel-meta">Explore sector ${icon('arrow-right')}</span>
+            <h3><a href="/topic/business">Business &amp; Banking</a></h3>
+            <p>Startups, mobile money, banking news, central bank decisions, and company investments.</p>
+            <span class="channel-meta">Read business stories ${icon('arrow-right')}</span>
           </div>
 
           <div class="channel-card">
             <span class="channel-icon">⚡</span>
-            <h3><a href="/topic/energy">Energy &amp; Infrastructure</a></h3>
-            <p>Renewables, off-grid solar, power grids, strategic critical minerals, and industrial projects.</p>
-            <span class="channel-meta">Explore sector ${icon('arrow-right')}</span>
+            <h3><a href="/topic/energy">Energy &amp; Power</a></h3>
+            <p>Solar projects, power grids, clean energy, mining, and major building projects.</p>
+            <span class="channel-meta">Read energy stories ${icon('arrow-right')}</span>
           </div>
 
           <div class="channel-card">
             <span class="channel-icon">🌾</span>
-            <h3><a href="/topic/agriculture">Agriculture &amp; Food</a></h3>
-            <p>Agtech, crop yields, commodity exports, fertilizer value chains, and food security policy.</p>
-            <span class="channel-meta">Explore sector ${icon('arrow-right')}</span>
+            <h3><a href="/topic/agriculture">Farming &amp; Food</a></h3>
+            <p>Food harvests, crop exports, farming tech, and how countries are keeping food affordable.</p>
+            <span class="channel-meta">Read farming stories ${icon('arrow-right')}</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Movement 3: Market News Wire with Quick Filter -->
-    <section class="section">
+    <!-- Movement 3: Stories by Country & Topic -->
+    <section class="section wire-section">
       <div class="wrap">
         <div class="section-head">
           <div>
-            <span class="eyebrow accent">Market Wire</span>
-            <h2>Filtered intelligence by country &amp; sector</h2>
-            <p>Select any hub to shape your stream. All stories link to their original African publisher.</p>
-          </div>
-          <div class="chips wrap-chips" data-market-filter>
-            <button type="button" class="chip active" data-action="all">${icon('globe')} All Stories</button>
-            <button type="button" class="chip" data-action="country" data-val="NG">${flag('NG', 'flag', '')} Nigeria</button>
-            <button type="button" class="chip" data-action="country" data-val="KE">${flag('KE', 'flag', '')} Kenya</button>
-            <button type="button" class="chip" data-action="country" data-val="ZA">${flag('ZA', 'flag', '')} South Africa</button>
-            <button type="button" class="chip" data-action="country" data-val="GH">${flag('GH', 'flag', '')} Ghana</button>
-            <button type="button" class="chip" data-action="country" data-val="EG">${flag('EG', 'flag', '')} Egypt</button>
-            <button type="button" class="chip" data-action="country" data-val="RW">${flag('RW', 'flag', '')} Rwanda</button>
-            <button type="button" class="chip" data-action="topic" data-val="business">💼 Business</button>
-            <button type="button" class="chip" data-action="topic" data-val="trade">🚢 Trade</button>
-            <button type="button" class="chip" data-action="topic" data-val="technology">💡 Technology</button>
+            <span class="eyebrow accent">Explore Stories</span>
+            <h2>Stories by country and topic</h2>
+            <p>Pick any country or topic below to see the latest news. Every story links straight to its original publisher.</p>
           </div>
         </div>
 
-        <div data-wire-container>${skeletonRows(4)}</div>
-
-        <!-- Access Cap Notice for Unsigned Guests -->
-        <div style="margin-top:36px;padding:22px 26px;border-radius:var(--r);background:var(--warm);border:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
-          <div>
-            <strong style="color:var(--deep);font-size:0.98rem">Showing top public reports from 97 African newsrooms</strong>
-            <p style="color:var(--muted);font-size:0.86rem;margin-top:4px">Guests can read headline wire stories. Create a free account to unlock historical search, custom country monitors, and saved reading vault.</p>
+        <div class="wire-panel">
+          <div class="wire-filters" data-market-filter>
+            <div class="wire-filter-toolbar">
+              <div class="wire-filter-col">
+                <span class="wire-filter-kicker">${icon('globe')} Country</span>
+                <button type="button" class="wire-filter-btn wire-btn-country" data-trigger-wire-country aria-haspopup="dialog" aria-label="Choose a country">
+                  <span class="wfb-flag" data-wire-country-flag>🌍</span>
+                  <span class="wfb-label" data-wire-country-label>All of Africa (54 Countries)</span>
+                  <span class="wfb-chevron" aria-hidden="true">${icon('chevron-down')}</span>
+                </button>
+              </div>
+              <div class="wire-filter-col">
+                <span class="wire-filter-kicker">⚡ Topic</span>
+                <button type="button" class="wire-filter-btn wire-btn-sector" data-trigger-wire-sector aria-haspopup="dialog" aria-label="Choose a topic">
+                  <span class="wfb-flag" data-wire-sector-flag>📊</span>
+                  <span class="wfb-label" data-wire-sector-label>All Topics</span>
+                  <span class="wfb-chevron" aria-hidden="true">${icon('chevron-down')}</span>
+                </button>
+              </div>
+            </div>
           </div>
-          <a class="btn btn-plum btn-sm" href="/signup">Join free for full access</a>
+          <div class="wire-status">
+            <div class="wire-status-scope" aria-live="polite">
+              <span class="ws-prefix">Showing</span>
+              <span class="ws-pill">
+                <span class="live-dot-sm" aria-hidden="true"></span>
+                <strong data-wire-label>All of Africa</strong>
+              </span>
+            </div>
+            <a class="wire-more-link" href="/news" data-wire-more>
+              <span>See all stories</span>
+              ${icon('arrow-right')}
+            </a>
+          </div>
+          <div data-wire-container>${skeletonRows(3)}</div>
+        </div>
+
+        <div class="wire-cta">
+          <div>
+            <strong>Want to save stories or follow specific countries?</strong>
+            <p>Create a free account to follow the places you care about and save stories to read later.</p>
+          </div>
+          <a class="btn btn-plum btn-sm" href="/signup">Join free</a>
         </div>
       </div>
     </section>
@@ -532,165 +1065,153 @@ async function renderGuestHome(main, { setTitle, navigate }) {
         <div data-map aria-busy="true" style="min-height:300px"></div>
         <div>
           <div class="preview-card" data-preview>${regionsHtml()}</div>
-          <div class="map-picker">
-            <select class="select" aria-label="Choose a country" data-picker><option value="">Choose a country…</option>
-              ${countries.map((c) => `<option value="${c.slug}">${esc(c.name)}</option>`).join('')}</select>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Movement 5: Restricted Member Access — Deep Intelligence & Institutional Briefs -->
-    <section class="section">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow accent">Restricted Member Access · Vault Intelligence</span>
-            <h2>Institutional research &amp; think tank policy</h2>
-            <p>Peer-reviewed work, macroeconomic surveys, and policy briefs from UNECA, AfDB, Afrobarometer, and 20+ specialized African research institutes.</p>
-          </div>
-          <a class="text-link" href="/research">View research catalog ${icon('arrow-right')}</a>
-        </div>
-
-        <!-- 3 Locked Preview Cards -->
-        <div data-locked-research>${skeletonCards(3)}</div>
-
-        <!-- StyleVault Intelligence Membership Gate Card -->
-        <div class="gate-card">
-          <div class="gate-copy">
-            <span class="lock-badge">${icon('shield')} Full Membership Preview</span>
-            <h3 style="margin-top:12px">Unlock Full Pan-African Intelligence</h3>
-            <p>Unsigned guests can read top news headlines. Create your free StyleVault account to unlock complete institutional whitepapers, 15-year World Bank indicator datasets, and tailored cross-border trade monitors.</p>
-            <ul class="gate-perks">
-              <li>${icon('check')} <span>Uncapped access to 20+ African think tank &amp; policy libraries</span></li>
-              <li>${icon('check')} <span>15-year historical World Bank indicator datasets for all 54 nations</span></li>
-              <li>${icon('check')} <span>Custom multi-country &amp; industry intelligence monitors</span></li>
-              <li>${icon('check')} <span>Cloud-synced reading vault across your phone and desktop</span></li>
-            </ul>
-          </div>
-          <div class="gate-box">
-            <strong>Join StyleVault Intelligence</strong>
-            <span>Create a free account in 30 seconds. No credit card required.</span>
-            <a class="btn btn-plum btn-block" href="/signup">Create free account</a>
-            <a class="btn btn-outline btn-block" href="/login">Already a member? Sign in</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Movement 6: Ria's Colony Band -->
-    <section class="colony-band">
-      <div class="wrap">
-        <div><h2>Going beyond reading about a country?</h2>
-          <p>Ria’s Colony helps people travel between African countries and do business across their markets, with local guides, introductions and market support.</p></div>
-        <div class="btns">
-          <a class="btn btn-white" href="https://riascolony.org/products" target="_blank" rel="noopener">Explore Ria’s Colony ${icon('arrow-up-right')}</a>
-          <a class="btn btn-outline-light" href="https://riascolony.org/resources" target="_blank" rel="noopener">Country guides</a>
         </div>
       </div>
     </section>
   `;
 
-  // Search form handler
+  // Search form handler: prompt unauthenticated guests to create an account
   $('[data-search]', main).addEventListener('submit', (e) => {
     e.preventDefault();
     const q = e.target.q.value.trim();
-    const country = countries.find((c) => c.name.toLowerCase() === q.toLowerCase());
-    navigate(country ? `/country/${country.slug}` : `/search?q=${encodeURIComponent(q)}`);
+    openSignupPromptModal({
+      title: 'Search across Africa',
+      subtitle: 'Create a free StyleVault account to search news, economic data, and country archives.',
+      destination: `/search?q=${encodeURIComponent(q)}`,
+      navigate,
+    });
   });
+
+  // Custom Region dropdown menu modal trigger: prompt guests directly
+  const regionModalBtn = $('[data-region-modal-trigger]', main);
+  if (regionModalBtn) {
+    regionModalBtn.addEventListener('click', () => {
+      openSignupPromptModal({
+        title: 'Explore Africa by Region',
+        subtitle: 'Create a free StyleVault account to explore all 54 African countries, local news, and economic numbers grouped by region.',
+        destination: '/countries',
+        navigate,
+      });
+    });
+  }
 
   // Init Interactive Map
   initMapAndPicker(main, navigate, countries);
 
-  // ── Load Movement 1: Editorial Lead Story & Developing Wire ───────────────
-  api.articles({ kind: 'news', limit: 4 }).then(({ items }) => {
-    const leadBox = $('[data-lead-box]', main);
-    if (!leadBox) return;
+  // ── Load Movement 1: Daily Edition (lead with a photo when one exists) ────
+  const editionReq = api.articles({ kind: 'news', limit: 8 });
+  editionReq.then(({ items }) => {
+    const box = $('[data-lead-box]', main);
+    if (!box) return;
     if (!items.length) {
-      leadBox.innerHTML = `<p class="muted">No featured reporting available right now.</p>`;
+      box.innerHTML = `
+        <div class="ed-empty-state">
+          <div class="ed-empty-badge">${icon('compass')} <span>Updating now</span></div>
+          <div class="ed-empty-body">
+            <h3>Gathering today’s stories</h3>
+            <p>We check 90+ African newsrooms and official sources every hour. Browse all news or pick a country below while new stories load.</p>
+          </div>
+          <div class="ed-empty-actions">
+            <a class="btn btn-accent btn-sm" href="/news">See All News ${icon('arrow-right')}</a>
+            <a class="btn btn-outline btn-sm" href="/countries">Browse 54 Countries</a>
+          </div>
+        </div>`;
       return;
     }
-
-    const lead = items[0];
-    const wire = items.slice(1, 4);
-
-    leadBox.innerHTML = `
-      ${featureStoryCard(lead)}
-      <div class="lead-wire">
-        ${wire.map(newsRow).join('')}
-      </div>
-    `;
+    const lead = items.find((a) => a.imageUrl) || items[0];
+    const rest = items.filter((a) => a !== lead).slice(0, 4);
+    box.innerHTML = `
+      ${editionLead(lead)}
+      <div class="ed-list"><span class="ed-list-lbl">Also today</span>${rest.map((a, i) => editionItem(a, i + 2)).join('')}</div>`;
   }).catch(() => {});
 
-  // ── Load Movement 3: Market News Wire with Filter ─────────────────────────
+  // ── Load Movement 3: Stories with filter ──────────────────────────────────
   const wireContainer = $('[data-wire-container]', main);
+  const wireLabel = $('[data-wire-label]', main);
+  const wireMore = $('[data-wire-more]', main);
 
   function loadWire() {
-    wireContainer.innerHTML = skeletonRows(4);
-    const queryObj = { kind: 'news', limit: 6 };
+    wireContainer.innerHTML = skeletonRows(3);
+    const queryObj = { limit: 8 };
     if (activeCountry) queryObj.country = activeCountry;
     if (activeTopic) queryObj.topic = activeTopic;
 
-    api.articles(queryObj).then(({ items }) => {
+    api.articles({ ...queryObj, kind: 'news' }).then(({ items }) => {
+      if (items && items.length) return items;
+      return api.articles(queryObj).then((res) => res.items || []).catch(() => []);
+    }).then((items) => {
       if (!items.length) {
+        const countryName = activeCountry ? store.countryByCode.get(activeCountry)?.name : null;
+        const topicName = activeTopic ? store.topicBySlug.get(activeTopic)?.name : null;
+        const filterDesc = countryName && topicName ? `${countryName} (${topicName})` : countryName || topicName || 'All of Africa';
+
         wireContainer.innerHTML = `
-          <div class="empty" style="padding:40px 20px">
-            <span class="ic">${icon('search')}</span>
-            <h3>No recent stories for this selection</h3>
-            <p>Try selecting another country or topic, or view all stories.</p>
+          <div class="wire-empty-card">
+            <div class="wec-badge"><span class="live-dot-sm"></span> <span>Updated hourly</span></div>
+            <div class="wec-body">
+              <h3>Latest stories · ${esc(filterDesc)}</h3>
+              <p>We check 90+ African newsrooms and official sources every hour for new stories.</p>
+            </div>
+            <div class="wec-actions">
+              <a class="btn btn-accent btn-sm" href="/news">See All News ${icon('arrow-right')}</a>
+              ${countryName ? `<a class="btn btn-outline btn-sm" href="/country/${store.countryByCode.get(activeCountry)?.slug}">Open ${esc(countryName)}</a>` : `<a class="btn btn-outline btn-sm" href="/countries">Browse 54 Countries</a>`}
+            </div>
           </div>`;
         return;
       }
-      const half = Math.ceil(items.length / 2);
-      wireContainer.innerHTML = `
-        <div class="card-grid two" style="gap:0 48px">
-          <div class="news-list">${items.slice(0, half).map(newsRow).join('')}</div>
-          <div class="news-list">${items.slice(half).map(newsRow).join('')}</div>
-        </div>`;
+      wireContainer.innerHTML = `<div class="wire-grid">${items.slice(0, 6).map(wireCard).join('')}</div>`;
     }).catch(() => {
-      wireContainer.innerHTML = `<p class="muted" style="padding:24px 0">Unable to load stories at this time.</p>`;
+      wireContainer.innerHTML = `
+        <div class="wire-empty-card">
+          <div class="wec-badge"><span class="live-dot-sm"></span> <span>Updated hourly</span></div>
+          <div class="wec-body">
+            <h3>Latest stories from across Africa</h3>
+            <p>We check 90+ African newsrooms and official sources every hour for new stories.</p>
+          </div>
+          <div class="wec-actions">
+            <a class="btn btn-accent btn-sm" href="/news">See All News ${icon('arrow-right')}</a>
+          </div>
+        </div>`;
     });
   }
 
-  const marketFilter = $('[data-market-filter]', main);
-  if (marketFilter) {
-    marketFilter.addEventListener('click', (e) => {
-      const btn = e.target.closest('button');
-      if (!btn) return;
-      marketFilter.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
+  function updateWireUI() {
+    const parts = [];
+    if (activeCountry) parts.push(store.countryByCode.get(activeCountry)?.name);
+    else parts.push('All of Africa');
+    if (activeTopic) parts.push(store.topicBySlug.get(activeTopic)?.name);
 
-      const action = btn.dataset.action;
-      if (action === 'all') {
-        activeCountry = null;
-        activeTopic = null;
-      } else if (action === 'country') {
-        activeCountry = btn.dataset.val;
-        activeTopic = null;
-      } else if (action === 'topic') {
-        activeTopic = btn.dataset.val;
-        activeCountry = null;
-      }
-      loadWire();
+    wireLabel.textContent = parts.join(' · ');
+    const country = activeCountry && store.countryByCode.get(activeCountry);
+    wireMore.href = country ? `/country/${country.slug}` : activeTopic ? `/topic/${activeTopic}` : '/news';
+    loadWire();
+  }
+
+  const triggerCountry = $('[data-trigger-wire-country]', main);
+  if (triggerCountry) {
+    triggerCountry.addEventListener('click', () => {
+      openSignupPromptModal({
+        title: 'Filter Stories by Country',
+        subtitle: 'Create a free StyleVault account to filter news across all 54 African countries.',
+        destination: '/countries',
+        navigate,
+      });
+    });
+  }
+
+  const triggerSector = $('[data-trigger-wire-sector]', main);
+  if (triggerSector) {
+    triggerSector.addEventListener('click', () => {
+      openSignupPromptModal({
+        title: 'Filter Stories by Topic',
+        subtitle: 'Create a free StyleVault account to filter stories across business, energy, mining, and trade.',
+        destination: '/topics',
+        navigate,
+      });
     });
   }
 
   loadWire();
-
-  // ── Load Movement 5: Locked Member Research Cards ─────────────────────────
-  Promise.all([
-    api.articles({ kind: 'research', limit: 2 }),
-    api.articles({ kind: 'official', limit: 1 }),
-  ]).then(([res, off]) => {
-    const box = $('[data-locked-research]', main);
-    if (!box) return;
-    const items = [...res.items, ...off.items].slice(0, 3);
-    if (!items.length) {
-      box.innerHTML = '';
-      return;
-    }
-    box.innerHTML = `<div class="card-grid">${items.map((a) => readCard(a, { locked: true })).join('')}</div>`;
-  }).catch(() => {});
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

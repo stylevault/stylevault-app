@@ -104,3 +104,49 @@ export async function requireUser(db, request) {
   if (!user) throw new HttpError(401, 'Please sign in to continue');
   return user;
 }
+
+const RESET_TTL_S = 3600; // 1 hour
+
+export async function ensureAuthSchema(db) {
+  await db.prepare(`
+    CREATE TABLE IF NOT EXISTS password_resets (
+      token_hash TEXT PRIMARY KEY,
+      user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      created_at INTEGER NOT NULL,
+      expires_at INTEGER NOT NULL
+    )
+  `).run().catch(() => {});
+}
+
+export async function createPasswordReset(db, userId) {
+  await ensureAuthSchema(db);
+  const token = b64url(crypto.getRandomValues(new Uint8Array(32)));
+  const tokenHash = await sha256Hex(token);
+  const t = now();
+  await db.prepare('DELETE FROM password_resets WHERE user_id = ?').bind(userId).run().catch(() => {});
+  await db
+    .prepare('INSERT INTO password_resets (token_hash, user_id, created_at, expires_at) VALUES (?, ?, ?, ?)')
+    .bind(tokenHash, userId, t, t + RESET_TTL_S)
+    .run();
+  return token;
+}
+
+export async function verifyPasswordReset(db, token) {
+  await ensureAuthSchema(db);
+  const tokenHash = await sha256Hex(token);
+  return db
+    .prepare(`
+      SELECT pr.token_hash, pr.user_id, pr.expires_at, u.email, u.name
+      FROM password_resets pr
+      JOIN users u ON u.id = pr.user_id
+      WHERE pr.token_hash = ? AND pr.expires_at > ?
+    `)
+    .bind(tokenHash, now())
+    .first();
+}
+
+export async function consumePasswordReset(db, token) {
+  const tokenHash = await sha256Hex(token);
+  await db.prepare('DELETE FROM password_resets WHERE token_hash = ?').bind(tokenHash).run().catch(() => {});
+}
+

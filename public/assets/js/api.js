@@ -42,6 +42,8 @@ export const api = {
   signup: (body) => request('POST', '/api/auth/signup', body),
   login: (body) => request('POST', '/api/auth/login', body),
   logout: () => request('POST', '/api/auth/logout'),
+  forgotPassword: (body) => request('POST', '/api/auth/forgot-password', body),
+  resetPassword: (body) => request('POST', '/api/auth/reset-password', body),
 
   me: () => request('GET', '/api/me'),
   updateProfile: (body) => request('PATCH', '/api/me', body),

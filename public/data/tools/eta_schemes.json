@@ -1,0 +1,2322 @@
+{
+  "_readme": "Every African pre-travel authorisation scheme, one row each. A field with a null value means NOT YET ESTABLISHED, and renders as a gap. Never guess. Every non-null claim needs a source id resolving in data/sources.json.",
+  "schemes": [
+    {
+      "id": "CV",
+      "country": "Cabo Verde",
+      "name": "EASE pre-registration + Airport Security Tax (TSA)",
+      "status": "operating",
+      "launched": "2019-01-01",
+      "scope": "all_travellers",
+      "scope_note": "Every foreign air traveller, including the visa-exempt. Cabo Verdean nationals, people born in Cabo Verde and legal residents are exempt. ECOWAS citizens are visa-exempt yet must still complete it.",
+      "compulsory_for": "All foreign air travellers over two years old",
+      "optional_for": null,
+      "fee": {
+        "amount": 3400,
+        "currency": "CVE",
+        "note": "Airport Security Tax, roughly EUR31, reported by secondary sources. Confirm on ease.gov.cv."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 120,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": "Described as pre-registration rather than permission, and applications are 'approved', but whether one can be refused is not established.",
+      "boarding_enforced": true,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.864,
+        "rank": 6
+      },
+      "avoi_treatment": "Not established. This is the open question: Cabo Verde imposes a paid, mandatory pre-departure authorisation on visa-exempt African travellers and does not appear to have been classified the way Seychelles was.",
+      "sources": [
+        "CV-EASE",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-07",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm the TSA amount and whether it varies by nationality",
+        "Whether an EASE application can be refused",
+        "Whether it can be completed on arrival at all, or whether pre-departure is mandatory"
+      ],
+      "notes": "Predates Seychelles by four years and is the earliest African pre-travel authorisation found so far. Also suspended visa-on-arrival for 96 nationalities from 1 January 2026. The authorisation is valid for a year, unlike Seychelles' single-trip window. Whether it can be completed on arrival is NOT established, the consular portal directs travellers to pre-register up to five days before travel, and carriers check before boarding. Assume it must be done in advance."
+    },
+    {
+      "id": "GH",
+      "country": "Ghana",
+      "name": "Electronic Travel Authorisation (free)",
+      "status": "operating",
+      "launched": "2026-05-25",
+      "scope": "named_list",
+      "scope_note": "Mandatory for nationals of African Union member states who are NOT ECOWAS or AES members, and for other nationalities that were previously visa-exempt. ECOWAS and AES nationals, including Nigerians, are exempt and continue to enter visa-free with a valid passport.",
+      "compulsory_for": "AU nationals outside ECOWAS and AES; previously visa-exempt non-African nationalities",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "The ETA is issued free of charge. Separately, eVisas for visa-required nationals cost USD260 single entry and USD468 multiple entry, with fees waived for African nationals travelling for business or tourism."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": "Not established. Visa on arrival was discontinued on 25 May 2026, so there is no fallback at the border.",
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Ghana Immigration Service with the Ministry of Foreign Affairs",
+      "avoi_2025": {
+        "score": 0.868,
+        "rank": 5
+      },
+      "avoi_treatment": "Introduced after the 2025 collection window, so not yet assessed. Under the published methodology a compulsory pre-travel authorisation scores zero regardless of cost, and visa on arrival scores 0.8. Ghana replaced the second with the first for non-ECOWAS Africans.",
+      "sources": [
+        "GH-EVISA",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 60,
+      "needs": [
+        "Whether the ETA can be refused, and on what grounds",
+        "Stated processing time and minimum lead time",
+        "Whether AES nationals remain exempt given the ECOWAS withdrawals"
+      ],
+      "notes": "RESOLVED 15 August 2026. Widely reported as Ghana becoming the fifth country visa-free to all Africans. The mechanism is different: a mandatory free ETA before travel for AU nationals outside ECOWAS and AES, with visa on arrival discontinued. Free, which is what the AVOI recommends for such authorisations. But a compulsory pre-travel requirement scores zero on that index whatever it costs, so Ghana may be recorded as less open despite removing every fee. RE-CHECKED 13 OCTOBER 2026: no change found. The free ETA for AU nationals outside ECOWAS and AES is still as described."
+    },
+    {
+      "id": "KE",
+      "country": "Kenya",
+      "name": "Electronic Travel Authorisation",
+      "status": "waived_for_africans",
+      "launched": "2024",
+      "scope": "all_travellers",
+      "scope_note": "eTA exemption granted to all African countries except Somalia and Libya, by Cabinet decision in January 2025. Most African visitors receive two months; East African Community nationals six months under EAC free movement protocols. Separately, a Health Ministry notice of 30 July 2026 requires foreign visitors staying under 12 months, Africans included, to hold travel health insurance of at least USD50,000. The High Court suspended it on 24 August 2026 and the case is still in court, so it is not being enforced for now.",
+      "compulsory_for": "Nationals of Somalia and Libya, and non-African nationalities",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Fee position after the waiver not yet established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 72,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Processing capped at 72 hours, with an expedited option offering instant approval.",
+      "boarding_enforced": true,
+      "nationalities_barred_online": [],
+      "operator": "Directorate of Immigration Services",
+      "avoi_2025": {
+        "score": 0.962,
+        "rank": 3
+      },
+      "avoi_treatment": "Previously classified as a visa ahead of travel, ranking 46th. The waiver moved Kenya up 43 places.",
+      "sources": [
+        "AVOI-2025",
+        "AVOI-2025-COMESA",
+        "KE-CABINET",
+        "AVOI-2025-RANKINGS",
+        "KE-INSURANCE-2026"
+      ],
+      "verified_on": "2026-09-24",
+      "verify_every_days": 60,
+      "needs": [
+        "Whether any fee survives for Somali and Libyan nationals",
+        "Outcome of the High Court case on the USD50,000 visitor health insurance rule (hearing set for 16 September 2026, no ruling found yet)"
+      ],
+      "notes": "The closest thing to a natural experiment on the continent: same country, same borders, ETA on and ETA off, 43 places apart. Since this research, Somalia (from 1 September 2025) and Mauritania (from January 2025) have each launched their own mandatory eVisa/eTAS systems, Kenya's exclusion of Somalia and Libya from its waiver runs in one direction only; Somalia now separately requires an eVisa of everyone, Kenyans included. UPDATE 24 SEPTEMBER 2026: the ETA waiver for Africans still stands. A new USD50,000 travel health insurance rule for all foreign visitors (Gazette Notice 11492, 30 July 2026) was suspended by the High Court on 24 August 2026. Watch the court outcome: if the rule comes back, it would add a pre-travel step for African visitors even without an ETA."
+    },
+    {
+      "id": "MA",
+      "country": "Morocco",
+      "name": "Temporary Electronic Travel Authorisation",
+      "status": "expired",
+      "launched": "2025-09",
+      "scope": "named_list",
+      "scope_note": "Applied to nationals of eight countries who normally enter visa-free, for the duration of the Africa Cup of Nations.",
+      "compulsory_for": "Nationals of eight visa-free countries, during the tournament period",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": null
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.151,
+        "rank": 44
+      },
+      "avoi_treatment": null,
+      "sources": [
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-05",
+      "verify_every_days": 180,
+      "needs": [
+        "The eight countries",
+        "Whether it has in fact lapsed",
+        "Whether Morocco intends to make it permanent"
+      ],
+      "notes": "Ran roughly September 2025 to January 2026 for AFCON. The first African example of a temporary, event-driven authorisation imposed on visa-free travellers, a template worth watching for future tournaments."
+    },
+    {
+      "id": "MZ",
+      "country": "Mozambique",
+      "name": "Autorização Eletrónica de Viagem",
+      "status": "operating",
+      "launched": "2025-04",
+      "scope": "named_list",
+      "scope_note": "29 countries. Only three are African: Ghana, Côte d'Ivoire and Senegal. The rest are European, North American, Middle Eastern or Asian.",
+      "compulsory_for": "Nationals of the 29 listed countries",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": "MZN",
+        "note": "An administration fee is reported but has not been confirmed on the portal."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 48,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [
+        "Pakistan",
+        "Bangladesh",
+        "Nepal",
+        "Ethiopia",
+        "Somalia",
+        "Nigeria"
+      ],
+      "operator": "VFS Global",
+      "avoi_2025": {
+        "score": 0.842,
+        "rank": 7
+      },
+      "avoi_treatment": "Suspended at the time of the 2025 report, and recorded as having no effect on Mozambique's score.",
+      "sources": [
+        "MZ-EVISA",
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 60,
+      "needs": [
+        "Administration fee amount",
+        "Official reinstatement date from SENAMI",
+        "Basis for the six-nationality online exclusion"
+      ],
+      "notes": "Announced April 2025, suspended 16 May 2025 over technical failures, rebuilt with VFS Global and operating again. Six nationalities, three of them African, cannot apply online at all and must attend an embassy. RE-CHECKED 13 OCTOBER 2026: no new notice found. Wikipedia still lists the ETA (USD 48) for the 29 countries; a wider search found no official reinstatement notice after the May 2025 suspension, so the reinstatement date is still open."
+    },
+    {
+      "id": "NA",
+      "country": "Namibia",
+      "name": "None found, visa on arrival, no pre-travel authorisation",
+      "status": "none",
+      "launched": null,
+      "scope": "not_applicable",
+      "scope_note": "No ETA found. Around 22 nationalities enter visa-free, mostly SADC members. African nationals not on that list are covered by a visa-on-arrival policy introduced in 2024. Visa exemptions for 33 mainly Western nationalities ended on 1 April 2025 on reciprocity grounds.",
+      "compulsory_for": "Nothing before travel",
+      "optional_for": "Online application available before departure but not required",
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Visa on arrival fee not yet established."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 0,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": false,
+      "nationalities_barred_online": [],
+      "operator": "Ministry of Home Affairs, Immigration, Safety and Security",
+      "avoi_2025": {
+        "score": 0.653,
+        "rank": 18
+      },
+      "avoi_treatment": "No pre-travel authorisation. Visa on arrival would fall in the middle category.",
+      "sources": [
+        "NA-IMMIGRATION",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm the AU visa-on-arrival policy scope with the Ministry",
+        "Visa on arrival fee",
+        "Confirm the current visa-free list"
+      ],
+      "notes": "Namibia moved the other way from most of the tracker: it removed exemptions for Western nationalities on reciprocity grounds while keeping and extending access for Africans. The KAZA UniVisa covering Zimbabwe and Zambia has been signed but not implemented by Namibia and Botswana."
+    },
+    {
+      "id": "NG",
+      "country": "Nigeria",
+      "name": "Mandatory e-Visa (replaced visa on arrival)",
+      "status": "operating",
+      "launched": "2025-05-01",
+      "scope": "visa_required_nationals",
+      "scope_note": "All nationalities that require a visa. ECOWAS citizens remain visa-free and are unaffected. All visitors, including ECOWAS and other visa-free nationals, must also fill in an online landing and exit card before arriving and before leaving (lecard.immigration.gov.ng).",
+      "compulsory_for": "Every traveller who previously used visa on arrival",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Fee schedule varies by nationality and is set partly on a reciprocity basis. Figures circulating online are inconsistent, take them from the NIS portal only."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Applications are screened against international databases before approval; airlines can deny boarding without an approval email.",
+      "boarding_enforced": true,
+      "nationalities_barred_online": [],
+      "operator": "Nigeria Immigration Service",
+      "avoi_2025": {
+        "score": 0.321,
+        "rank": 32
+      },
+      "avoi_treatment": "Recorded as one of four countries that moved from broad visa on arrival to requiring a visa ahead of travel. The report's West Africa section puts Nigeria at 32nd, down from 6th.",
+      "sources": [
+        "NG-NVP2025",
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS",
+        "NG-LECARD"
+      ],
+      "verified_on": "2026-09-24",
+      "verify_every_days": 90,
+      "needs": [
+        "e-Visa fee schedule from the NIS portal, by nationality",
+        "Stated processing time and whether it is met in practice",
+        "Reconcile the report's 32nd placing against its own country table, which appears to differ",
+        "Nigeria's AVOI 2025 score",
+        "Whether the landing and exit card is checked at boarding, and what happens to a traveller who arrives without one"
+      ],
+      "notes": "The subject of the first piece in this series. Announced 21 February 2025, visa on arrival phased out from 1 May 2025, Nigeria Visa Policy 2025 introduced that month. Framed as security and efficiency modernisation. Henley currently scores Nigeria 83rd in the world, admitting 19 of 198 nationalities without a prior visa, the two indices agree here, unlike Seychelles and Guinea-Bissau. Nigeria is also the nationality most often carved out elsewhere: barred from Mozambique's online channel, placed in Tanzania's Referral Visa category until 25 September 2026, and excluded from Tanzania's Commonwealth waiver. UPDATE 24 SEPTEMBER 2026: added the mandatory landing and exit card, in place since May 2025. It applies to every visitor, so it is the one pre-travel step that also reaches ECOWAS citizens who need no visa."
+    },
+    {
+      "id": "RW",
+      "country": "Rwanda",
+      "name": "None, visa on arrival, no pre-travel step",
+      "status": "none",
+      "launched": null,
+      "scope": "not_applicable",
+      "scope_note": "Checked and no pre-travel authorisation found. Visas are issued at the border post, free of charge for African Union, Commonwealth and Francophonie nationals.",
+      "compulsory_for": "Nothing before travel",
+      "optional_for": "Online application is available but not required; applicants may pay online or on arrival",
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "Free on arrival for AU, Commonwealth and Francophonie nationals."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 0,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": false,
+      "nationalities_barred_online": [],
+      "operator": "Directorate General of Immigration and Emigration",
+      "avoi_2025": {
+        "score": 1,
+        "rank": 1
+      },
+      "avoi_treatment": "Joint first. No pre-travel requirement to classify.",
+      "sources": [
+        "RW-MIGRATION",
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-07",
+      "verify_every_days": 180,
+      "needs": [
+        "Re-check periodically, the value of this row is that it stays empty"
+      ],
+      "notes": "Recorded deliberately as a negative finding. Rwanda is the country most often held up as the model, and the check confirms there is no online step hiding behind the reputation. Useful as the control against which the others are read."
+    },
+    {
+      "id": "SC",
+      "country": "Seychelles",
+      "name": "Travel Authorisation (eTA)",
+      "status": "operating",
+      "launched": "2023",
+      "scope": "all_travellers",
+      "scope_note": "Every non-citizen, regardless of nationality. The first African country to require one universally.",
+      "compulsory_for": "Everyone",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": "EUR",
+        "note": "Payment by card is required; the amount has not yet been sourced from the portal."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": {
+        "amount": 30,
+        "currency": "EUR"
+      },
+      "min_lead_hours": null,
+      "application_window_days": 30,
+      "refusable": null,
+      "refusable_note": "The consent screen states the data is processed for determining eligibility to travel, which implies a decision. Whether applications are in fact refused, and how often, is unanswered. Request filed under the Access to Information Act 2018.",
+      "boarding_enforced": true,
+      "nationalities_barred_online": [],
+      "operator": "Travizory Border Security SA",
+      "avoi_2025": {
+        "score": 0,
+        "rank": 54
+      },
+      "avoi_treatment": "Classified as an e-Visa, i.e. a visa required ahead of travel.",
+      "sources": [
+        "SC-GOVTAS",
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-05",
+      "verify_every_days": 90,
+      "needs": [
+        "Fee amount",
+        "Whether applications can be refused, and refusal counts"
+      ],
+      "notes": "Went from joint 1st in the 2024 AVOI to 54th of 54 in 2025 without refusing any African traveller. The single most consequential ETA on the continent for measurement purposes."
+    },
+    {
+      "id": "ZA",
+      "country": "South Africa",
+      "name": "Electronic Travel Authorisation",
+      "status": "operating",
+      "launched": "2025-10",
+      "scope": "visa_required_nationals",
+      "scope_note": "Rolling out in phases. As of the latest published update the ETA applies to nationals of Mainland China, India, Indonesia and Mexico, entering through OR Tambo, Cape Town, King Shaka (Durban) or Lanseria. NO AFRICAN NATIONALITY IS CURRENTLY IN SCOPE. The stated plan is to extend it to all visa-required countries and to the busiest land ports, including Beitbridge, Lebombo, Kopfontein, Skilpadhek and Maseru Bridge. The 22 African countries with visa exemptions remain outside it, described in the gazette as 'initially' optional.",
+      "compulsory_for": "Nationals of China, India, Indonesia and Mexico at four airports. Extension to all visa-required countries announced.",
+      "optional_for": "Nationals of visa-exempt countries, described in the gazette as 'initially' optional",
+      "fee": {
+        "amount": 500,
+        "currency": "ZAR",
+        "status": "in_force",
+        "note": "CONFIRMED IN FORCE. The Department of Home Affairs published the final fee regulation in Government Gazette 55209 on 17 August 2026, and the amendment took effect on publication. Applies to the same four nationalities already in scope (China, India, Indonesia, Mexico); visa-exempt travellers may optionally apply for an ETA at the same R500. No African nationality is in scope for the fee."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Travellers who require an ETA or eVisa and arrive without one cannot obtain one on arrival and are denied entry.",
+      "boarding_enforced": true,
+      "nationalities_barred_online": [],
+      "operator": "State-operated; the proposal replaces an outsourced provider",
+      "avoi_2025": {
+        "score": 0.377,
+        "rank": 25
+      },
+      "avoi_treatment": "Described in the 2025 report as materially different from other ETAs, because it replaces a consular visa process rather than adding a step for visa-free travellers, and as easing the travel experience.",
+      "sources": [
+        "ZA-GG-55072",
+        "AVOI-2025",
+        "ZA-FRAGOMEN",
+        "AVOI-2025-RANKINGS",
+        "ZA-EIG-GG55209",
+        "ZA-VISASNEWS-R500",
+        "ZA-EXPLAIN-2026"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 30,
+      "needs": [
+        "Whether the R500 also applies to work, business and permanent residence applications online",
+        "When African nationalities enter scope, and whether visa-exempt Africans become compulsory",
+        "The current ETA fee, which Fragomen reports is set on reciprocal visa fee arrangements and is not published",
+        "DISCREPANCY: some July 2026 reporting lists 32 African countries as visa-exempt for South Africa, including Nigeria, Ghana, Egypt and Ethiopia. Other reporting gives a much shorter ordinary-passport list. The longer list may relate to diplomatic and official passports. Resolve against the DHA schedule before using either.",
+        "Track the announced extension of the ETA to all visa-required countries and land ports, and re-check whether any African nationality enters scope"
+      ],
+      "notes": "UPDATE 8 SEPTEMBER 2026: The R500 fee is now confirmed in force, not merely proposed, per Government Gazette 55209 (17 August 2026). Re-verify interval relaxed from 7 to 30 days now that the core commencement question is resolved; the open question going forward is the announced rollout to all visa-required countries and additional land ports, and whether African nationalities enter scope. IMPORTANT SCOPE NOTE (unchanged): the ETA still does not apply to any African nationality. Coverage that framed the R500 as a charge on African travellers remains wrong. RE-CHECKED 13 SEPTEMBER 2026: no change. September news coverage still frames the wider rollout to more visa-required countries and land ports as an announced target, not yet executed; the live portal (eta.dha.gov.za) was in scheduled maintenance at check time and could not be inspected directly. No African nationality is newly in scope. RE-CHECKED 19 SEPTEMBER 2026: no African nationality newly in scope. The portal has accepted optional applications from visa-exempt nationals since 17 August 2026 (the R500 fee applies), and King Shaka Airport in Durban is planned as a fourth airport but was not yet live. Government reporting still gives extension to all visa-required countries in September 2026 as a target, not a confirmed event; the live portal could not be read directly. RE-CHECKED 24 SEPTEMBER 2026: King Shaka Airport in Durban is now reported as live, so the ETA runs at four airports (OR Tambo, Cape Town, King Shaka, Lanseria). Still only China, India, Indonesia and Mexico in scope, and no African nationality. Extension to all visa-required countries is still a target, not done. RE-CHECKED 13 OCTOBER 2026: Wikipedia now says the ETA is 'available for all visa-required countries' as of September 2026, but gives no source, and Fragomen (updated 18 August 2026) still names only China, India, Indonesia and Mexico, with no date set for the wider rollout. The portal could not be read directly. No African nationality is confirmed in scope, so nothing changes for travellers."
+    },
+    {
+      "id": "TZ",
+      "country": "Tanzania",
+      "name": "None, visa on arrival and e-Visa, no pre-travel authorisation",
+      "status": "none",
+      "launched": null,
+      "scope": "not_applicable",
+      "scope_note": "Checked and no ETA found. EAC members, SADC members except Comoros, and Commonwealth countries except the UK, Canada, Nigeria, India, Pakistan, Australia and New Zealand enter without a visa. Others use an e-Visa or a visa on arrival.",
+      "compulsory_for": "Nothing before travel for visa-exempt nationalities",
+      "optional_for": "Online application available to all; recommended but not required for those eligible on arrival",
+      "fee": {
+        "amount": 50,
+        "currency": "USD",
+        "note": "Ordinary visa. Business 250, multiple entry 100, transit 30. Nothing for visa-exempt nationalities."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 0,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Explicitly so. The guidelines state that a Visa Grant Notice is not final authority to enter, and an immigration officer at the entry point may still refuse.",
+      "boarding_enforced": false,
+      "nationalities_barred_online": [],
+      "operator": "Tanzania Immigration Services",
+      "avoi_2025": {
+        "score": 0.709,
+        "rank": 17
+      },
+      "avoi_treatment": "No pre-travel authorisation to classify.",
+      "sources": [
+        "TZ-VISA",
+        "AVOI-2025-RANKINGS",
+        "TZ-NOTICE-2026-09-25",
+        "TZ-INSURANCE-GN256"
+      ],
+      "verified_on": "2026-10-04",
+      "verify_every_days": 180,
+      "needs": [
+        "Whether any separate arrival or customs declaration must be filed before departure",
+        "Tanzania's AVOI 2025 score and rank",
+        "The full, current Referral Visa country list"
+      ],
+      "notes": "No ETA, but Tanzania operates a differential access tier that no openness measure captures: the Referral Visa category (online application only, approval by the Commissioner General before travel, advised at least two months ahead, usually with an invitation letter from a host in Tanzania). Nigeria was in this category until 25 September 2026, when a public notice (Government Gazette No. 246 of 2026) removed it with immediate effect. Nigerians now use the ordinary visa, online or at the point of entry, USD 50. Nigeria is still one of seven Commonwealth countries excluded from the Commonwealth visa waiver, so it still needs a visa. From 1 October 2026 (Government Notice No. 256 of 2026) foreign visitors to mainland Tanzania must hold USD 44 NIC inbound travel insurance, bought online or on arrival; residents of EAC and SADC states are exempt. Zanzibar has had its own equivalent since October 2024."
+    },
+    {
+      "id": "GM",
+      "country": "The Gambia",
+      "name": "None, visa-free for all African nationals",
+      "status": "none",
+      "launched": null,
+      "scope": "not_applicable",
+      "scope_note": "PARTIALLY CONFIRMED. Popular coverage and The Gambia's own formal visa policy do not fully agree on scope. The AVOI scores The Gambia 1.000 and joint first, indicating visa-free access for citizens of all 53 other African countries, but this has not been confirmed against the Gambia Immigration Department directly.",
+      "compulsory_for": "Nothing before travel",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for African nationals."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 0,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": false,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 1,
+        "rank": 1
+      },
+      "avoi_treatment": "Joint first with Rwanda. Nothing to classify.",
+      "sources": [
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm scope directly with the Gambia Immigration Department",
+        "Reconcile the formal visa policy against the index score",
+        "Establish whether any category of African traveller is excluded"
+      ],
+      "notes": "Held as partially confirmed deliberately. This is a genuinely open question rather than a gap we have not got to. Recorded alongside Rwanda as a control, but with less confidence than Rwanda, which was confirmed from its immigration directorate."
+    },
+    {
+      "id": "ZM",
+      "country": "Zambia",
+      "name": "Possible ETA requirement, unverified",
+      "status": "proposed",
+      "launched": null,
+      "scope": null,
+      "scope_note": "CONFLICTING INFORMATION. The 2025 AVOI recorded Zambia as considering an advance passenger information system with an authorisation attached. A travel advisory service reports that Zambia now requires an ETA of most visitors including transit passengers. Neither has been confirmed against the Zambian Department of Immigration. Treat as unresolved and check before travelling.",
+      "compulsory_for": null,
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": null
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.483,
+        "rank": 19
+      },
+      "avoi_treatment": null,
+      "sources": [
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS",
+        "ZM-IMMIGRATION-GOV-CHECK"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 14,
+      "needs": [
+        "PRIORITY: establish whether an ETA requirement is actually in force, from zambiaimmigration.gov.zm",
+        "If in force: scope, fee, lead time, and whether transit passengers are included"
+      ],
+      "notes": "UPDATE 8 SEPTEMBER 2026: Checked the official Zambia Department of Immigration site directly per the 'needs' note below. It makes no mention of an Electronic Travel Authorization anywhere; only e-Visa, visa-free entry for 53 countries, and standard permits are described. This does not conclusively rule out a requirement (a government site can lag reality) but it weighs against the only source claiming a live requirement, which is the same class of commercial travel-advisory source this project has already found unreliable elsewhere (see Libya). Status held at 'proposed' rather than downgraded or upgraded, pending an unambiguous government statement either way. RE-CHECKED 13 SEPTEMBER 2026: same result, still no ETA section on the official site and no newer government statement found either way. RE-CHECKED 19 SEPTEMBER 2026: the official 'For Visitors' page on zambiaimmigration.gov.zm still describes only the e-Visa and the 53-country visa waiver, with no ETA anywhere, and a wider search found no government or credible-outlet statement of an ETA requirement. Status unchanged. RE-CHECKED 13 OCTOBER 2026: still no government or credible-outlet statement of a Zambian ETA requirement; the only trace remains the 2025 AVOI report that one was being considered. Status unchanged."
+    },
+    {
+      "id": "ZW",
+      "country": "Zimbabwe",
+      "name": "None found, eVisa system, no separate pre-travel authorisation",
+      "status": "none",
+      "launched": null,
+      "scope": "not_applicable",
+      "scope_note": "No ETA found. Zimbabwe's eVisa platform lists 17 African countries as visa-free: Angola, Botswana, DR Congo, Ghana, Kenya, Lesotho, Madagascar, Malawi, Mauritius, Mozambique, Namibia, Seychelles, South Africa, Eswatini, Uganda and others. Nigeria is not on the list. Others use an eVisa or a visa on arrival.",
+      "compulsory_for": "Nothing before travel for the 17 listed African nationalities",
+      "optional_for": "eVisa available as an alternative to visa on arrival",
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "eVisa fees vary by category and nationality. Not yet established."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 0,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": false,
+      "nationalities_barred_online": [],
+      "operator": "Government of Zimbabwe",
+      "avoi_2025": {
+        "score": 0.472,
+        "rank": 20
+      },
+      "avoi_treatment": "No pre-travel authorisation to classify. The eVisa would score as a pre-travel requirement for nationalities that need one.",
+      "sources": [
+        "ZW-EVISA",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm the 17-country list directly on evisa.gov.zw",
+        "eVisa fee schedule by nationality",
+        "Processing time, reported as around seven working days"
+      ],
+      "notes": "Nigeria is absent from Zimbabwe's visa-free list, making this the third country in the tracker where Nigerian travellers face a materially different route from their neighbours. Separately, Zimbabwean citizens now require an eTA for Ghana and Seychelles, which independently corroborates that Ghana's new authorisation captures non-ECOWAS African nationals."
+    },
+    {
+      "id": "DZ",
+      "country": "Algeria",
+      "name": "None found, traditional consular visa, small African exemption list",
+      "status": "none",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Checked. No ETA or e-Visa open to African nationals was found. A small number of African neighbours (reported as roughly six or seven countries, including Libya, Mali, Mauritania, Morocco, Seychelles and Tunisia) enter visa-free or with permission on arrival. All other African nationalities must apply for a traditional visa in person at an Algerian embassy or consulate before travel. Algeria does run an eVisa portal, but reporting indicates it is currently limited to a short list of non-African nationalities (EU/Schengen, US, Canada, Gulf states), not to Africans generally.",
+      "compulsory_for": "Traditional consular visa for African nationalities not on the small exemption list",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established for African nationalities; embassy visa fees vary."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Algerian Ministry of Foreign Affairs (embassies/consulates)",
+      "avoi_2025": {
+        "score": 0.094,
+        "rank": 50
+      },
+      "avoi_treatment": "No pre-travel authorisation to classify; the traditional consular-visa requirement for most Africans is reflected in Algeria's low AVOI score.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "DZ-VISA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 180,
+      "needs": [
+        "Confirm the exact list of visa-exempt African countries directly with an Algerian embassy",
+        "Whether Algeria's eVisa portal has been or will be extended to African nationalities",
+        "Fee and processing time for the ordinary consular visa"
+      ],
+      "notes": "Distinct from Morocco's temporary AEVM scheme, under which Algerian citizens themselves needed a travel authorisation for AFCON 2025, that scheme concerned Algerians travelling to Morocco, not travel into Algeria."
+    },
+    {
+      "id": "AO",
+      "country": "Angola",
+      "name": "Mandatory online e-visa (pre-visa) for non-exempt nationalities",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Angola grants 90-day visa-free tourist entry to 14 named African countries (Tanzania, Eswatini, Morocco, Lesotho, Rwanda, Zimbabwe, Equatorial Guinea, Botswana, Madagascar, Malawi, Mauritius, Seychelles, Cape Verde, Algeria) under a 2023 presidential decree. All other African nationalities must obtain Angola's online e-visa/pre-visa before travel; work, study and business visas always require advance application regardless of nationality.",
+      "compulsory_for": "African nationalities outside the 14-country visa-free list, for any purpose beyond visa-exempt tourism",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": "USD",
+        "note": "Reported around USD120 payable on arrival for some categories; not confirmed for the standard tourist e-visa. Confirm on the Angolan e-visa portal."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": 60,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Serviço de Migração e Estrangeiros (SME), Ministry of the Interior",
+      "avoi_2025": {
+        "score": 0.34,
+        "rank": 29
+      },
+      "avoi_treatment": "A mandatory e-visa for non-exempt nationalities scores as a pre-travel requirement; the 14-country visa-free list improves Angola's regional score.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "AO-DECREE-2023"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm current e-visa fee and processing time from the official Angolan portal",
+        "Whether the 14-country visa-free list has changed since 2023",
+        "Whether any other African nationalities have since been added to the exempt list"
+      ],
+      "notes": "Angola moved from a highly restrictive visa regime to one of the more open ones on the continent within a few years, though most African nationalities still route through the mandatory e-visa rather than enjoying the visa-free list."
+    },
+    {
+      "id": "BJ",
+      "country": "Benin",
+      "name": "ECOWAS free movement; status for non-ECOWAS travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Citizens of the 12 ECOWAS member states enter visa-free under the 1979 free movement protocol, typically for up to 90 days. What is required of NON-ECOWAS African travellers has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for ECOWAS citizens. Not established for other nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for ECOWAS citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.906,
+        "rank": 4
+      },
+      "avoi_treatment": "ECOWAS holds the highest average score of any regional economic community at 0.597, down from 0.629 in 2024.",
+      "sources": [
+        "ECOWAS-PROTOCOL",
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "PRIORITY: establish what non-ECOWAS African travellers require",
+        "Whether any online pre-travel step exists",
+        "Fees and processing times for non-ECOWAS nationalities"
+      ],
+      "notes": "Benin was joint first on the 2024 AVOI, visa-free to all African countries. Reporting from July 2026 indicates it has since published a narrower list of around 11 non-ECOWAS African countries with waivers, with six more limited to diplomatic and service passports. If accurate this is a significant narrowing and needs verifying urgently."
+    },
+    {
+      "id": "BW",
+      "country": "Botswana",
+      "name": "None found, visa-free list, visa required for others",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "No pre-travel authorisation found. Fifteen African countries are reported visa-exempt: South Africa, Zimbabwe, Zambia, Tanzania, Uganda, Kenya, Malawi, Mozambique, Namibia, Lesotho, Eswatini, Sierra Leone, The Gambia, Seychelles and Mauritius. Citizens of other African countries must complete a formal visa application before arrival.",
+      "compulsory_for": "Nothing for the 15 exempt nationalities. A visa before arrival for other Africans.",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.34,
+        "rank": 29
+      },
+      "avoi_treatment": "A visa required before arrival scores as a pre-travel requirement for the nationalities affected.",
+      "sources": [
+        "BW-VISAFREE",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm the 15-country list with Botswana immigration",
+        "Whether an online application channel exists, and whether any nationality is excluded from it",
+        "Visa fees and processing times"
+      ],
+      "notes": "Nigeria is not among the 15 exempt nationalities. The KAZA UniVisa, which would cover Botswana alongside Zimbabwe, Zambia and Namibia, has been signed but not implemented by Botswana."
+    },
+    {
+      "id": "BF",
+      "country": "Burkina Faso",
+      "name": "Mandatory online visa, fee waived for African nationals since Sept 2025",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "ECOWAS and AES nationals enter visa-free under free-movement protocols (confirmed still in force via the December 2024 Bamako declaration). All other African nationals must apply and be approved online via visaburkina.bf before travel; since a September 2025 Council of Ministers decision the fee for approved African applicants has been waived, but officials stressed 'free is not the same as exempt', the online application and approval step remains compulsory.",
+      "compulsory_for": "Non-ECOWAS/AES African nationals, and other nationalities not on the visa-exempt list",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "Free for African nationals since the September 2025 decision, provided the online application via visaburkina.bf is submitted and approved. Non-African visa-required nationals pay the standard eVisa fee."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Applications are reviewed before being approved; the government describes the waiver as fee-free, not visa-free.",
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Direction Générale de la Police Nationale / visaburkina.bf portal",
+      "avoi_2025": {
+        "score": 0.358,
+        "rank": 28
+      },
+      "avoi_treatment": "A mandatory online pre-travel approval, even at zero cost, scores as a pre-travel authorisation requirement rather than visa-free access.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "BF-EVISA-2025",
+        "ECOWAS-AES-BAMAKO-2024"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm processing time for the free African-national visa channel",
+        "Whether AES states (Mali, Niger) extend a reciprocal fee waiver",
+        "Whether the fee waiver has since been formalised in a published decree"
+      ],
+      "notes": "A close cousin of Ghana's May 2026 reform: a nominally 'free' mandatory pre-travel approval, which the AVOI methodology would still score as a pre-travel requirement rather than true visa-free access."
+    },
+    {
+      "id": "BI",
+      "country": "Burundi",
+      "name": "All-Africa waiver claim contradicted by two government sources; narrower EAC-only exemption confirmed",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "UPDATED 13 SEPTEMBER 2026. Two Burundian government-affiliated sources, the Ministry of Foreign Affairs' free-visa page and the Burundi Embassy in Turkey's exemption list, both directly contradict the May 2026 blog's claim of an all-Africa waiver: the embassy page names only Democratic Republic of Congo, Rwanda, Uganda, Tanzania and Kenya as visa-exempt, and the ministry page limits fee waivers to EAC and CEPGL member nationals, EAC students, and diplomats. Note the embassy's 5-country list omits South Sudan, which earlier compilations included as a 6th EAC member exempt from Burundian visas, that discrepancy is not yet resolved. A mandatory e-Visa (immigration.gov.bi) still applies to non-exempt nationalities, including most non-EAC Africans.",
+      "compulsory_for": "Nothing for the 5 exempt EAC-region nationalities named by the embassy source. Required for other African nationalities, including possibly South Sudan pending the discrepancy above.",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": "USD",
+        "note": "e-Visa reported around USD40 (single entry) to USD90 (multiple entry) for non-exempt nationalities, pending confirmation of whether this still applies to non-EAC Africans."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Directorate General of Migration (immigration.gov.bi)",
+      "avoi_2025": {
+        "score": 0.823,
+        "rank": 9
+      },
+      "avoi_treatment": "Burundi's high 2025 AVOI score (0.823, rank 9) predates the alleged May 2026 all-Africa waiver, which is now contradicted by government sources rather than confirmed, so the score is not expected to change on this basis.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "BI-VISA-CONFLICT",
+        "BI-MFA-FREEVISA",
+        "BI-EMBASSY-TR-EXEMPT"
+      ],
+      "verified_on": "2026-09-13",
+      "verify_every_days": 90,
+      "needs": [
+        "Reconcile the embassy's 5-country exempt list against the 6-member EAC roster (South Sudan's status specifically)",
+        "Current e-Visa fee and process for non-EAC Africans, confirmed directly rather than via the still-unconfirmed USD40-90 range",
+        "Whether Somalia's 2024 EAC accession has any bearing on Burundian visa exemption (not mentioned by either new source)"
+      ],
+      "notes": "The all-Africa waiver claim is now treated as effectively debunked, two independent Burundian government-affiliated pages (checked 2026-09-13) describe only a narrow EAC/CEPGL exemption, not a continent-wide one. Re-verify interval relaxed from 30 to 90 days now that the high-stakes contradiction is resolved; the open question going forward is the exact exempt-country count, not whether a blanket waiver exists."
+    },
+    {
+      "id": "CM",
+      "country": "Cameroon",
+      "name": "Mandatory eVisa, small CEMAC/bilateral exemption list",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Nearly all foreign visitors, including most African nationalities, must obtain a mandatory eVisa before travel. Reporting indicates a small visa-exempt list of CEMAC members (Chad, Central African Republic, Equatorial Guinea, Gabon, Congo) plus Nigeria and Mali.",
+      "compulsory_for": "African nationalities outside the small exempt list",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established; fees vary by nationality and visa type."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Direction Générale de la Sûreté Nationale (eVisa portal)",
+      "avoi_2025": {
+        "score": 0.113,
+        "rank": 47
+      },
+      "avoi_treatment": "A mandatory eVisa for most non-exempt Africans is consistent with Cameroon's low AVOI score.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "CM-EVISA",
+        "CEMAC-PROTOCOL-2017"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm the exact visa-exempt list and fee schedule with Cameroonian immigration",
+        "Whether the CEMAC exemption is reciprocal in practice for all six members"
+      ],
+      "notes": null
+    },
+    {
+      "id": "CF",
+      "country": "Central African Republic",
+      "name": "CEMAC free movement; status for non-CEMAC travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Since a 31 October 2017 agreement, citizens of the six CEMAC states (Cameroon, Chad, Central African Republic, Republic of Congo, Equatorial Guinea, Gabon) travel visa-free within the bloc on a national ID or biometric passport. What non-CEMAC African travellers require has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for CEMAC citizens. Not established for other African nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for CEMAC citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.245,
+        "rank": 39
+      },
+      "avoi_treatment": "ECCAS/CEMAC intra-bloc free movement improves regional scores; ECCAS as a whole records one of the lower average openness scores of any regional community.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "CEMAC-PROTOCOL-2017"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "PRIORITY: establish what non-CEMAC African travellers require",
+        "Whether an eVisa or online pre-travel step exists, as Cameroon (a CEMAC peer) already requires",
+        "Fees and processing times for non-CEMAC nationalities"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TD",
+      "country": "Chad",
+      "name": "CEMAC free movement; status for non-CEMAC travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Since a 31 October 2017 agreement, citizens of the six CEMAC states (Cameroon, Chad, Central African Republic, Republic of Congo, Equatorial Guinea, Gabon) travel visa-free within the bloc on a national ID or biometric passport. What non-CEMAC African travellers require has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for CEMAC citizens. Not established for other African nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for CEMAC citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.283,
+        "rank": 35
+      },
+      "avoi_treatment": "ECCAS/CEMAC intra-bloc free movement improves regional scores; ECCAS as a whole records one of the lower average openness scores of any regional community.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "CEMAC-PROTOCOL-2017",
+        "TD-VISAFREE-2027",
+        "TD-EVISA-EXEMPT",
+        "TD-EVISA-EXEMPT-2026-10"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 120,
+      "needs": [
+        "PRIORITY: establish what non-CEMAC African travellers require",
+        "Whether an eVisa or online pre-travel step exists, as Cameroon (a CEMAC peer) already requires",
+        "Fees and processing times for non-CEMAC nationalities",
+        "Whether the 1 January 2027 exemption for all Africans comes with a pre-travel step, and the government notice that sets it out"
+      ],
+      "notes": "ANNOUNCED, NOT YET IN FORCE. On 15 July 2026 President Mahamat Idriss Déby Itno announced that Chad will lift entry visa requirements for citizens of every African country from 1 January 2027. Nothing changes for non-CEMAC travellers until then. The announcement covers entry visas only, not work or residence. Not yet confirmed in a Chadian government notice. CHECKED 2 OCTOBER 2026: the visa-free list on evisa.td names, for Africa, only Benin, Congo, Côte d'Ivoire, Gabon, Gambia, Equatorial Guinea, Mali, Niger, Nigeria, Central African Republic, Rwanda and Togo. Cameroon, Mauritania and Senegal, previously shown as visa-free, are not on it. Wikipedia records Cameroon's exemption as cancelled in September 2026 (with Mauritius), citing the portal. Cameroon is a CEMAC member, so the CEMAC free-movement rule may still apply in practice; shown to travellers as 'sources disagree' until a notice or embassy confirms. RE-CHECKED 13 OCTOBER 2026: the visa-free list on evisa.td now names, for Africa, Benin, Burkina Faso, Cameroon, Congo, Gabon, Gambia, Equatorial Guinea, Mali, Niger, Nigeria, Central African Republic, Rwanda and Togo. Cameroon and Burkina Faso are back on it (Wikipedia records Cameroon as 'resumed' in October 2026). Côte d'Ivoire, listed on 2 October, is no longer there, though Wikipedia and Timatic still show it as visa-free, so it joins Mauritania and Senegal as 'sources disagree'."
+    },
+    {
+      "id": "KM",
+      "country": "Comoros",
+      "name": "None, universal visa on arrival for all nationalities",
+      "status": "none",
+      "launched": null,
+      "scope": "all_travellers",
+      "scope_note": "Checked. Comoros issues a visa on arrival to every nationality, African or otherwise, for a maximum stay of 45 days. There is no exemption list and no e-Visa or pre-travel authorisation system.",
+      "compulsory_for": "Nothing before travel; a visa on arrival is required of everyone at the port of entry",
+      "optional_for": null,
+      "fee": {
+        "amount": 30,
+        "currency": "EUR",
+        "note": "Visa on arrival fee reported as EUR30 (sometimes quoted up to EUR50), payable in cash in USD or EUR."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 0,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": false,
+      "nationalities_barred_online": [],
+      "operator": "Comorian immigration authorities (Direction Générale de l'Immigration)",
+      "avoi_2025": {
+        "score": 0.8,
+        "rank": 12
+      },
+      "avoi_treatment": "No pre-travel authorisation to classify; universal visa on arrival places Comoros in the middle category of the AVOI methodology.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "KM-VOA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 180,
+      "needs": [
+        "Confirm the exact fee and whether it varies by nationality"
+      ],
+      "notes": "A useful control alongside Rwanda and The Gambia: Comoros is open to literally everyone in the same way, just via a fee-charging on-arrival visa rather than a free pass."
+    },
+    {
+      "id": "CG",
+      "country": "Congo",
+      "name": "CEMAC free movement; status for non-CEMAC travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Since a 31 October 2017 agreement, citizens of the six CEMAC states (Cameroon, Chad, Central African Republic, Republic of Congo, Equatorial Guinea, Gabon) travel visa-free within the bloc on a national ID or biometric passport. What non-CEMAC African travellers require has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for CEMAC citizens. Not established for other African nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for CEMAC citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.215,
+        "rank": 40
+      },
+      "avoi_treatment": "ECCAS/CEMAC intra-bloc free movement improves regional scores; ECCAS as a whole records one of the lower average openness scores of any regional community.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "CEMAC-PROTOCOL-2017",
+        "CG-AFDB-2026"
+      ],
+      "verified_on": "2026-09-19",
+      "verify_every_days": 120,
+      "needs": [
+        "PRIORITY: establish what non-CEMAC African travellers require",
+        "Whether an eVisa or online pre-travel step exists, as Cameroon (a CEMAC peer) already requires",
+        "Fees and processing times for non-CEMAC nationalities",
+        "Whether the 1 January 2027 exemption for all Africans comes with a pre-travel step, and the government notice that sets it out"
+      ],
+      "notes": "ANNOUNCED, NOT YET IN FORCE. President Denis Sassou-Nguesso announced in May 2026 that the Republic of the Congo will abolish visa requirements for all African nationals from 1 January 2027. Nothing changes for non-CEMAC travellers until then. Not yet confirmed in a Congolese government notice."
+    },
+    {
+      "id": "CI",
+      "country": "Côte d'Ivoire",
+      "name": "eVisa for non-ECOWAS African travellers (priority check resolved)",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Citizens of the 12 remaining ECOWAS member states enter visa-free under the 1979 free movement protocol. Non-ECOWAS nationalities, including other Africans, require a visa obtained online (eVisa) or from an Ivorian diplomatic mission before travel, resolving the priority check flagged in earlier research about online pre-enrolment for visa-on-arrival at Abidjan airport.",
+      "compulsory_for": "Non-ECOWAS African nationalities and other visa-required nationalities",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for ECOWAS citizens. Fee for the eVisa not established for other nationalities."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.415,
+        "rank": 22
+      },
+      "avoi_treatment": "ECOWAS holds the highest average score of any regional economic community; Côte d'Ivoire's mandatory eVisa for non-ECOWAS Africans is consistent with its mid-table AVOI score (0.415, rank 22).",
+      "sources": [
+        "ECOWAS-PROTOCOL",
+        "AVOI-2025-RANKINGS",
+        "CI-EVISA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm eVisa fee, processing time and whether pre-enrolment before airport arrival is mandatory or optional",
+        "Official government source for the eVisa portal (tertiary sources only so far)"
+      ],
+      "notes": "TERTIARY sourcing (Wikipedia/Grokipedia synthesis), upgrade to a primary Ivorian government source before relying on fee or timing details."
+    },
+    {
+      "id": "CD",
+      "country": "DR Congo",
+      "name": "Mandatory eVisa for most African nationalities",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "DR Congo publishes a list of 44 African countries whose citizens are eligible for its eVisa, valid 90 days from issue. Citizens of DR Congo origin, and a handful of nationalities with unratified exemption agreements (e.g. Uganda, Chad), have separate arrangements; most other African nationalities use the standard eVisa route or a visa on arrival for specific documented cases (DR Congo origin, parental origin, or no local embassy).",
+      "compulsory_for": "The 44 listed African nationalities and other non-exempt nationalities",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established; fee varies by nationality and entry type."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Direction Générale de Migration (DGM)",
+      "avoi_2025": {
+        "score": 0.14,
+        "rank": 46
+      },
+      "avoi_treatment": "A mandatory eVisa scores as a pre-travel requirement; DR Congo's AVOI score reflects broad visa requirements toward other Africans.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "CD-EVISA-2026"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm the exact 44-country eligible list and fee on the official DR Congo eVisa portal",
+        "Status of the unratified Uganda and Chad exemption agreements"
+      ],
+      "notes": "April 2025 saw the exemption for Zimbabwean transport drivers abolished, illustrating how narrow and changeable DR Congo's exemptions can be even within SADC/ECCAS."
+    },
+    {
+      "id": "DJ",
+      "country": "Djibouti",
+      "name": "e-Visa system, recommended for all non-exempt travellers",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Djibouti introduced an e-Visa system on 18 February 2018 intended to replace visa on arrival. The government's official position lists visa on arrival as available only to diplomatic, official and service passport holders, and recommends that all other travellers, including most Africans, apply for the e-Visa before travel.",
+      "compulsory_for": "Ordinary passport holders not on a visa-exempt list",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established; single-entry visit visas reported valid 15-90 days."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Government of Djibouti (e-Visa portal)",
+      "avoi_2025": {
+        "score": 0.8,
+        "rank": 12
+      },
+      "avoi_treatment": "Recorded by the AVOI 2025 report as a new e-Visa adopter alongside Equatorial Guinea, Mauritania, Namibia and Somalia.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "DJ-EVISA-2018",
+        "AVOI-2025-ETA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm whether visa on arrival is in practice still available to ordinary passport holders at the airport",
+        "e-Visa fee and processing time"
+      ],
+      "notes": null
+    },
+    {
+      "id": "EG",
+      "country": "Egypt",
+      "name": "e-Visa required before travel for most African nationalities",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Three tiers. Around 13 African nationalities, reported to include Tanzania, Tunisia, Senegal, Ghana, Zimbabwe, Mozambique, Madagascar and Burkina Faso, can obtain a visa on arrival. A wider group including Nigeria, South Africa, Ethiopia, Kenya, Uganda, Rwanda, Namibia and Cameroon must use the eVisa, applied for online. Remaining African nationalities must apply at an embassy.",
+      "compulsory_for": "African nationalities in the eVisa tier and those requiring an embassy application",
+      "optional_for": null,
+      "fee": {
+        "amount": 25,
+        "currency": "USD",
+        "note": "Reported at about USD25 for a 30-day single entry, whether on arrival or by eVisa. Confirm on visa2egypt.gov.eg."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 168,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Nationals of several countries, reported to include Ethiopia, Mali and Niger, must obtain security clearance before a visa is issued.",
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Ministry of Foreign Affairs",
+      "avoi_2025": {
+        "score": 0.109,
+        "rank": 49
+      },
+      "avoi_treatment": "An eVisa required before travel scores as a pre-travel requirement. Visa on arrival falls in the middle category.",
+      "sources": [
+        "EG-EVISA",
+        "AVOI-2025-RANKINGS",
+        "EG-FEE-2027"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm the three tiers and the 13-country visa-on-arrival list on visa2egypt.gov.eg",
+        "Confirm the security clearance requirement and which nationalities it covers",
+        "Confirm the one-week minimum application window"
+      ],
+      "notes": "Reporting indicates the eVisa must be applied for at least a week before departure. Egypt also operates a separate resort-only entry stamp, which reporting says excludes most African nationalities. Visa fee rises from USD 30 to USD 33 on 1 January 2027 (USD 39 total for the digital visa on arrival at Cairo)."
+    },
+    {
+      "id": "GQ",
+      "country": "Equatorial Guinea",
+      "name": "CEMAC free movement; status for non-CEMAC travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Since a 31 October 2017 agreement, citizens of the six CEMAC states (Cameroon, Chad, Central African Republic, Republic of Congo, Equatorial Guinea, Gabon) travel visa-free within the bloc on a national ID or biometric passport. What non-CEMAC African travellers require has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for CEMAC citizens. Not established for other African nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for CEMAC citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.113,
+        "rank": 47
+      },
+      "avoi_treatment": "ECCAS/CEMAC intra-bloc free movement improves regional scores; ECCAS as a whole records one of the lower average openness scores of any regional community.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "CEMAC-PROTOCOL-2017"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "PRIORITY: establish what non-CEMAC African travellers require",
+        "Whether an eVisa or online pre-travel step exists, as Cameroon (a CEMAC peer) already requires",
+        "Fees and processing times for non-CEMAC nationalities"
+      ],
+      "notes": null
+    },
+    {
+      "id": "ER",
+      "country": "Eritrea",
+      "name": "None found, traditional consular visa only",
+      "status": "none",
+      "launched": null,
+      "scope": "all_travellers",
+      "scope_note": "Checked. No e-Visa or ETA system was found for Eritrea. Visas, where required, must be obtained in person from an Eritrean embassy or consulate ahead of travel; this applies to most African nationalities as well as others.",
+      "compulsory_for": "A consular visa obtained in advance, for nationalities that are not exempt",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Eritrean Ministry of Foreign Affairs (embassies/consulates)",
+      "avoi_2025": {
+        "score": 0.808,
+        "rank": 11
+      },
+      "avoi_treatment": "No pre-travel online authorisation to classify; Eritrea's relatively high AVOI score reflects that it does not charge many African nationalities extensively, though the embassy-only process is itself a barrier the AVOI framework may not fully capture.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "ER-VISA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 180,
+      "needs": [
+        "Confirm which African nationalities, if any, are visa-exempt or eligible for visa on arrival",
+        "Whether any online pre-registration step exists that this search did not surface"
+      ],
+      "notes": null
+    },
+    {
+      "id": "SZ",
+      "country": "Eswatini",
+      "name": "None found, broad exemption list, no ETA",
+      "status": "none",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Checked. Eswatini exempts a reported ~94 jurisdictions from a visa requirement, including a number of African/SADC states, but no ETA or e-Visa system was found. Non-exempt nationalities apply for a traditional visa before travel.",
+      "compulsory_for": "Traditional advance visa for nationalities not on the exemption list",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.321,
+        "rank": 32
+      },
+      "avoi_treatment": "No pre-travel online authorisation to classify.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "SZ-VISA",
+        "SZ-EVISA-PM-2026-09"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 180,
+      "needs": [
+        "Confirm the exact list of exempt African countries",
+        "Whether a visa on arrival or online step exists for non-exempt Africans"
+      ],
+      "notes": "September 2026: the Prime Minister acknowledged e-Visa delays and payment failures and promised fixes, with no date."
+    },
+    {
+      "id": "ET",
+      "country": "Ethiopia",
+      "name": "e-Visa required before travel; visa-free for two African countries only",
+      "status": "operating",
+      "launched": "2018",
+      "scope": "visa_required_nationals",
+      "scope_note": "Only Kenya and Djibouti hold visa-free access in 2026. Citizens of every other African country must obtain a visa before travelling, or a visa on arrival where eligible. Visa on arrival is reported to be restricted for some nationalities, including Nigerians.",
+      "compulsory_for": "All African nationalities except Kenya and Djibouti",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established. Fees vary by duration and category."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "e-Visa applications are adjudicated and an approval must be printed and presented on arrival.",
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Ethiopian Immigration and Citizenship Service",
+      "avoi_2025": {
+        "score": 0.732,
+        "rank": 16
+      },
+      "avoi_treatment": "An e-Visa required before travel scores as a pre-travel requirement.",
+      "sources": [
+        "ET-ICS",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm the visa-free list is only Kenya and Djibouti, from the Immigration and Citizenship Service",
+        "Establish which African nationalities are barred from visa on arrival, and confirm Nigeria is among them",
+        "e-Visa fee schedule"
+      ],
+      "notes": "The e-Visa is reported to operate only for air arrivals through Bole International Airport and select regional airports. Land arrivals must apply through an embassy, which matters for a country with long land borders. Nigeria is reported to be among the nationalities with restricted visa-on-arrival access, making Ethiopia the fourth country in this tracker where Nigerian travellers face a materially different route from their neighbours, after Mozambique, Tanzania and Zimbabwe."
+    },
+    {
+      "id": "GA",
+      "country": "Gabon",
+      "name": "CEMAC free movement; status for non-CEMAC travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Since a 31 October 2017 agreement, citizens of the six CEMAC states (Cameroon, Chad, Central African Republic, Republic of Congo, Equatorial Guinea, Gabon) travel visa-free within the bloc on a national ID or biometric passport. What non-CEMAC African travellers require has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for CEMAC citizens. Not established for other African nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for CEMAC citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.17,
+        "rank": 42
+      },
+      "avoi_treatment": "ECCAS/CEMAC intra-bloc free movement improves regional scores; ECCAS as a whole records one of the lower average openness scores of any regional community.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "CEMAC-PROTOCOL-2017",
+        "GA-EXEMPT-CONFLICT-2026-10"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 120,
+      "needs": [
+        "PRIORITY: establish what non-CEMAC African travellers require",
+        "Whether an eVisa or online pre-travel step exists, as Cameroon (a CEMAC peer) already requires",
+        "Fees and processing times for non-CEMAC nationalities",
+        "Whether São Tomé and Príncipe is still visa-exempt: read the exemptions page on evisa.dgdi.ga or ask a Gabonese embassy"
+      ],
+      "notes": "CHECKED 13 OCTOBER 2026: Gabon's foreign ministry list still names São Tomé and Príncipe as visa-exempt, but IATA Timatic no longer does (Wikipedia flagged this on 4 October 2026). Shown to travellers as 'sources disagree'. The exemptions page on evisa.dgdi.ga could not be read directly."
+    },
+    {
+      "id": "GN",
+      "country": "Guinea",
+      "name": "ECOWAS free movement; status for non-ECOWAS travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Citizens of the 12 ECOWAS member states enter visa-free under the 1979 free movement protocol, typically for up to 90 days. What is required of NON-ECOWAS African travellers has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for ECOWAS citizens. Not established for other nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for ECOWAS citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.377,
+        "rank": 25
+      },
+      "avoi_treatment": "ECOWAS holds the highest average score of any regional economic community at 0.597, down from 0.629 in 2024.",
+      "sources": [
+        "ECOWAS-PROTOCOL",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "PRIORITY: establish what non-ECOWAS African travellers require",
+        "Whether any online pre-travel step exists",
+        "Fees and processing times for non-ECOWAS nationalities"
+      ],
+      "notes": "Guinea is reported to operate an e-Visa. Not verified."
+    },
+    {
+      "id": "GW",
+      "country": "Guinea-Bissau",
+      "name": "ECOWAS free movement; status for non-ECOWAS travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Citizens of the 12 ECOWAS member states enter visa-free under the 1979 free movement protocol, typically for up to 90 days. What is required of NON-ECOWAS African travellers has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for ECOWAS citizens. Not established for other nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for ECOWAS citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.264,
+        "rank": 37
+      },
+      "avoi_treatment": "ECOWAS holds the highest average score of any regional economic community at 0.597, down from 0.629 in 2024.",
+      "sources": [
+        "ECOWAS-PROTOCOL",
+        "AVOI-2025",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "PRIORITY: establish what non-ECOWAS African travellers require",
+        "Whether any online pre-travel step exists",
+        "Fees and processing times for non-ECOWAS nationalities"
+      ],
+      "notes": "The 2025 AVOI records Guinea-Bissau as having moved from visa on arrival to requiring a visa ahead of travel, and as having launched an e-Visa portal. Henley scores it a perfect 198 of 198. That contradiction is unresolved and is discussed in our reporting."
+    },
+    {
+      "id": "LS",
+      "country": "Lesotho",
+      "name": "Visa required before travel (e-Visa portal suspended, apply by email); exemptions for SADC/Commonwealth nationalities",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Resolved via Lesotho's own Ministry of Home Affairs and its UK High Commission. Every non-exempt foreign national must first obtain a visa through Lesotho's e-visa system before travel, applications must be made from outside Lesotho, and applying in-country is prohibited. A list of visa-exempt nationalities (reported to include SADC neighbours and some Commonwealth countries) can stay 90 or 14 days depending on nationality without a visa.",
+      "compulsory_for": "Non-exempt nationalities, for any visa category",
+      "optional_for": null,
+      "fee": {
+        "amount": 150,
+        "currency": "USD",
+        "note": "Single-entry tourist or business visa, per the UK High Commission's page (USD 250 for multiple entry). Not confirmed on the Ministry of Home Affairs site."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Applications are reviewed by the Immigration Department before a result is emailed to the applicant; approval is not automatic.",
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Department of Immigration Services, Ministry of Home Affairs (by email while the e-visa portal is suspended)",
+      "avoi_2025": {
+        "score": 0.302,
+        "rank": 34
+      },
+      "avoi_treatment": "Lesotho's mid-table AVOI score (0.302, rank 34) is consistent with a regime combining SADC/Commonwealth exemptions with a mandatory e-visa for everyone else.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "LS-HOMEAFFAIRS",
+        "LS-HC-UK"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm the exact exemption list (which nationalities get 90 vs 14 days)",
+        "When the e-visa portal will reopen",
+        "Whether the stay allowed is 30 or 44 days"
+      ],
+      "notes": "Resolved from 'unchecked' using Lesotho's own Ministry of Home Affairs and UK High Commission pages, a stronger sourcing tier than most of this dataset's 'operating' entries, which often rely on tertiary compilations. UPDATE 13 OCTOBER 2026: the e-visa portal is suspended. The UK High Commission's page tells applicants to email visa-applications.immigration@gov.ls instead, with at least five working days' processing and fees of USD 150 (single entry) or USD 250 (multiple entry) for tourist and business visas. The same page is inconsistent on length of stay (30 or 44 days)."
+    },
+    {
+      "id": "LR",
+      "country": "Liberia",
+      "name": "ECOWAS free movement; status for non-ECOWAS travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Citizens of the 12 ECOWAS member states enter visa-free under the 1979 free movement protocol, typically for up to 90 days. What is required of NON-ECOWAS African travellers has not been established for this country. Do not assume nothing is required.",
+      "compulsory_for": "Nothing for ECOWAS citizens. Not established for other nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for ECOWAS citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.264,
+        "rank": 37
+      },
+      "avoi_treatment": "ECOWAS holds the highest average score of any regional economic community at 0.597, down from 0.629 in 2024.",
+      "sources": [
+        "ECOWAS-PROTOCOL",
+        "LR-VISAFREE",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "PRIORITY: establish what non-ECOWAS African travellers require",
+        "Whether any online pre-travel step exists",
+        "Fees and processing times for non-ECOWAS nationalities"
+      ],
+      "notes": "The published 2026 list confirms visa-free access is limited to ECOWAS member states. Non-ECOWAS African nationals require a visa."
+    },
+    {
+      "id": "LY",
+      "country": "Libya",
+      "name": "GNU operates a real eVisa system; unconfirmed for eastern Libya or by nationality",
+      "status": "partial",
+      "launched": null,
+      "scope": null,
+      "scope_note": "UPDATED 13 SEPTEMBER 2026, partially resolved. Two independent Libyan news outlets (Libya Herald, fetched directly; Libya Observer, corroborating via search only) report that the Tripoli-based, UN-recognised Government of National Unity operates 'Wafed' and 'E-Visa Libya' jointly through the Communications and Information Technology Authority and the Passports, Nationality and Foreigners Affairs Authority, with about 6,000 e-visas issued as of June 2026 and all earlier eVisa types discontinued. This is real government press coverage, not a commercial facilitator, and narrows the earlier three-way contradiction toward the '2024 launch, real system' account. Still unconfirmed: the actual fee (the USD63 figure is not corroborated by either new source), which nationalities it applies to, and whether the rival eastern/House-of-Representatives-aligned administration recognises or requires it at all. Treat as operating for travel through Tripoli/GNU-controlled entry points; status for eastern Libya entry points remains unknown.",
+      "compulsory_for": "Not established by nationality; travellers entering through Tripoli/GNU-controlled ports appear to need Wafed/E-Visa Libya, per government-affiliated press only.",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "A USD63 fee was reported by an earlier commercial source (LY-EVISA-MARKETING) but is not corroborated by the government-affiliated press coverage found 2026-09-13. Do not cite USD63 as confirmed."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.038,
+        "rank": 52
+      },
+      "avoi_treatment": "Libya's very low AVOI score (0.038, rank 52) is consistent with a highly restrictive regime regardless of which account of the eVisa is correct.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "LY-VISA-CONFLICT",
+        "LY-EVISA-MARKETING",
+        "LY-HERALD-2026",
+        "LY-OBSERVER-2026",
+        "LY-EVISA-COUNTRIES-2026-10"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 30,
+      "needs": [
+        "A primary GNU government statement or gazette on the scheme (the portal's country list has now been read directly, see LY-EVISA-COUNTRIES-2026-10)",
+        "The actual fee, since the previously reported USD63 is not corroborated by the newer sources",
+        "Why South Sudan is barred from applying online",
+        "Whether the eastern/House-of-Representatives-aligned administration recognises Wafed/E-Visa Libya, or operates a separate system at its own entry points",
+        "Kenya's eTA exemption already excludes Libya from its African waiver on security grounds, worth checking whether other African eTA/eVisa schemes do the same"
+      ],
+      "notes": "Kenya's eTA exemption explicitly excludes Libya (along with Somalia) from its African waiver on security grounds, a reminder that Libya sits on both sides of these schemes, excluded from others' openness as well as uncertain in its own. Moved from 'unchecked' to 'partial' on 2026-09-13 based on two Libyan press outlets describing a real GNU-operated system, still short of primary government confirmation. RE-CHECKED 13 OCTOBER 2026: the country list behind evisa.gov.ly's own eligibility check was read directly. It gives a full exemption to Algeria, Mauritania and Tunisia only (plus Malaysia, and Turkey by age). Benin no longer has one, so Beninese travellers now fall under the eVisa; Wikipedia removed Benin on 4 October 2026 for the same reason. South Sudan is marked as unavailable for online applications. Timatic adds that Mauritanians may need a security letter. The portal shows no fee, so the fee is still not established."
+    },
+    {
+      "id": "MG",
+      "country": "Madagascar",
+      "name": "None, universal visa on arrival, optional eVisa",
+      "status": "none",
+      "launched": null,
+      "scope": "all_travellers",
+      "scope_note": "Citizens of any country except Burundi and Palestine may obtain a visa on arrival at any of Madagascar's international airports for stays up to 90 days. An optional e-Visa (reactivated around April 2023) exists as an alternative but is not a mandatory pre-travel step.",
+      "compulsory_for": "Nothing before travel for most nationalities; Burundian nationals are the notable exception and should check directly",
+      "optional_for": "e-Visa available online as an alternative to visa on arrival",
+      "fee": {
+        "amount": 37,
+        "currency": "USD",
+        "note": "e-Visa reported at USD10 (15 days) to USD55 (90 days) depending on duration; on-arrival fee not separately confirmed."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 0,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": false,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.785,
+        "rank": 15
+      },
+      "avoi_treatment": "No mandatory pre-travel authorisation to classify; consistent with Madagascar's relatively high AVOI score (0.785, rank 15).",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "MG-VISA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm why Burundi is excluded from visa on arrival, and what Burundian nationals must do instead",
+        "On-arrival fee specifically, separate from the optional e-Visa fee schedule"
+      ],
+      "notes": null
+    },
+    {
+      "id": "MW",
+      "country": "Malawi",
+      "name": "e-Visa system (2019), small exemption list, VOA for some",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Around 14 African countries are visa-exempt for 90 days. Non-exempt nationalities not on Malawi's visa-on-arrival list must use the e-Visa, launched 1 November 2019; the government recommends the e-Visa to all non-exempt travellers even where on-arrival is technically available, making it the primary route in practice.",
+      "compulsory_for": "African nationalities outside the exemption and on-arrival lists",
+      "optional_for": "Visa on arrival for nationalities on Malawi's separate on-arrival list",
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established; e-Visa valid single or multiple entry, 90 days."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.472,
+        "rank": 20
+      },
+      "avoi_treatment": "Malawi's mid-table AVOI score (0.472, rank 20) reflects a mixed regime of exemptions, visa on arrival, and a mandatory e-Visa route for the remainder.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "MW-EVISA-2019"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm the exact 14-country exemption list and the separate on-arrival eligibility list",
+        "e-Visa fee and processing time"
+      ],
+      "notes": null
+    },
+    {
+      "id": "ML",
+      "country": "Mali",
+      "name": "ECOWAS/AES free movement; status for non-ECOWAS/AES travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Citizens of the 12 remaining ECOWAS member states enter visa-free under the 1979 free movement protocol. After withdrawing from ECOWAS in January 2025, the Alliance of Sahel States (Burkina Faso, Mali, Niger) declared itself a visa-free zone for all ECOWAS nationals in a December 2024 Bamako declaration, and this reciprocal arrangement was confirmed still in force through mid-2026. What non-ECOWAS/non-AES African travellers require has not been established for this country.",
+      "compulsory_for": "Nothing for ECOWAS/AES citizens under the current reciprocal arrangement. Not established for other nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for ECOWAS/AES citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.411,
+        "rank": 23
+      },
+      "avoi_treatment": "ECOWAS holds the highest average regional score of any REC; the AES exit has not yet visibly changed AES states' bilateral scores with ECOWAS members given the continuing reciprocal arrangement.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "ECOWAS-AES-BAMAKO-2024"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "PRIORITY: establish what non-ECOWAS/non-AES African travellers require to enter Mali",
+        "Whether any online pre-travel step exists",
+        "Whether the AES-ECOWAS reciprocal visa-free arrangement has since been formalised into a treaty or remains an unwritten political declaration"
+      ],
+      "notes": "Security conditions in the Sahel mean formal immigration policy may not reflect practical accessibility; this entry concerns documented policy only."
+    },
+    {
+      "id": "MR",
+      "country": "Mauritania",
+      "name": "Mandatory e-Visa (visa on arrival discontinued January 2025)",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "From 5 January 2025 Mauritania discontinued visa on arrival; all visa-required nationalities, including most Africans, must obtain an e-Visa online before boarding. A reported eight-to-nine country list (Algeria, Côte d'Ivoire, Gambia, Libya, Mali, Niger, Senegal, Tunisia) remains visa-exempt for 90 days.",
+      "compulsory_for": "African nationalities outside the visa-exempt list",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": "EUR",
+        "note": "Reported around EUR41-55 depending on nationality and category; confirm on the official e-Visa portal."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": true,
+      "nationalities_barred_online": [],
+      "operator": "Mauritanian National Police / e-Visa portal",
+      "avoi_2025": {
+        "score": 0.17,
+        "rank": 42
+      },
+      "avoi_treatment": "Named by the AVOI 2025 report as one of five countries with a genuinely new e-Visa platform in 2025.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "MR-EVISA-2025",
+        "AVOI-2025-ETA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm the exact visa-exempt country list (reports vary between 8 and 9 countries)",
+        "Exact fee schedule and processing time"
+      ],
+      "notes": null
+    },
+    {
+      "id": "MU",
+      "country": "Mauritius",
+      "name": "None found, visa-free for a reported 21 African countries",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "No pre-travel authorisation found. Reporting refers to around 21 African countries with visa-free access, but the published lists were inconsistent across sources and the full list has not been established.",
+      "compulsory_for": "Not established",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.826,
+        "rank": 8
+      },
+      "avoi_treatment": null,
+      "sources": [
+        "MU-VISAFREE",
+        "AVOI-2025-RANKINGS"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "PRIORITY: obtain the actual visa-free list from the Mauritius Passport and Immigration Office",
+        "Whether any pre-travel registration or online step exists",
+        "What non-exempt African nationals require"
+      ],
+      "notes": "Held as partial because the reported lists did not agree with each other. Not upgraded on inconsistent sourcing."
+    },
+    {
+      "id": "NE",
+      "country": "Niger",
+      "name": "ECOWAS/AES free movement; status for non-ECOWAS/AES travellers not yet established",
+      "status": "partial",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Citizens of the 12 remaining ECOWAS member states enter visa-free under the 1979 free movement protocol. After withdrawing from ECOWAS in January 2025, the Alliance of Sahel States (Burkina Faso, Mali, Niger) declared itself a visa-free zone for all ECOWAS nationals in a December 2024 Bamako declaration, and this reciprocal arrangement was confirmed still in force through mid-2026. What non-ECOWAS/non-AES African travellers require has not been established for this country.",
+      "compulsory_for": "Nothing for ECOWAS/AES citizens under the current reciprocal arrangement. Not established for other nationalities.",
+      "optional_for": null,
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for ECOWAS/AES citizens. Fees for other nationalities not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.34,
+        "rank": 29
+      },
+      "avoi_treatment": "ECOWAS holds the highest average regional score of any REC; the AES exit has not yet visibly changed AES states' bilateral scores with ECOWAS members given the continuing reciprocal arrangement.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "ECOWAS-AES-BAMAKO-2024"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "PRIORITY: establish what non-ECOWAS/non-AES African travellers require to enter Niger",
+        "Whether any online pre-travel step exists",
+        "Whether the AES-ECOWAS reciprocal visa-free arrangement has since been formalised into a treaty or remains an unwritten political declaration"
+      ],
+      "notes": "Security conditions in the Sahel mean formal immigration policy may not reflect practical accessibility; this entry concerns documented policy only."
+    },
+    {
+      "id": "SN",
+      "country": "Senegal",
+      "name": "e-Visa system since 2013, VOA fallback at two airports",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "ECOWAS nationals and roughly 50 other nationalities are visa-exempt. Other nationalities, including non-ECOWAS Africans, are directed to Senegal's e-Visa portal (available since 2013); visa on arrival is kept only as a fallback at Dakar and Cap Skirring airports for travellers who could not pre-enrol online, so the online route functions as the primary and effectively mandatory channel.",
+      "compulsory_for": "Non-ECOWAS African nationalities and other visa-required nationalities, in practice via the e-Visa portal",
+      "optional_for": "Visa on arrival at Dakar and Cap Skirring airports only, for travellers unable to pre-enrol online",
+      "fee": {
+        "amount": 0,
+        "currency": "USD",
+        "note": "No fee for ECOWAS citizens. e-Visa fee for other nationalities not established; reported upfront payment became mandatory for some non-African nationalities from August 2025."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.792,
+        "rank": 14
+      },
+      "avoi_treatment": "Senegal's relatively high AVOI score (0.792, rank 14) reflects broad visa-free ECOWAS and bilateral access; the e-Visa applies mainly to nationalities outside that broad exemption.",
+      "sources": [
+        "ECOWAS-PROTOCOL",
+        "AVOI-2025-RANKINGS",
+        "SN-EVISA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm whether non-ECOWAS Africans specifically are required to pre-enrol online or can still rely on visa on arrival",
+        "e-Visa fee and processing time from a primary Senegalese government source"
+      ],
+      "notes": "TERTIARY sourcing, the co-existence of a mandatory-in-practice e-Visa and a genuine on-arrival fallback makes Senegal a softer case than Togo or Côte d'Ivoire; verify before citing as fully mandatory."
+    },
+    {
+      "id": "SL",
+      "country": "Sierra Leone",
+      "name": "None (for African Union citizens), visa on arrival covers all AU nationals",
+      "status": "none",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Beyond ECOWAS free movement, Sierra Leone extends visa on arrival to African Union citizens generally: free for Botswana, Eswatini, Kenya, Lesotho, Malawi and Mauritius, and USD25 for other AU nationals. Only non-AU nationalities are directed to an e-Visa. This resolves the earlier 'not verified' status, no pre-travel authorisation is required of African travellers.",
+      "compulsory_for": "Nothing before travel for AU nationals; an e-Visa for non-AU nationalities",
+      "optional_for": null,
+      "fee": {
+        "amount": 25,
+        "currency": "USD",
+        "note": "Free visa on arrival for Botswana, Eswatini, Kenya, Lesotho, Malawi and Mauritius; USD25 visa on arrival for other AU nationals."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 0,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": false,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.811,
+        "rank": 10
+      },
+      "avoi_treatment": "No pre-travel authorisation to classify for AU nationals; consistent with Sierra Leone's high AVOI score (0.811, rank 10).",
+      "sources": [
+        "ECOWAS-PROTOCOL",
+        "AVOI-2025-RANKINGS",
+        "SL-VOA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm the fee list and free-VOA country list directly with Sierra Leonean immigration",
+        "Whether any online pre-registration is required alongside the on-arrival process"
+      ],
+      "notes": "TERTIARY sourcing (Wikipedia), a strong candidate for reclassification once confirmed against a primary government source, since it suggests Sierra Leone is materially more open to Africans than 'ECOWAS-only' entries elsewhere in this tracker."
+    },
+    {
+      "id": "SO",
+      "country": "Somalia",
+      "name": "Mandatory eVisa/eTAS for all foreign visitors",
+      "status": "operating",
+      "launched": null,
+      "scope": "all_travellers",
+      "scope_note": "Somalia's Electronic Visa and Travel Authorization System (eVisa/eTAS) launched 28 August 2025 and became mandatory for all foreign visitors, including infants and children, from 1 September 2025. No nationality exemptions have been reported so far.",
+      "compulsory_for": "All foreign visitors, of any nationality including African",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Applications are adjudicated through evisa.gov.so before an entry permit is issued.",
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Immigration and Citizenship Agency (ICA) of Somalia",
+      "avoi_2025": {
+        "score": 0.185,
+        "rank": 41
+      },
+      "avoi_treatment": "A universal mandatory pre-travel authorisation with no African exemptions scores at the bottom of the AVOI methodology; Somalia's 2025 score (0.185, rank 41) predates the September 2025 launch and will need re-assessment in the 2026 report.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "SO-EVISA-2025"
+      ],
+      "verified_on": "2026-10-13",
+      "verify_every_days": 60,
+      "needs": [
+        "Confirm fee, processing time and any nationality exemptions since launch",
+        "Whether the AVOI score will be revised downward once the mandatory system is captured in the next report"
+      ],
+      "notes": "One of the most recent and comprehensive African pre-travel authorisation launches found in this research, Kenya's eTA exemption explicitly still excludes Somalia and Libya on security grounds, so a Somali eTAS traveller headed to Kenya faces a visa, while inbound to Somalia now faces a universal eVisa of its own. RE-CHECKED 13 OCTOBER 2026: no change found. The eVisa/eTAS is still described as mandatory for all visitors; sources still disagree on whether any nationality can get a visa on arrival."
+    },
+    {
+      "id": "SS",
+      "country": "South Sudan",
+      "name": "Mandatory eVisa for most nationalities; Kenya and Tanzania exempt",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Kenya and Tanzania are visa-exempt for an indefinite period; a small number of other nationalities are eligible for visa on arrival. All other nationalities, which includes most African countries, must obtain an eVisa before travel, open to citizens of any country for single or multiple entry.",
+      "compulsory_for": "African nationalities other than Kenya and Tanzania",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established."
+      },
+      "on_arrival_available": null,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "South Sudan Directorate of Nationality, Passports and Immigration",
+      "avoi_2025": {
+        "score": 0.087,
+        "rank": 51
+      },
+      "avoi_treatment": "A mandatory eVisa for most non-exempt Africans is consistent with South Sudan's very low AVOI score (0.087, rank 51).",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "SS-EVISA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm the exact visa-on-arrival eligible nationalities",
+        "eVisa fee and processing time"
+      ],
+      "notes": null
+    },
+    {
+      "id": "SD",
+      "country": "Sudan",
+      "name": "None found, traditional advance visa; narrow on-arrival exemption for Eritrea, Kenya, Malaysia",
+      "status": "none",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Sudan's civil war since April 2023 has disrupted normal immigration administration and Khartoum's main airport. Available reporting indicates only Eritrean, Kenyan and Malaysian nationals can get a visa on arrival, at Port Sudan International Airport specifically, subject to discretionary security screening. All other African nationalities must obtain a visa in advance from a Sudanese embassy or consulate; no e-Visa or ETA system was found. Treat this as a snapshot of a fluid, conflict-affected situation rather than settled policy.",
+      "compulsory_for": "Advance embassy visa for African nationalities other than Eritrea, Kenya and Malaysia",
+      "optional_for": null,
+      "fee": {
+        "amount": 50,
+        "currency": "USD",
+        "note": "Reported roughly USD50 cash fee for the narrow on-arrival category (Eritrea, Kenya, Malaysia) at Port Sudan; embassy visa fees for other nationalities not established."
+      },
+      "on_arrival_available": true,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Even the narrow on-arrival category is subject to discretionary security assessment by immigration officials, not a guarantee.",
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Sudanese Ministry of Foreign Affairs (embassies) / immigration at Port Sudan",
+      "avoi_2025": {
+        "score": 0.03,
+        "rank": 53
+      },
+      "avoi_treatment": "Sudan's very low AVOI score (0.030, rank 53), the second-lowest on the continent, is consistent with a broadly restrictive regime independent of the conflict-related disruption documented here.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "SD-VISA",
+        "SD-VOA-PORTSUDAN",
+        "SD-EMBASSY-ENTRYVISA"
+      ],
+      "verified_on": "2026-09-19",
+      "verify_every_days": 30,
+      "needs": [
+        "Confirm current status against a government or UN source given the ongoing conflict",
+        "Whether any functioning e-Visa or online step has since been introduced",
+        "Whether other African nationalities have separate arrangements not captured in tertiary sources"
+      ],
+      "notes": "Short re-verify interval reflects the conflict-driven volatility rather than confidence in the finding; sourcing here is tertiary (Grokipedia) and should be treated as provisional pending a primary Sudanese government or embassy statement. RE-CHECKED 19 SEPTEMBER 2026: an embassy page (sudanembassy.org) still describes only postal or in-person applications with USD154 processing fees and no online system. One search summary claimed an e-visa exists but cited a commercial aggregator, not a government source, so it was not adopted. Status unchanged, sourcing still weaker than we would like."
+    },
+    {
+      "id": "ST",
+      "country": "São Tomé and Príncipe",
+      "name": "Mandatory eVisa/embassy visa, small African exemption list",
+      "status": "operating",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Resolved: visitors must obtain a visa, either online through the eVisaST portal or from a São Toméan diplomatic mission, before arrival, unless they hold a passport from one of roughly eight visa-exempt countries (a 2015 policy covering, from Africa, Angola, Cape Verde and Equatorial Guinea, alongside the EU, US, Canada and Brazil) for stays up to 15 days. The AVOI 2025 report separately names São Tomé and Príncipe as one of the most restrictive ECCAS members toward fellow Central African states.",
+      "compulsory_for": "Non-exempt African nationalities",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established; eVisa reported single-entry, valid 30 days from issue, stay up to 30 days."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": 90,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Government of São Tomé and Príncipe (eVisaST portal) / diplomatic missions",
+      "avoi_2025": {
+        "score": 0.151,
+        "rank": 44
+      },
+      "avoi_treatment": "AVOI 2025 score 0.151, rank 44 (tied with Morocco), consistent with a mandatory pre-travel visa/eVisa for most African nationalities and with the ECCAS regional section naming it among the bloc's most restrictive members.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "ST-ECCAS",
+        "ST-EVISA"
+      ],
+      "verified_on": "2026-08-15",
+      "verify_every_days": 120,
+      "needs": [
+        "Confirm the current exact exemption list and eVisa fee from the official eVisaST portal",
+        "Whether the eVisa is available to African nationalities outside the roughly eight-country exempt list, or whether they are pushed to embassy applications only"
+      ],
+      "notes": "Resolved from 'unchecked'; sourcing here is a tertiary Wikipedia/VisaHQ compilation rather than the eVisaST portal itself, so fee and lead-time details should be confirmed against the primary portal before being treated as settled."
+    },
+    {
+      "id": "TG",
+      "country": "Togo",
+      "name": "Visa-free for Africans with a mandatory online immigration form (since 18 May 2026)",
+      "status": "operating",
+      "launched": "2026-05-18",
+      "scope": "named_list",
+      "scope_note": "Since 18 May 2026 all African nationals with a valid passport can enter Togo without a visa for up to 30 days, by land, air or sea. The condition is an online immigration form (bordereau d'immigration) at voyage.gouv.tg, completed at least 24 hours before arrival. Visa on arrival is currently suspended. Non-African nationals who need a visa still apply for an e-Visa on the same platform.",
+      "compulsory_for": "All African nationals with a valid passport: online immigration form at least 24 hours before arrival. Other visa-required nationalities still need an e-Visa.",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "The government portal and the reporting do not state a cost for the immigration form. e-Visa fees for non-African nationalities not established."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 24,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Government of Togo (e-Visa portal)",
+      "avoi_2025": {
+        "score": 0.283,
+        "rank": 35
+      },
+      "avoi_treatment": "The 2025 AVOI score (0.283, rank 35) predates the 18 May 2026 exemption and reflects the old e-Visa regime for non-ECOWAS Africans, so it likely understates Togo's current openness. Not yet reassessed.",
+      "sources": [
+        "TG-VOYAGE-GOUV",
+        "TG-VISASNEWS-2026",
+        "ECOWAS-PROTOCOL",
+        "AVOI-2025-RANKINGS",
+        "TG-EVISA-2020"
+      ],
+      "verified_on": "2026-09-19",
+      "verify_every_days": 60,
+      "needs": [
+        "Whether the immigration form costs anything",
+        "Whether ECOWAS nationals must also complete it",
+        "What happens if a traveller arrives without the form, and whether airlines check it at boarding",
+        "Confirm the non-African e-Visa fee and lead time from a government source (the five-business-day figure is from a tertiary source)"
+      ],
+      "notes": "UPDATED 19 SEPTEMBER 2026. Earlier versions of this entry said non-ECOWAS Africans needed a mandatory e-Visa; that stopped being true on 18 May 2026. Read the headline carefully: it is visa-free, but not 'nothing to do before you fly'. The immigration form is a compulsory pre-travel step, which is why this stays listed as an operating scheme. Confirmed on the government's own portal (voyage.gouv.tg)."
+    },
+    {
+      "id": "TN",
+      "country": "Tunisia",
+      "name": "Visa-free for ~22 African countries; eVisa platform delayed, no launch date",
+      "status": "none",
+      "launched": null,
+      "scope": "named_list",
+      "scope_note": "Reporting indicates 22 African countries are visa-free for up to 90 days. Tunisia planned a national eVisa platform (African Development Bank-supported), but the tender launched in September 2024 was declared unsuccessful on 26 August 2025: none of eight bids met the requirements, and no new tender or launch date has been announced. Non-exempt nationalities still apply through a consulate or embassy.",
+      "compulsory_for": "Consular visa for non-exempt nationalities. No online pre-travel step exists yet.",
+      "optional_for": null,
+      "fee": {
+        "amount": null,
+        "currency": null,
+        "note": "Not established."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": null,
+      "application_window_days": null,
+      "refusable": null,
+      "refusable_note": null,
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": null,
+      "avoi_2025": {
+        "score": 0.377,
+        "rank": 25
+      },
+      "avoi_treatment": "Not yet assessed for the eVisa; Tunisia's current AVOI score (0.377, rank 25) predates the platform going live.",
+      "sources": [
+        "AVOI-2025-RANKINGS",
+        "TN-EVISA-DEV",
+        "TN-TENDER-FAILED"
+      ],
+      "verified_on": "2026-09-19",
+      "verify_every_days": 60,
+      "needs": [
+        "CHECK PERIODICALLY: whether a replacement eVisa tender is launched or a platform goes live",
+        "Confirm the exact 22-country visa-free list",
+        "Whether a future eVisa will apply to, or exempt, African nationalities specifically"
+      ],
+      "notes": "CORRECTED 19 SEPTEMBER 2026. This entry previously described the eVisa platform as 'rolling out' and held Tunisia at 'proposed'. The tender failed in August 2025 and nothing has replaced it, so there is no scheme to apply for. Status moved to 'none' until a platform is announced with a date."
+    },
+    {
+      "id": "UG",
+      "country": "Uganda",
+      "name": "Mandatory online e-Visa (no visa on arrival)",
+      "status": "operating",
+      "launched": "2016",
+      "scope": "visa_required_nationals",
+      "scope_note": "All visa-required nationalities must apply online before travel. There is no visa on arrival. Citizens of East African Community member states, Kenya, Rwanda, Tanzania, Burundi and South Sudan, enter visa-free.",
+      "compulsory_for": "All visa-required nationalities, which includes most African countries outside the EAC",
+      "optional_for": null,
+      "fee": {
+        "amount": 50,
+        "currency": "USD",
+        "note": "Single entry USD50; multiple entry USD100; East Africa Tourist Visa USD100. From secondary guides, confirm on visas.immigration.go.ug."
+      },
+      "on_arrival_available": false,
+      "on_arrival_penalty": null,
+      "min_lead_hours": 72,
+      "application_window_days": null,
+      "refusable": true,
+      "refusable_note": "Applications are adjudicated and an approval letter is issued. Immigration officers retain authority to refuse entry at the port.",
+      "boarding_enforced": null,
+      "nationalities_barred_online": [],
+      "operator": "Directorate of Citizenship and Immigration Control",
+      "avoi_2025": {
+        "score": 0.396,
+        "rank": 24
+      },
+      "avoi_treatment": "An e-Visa required before travel scores as a pre-travel requirement.",
+      "sources": [
+        "UG-DCIC",
+        "AVOI-2025-RANKINGS",
+        "UG-EXEMPT"
+      ],
+      "verified_on": "2026-10-02",
+      "verify_every_days": 90,
+      "needs": [
+        "Confirm the fee schedule on visas.immigration.go.ug",
+        "Confirm which African nationalities are visa-exempt beyond the EAC",
+        "Whether airlines verify approval before boarding"
+      ],
+      "notes": "Same pattern as Nigeria: visa on arrival removed, permission moved online and before departure. Approval must be printed and presented; reporting indicates digital copies are not accepted at entry, which is worth confirming. A sixth African country where the moment of permission has moved. CHECKED 2 OCTOBER 2026 against the official visa-exempt list on immigration.go.ug: Mozambique is now on it (the 2024 agreement, reported in force from March 2026), and Angola is not, although Wikipedia still lists Angola. Shown to travellers as 'sources disagree' for Angola. The same site posted a notice on 2 October 2026 that a yellow fever vaccination certificate is no longer mandatory for entry."
+    }
+  ],
+  "built": "2026-10-13"
+}
