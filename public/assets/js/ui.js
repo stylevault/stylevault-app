@@ -142,12 +142,12 @@ export function streamCard(a) {
       </div>
       <span class="sc-time">${time(a)}</span>
     </div>
+    ${imgHtml}
     <div class="sc-body">
       <div class="sc-copy">
         <h3 class="sc-title"><a href="${esc(a.url)}" data-open-article="${a.id}">${esc(a.title)}</a></h3>
         ${a.summary ? `<p class="sc-summary">${esc(a.summary)}</p>` : ''}
       </div>
-      ${imgHtml}
     </div>
     <div class="sc-foot">
       <div class="sc-tags">
@@ -175,9 +175,9 @@ export function homeReadCard(a) {
         </div>
         <span class="uh-read-date">${shortDate(a.publishedAt)}</span>
       </div>
+      ${a.imageUrl ? `<div class="uh-read-thumb"><img src="${esc(a.imageUrl)}" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>` : ''}
       <div class="uh-read-main">
         <h3><a href="${esc(a.url)}" data-open-article="${a.id}">${esc(a.title)}</a></h3>
-        ${a.imageUrl ? `<div class="uh-read-thumb"><img src="${esc(a.imageUrl)}" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>` : ''}
       </div>
       ${tags ? `<div class="uh-read-tags">${tags}</div>` : ''}
       <div class="uh-read-foot">

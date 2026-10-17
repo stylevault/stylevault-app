@@ -459,6 +459,8 @@ export default function adminView(main, { setTitle, navigate }) {
           </div>
         </div>
       </div>`;
+  }
+
   function renderPublishTab() {
     const allCountries = store.meta.countries || [];
     const allTopics = store.meta.topics || [];
