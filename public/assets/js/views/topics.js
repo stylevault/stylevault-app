@@ -75,22 +75,6 @@ export default function topics(main, { setTitle }) {
 
     <div class="cl-body">
       <div class="wrap cl-page">
-        <!-- Unified Hub Switcher (Countries vs Topics) -->
-        <div class="explore-nav-wrap">
-          <nav class="explore-nav" role="tablist" aria-label="Explore StyleVault">
-            <a href="/countries" class="explore-tab" role="tab" aria-selected="false">
-              <span class="explore-tab-icon">🌍</span>
-              <span>African Countries</span>
-              <span class="explore-tab-count">${store.meta.countries?.length || 54}</span>
-            </a>
-            <a href="/topics" class="explore-tab is-active" role="tab" aria-selected="true" aria-current="page">
-              <span class="explore-tab-icon">📌</span>
-              <span>Strategic Topics</span>
-              <span class="explore-tab-count">${allTopics.length || 13}</span>
-            </a>
-          </nav>
-        </div>
-
         <div class="cl-toolbar">
           <label class="cl-search">
             ${icon('search')}

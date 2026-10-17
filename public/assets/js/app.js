@@ -29,12 +29,13 @@ const routes = [
   ['/about', null, () => import('./views/about.js')],
   ['/privacy', null, () => import('./views/privacy.js')],
   ['/explore', 'countries', () => import('./views/explore.js')],
+  ['/directory', null, () => import('./views/directory.js')],
   ['/admin', 'admin', () => import('./views/admin.js')],
 ].map(([path, nav, load]) => ({ nav, load, re: new RegExp(`^${path.replace(/:(\w+)/g, '(?<$1>[^/]+)')}/?$`) }));
 
 export function isRestrictedRoute(pathname) {
   if (pathname === '/tools' || pathname.startsWith('/tools/') || pathname === '/eta-tracker' || pathname === '/contraband-guide' || pathname === '/womens-safety-africa' || pathname === '/tourism-at-a-glance') return false;
-  const publicPaths = ['/', '/login', '/signup', '/forgot-password', '/reset-password', '/about', '/sources', '/privacy', '/explore', '/admin'];
+  const publicPaths = ['/', '/login', '/signup', '/forgot-password', '/reset-password', '/about', '/sources', '/privacy', '/explore', '/directory', '/admin'];
   return !publicPaths.includes(pathname);
 }
 

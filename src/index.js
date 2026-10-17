@@ -79,9 +79,13 @@ const ROUTE_SEO = {
     title: 'Privacy Policy · Style Vault',
     desc: 'Style Vault privacy practices: zero third-party tracking, open public access, and strict data protection standards.',
   },
+  '/directory': {
+    title: 'Directory · Countries & Topics · Style Vault',
+    desc: 'Browse African intelligence by geographic country files across all 54 nations, or follow strategic industry sectors.',
+  },
   '/explore': {
-    title: 'Explore Countries & Topics · Style Vault',
-    desc: 'Directory of all 54 African countries and 13 strategic sectors: news, economic indicators, and verified reporting.',
+    title: 'Directory · Countries & Topics · Style Vault',
+    desc: 'Browse African intelligence by geographic country files across all 54 nations, or follow strategic industry sectors.',
   },
   '/admin': {
     title: 'Admin Analytics & Data · Style Vault',
