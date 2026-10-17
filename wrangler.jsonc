@@ -3,6 +3,17 @@
 	"name": "stylevault",
 	"main": "src/index.js",
 	"compatibility_date": "2026-10-01",
+	"workers_dev": true,
+	"routes": [
+		{
+			"pattern": "stylevault.app",
+			"custom_domain": true
+		},
+		{
+			"pattern": "www.stylevault.app",
+			"custom_domain": true
+		}
+	],
 	// The single-page app. /api/* always reaches the Worker; every other unknown
 	// path falls back to index.html so client-side routes like /country/kenya work.
 	"assets": {
