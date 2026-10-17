@@ -226,3 +226,4 @@ export async function adminDeleteAd(request, env, ctx, { id }) {
   await env.DB.prepare('DELETE FROM ads WHERE id = ?').bind(id).run();
   return json({ ok: true });
 }
+

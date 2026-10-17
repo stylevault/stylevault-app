@@ -17,3 +17,4 @@ CREATE TABLE IF NOT EXISTS ads (
 
 CREATE INDEX IF NOT EXISTS idx_ads_active_type ON ads (active, type);
 CREATE INDEX IF NOT EXISTS idx_ads_placement ON ads (active, placement);
+

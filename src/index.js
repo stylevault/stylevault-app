@@ -156,9 +156,10 @@ export default {
       const ct = response.headers.get('content-type') || '';
       if (ct.includes('text/html')) {
         const seo = getSeoMeta(pathname);
+        let res = response;
         if (seo) {
           const canonical = new URL(pathname, 'https://stylevault.app').href;
-          return new HTMLRewriter()
+          res = new HTMLRewriter()
             .on('title', { element(e) { e.setInnerContent(seo.title); } })
             .on('meta[name="description"]', { element(e) { e.setAttribute('content', seo.desc); } })
             .on('meta[property="og:title"]', { element(e) { e.setAttribute('content', seo.title); } })
@@ -169,6 +170,16 @@ export default {
             .on('link[rel="canonical"]', { element(e) { e.setAttribute('href', canonical); } })
             .transform(response);
         }
+        const headers = new Headers(res.headers);
+        headers.set(
+          'Content-Security-Policy',
+          "default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; script-src-elem 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+        );
+        return new Response(res.body, {
+          status: res.status,
+          statusText: res.statusText,
+          headers,
+        });
       }
       return response;
     }
