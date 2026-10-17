@@ -348,8 +348,21 @@ export function followEditor(existing = null) {
           keywords: form.keywords.value.trim(),
         };
         if (!data.name) {
-          const parts = [...data.countries.map((c) => store.countryByCode.get(c)?.name), ...data.topics.map((t) => store.topicBySlug.get(t)?.name)].filter(Boolean);
-          data.name = parts.slice(0, 2).join(' · ') || data.keywords.split(',')[0] || '';
+          const cNames = data.countries.map((c) => store.countryByCode.get(c)?.name).filter(Boolean);
+          const tNames = data.topics.map((t) => store.topicBySlug.get(t)?.name).filter(Boolean);
+          const parts = [...cNames, ...tNames];
+          if (!parts.length) {
+            data.name = data.keywords ? `“${data.keywords.split(',')[0].trim()}”` : 'My feed';
+          } else if (parts.length === 1) {
+            data.name = parts[0];
+          } else if (parts.length === 2) {
+            data.name = `${parts[0]} & ${parts[1]}`;
+          } else if (parts.length === 3) {
+            data.name = `${parts[0]}, ${parts[1]} & ${parts[2]}`;
+          } else {
+            const extra = parts.length - 2;
+            data.name = `${parts.slice(0, 2).join(', ')} +${extra} more`;
+          }
         }
         const btn = $('[type="submit"]', d);
         btn.disabled = true;

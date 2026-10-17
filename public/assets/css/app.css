@@ -2773,13 +2773,14 @@ dialog.sheet.op-sheet { width: min(420px, calc(100vw - 28px)); max-height: min(7
   align-items: center;
   justify-content: center;
   min-width: 20px;
-  height: 19px;
-  padding: 0 6px;
+  height: 20px;
+  padding: 0 8px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.18);
   color: #f6eafa;
-  font-size: 0.71rem;
-  font-weight: 700;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 .flw-dd-chev { display: inline-flex; align-items: center; color: rgba(255, 255, 255, 0.85); margin-left: 1px; }
 .flw-dd-chev .icon { width: 13px; height: 13px; }

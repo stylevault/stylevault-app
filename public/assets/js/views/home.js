@@ -823,12 +823,17 @@ async function renderUserHome(main, { setTitle, navigate }) {
         return;
       }
       saveBtn.disabled = true;
-      const name = [
-        ...countries.slice(0, 2).map((c) => store.countryByCode.get(c)?.name),
-        ...topics.slice(0, 2).map((t) => store.topicBySlug.get(t)?.name),
-      ].filter(Boolean).join(' · ');
+      const nameParts = [
+        ...countries.map((c) => store.countryByCode.get(c)?.name),
+        ...topics.map((t) => store.topicBySlug.get(t)?.name),
+      ].filter(Boolean);
+      let name = 'My feed';
+      if (nameParts.length === 1) name = nameParts[0];
+      else if (nameParts.length === 2) name = `${nameParts[0]} & ${nameParts[1]}`;
+      else if (nameParts.length <= 3) name = `${nameParts.slice(0, -1).join(', ')} & ${nameParts.at(-1)}`;
+      else if (nameParts.length > 3) name = `${nameParts.slice(0, 2).join(', ')} +${nameParts.length - 2} more`;
       try {
-        await store.saveMonitor({ name: name || 'My feed', countries, topics, keywords: '' });
+        await store.saveMonitor({ name, countries, topics, keywords: '' });
         rerender();
       } catch (err) {
         hint.textContent = err.message;

@@ -126,7 +126,7 @@ export default function following(main, { query, setTitle, navigate }) {
                     ${singleCountry ? flag(singleCountry.code, 'flag', '') : '<span class="flw-dd-dot"></span>'}
                   </span>
                   <span class="flw-dd-name">${esc(m.name)}</span>
-                  <span class="flw-dd-count">${list.length}</span>
+                  <span class="flw-dd-count">${list.length} ${list.length === 1 ? 'feed' : 'feeds'}</span>
                   <span class="flw-dd-chev" aria-hidden="true">${icon('chevron-down')}</span>
                 </button>
 
@@ -143,7 +143,6 @@ export default function following(main, { query, setTitle, navigate }) {
                   <button type="button" class="flw-scope-trigger-btn" data-scope-toggle aria-expanded="false" aria-haspopup="true">
                     <span class="flw-scope-trigger-icon">${scope.iconHtml}</span>
                     <span class="flw-scope-trigger-label">${esc(scope.label)}</span>
-                    <span class="flw-scope-trigger-count">${scope.count}</span>
                     <span class="flw-scope-trigger-arrow">${icon('chevron-down')}</span>
                   </button>
                   <div class="flw-scope-dropdown-panel" data-scope-panel hidden>
@@ -194,7 +193,12 @@ export default function following(main, { query, setTitle, navigate }) {
   const handleCreateNew = async () => {
     const saved = await followEditor();
     if (saved) {
-      toast(`Now following “${saved.name}”`);
+      const count = (saved.countries?.length || 0) + (saved.topics?.length || 0);
+      if (count > 2) {
+        toast(`Now following ${count} places & topics (${saved.name})`);
+      } else {
+        toast(`Now following “${saved.name}”`);
+      }
       navigate(`/following?m=${encodeURIComponent(saved.id)}`, { replace: true });
     }
   };
