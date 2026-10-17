@@ -1,5 +1,5 @@
 import { api } from '../api.js';
-import { $, $$, esc, flag, formatRelativeDate, icon, nf } from '../lib.js';
+import { $, $$, esc, flag, icon, nf } from '../lib.js';
 import { store } from '../store.js';
 import { toast } from '../ui.js';
 
@@ -18,6 +18,45 @@ export default function adminView(main, { setTitle, navigate }) {
   let loading = true;
   let errorMsg = null;
   let isIngesting = false;
+
+  // News publishing state
+  let newsTitle = '';
+  let newsSummary = '';
+  let newsSource = 'StyleVault Editorial';
+  let newsUrl = '';
+  let newsImageUrl = '';
+  let newsKind = 'news';
+  let newsCountries = new Set(['NG']);
+  let newsTopics = new Set(['business']);
+  let isPublishing = false;
+
+  // Ad manager state
+  let adsList = [];
+  let adsLoading = false;
+  let adType = 'banner';
+  let adTitle = '';
+  let adSponsor = '';
+  let adBody = '';
+  let adLinkUrl = '';
+  let adCtaText = 'Learn More';
+  let adImageUrl = '';
+  let adPlacement = 'all';
+  let adActive = true;
+  let isSavingAd = false;
+
+  const loadAds = async () => {
+    adsLoading = true;
+    render();
+    try {
+      const res = await api.adminAds(adminKey);
+      adsList = res.ads || [];
+      adsLoading = false;
+    } catch (err) {
+      adsLoading = false;
+      toast('Failed to load ads: ' + err.message, 'error');
+    }
+    render();
+  };
 
   const loadData = async () => {
     loading = true;
@@ -165,6 +204,12 @@ export default function adminView(main, { setTitle, navigate }) {
         <button type="button" class="admin-tab ${activeTab === 'overview' ? 'active' : ''}" data-tab="overview">
           ${icon('compass')} Overview &amp; Health
         </button>
+        <button type="button" class="admin-tab ${activeTab === 'publish' ? 'active' : ''}" data-tab="publish">
+          ${icon('sparkles')} Publish News
+        </button>
+        <button type="button" class="admin-tab ${activeTab === 'ads' ? 'active' : ''}" data-tab="ads">
+          ${icon('layers')} Ad Manager
+        </button>
         <button type="button" class="admin-tab ${activeTab === 'users' ? 'active' : ''}" data-tab="users">
           ${icon('user')} Registered Readers (${users.total})
         </button>
@@ -178,6 +223,8 @@ export default function adminView(main, { setTitle, navigate }) {
 
       <!-- Tab Content -->
       ${activeTab === 'overview' ? renderOverviewTab() : ''}
+      ${activeTab === 'publish' ? renderPublishTab() : ''}
+      ${activeTab === 'ads' ? renderAdsTab() : ''}
       ${activeTab === 'users' ? renderUsersTab() : ''}
       ${activeTab === 'sources' ? renderSourcesTab() : ''}
       ${activeTab === 'distribution' ? renderDistributionTab() : ''}
@@ -412,6 +459,341 @@ export default function adminView(main, { setTitle, navigate }) {
           </div>
         </div>
       </div>`;
+  function renderPublishTab() {
+    const allCountries = store.meta.countries || [];
+    const allTopics = store.meta.topics || [];
+
+    return `
+      <div class="admin-card">
+        <div class="admin-card-head-row">
+          <div>
+            <h3>Publish News Story &amp; Media</h3>
+            <p>Directly publish verified reports, breaking news, and editorial analysis to StyleVault.</p>
+          </div>
+          <span class="admin-pill"><span class="live-dot-sm"></span> Instant Publishing</span>
+        </div>
+
+        <form class="admin-form-grid" data-publish-form>
+          <div class="admin-form-group admin-form-full">
+            <label for="adm-news-title">Story Headline *</label>
+            <input type="text" id="adm-news-title" data-input-news-title placeholder="e.g. AfCFTA Launches Pan-African Digital Payments System" value="${esc(newsTitle)}" required>
+          </div>
+
+          <div class="admin-form-group admin-form-full">
+            <label for="adm-news-summary">Teaser / Summary</label>
+            <textarea id="adm-news-summary" data-input-news-summary rows="3" placeholder="Brief 2-3 sentence overview of the news or finding...">${esc(newsSummary)}</textarea>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adm-news-source">Newsroom / Publisher Name</label>
+            <input type="text" id="adm-news-source" data-input-news-source placeholder="e.g. StyleVault Editorial" value="${esc(newsSource)}">
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adm-news-kind">Content Classification</label>
+            <select id="adm-news-kind" data-input-news-kind>
+              <option value="news" ${newsKind === 'news' ? 'selected' : ''}>News Report</option>
+              <option value="analysis" ${newsKind === 'analysis' ? 'selected' : ''}>Market Analysis</option>
+              <option value="research" ${newsKind === 'research' ? 'selected' : ''}>Research / Policy Paper</option>
+              <option value="official" ${newsKind === 'official' ? 'selected' : ''}>Official Communiqué</option>
+            </select>
+          </div>
+
+          <div class="admin-form-group admin-form-full">
+            <label for="adm-news-url">Original Source Link (Optional)</label>
+            <input type="url" id="adm-news-url" data-input-news-url placeholder="https://... (leave blank for StyleVault story)" value="${esc(newsUrl)}">
+          </div>
+
+          <div class="admin-form-group admin-form-full">
+            <label>Upload Image / Creative Media</label>
+            <div class="admin-img-upload-box">
+              ${newsImageUrl ? `
+                <img src="${esc(newsImageUrl)}" alt="Preview" class="admin-img-preview-thumb">
+                <button type="button" class="btn btn-outline btn-sm" data-remove-news-img>Remove Image</button>
+              ` : `
+                <p><strong>Upload an image from your device</strong> or paste an image URL below.</p>
+                <input type="file" accept="image/*" data-upload-news-file style="max-width:320px">
+              `}
+              <div style="width:100%;max-width:480px;margin-top:6px">
+                <input type="url" data-input-news-img-url placeholder="Or paste image URL (https://...)" value="${esc(newsImageUrl.startsWith('data:') ? '' : newsImageUrl)}">
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-form-group admin-form-full">
+            <label>Tagged Countries (${newsCountries.size} selected)</label>
+            <div class="admin-pill-selector">
+              ${allCountries.map((c) => `
+                <button type="button" class="admin-select-pill ${newsCountries.has(c.code) ? 'active' : ''}" data-toggle-country="${c.code}">
+                  ${flag(c.code)} ${esc(c.name)}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="admin-form-group admin-form-full">
+            <label>Strategic Topics (${newsTopics.size} selected)</label>
+            <div class="admin-pill-selector">
+              ${allTopics.map((t) => `
+                <button type="button" class="admin-select-pill ${newsTopics.has(t.slug) ? 'active' : ''}" data-toggle-topic="${t.slug}">
+                  ${esc(t.name)}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Live Card Preview -->
+          <div class="admin-form-full admin-ad-preview-panel">
+            <h4>Live Reader Card Preview</h4>
+            <article class="news-row ${newsImageUrl ? 'has-thumb' : ''}" style="border:1px solid var(--line);border-radius:12px;padding:16px;background:#faf6fc">
+              <div class="news-content">
+                <div class="news-meta">
+                  <span class="news-source">${esc(newsSource || 'StyleVault Editorial')}</span>
+                  <span class="dot-sep"></span>
+                  <time class="news-time">Just now</time>
+                  <span class="tag kind-${newsKind}">${newsKind.toUpperCase()}</span>
+                </div>
+                <h3 class="news-title">
+                  <a href="#">${esc(newsTitle || 'Your Headline Will Appear Here')}</a>
+                </h3>
+                <p class="news-summary">${esc(newsSummary || 'Your article summary or teaser copy will be presented here to readers across StyleVault news feeds.')}</p>
+              </div>
+              ${newsImageUrl ? `
+                <div class="news-thumb">
+                  <img src="${esc(newsImageUrl)}" alt="Thumb">
+                </div>` : ''}
+            </article>
+          </div>
+
+          <div class="admin-form-full" style="margin-top:16px;display:flex;gap:12px;justify-content:flex-end">
+            <button type="submit" class="btn btn-plum" ${isPublishing ? 'disabled' : ''}>
+              ${icon('sparkles')} <span>${isPublishing ? 'Publishing…' : 'Publish Story to StyleVault'}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    `;
+  }
+
+  function renderAdsTab() {
+    const totalCount = adsList.length;
+    const activeCount = adsList.filter((a) => a.active).length;
+    const totalImps = adsList.reduce((acc, a) => acc + (a.impressions || 0), 0);
+    const totalClicks = adsList.reduce((acc, a) => acc + (a.clicks || 0), 0);
+    const overallCtr = totalImps > 0 ? ((totalClicks / totalImps) * 100).toFixed(1) + '%' : '0.0%';
+
+    return `
+      <!-- Stats Summary -->
+      <div class="admin-kpi-grid">
+        <div class="admin-kpi-card">
+          <div class="kpi-head"><span class="kpi-lbl">Total Ad Campaigns</span><span class="kpi-icon">📢</span></div>
+          <div class="kpi-value">${totalCount} <span style="font-size:0.85rem;font-weight:400;color:var(--muted)">(${activeCount} active)</span></div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-head"><span class="kpi-lbl">Ad Impressions</span><span class="kpi-icon">👁️</span></div>
+          <div class="kpi-value">${nf(totalImps)}</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-head"><span class="kpi-lbl">Total Clicks</span><span class="kpi-icon">🖱️</span></div>
+          <div class="kpi-value">${nf(totalClicks)}</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="kpi-head"><span class="kpi-lbl">Average CTR</span><span class="kpi-icon">📈</span></div>
+          <div class="kpi-value">${overallCtr}</div>
+        </div>
+      </div>
+
+      <!-- Create New Ad Section -->
+      <div class="admin-card" style="margin-top:24px">
+        <div class="admin-card-head-row">
+          <div>
+            <h3>Create New Manual Ad</h3>
+            <p>Launch Banner strips, Native in-feed cards, or Interstitial takeovers across diverse pages.</p>
+          </div>
+          <span class="admin-pill muted">Monetization Engine</span>
+        </div>
+
+        <form class="admin-form-grid" data-ad-form>
+          <div class="admin-form-group">
+            <label for="adm-ad-type">Ad Format *</label>
+            <select id="adm-ad-type" data-input-ad-type>
+              <option value="banner" ${adType === 'banner' ? 'selected' : ''}>Banner Strip (Top &amp; In-page)</option>
+              <option value="native" ${adType === 'native' ? 'selected' : ''}>Native Card (In-feed sponsored story)</option>
+              <option value="interstitial" ${adType === 'interstitial' ? 'selected' : ''}>Interstitial Modal (Session takeover)</option>
+            </select>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adm-ad-placement">Target Placement</label>
+            <select id="adm-ad-placement" data-input-ad-placement>
+              <option value="all" ${adPlacement === 'all' ? 'selected' : ''}>All Diverse Pages</option>
+              <option value="home" ${adPlacement === 'home' ? 'selected' : ''}>Home Page Only</option>
+              <option value="news" ${adPlacement === 'news' ? 'selected' : ''}>News Wire Feed Only</option>
+              <option value="countries" ${adPlacement === 'countries' ? 'selected' : ''}>Countries Section</option>
+              <option value="topics" ${adPlacement === 'topics' ? 'selected' : ''}>Strategic Topics</option>
+              <option value="directory" ${adPlacement === 'directory' ? 'selected' : ''}>Directory / Explore</option>
+            </select>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adm-ad-sponsor">Sponsor / Advertiser Name *</label>
+            <input type="text" id="adm-ad-sponsor" data-input-ad-sponsor placeholder="e.g. Ria's Colony, Safaricom, AfDB" value="${esc(adSponsor)}" required>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adm-ad-title">Ad Headline / Tagline *</label>
+            <input type="text" id="adm-ad-title" data-input-ad-title placeholder="e.g. Pan-African Business Summit 2026" value="${esc(adTitle)}" required>
+          </div>
+
+          <div class="admin-form-group admin-form-full">
+            <label for="adm-ad-body">Ad Copy / Pitch Description</label>
+            <textarea id="adm-ad-body" data-input-ad-body rows="2" placeholder="Brief compelling sentence for readers...">${esc(adBody)}</textarea>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adm-ad-link">Destination Link URL *</label>
+            <input type="url" id="adm-ad-link" data-input-ad-link placeholder="https://example.com/promo" value="${esc(adLinkUrl)}" required>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="adm-ad-cta">Call to Action (CTA) Button</label>
+            <input type="text" id="adm-ad-cta" data-input-ad-cta placeholder="e.g. Learn More, Register Now, Explore" value="${esc(adCtaText)}">
+          </div>
+
+          <div class="admin-form-group admin-form-full">
+            <label>Ad Creative / Banner Image</label>
+            <div class="admin-img-upload-box">
+              ${adImageUrl ? `
+                <img src="${esc(adImageUrl)}" alt="Ad Preview" class="admin-img-preview-thumb">
+                <button type="button" class="btn btn-outline btn-sm" data-remove-ad-img>Remove Image</button>
+              ` : `
+                <p><strong>Upload creative banner/logo</strong> or paste an image URL:</p>
+                <input type="file" accept="image/*" data-upload-ad-file style="max-width:320px">
+              `}
+              <div style="width:100%;max-width:480px;margin-top:6px">
+                <input type="url" data-input-ad-img-url placeholder="Or paste image URL (https://...)" value="${esc(adImageUrl.startsWith('data:') ? '' : adImageUrl)}">
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-form-full" style="display:flex;align-items:center;gap:8px">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+              <input type="checkbox" data-input-ad-active ${adActive ? 'checked' : ''}>
+              <span>Launch this ad campaign as <strong>Active immediately</strong></span>
+            </label>
+          </div>
+
+          <!-- Live Interactive Ad Preview -->
+          <div class="admin-form-full admin-ad-preview-panel">
+            <h4>Live Preview: ${adType.toUpperCase()} AD</h4>
+            ${renderAdPreviewHtml({ type: adType, title: adTitle || 'Headline Appears Here', sponsor: adSponsor || 'Sponsor Name', body: adBody || 'Your promotional copy and message will show here.', imageUrl: adImageUrl, linkUrl: adLinkUrl || '#', ctaText: adCtaText || 'Learn More' })}
+          </div>
+
+          <div class="admin-form-full" style="margin-top:16px;display:flex;gap:12px;justify-content:flex-end">
+            <button type="submit" class="btn btn-plum" ${isSavingAd ? 'disabled' : ''}>
+              ${icon('sparkles')} <span>${isSavingAd ? 'Saving Campaign…' : 'Save &amp; Launch Ad'}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Existing Ads Table -->
+      <div class="admin-card" style="margin-top:24px">
+        <div class="admin-card-head-row">
+          <div>
+            <h3>All Created Ads (${adsList.length})</h3>
+            <p>Manage active campaigns, pause ads, and review CTR analytics.</p>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" data-refresh-ads>Refresh Ads</button>
+        </div>
+
+        ${adsLoading ? `
+          <div class="admin-loading"><span class="live-dot-sm"></span> Loading ads…</div>
+        ` : !adsList.length ? `
+          <div class="empty"><div class="ic">${icon('layers')}</div><h3>No ads created yet</h3><p>Create your first banner, native, or interstitial campaign above.</p></div>
+        ` : `
+          <div class="admin-ads-table-wrap">
+            ${adsList.map((ad) => `
+              <div class="admin-ad-card-item">
+                ${ad.imageUrl ? `<img src="${esc(ad.imageUrl)}" alt="" class="sv-ad-banner-thumb">` : `<div style="width:44px;height:44px;border-radius:8px;background:#faf6fc;border:1px solid var(--line);display:grid;place-items:center;font-weight:700;color:var(--plum)">${ad.type[0].toUpperCase()}</div>`}
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                    <span class="sv-ad-badge">${ad.type.toUpperCase()}</span>
+                    <span class="tag">${esc(ad.placement.toUpperCase())}</span>
+                    <span class="kpi-badge ${ad.active ? 'positive' : 'muted'}">${ad.active ? 'ACTIVE' : 'PAUSED'}</span>
+                  </div>
+                  <strong style="display:block;font-size:0.95rem;color:var(--deep)">${esc(ad.title)}</strong>
+                  <span style="font-size:0.80rem;color:var(--muted)">Sponsor: <strong>${esc(ad.sponsor)}</strong> &bull; <a href="${esc(ad.linkUrl)}" target="_blank" style="color:var(--plum);text-decoration:underline">${esc(ad.linkUrl)}</a></span>
+                </div>
+                <div style="text-align:right;flex:none">
+                  <div style="font-weight:700;font-size:0.90rem">${nf(ad.impressions)} imps &bull; ${nf(ad.clicks)} clicks</div>
+                  <div style="font-size:0.80rem;color:var(--muted)">CTR: <strong style="color:var(--deep)">${ad.ctr}</strong></div>
+                </div>
+                <div style="display:flex;gap:8px;flex:none">
+                  <button type="button" class="btn btn-sm ${ad.active ? 'btn-outline' : 'btn-plum'}" data-toggle-ad="${esc(ad.id)}">
+                    ${ad.active ? 'Pause' : 'Activate'}
+                  </button>
+                  <button type="button" class="btn btn-outline btn-sm" data-delete-ad="${esc(ad.id)}" style="color:#b8405a" title="Delete ad">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `}
+      </div>
+    `;
+  }
+
+  function renderAdPreviewHtml(ad) {
+    if (ad.type === 'banner') {
+      return `
+        <div class="sv-ad-banner" style="margin:0">
+          <div class="sv-ad-banner-inner" style="padding:0 10px">
+            <div class="sv-ad-banner-left">
+              <span class="sv-ad-kicker">Sponsored · ${esc(ad.sponsor)}</span>
+              ${ad.imageUrl ? `<img class="sv-ad-banner-thumb" src="${esc(ad.imageUrl)}" alt="">` : ''}
+              <div class="sv-ad-banner-copy">
+                <strong class="sv-ad-banner-title">${esc(ad.title)}</strong>
+                ${ad.body ? `<span class="sv-ad-banner-desc">${esc(ad.body)}</span>` : ''}
+              </div>
+            </div>
+            <div class="sv-ad-banner-actions">
+              <span class="btn btn-plum btn-sm">${esc(ad.ctaText)} ↗</span>
+            </div>
+          </div>
+        </div>`;
+    }
+    if (ad.type === 'native') {
+      return `
+        <div class="sv-ad-native-card" style="margin:0">
+          <div class="news-content">
+            <div class="news-meta">
+              <span class="sv-ad-badge">${icon('sparkles')} Sponsored · ${esc(ad.sponsor)}</span>
+            </div>
+            <h3 class="news-title"><a>${esc(ad.title)}</a></h3>
+            ${ad.body ? `<p class="news-summary">${esc(ad.body)}</p>` : ''}
+            <div class="news-foot">
+              <span class="sv-ad-cta-link">${esc(ad.ctaText)} ↗</span>
+            </div>
+          </div>
+          ${ad.imageUrl ? `<div class="news-thumb sv-ad-thumb"><img src="${esc(ad.imageUrl)}" alt=""></div>` : ''}
+        </div>`;
+    }
+    // Interstitial
+    return `
+      <div style="background:#faf6fc;border:1px solid var(--line);border-radius:16px;max-width:440px;margin:0 auto;overflow:hidden">
+        ${ad.imageUrl ? `<div style="height:140px;overflow:hidden"><img src="${esc(ad.imageUrl)}" style="width:100%;height:100%;object-fit:cover"></div>` : ''}
+        <div style="padding:16px 20px">
+          <span class="sv-ad-interstitial-kicker">Sponsored Message · ${esc(ad.sponsor)}</span>
+          <h3 style="font-size:1.15rem;font-weight:700;color:var(--deep);margin-block:6px 8px">${esc(ad.title)}</h3>
+          <p style="font-size:0.85rem;color:var(--ink-2);margin-bottom:14px">${esc(ad.body)}</p>
+          <div style="display:flex;gap:8px">
+            <span class="btn btn-plum btn-sm" style="flex:1;text-align:center">${esc(ad.ctaText)} ↗</span>
+            <span class="btn btn-outline btn-sm">Close</span>
+          </div>
+        </div>
+      </div>`;
   }
 
   // Event handlers
@@ -420,7 +802,84 @@ export default function adminView(main, { setTitle, navigate }) {
     const tabBtn = e.target.closest('[data-tab]');
     if (tabBtn) {
       activeTab = tabBtn.dataset.tab;
+      if (activeTab === 'ads') {
+        loadAds();
+      } else {
+        render();
+      }
+      return;
+    }
+
+    // Toggle country pill in news publish form
+    const countryBtn = e.target.closest('[data-toggle-country]');
+    if (countryBtn) {
+      const code = countryBtn.dataset.toggleCountry;
+      if (newsCountries.has(code)) newsCountries.delete(code);
+      else newsCountries.add(code);
       render();
+      return;
+    }
+
+    // Toggle topic pill in news publish form
+    const topicBtn = e.target.closest('[data-toggle-topic]');
+    if (topicBtn) {
+      const slug = topicBtn.dataset.toggleTopic;
+      if (newsTopics.has(slug)) newsTopics.delete(slug);
+      else newsTopics.add(slug);
+      render();
+      return;
+    }
+
+    // Remove news image
+    if (e.target.closest('[data-remove-news-img]')) {
+      newsImageUrl = '';
+      render();
+      return;
+    }
+
+    // Remove ad image
+    if (e.target.closest('[data-remove-ad-img]')) {
+      adImageUrl = '';
+      render();
+      return;
+    }
+
+    // Refresh ads
+    if (e.target.closest('[data-refresh-ads]')) {
+      loadAds();
+      return;
+    }
+
+    // Toggle ad active/pause
+    const toggleAdBtn = e.target.closest('[data-toggle-ad]');
+    if (toggleAdBtn) {
+      const id = toggleAdBtn.dataset.toggleAd;
+      const ad = adsList.find((a) => a.id === id);
+      if (ad) {
+        try {
+          await api.adminUpdateAd(adminKey, id, { active: !ad.active });
+          toast(`Ad ${ad.active ? 'paused' : 'activated'}`, 'ok');
+          await loadAds();
+        } catch (err) {
+          toast(err.message, 'error');
+        }
+      }
+      return;
+    }
+
+    // Delete ad
+    const deleteAdBtn = e.target.closest('[data-delete-ad]');
+    if (deleteAdBtn) {
+      const id = deleteAdBtn.dataset.deleteAd;
+      if (confirm('Permanently delete this ad campaign?')) {
+        try {
+          await api.adminDeleteAd(adminKey, id);
+          toast('Ad campaign deleted', 'ok');
+          await loadAds();
+        } catch (err) {
+          toast(err.message, 'error');
+        }
+      }
       return;
     }
 
@@ -475,6 +934,149 @@ export default function adminView(main, { setTitle, navigate }) {
         isIngesting = false;
         render();
       }
+    }
+  });
+
+  // Input & Change handlers for real-time live preview
+  main.addEventListener('input', (e) => {
+    if (e.target.matches('[data-input-news-title]')) {
+      newsTitle = e.target.value;
+      const previewTitle = main.querySelector('.admin-ad-preview-panel .news-title a');
+      if (previewTitle) previewTitle.textContent = newsTitle || 'Your Headline Will Appear Here';
+    } else if (e.target.matches('[data-input-news-summary]')) {
+      newsSummary = e.target.value;
+      const previewSummary = main.querySelector('.admin-ad-preview-panel .news-summary');
+      if (previewSummary) previewSummary.textContent = newsSummary || 'Your article summary or teaser copy will be presented here to readers across StyleVault news feeds.';
+    } else if (e.target.matches('[data-input-news-source]')) {
+      newsSource = e.target.value;
+      const previewSource = main.querySelector('.admin-ad-preview-panel .news-source');
+      if (previewSource) previewSource.textContent = newsSource || 'StyleVault Editorial';
+    } else if (e.target.matches('[data-input-news-url]')) {
+      newsUrl = e.target.value;
+    } else if (e.target.matches('[data-input-news-img-url]')) {
+      newsImageUrl = e.target.value;
+    } else if (e.target.matches('[data-input-ad-title]')) {
+      adTitle = e.target.value;
+    } else if (e.target.matches('[data-input-ad-sponsor]')) {
+      adSponsor = e.target.value;
+    } else if (e.target.matches('[data-input-ad-body]')) {
+      adBody = e.target.value;
+    } else if (e.target.matches('[data-input-ad-link]')) {
+      adLinkUrl = e.target.value;
+    } else if (e.target.matches('[data-input-ad-cta]')) {
+      adCtaText = e.target.value;
+    } else if (e.target.matches('[data-input-ad-img-url]')) {
+      adImageUrl = e.target.value;
+    }
+  });
+
+  main.addEventListener('change', (e) => {
+    if (e.target.matches('[data-input-news-kind]')) {
+      newsKind = e.target.value;
+      render();
+    } else if (e.target.matches('[data-upload-news-file]')) {
+      const file = e.target.files?.[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) return toast('Image file is too large (max 2MB)', 'error');
+        const reader = new FileReader();
+        reader.onload = (re) => {
+          newsImageUrl = re.target.result;
+          render();
+        };
+        reader.readAsDataURL(file);
+      }
+    } else if (e.target.matches('[data-input-ad-type]')) {
+      adType = e.target.value;
+      render();
+    } else if (e.target.matches('[data-input-ad-placement]')) {
+      adPlacement = e.target.value;
+    } else if (e.target.matches('[data-input-ad-active]')) {
+      adActive = e.target.checked;
+    } else if (e.target.matches('[data-upload-ad-file]')) {
+      const file = e.target.files?.[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) return toast('Image file is too large (max 2MB)', 'error');
+        const reader = new FileReader();
+        reader.onload = (re) => {
+          adImageUrl = re.target.result;
+          render();
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  });
+
+  // Form submit handlers
+  main.addEventListener('submit', async (e) => {
+    // Publish News Form
+    if (e.target.matches('[data-publish-form]')) {
+      e.preventDefault();
+      if (!newsTitle.trim()) return toast('Please enter a headline', 'error');
+      isPublishing = true;
+      render();
+      try {
+        await api.adminPublishArticle(adminKey, {
+          title: newsTitle.trim(),
+          summary: newsSummary.trim(),
+          sourceName: newsSource.trim() || 'StyleVault Editorial',
+          url: newsUrl.trim() || undefined,
+          imageUrl: newsImageUrl.trim() || undefined,
+          kind: newsKind,
+          countries: [...newsCountries],
+          topics: [...newsTopics],
+        });
+        toast('News story published successfully to StyleVault!', 'ok');
+        newsTitle = '';
+        newsSummary = '';
+        newsUrl = '';
+        newsImageUrl = '';
+        activeTab = 'overview';
+        await loadData();
+      } catch (err) {
+        toast(err.message || 'Failed to publish story', 'error');
+      } finally {
+        isPublishing = false;
+        render();
+      }
+      return;
+    }
+
+    // Ad Creation Form
+    if (e.target.matches('[data-ad-form]')) {
+      e.preventDefault();
+      if (!adTitle.trim()) return toast('Ad headline is required', 'error');
+      if (!adSponsor.trim()) return toast('Sponsor brand name is required', 'error');
+      if (!adLinkUrl.trim() || !/^https?:\/\//i.test(adLinkUrl.trim())) {
+        return toast('Valid destination link URL (https://...) is required', 'error');
+      }
+      isSavingAd = true;
+      render();
+      try {
+        await api.adminCreateAd(adminKey, {
+          type: adType,
+          title: adTitle.trim(),
+          sponsor: adSponsor.trim(),
+          body: adBody.trim() || undefined,
+          linkUrl: adLinkUrl.trim(),
+          ctaText: adCtaText.trim() || 'Learn More',
+          imageUrl: adImageUrl.trim() || undefined,
+          placement: adPlacement,
+          active: adActive,
+        });
+        toast('Ad campaign launched successfully!', 'ok');
+        adTitle = '';
+        adSponsor = '';
+        adBody = '';
+        adLinkUrl = '';
+        adImageUrl = '';
+        await loadAds();
+      } catch (err) {
+        toast(err.message || 'Failed to create ad', 'error');
+      } finally {
+        isSavingAd = false;
+        render();
+      }
+      return;
     }
   });
 

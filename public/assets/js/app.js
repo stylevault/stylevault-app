@@ -1,6 +1,7 @@
 import { $, $$, esc, icon, initials } from './lib.js';
 import { store } from './store.js';
 import { bindGlobalActions, openSignupPromptModal, toast } from './ui.js';
+import { maybeShowInterstitial, setupAdTracking } from './ads.js';
 
 const routes = [
   ['/', 'home', () => import('./views/home.js')],
@@ -99,6 +100,11 @@ async function render() {
   if (token === renderToken && typeof result === 'function') cleanup = result;
   if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
   else main.focus({ preventScroll: true });
+
+  // Trigger non-intrusive interstitial if configured and not seen this session
+  if (pathname !== '/admin') {
+    maybeShowInterstitial(route?.nav || 'all');
+  }
 }
 
 function setActiveNav(nav) {
@@ -186,6 +192,7 @@ function bindChrome() {
 
 bindGlobalActions();
 bindChrome();
+setupAdTracking();
 store.on(renderChrome);
 store.init();
 render();

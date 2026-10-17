@@ -12,6 +12,7 @@ export function shapeArticle(r) {
     url: r.url,
     summary: r.summary,
     image: r.image_url,
+    imageUrl: r.image_url,
     publishedAt: r.published_at,
     source: { name: r.source_name, slug: r.source_slug, homepage: r.source_homepage, country: r.source_country, kind: r.source_kind },
     countries: r.countries ? r.countries.split(',') : [],

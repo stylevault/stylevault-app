@@ -2,6 +2,7 @@ import { api } from '../api.js';
 import { $, $$, esc } from '../lib.js';
 import { store } from '../store.js';
 import { emptyState, mountFeed } from '../ui.js';
+import { filterAds, getActiveAds, renderBannerAdHtml } from '../ads.js';
 
 export default function news(main, { query, setTitle, navigate }) {
   setTitle('News');
@@ -14,6 +15,7 @@ export default function news(main, { query, setTitle, navigate }) {
       <h1>News</h1>
       <p class="lede">Reporting from newsrooms across the continent, dated and linked to the original publisher.</p>
     </div></section>
+    <div data-ad-banner-slot></div>
     <div class="wrap" style="padding-top:36px;max-width:920px">
       <div class="toolbar">
         <select class="select" data-country aria-label="Country"><option value="">All countries</option>
@@ -25,6 +27,14 @@ export default function news(main, { query, setTitle, navigate }) {
       </div>
       <div data-feed></div>
     </div>`;
+
+  getActiveAds().then((ads) => {
+    const banners = filterAds(ads, { type: 'banner', placement: 'news' });
+    const slot = $('[data-ad-banner-slot]', main);
+    if (banners.length && slot) {
+      slot.innerHTML = renderBannerAdHtml(banners[0]);
+    }
+  }).catch(() => {});
 
   const load = () => mountFeed($('[data-feed]', main), (before) => api.articles({ kind: 'news', country, topic, before, limit: 15 }), {
     empty: emptyState({ title: 'No reporting matches', body: 'Try another country or topic.', iconName: 'news' }),

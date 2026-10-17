@@ -65,4 +65,14 @@ export const api = {
   adminMetrics: (key) => request('GET', '/api/admin/metrics', null, key ? { 'X-Admin-Key': key } : {}),
   adminCollect: (key, all = false) => request('POST', `/api/admin/collect${all ? '?all=1' : ''}`, null, key ? { 'X-Admin-Key': key } : {}),
   adminIndicators: (key) => request('POST', '/api/admin/indicators', null, key ? { 'X-Admin-Key': key } : {}),
+  adminPublishArticle: (key, data) => request('POST', '/api/admin/articles', data, key ? { 'X-Admin-Key': key } : {}),
+  adminDeleteArticle: (key, id) => request('DELETE', `/api/admin/articles/${encodeURIComponent(id)}`, null, key ? { 'X-Admin-Key': key } : {}),
+  adminAds: (key) => request('GET', '/api/admin/ads', null, key ? { 'X-Admin-Key': key } : {}),
+  adminCreateAd: (key, ad) => request('POST', '/api/admin/ads', ad, key ? { 'X-Admin-Key': key } : {}),
+  adminUpdateAd: (key, id, data) => request('PATCH', `/api/admin/ads/${encodeURIComponent(id)}`, data, key ? { 'X-Admin-Key': key } : {}),
+  adminDeleteAd: (key, id) => request('DELETE', `/api/admin/ads/${encodeURIComponent(id)}`, null, key ? { 'X-Admin-Key': key } : {}),
+
+  ads: (params = {}) => request('GET', `/api/ads${qs(params)}`),
+  trackAdClick: (id) => request('POST', `/api/ads/${encodeURIComponent(id)}/click`),
+  trackAdImpression: (id) => request('POST', `/api/ads/${encodeURIComponent(id)}/impression`),
 };

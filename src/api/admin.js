@@ -2,6 +2,7 @@ import { HttpError, json } from '../lib/http.js';
 import { getUser, requireUser } from '../lib/auth.js';
 import { runCollection } from '../collector/collect.js';
 import { refreshIndicators } from '../collector/indicators.js';
+import { sha256Hex } from '../collector/normalize.js';
 
 const now = () => Math.floor(Date.now() / 1000);
 
@@ -159,4 +160,91 @@ export async function postIndicatorsAdmin(request, env) {
   await requireAdmin(request, env);
   const result = await refreshIndicators(env);
   return json(result);
+}
+
+export async function adminCreateArticle(request, env) {
+  await requireAdmin(request, env);
+
+  const body = await request.json().catch(() => ({}));
+  const title = String(body.title || '').trim();
+  const summary = String(body.summary || '').trim();
+  const imageUrl = String(body.imageUrl || body.image_url || '').trim();
+  let url = String(body.url || '').trim();
+  const sourceName = String(body.sourceName || body.source_name || 'StyleVault Editorial').trim();
+  const kind = String(body.kind || 'news').trim().toLowerCase();
+  const countryList = Array.isArray(body.countries)
+    ? body.countries
+    : (body.country ? [body.country] : (typeof body.countries === 'string' ? body.countries.split(',').map((s) => s.trim()).filter(Boolean) : []));
+  const topicList = Array.isArray(body.topics)
+    ? body.topics
+    : (body.topic ? [body.topic] : (typeof body.topics === 'string' ? body.topics.split(',').map((s) => s.trim()).filter(Boolean) : []));
+  const publishedAt = Number(body.publishedAt) || Math.floor(Date.now() / 1000);
+
+  if (!title) throw new HttpError(400, 'Article headline / title is required');
+
+  if (!url) {
+    url = `https://stylevault.app/news#editorial-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+  }
+
+  // Find or create source
+  let source = await env.DB.prepare('SELECT id, name FROM sources WHERE name = ? COLLATE NOCASE LIMIT 1').bind(sourceName).first();
+  if (!source) {
+    const slug = sourceName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'editorial';
+    await env.DB.prepare(
+      `INSERT INTO sources (slug, name, homepage, feed_url, kind, language, active, permission_status, created_at)
+       VALUES (?, ?, 'https://stylevault.app', ?, ?, 'en', 1, 'permitted', ?)
+       ON CONFLICT(slug) DO UPDATE SET name = excluded.name`
+    ).bind(slug, sourceName, `https://stylevault.app/sources/${slug}`, ['analysis', 'research', 'official'].includes(kind) ? kind : 'news', publishedAt).run().catch(() => {});
+    source = await env.DB.prepare('SELECT id, name FROM sources WHERE name = ? COLLATE NOCASE LIMIT 1').bind(sourceName).first();
+  }
+
+  const sourceId = source ? source.id : 1;
+  const hash = await sha256Hex(url);
+
+  // Insert article
+  const primaryCountry = countryList[0] || null;
+  const insRes = await env.DB.prepare(
+    `INSERT INTO articles (source_id, url, url_hash, title, summary, image_url, language, published_at, fetched_at, primary_country, is_duplicate, off_topic)
+     VALUES (?, ?, ?, ?, ?, ?, 'en', ?, ?, ?, 0, 0)`
+  ).bind(sourceId, url, hash, title, summary || null, imageUrl || null, publishedAt, publishedAt, primaryCountry).run();
+
+  const articleId = insRes.meta?.last_row_id;
+  if (articleId) {
+    await env.DB.prepare('UPDATE articles SET cluster_id = id WHERE id = ?').bind(articleId).run().catch(() => {});
+
+    for (const c of countryList) {
+      if (/^[A-Z]{2}$/i.test(c)) {
+        await env.DB.prepare('INSERT OR IGNORE INTO article_countries (country_code, article_id, score) VALUES (?, ?, 100)')
+          .bind(c.toUpperCase(), articleId).run().catch(() => {});
+      }
+    }
+
+    for (const t of topicList) {
+      if (/^[a-z-]{2,40}$/i.test(t)) {
+        await env.DB.prepare('INSERT OR IGNORE INTO article_topics (topic_slug, article_id, score) VALUES (?, ?, 100)')
+          .bind(t.toLowerCase(), articleId).run().catch(() => {});
+      }
+    }
+  }
+
+  return json({
+    ok: true,
+    article: {
+      id: articleId,
+      title,
+      url,
+      imageUrl: imageUrl || null,
+      source: { name: sourceName },
+      countries: countryList,
+      topics: topicList,
+      publishedAt,
+    },
+  });
+}
+
+export async function adminDeleteArticle(request, env, ctx, { id }) {
+  await requireAdmin(request, env);
+  if (!id) throw new HttpError(400, 'Missing article id');
+  await env.DB.prepare('DELETE FROM articles WHERE id = ?').bind(id).run();
+  return json({ ok: true });
 }

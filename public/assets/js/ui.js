@@ -1,5 +1,6 @@
 import { $, $$, esc, flag, icon, shortDate, longDate, formatIndicator, sparkline, KIND_LABELS } from './lib.js';
 import { store } from './store.js';
+import { filterAds, getActiveAds, renderNativeAdHtml } from './ads.js';
 
 /** Articles rendered on screen, by id, so save/share buttons can find the full object. */
 const registry = new Map();
@@ -238,11 +239,27 @@ export async function mountFeed(container, fetchPage, { empty, layout = 'rows', 
   const more = document.createElement('div');
   more.className = 'load-more';
 
+  let nativeAdIndex = 0;
   const load = async () => {
     const btn = more.querySelector('button');
     if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
-    const page = await fetchPage(cursor);
-    list.insertAdjacentHTML('beforeend', page.items.map(draw).join(''));
+    const [page, activeAds] = await Promise.all([
+      fetchPage(cursor),
+      getActiveAds().catch(() => []),
+    ]);
+    const nativeAds = filterAds(activeAds, { type: 'native' });
+
+    let html = '';
+    (page.items || []).forEach((item, idx) => {
+      html += draw(item);
+      if (layout === 'rows' && (idx + 1) === 4 && nativeAds.length) {
+        const ad = nativeAds[nativeAdIndex % nativeAds.length];
+        nativeAdIndex++;
+        html += renderNativeAdHtml(ad);
+      }
+    });
+
+    list.insertAdjacentHTML('beforeend', html);
     cursor = page.nextCursor;
     more.innerHTML = cursor ? '<button class="btn btn-outline" type="button">Show more</button>' : '';
     return page;

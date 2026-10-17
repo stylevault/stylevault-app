@@ -6,6 +6,7 @@ import { HttpError, assertSameOrigin, json } from './lib/http.js';
 import { getArticles, getCountry, getMeta, getSources, getTopStories, postCollect, postIndicators } from './api/public.js';
 import * as account from './api/account.js';
 import * as admin from './api/admin.js';
+import * as ads from './api/ads.js';
 import { pruneOldData, runCollection } from './collector/collect.js';
 import { refreshIndicators, staleIndicators } from './collector/indicators.js';
 
@@ -15,9 +16,19 @@ const routes = [
   ['GET', '/api/top-stories', getTopStories],
   ['GET', '/api/sources', getSources],
   ['GET', '/api/countries/:code', getCountry],
+  ['GET', '/api/ads', ads.getAds],
+  ['POST', '/api/ads/:id/click', ads.trackAdClick],
+  ['POST', '/api/ads/:id/impression', ads.trackAdImpression],
+
   ['GET', '/api/admin/metrics', admin.getAdminMetrics],
   ['POST', '/api/admin/collect', admin.postCollectAdmin],
   ['POST', '/api/admin/indicators', admin.postIndicatorsAdmin],
+  ['POST', '/api/admin/articles', admin.adminCreateArticle],
+  ['DELETE', '/api/admin/articles/:id', admin.adminDeleteArticle],
+  ['GET', '/api/admin/ads', ads.adminGetAds],
+  ['POST', '/api/admin/ads', ads.adminCreateAd],
+  ['PATCH', '/api/admin/ads/:id', ads.adminUpdateAd],
+  ['DELETE', '/api/admin/ads/:id', ads.adminDeleteAd],
 
   ['POST', '/api/auth/signup', account.signup],
   ['POST', '/api/auth/login', account.login],

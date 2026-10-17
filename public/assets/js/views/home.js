@@ -4,6 +4,7 @@ import { renderMap } from '../map.js';
 import { store } from '../store.js';
 import { REGION_NAMES, editionItem, editionLead, homeReadCard, openCountryPickerModal, openDialog, openHomeFeedSwitcherModal, openSectorPickerModal, openSignupPromptModal, skeletonRows, wireCard } from '../ui.js';
 import { TOPIC_BLURBS } from './topics.js';
+import { filterAds, getActiveAds, renderBannerAdHtml, renderNativeAdHtml } from '../ads.js';
 
 const TOPIC_ICONS = {
   business: '💼',
@@ -64,12 +65,8 @@ function renderSuggestedCards(followedCountries = [], followedTopics = []) {
   `).join('');
 }
 
-function homeCuratedCard(a, activity = {}) {
+function homeCuratedCard(a) {
   const c = a.countries?.length ? store.countryByCode.get(a.countries[0]) : null;
-  const t = a.topics?.length ? store.topicBySlug.get(a.topics[0]) : null;
-  const matchLabel = c && activity.topCountries?.includes(c.code)
-    ? `Matches your reading in ${c.name}`
-    : (t && activity.topTopics?.includes(t.slug) ? `Based on your interest in ${t.name}` : 'Curated story');
 
   return `
     <article class="uh-curated-card" data-article-card="${esc(a.id)}">
@@ -79,8 +76,7 @@ function homeCuratedCard(a, activity = {}) {
         </div>` : ''}
       <div class="uhc-content">
         <div class="uhc-meta">
-          <span class="uhc-match-pill">${icon('sparkles')} ${esc(matchLabel)}</span>
-          <span class="dot-sep"></span>
+          ${c ? flag(c.code, 'uhc-flag') : ''}
           <span class="uhc-source">${esc(a.source?.name || 'Newsroom')}</span>
         </div>
         <h3 class="uhc-title">
@@ -465,16 +461,16 @@ async function renderUserHome(main, { setTitle, navigate }) {
           </div>
         </section>
 
+        <div data-ad-banner-slot></div>
+
         <!-- Behavioral Curation: Based on your reading -->
         <section class="uh-block warm" data-curated-section>
           <div class="wrap">
             <div class="uh-head">
               <div>
-                <span class="eyebrow accent">${icon('sparkles')} Curated for you</span>
                 <h2>Based on your recent reading</h2>
-                <p data-curated-subtitle>Stories matched to what you’ve been exploring across StyleVault.</p>
+                <p>Stories matched to what you’ve been exploring across StyleVault.</p>
               </div>
-              <span class="uh-curated-badge">${icon('compass')} Personalized</span>
             </div>
             <div class="uh-curated-grid" data-curated-feed>
               ${skeletonRows(3)}
@@ -714,8 +710,6 @@ async function renderUserHome(main, { setTitle, navigate }) {
   // ── Behavioral Curation: load stories tailored to user activity ──────────
   const activity = store.getReadingActivity();
   const curatedBox = $('[data-curated-feed]', main);
-  const curatedSub = $('[data-curated-subtitle]', main);
-
   const curQuery = { kind: 'news', limit: 12 };
   if (activity.topCountries.length) {
     curQuery.country = activity.topCountries.slice(0, 6);
@@ -728,7 +722,15 @@ async function renderUserHome(main, { setTitle, navigate }) {
     curQuery.topic = followedTopics.slice(0, 4);
   }
 
-  api.articles(curQuery).then(({ items }) => {
+  getActiveAds().then((ads) => {
+    const banners = filterAds(ads, { type: 'banner', placement: 'home' });
+    const bannerSlot = $('[data-ad-banner-slot]', main);
+    if (banners.length && bannerSlot) {
+      bannerSlot.innerHTML = renderBannerAdHtml(banners[0]);
+    }
+  }).catch(() => {});
+
+  api.articles(curQuery).then(async ({ items }) => {
     if (!curatedBox) return;
     let curated = (items || []).filter((a) => !briefIds.has(a.id));
     if (!curated.length) curated = items || [];
@@ -739,16 +741,13 @@ async function renderUserHome(main, { setTitle, navigate }) {
       return;
     }
 
-    if (activity.topCountries.length || activity.topTopics.length) {
-      const cNames = activity.topCountries.slice(0, 2).map((c) => store.countryByCode.get(c)?.name).filter(Boolean);
-      const tNames = activity.topTopics.slice(0, 2).map((t) => store.topicBySlug.get(t)?.name).filter(Boolean);
-      const matched = [...cNames, ...tNames].join(', ');
-      if (curatedSub && matched) {
-        curatedSub.textContent = `Tailored from your recent interest in ${matched}.`;
-      }
+    const ads = await getActiveAds().catch(() => []);
+    const nativeAds = filterAds(ads, { type: 'native', placement: 'home' });
+    let html = curated.map((a) => homeCuratedCard(a)).join('');
+    if (nativeAds.length) {
+      html += renderNativeAdHtml(nativeAds[0]);
     }
-
-    curatedBox.innerHTML = curated.map((a) => homeCuratedCard(a, activity)).join('');
+    curatedBox.innerHTML = html;
   }).catch(() => {
     if (curatedBox) curatedBox.innerHTML = '<p class="hint">Stories couldn’t load just now.</p>';
   });
