@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Style Vault</string>
+    <string name="tagline">Understand Africa, one country at a time</string>
+    <string name="splash_loading">Loading your continental briefing…</string>
+</resources>
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="plum_primary">#5C0060</color>
+    <color name="plum_dark">#1A0A1E</color>
+    <color name="plum_deep">#2E0B35</color>
+    <color name="plum_light">#F7EEF8</color>
+    <color name="accent_gold">#D99A2B</color>
+    <color name="accent_teal">#7FE0D2</color>
+    <color name="white">#FFFFFF</color>
+    <color name="translucent_white">#B3FFFFFF</color>
+    <color name="muted_gray">#9C92A0</color>
+</resources>
+
