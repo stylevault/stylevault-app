@@ -292,7 +292,11 @@ export function openDialog(html, onMount) {
   dialog.showModal();
   const close = () => dialog.close();
   $$('[data-close]', dialog).forEach((b) => b.addEventListener('click', close));
-  dialog.addEventListener('click', (e) => { if (e.target === dialog) close(); }, { once: true });
+  // Tapping the backdrop closes; keep listening until the dialog actually closes
+  // (a `once` listener would be used up by the first tap inside the dialog).
+  const onBackdrop = (e) => { if (e.target === dialog) close(); };
+  dialog.addEventListener('click', onBackdrop);
+  dialog.addEventListener('close', () => dialog.removeEventListener('click', onBackdrop), { once: true });
   onMount?.(dialog, close);
   return dialog;
 }
@@ -664,6 +668,8 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
   const selectedTopics = new Set(store.followedTopics);
   let selectedPairs = [...store.countryTopicPairs];
 
+  // Sprite icons for topic rows (the emoji map is kept for other callers).
+  const TOPIC_SPRITES = { business: 'chart', politics: 'building', trade: 'globe', technology: 'radar', agriculture: 'map', education: 'book', tourism: 'globe', style: 'eye', energy: 'sun', health: 'shield', climate: 'sun', security: 'shield', sport: 'stack' };
   let currentTab = initialTab; // 'countries' | 'topics' | 'pairs'
   let activeRegion = 'all';
   let countryQuery = '';
@@ -674,7 +680,7 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
     <div class="sheet-head sec-modal-head">
       <div>
         <h2 style="margin:0;font-size:1.15rem">Manage what you follow</h2>
-        <p class="sec-modal-sub" data-manage-sub>Follow African countries, continental topics, or specific topics in a country</p>
+        <p class="sec-modal-sub" data-manage-sub>Countries, topics, or a topic in one country</p>
       </div>
       <button type="button" class="icon-btn" data-close aria-label="Close">${icon('close')}</button>
     </div>
@@ -688,7 +694,7 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
         Topics <span data-tab-count="topics" class="flw-tab-badge">${selectedTopics.size}</span>
       </button>
       <button type="button" class="chip" data-tab-nav="pairs" aria-pressed="${currentTab === 'pairs'}">
-        Topic in Country <span data-tab-count="pairs" class="flw-tab-badge">${selectedPairs.length}</span>
+        In a country <span data-tab-count="pairs" class="flw-tab-badge">${selectedPairs.length}</span>
       </button>
     </div>
 
@@ -697,7 +703,7 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
       <div class="cpm-toolbar flw-pane-toolbar">
         <div class="cpm-search-bar">
           <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
-          <input type="search" class="input cpm-input" placeholder="Find a country or capital…" data-country-search aria-label="Find a country or capital">
+          <input type="search" class="input cpm-input" placeholder="Find a country or capital" data-country-search aria-label="Find a country or capital">
         </div>
         <div class="flw-region-chips" data-country-regions>
           <button type="button" class="chip" data-region="all" aria-pressed="true">All regions</button>
@@ -705,9 +711,9 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
         </div>
         <div class="flw-pane-actions">
           <span class="flw-pane-count" data-country-summary>${selectedCountries.size} of 54 countries followed</span>
-          <div class="flw-pane-btns">
-            <button type="button" class="btn btn-outline btn-sm" data-select-all-countries>Select all</button>
-            <button type="button" class="btn btn-outline btn-sm" data-deselect-all-countries>Deselect all</button>
+          <div class="mf-bulk">
+            <button type="button" class="mf-link" data-select-all-countries>Select all</button>
+            <button type="button" class="mf-link" data-deselect-all-countries>Clear</button>
           </div>
         </div>
       </div>
@@ -721,13 +727,13 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
       <div class="cpm-toolbar flw-pane-toolbar">
         <div class="cpm-search-bar">
           <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
-          <input type="search" class="input cpm-input" placeholder="Find a topic (e.g. Technology, Politics, Agriculture)…" data-topic-search aria-label="Find a topic">
+          <input type="search" class="input cpm-input" placeholder="Find a topic" data-topic-search aria-label="Find a topic">
         </div>
         <div class="flw-pane-actions">
           <span class="flw-pane-count" data-topic-summary>${selectedTopics.size} of ${allTopics.length} topics followed</span>
-          <div class="flw-pane-btns">
-            <button type="button" class="btn btn-outline btn-sm" data-select-all-topics>Select all</button>
-            <button type="button" class="btn btn-outline btn-sm" data-deselect-all-topics>Deselect all</button>
+          <div class="mf-bulk">
+            <button type="button" class="mf-link" data-select-all-topics>Select all</button>
+            <button type="button" class="mf-link" data-deselect-all-topics>Clear</button>
           </div>
         </div>
       </div>
@@ -739,8 +745,8 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
     <!-- Pane 3: Topic in Country -->
     <div class="flw-manage-pane" data-pane="pairs" ${currentTab !== 'pairs' ? 'hidden' : ''}>
       <div class="flw-pair-builder">
-        <strong class="flw-pair-title">Add a country-specific topic</strong>
-        <p class="flw-pair-sub">Follow stories on a specific subject in one country (e.g. Technology in Kenya, Style in Nigeria, or Energy in Ghana).</p>
+        <strong class="flw-pair-title">Follow a topic in one country</strong>
+        <p class="flw-pair-sub">For example, Technology in Kenya or Energy in Ghana.</p>
         <div class="flw-pair-controls">
           <select class="input flw-pair-select" data-pair-country-select>
             <option value="">Choose country…</option>
@@ -751,7 +757,7 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
             ${allTopics.map((t) => `<option value="${t.slug}">${esc(t.name)}</option>`).join('')}
           </select>
           <button type="button" class="btn btn-plum btn-sm flw-pair-add-btn" data-add-pair>
-            ${icon('plus')} Add focus
+            ${icon('plus')} Add
           </button>
         </div>
       </div>
@@ -817,15 +823,10 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
       countryListEl.innerHTML = filtered.map((c) => {
         const isChecked = selectedCountries.has(c.code);
         return `
-          <label class="check-row ${isChecked ? 'is-checked' : ''}" style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;cursor:pointer;user-select:none;transition:background 0.15s;margin-bottom:2px" data-code="${c.code}">
-            <input type="checkbox" value="${c.code}" ${isChecked ? 'checked' : ''} style="width:18px;height:18px;accent-color:var(--plum);cursor:pointer">
-            <div style="flex:none;width:30px;height:30px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 1px rgb(26 10 30 / 0.1)">
-              ${flag(c.code, 'flag', '')}
-            </div>
-            <div style="flex:1;min-width:0">
-              <strong style="display:block;font-size:0.90rem;font-weight:500;color:var(--deep)">${esc(c.name)}</strong>
-              <span style="font-size:0.75rem;color:var(--muted)">${esc(c.capital || '')}${c.capital ? ' · ' : ''}${REGION_NAMES[c.region] || c.region}</span>
-            </div>
+          <label class="check-row mf-row ${isChecked ? 'is-checked' : ''}" data-code="${c.code}">
+            <input type="checkbox" value="${c.code}" ${isChecked ? 'checked' : ''}>
+            ${flag(c.code, 'mf-flag', '')}
+            <span class="mf-text"><strong>${esc(c.name)}</strong><span>${esc(c.capital || '')}${c.capital ? ' · ' : ''}${REGION_NAMES[c.region] || c.region}</span></span>
           </label>
         `;
       }).join('');
@@ -890,18 +891,12 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
 
       topicListEl.innerHTML = filtered.map((t) => {
         const isChecked = selectedTopics.has(t.slug);
-        const iconChar = TOPIC_ICONS[t.slug] || '📌';
         const blurb = TOPIC_BLURBS[t.slug] || '';
         return `
-          <label class="check-row ${isChecked ? 'is-checked' : ''}" style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;cursor:pointer;user-select:none;transition:background 0.15s;margin-bottom:2px" data-slug="${t.slug}">
-            <input type="checkbox" value="${t.slug}" ${isChecked ? 'checked' : ''} style="width:18px;height:18px;accent-color:var(--plum);cursor:pointer">
-            <div style="flex:none;width:32px;height:32px;border-radius:8px;background:var(--subtle);display:flex;align-items:center;justify-content:center;font-size:1.1rem">
-              ${iconChar}
-            </div>
-            <div style="flex:1;min-width:0">
-              <strong style="display:block;font-size:0.90rem;font-weight:500;color:var(--deep)">${esc(t.name)}</strong>
-              ${blurb ? `<span style="font-size:0.75rem;color:var(--muted)">${esc(blurb)}</span>` : ''}
-            </div>
+          <label class="check-row mf-row ${isChecked ? 'is-checked' : ''}" data-slug="${t.slug}">
+            <input type="checkbox" value="${t.slug}" ${isChecked ? 'checked' : ''}>
+            <span class="mf-topic-ico" aria-hidden="true">${icon(TOPIC_SPRITES[t.slug] || 'news')}</span>
+            <span class="mf-text"><strong>${esc(t.name)}</strong>${blurb ? `<span>${esc(blurb)}</span>` : ''}</span>
           </label>
         `;
       }).join('');
@@ -946,10 +941,9 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
     const renderPairs = () => {
       if (!selectedPairs.length) {
         pairListEl.innerHTML = `
-          <div class="cpm-empty" style="padding:24px 16px;text-align:center">
-            <div style="font-size:1.8rem;margin-bottom:6px">📌</div>
-            <strong>No topic-in-country focus pairs yet</strong>
-            <p style="margin:4px 0 0;font-size:0.78rem;color:var(--muted)">Select a country and a topic above to create a focused feed.</p>
+          <div class="cpm-empty">
+            <strong>Nothing here yet</strong>
+            <span>Choose a country and a topic above, then tap Add.</span>
           </div>`;
         return;
       }
@@ -959,19 +953,11 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
         const t = store.topicBySlug.get(p.topic);
         const cName = c ? c.name : p.country;
         const tName = t ? t.name : p.topic;
-        const iconChar = TOPIC_ICONS[p.topic] || '📌';
         return `
-          <div class="pair-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:10px;background:var(--card);border:1px solid rgb(26 10 30 / 0.08);margin-bottom:6px">
-            <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1">
-              <div style="flex:none;width:28px;height:28px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 1px rgb(26 10 30 / 0.1)">
-                ${flag(p.country, 'flag', '')}
-              </div>
-              <div style="min-width:0">
-                <strong style="display:block;font-size:0.88rem;color:var(--deep)">${esc(tName)} in ${esc(cName)}</strong>
-                <span style="font-size:0.74rem;color:var(--muted)">${iconChar} ${esc(tName)} · ${esc(cName)}</span>
-              </div>
-            </div>
-            <button type="button" class="icon-btn act" data-remove-pair="${idx}" title="Remove focus" aria-label="Remove focus" style="color:var(--muted)">
+          <div class="pair-row mf-row">
+            ${flag(p.country, 'mf-flag', '')}
+            <span class="mf-text"><strong>${esc(tName)}</strong><span>in ${esc(cName)}</span></span>
+            <button type="button" class="icon-btn act mf-remove" data-remove-pair="${idx}" title="Remove" aria-label="Remove ${esc(tName)} in ${esc(cName)}">
               ${icon('close')}
             </button>
           </div>

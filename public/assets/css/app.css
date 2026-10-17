@@ -6853,8 +6853,8 @@ dialog:has(.flw-modal-list) .sheet-foot .btn { min-height: 36px; height: 36px; p
 @media (min-width: 641px) { .adm-editor-toolbar { flex-wrap: wrap; overflow: visible; row-gap: 2px; } }
 
 /* ── Multi-country & Topic Following Manager Modal ── */
-dialog:has(.flw-manage-pane),
-dialog:has(.flw-bulk-list) {
+dialog[open]:has(.flw-manage-pane),
+dialog[open]:has(.flw-bulk-list) {
   width: min(520px, calc(100vw - 24px));
   height: min(88dvh, 720px);
   max-height: min(88dvh, 720px);
@@ -7088,3 +7088,67 @@ dialog:has(.flw-bulk-list) .sheet-foot {
   }
 }
 
+/* ── "Manage what you follow" dialog, compact ─────────────────────────────── */
+dialog:has(.flw-tabs-bar) .sec-modal-head { padding: 10px 16px 10px; }
+dialog:has(.flw-tabs-bar) .sec-modal-head h2 { font-size: 1.05rem !important; }
+dialog:has(.flw-tabs-bar) .sec-modal-sub { font-size: 0.76rem; }
+
+/* Tabs: a segmented control that always fits */
+.flw-tabs-bar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; margin: 10px 16px 0; padding: 3px; border: 0; border-radius: 12px; background: var(--warm); box-shadow: inset 0 0 0 1px var(--line); overflow: visible; }
+.flw-tabs-bar .chip { justify-content: center; gap: 6px; min-width: 0; height: 34px; padding: 0 6px; border: 0; border-radius: 9px; background: none; font: 500 0.82rem var(--font-display); color: var(--ink-2); box-shadow: none; white-space: nowrap; }
+.flw-tabs-bar .chip:hover { color: var(--deep); background: rgb(255 255 255 / 0.6); }
+.flw-tabs-bar .chip[aria-pressed="true"] { background: #fff; color: var(--plum); box-shadow: 0 1px 3px rgb(26 10 30 / 0.1); }
+.flw-tab-badge { min-width: 20px; height: 18px; padding: 0 5px; border-radius: 999px; background: rgb(26 10 30 / 0.06); color: var(--muted); font: 600 0.68rem var(--font-body); display: inline-grid; place-items: center; }
+.flw-tabs-bar .chip[aria-pressed="true"] .flw-tab-badge { background: var(--lavender); color: var(--plum); }
+
+/* Search, region filter and bulk actions in one tight strip */
+.flw-pane-toolbar { display: grid; gap: 8px; padding: 12px 16px 10px; border-bottom: 1px solid var(--line); }
+.flw-pane-toolbar .cpm-input { height: 38px; border-radius: 999px; font-size: 0.86rem; }
+.flw-region-chips { display: flex; gap: 6px; margin: 0 -16px; padding: 0 16px; overflow-x: auto; scrollbar-width: none; }
+.flw-region-chips .chip { flex: none; height: 28px; padding: 0 11px; border-radius: 999px; font-size: 0.76rem; font-weight: 400; }
+.flw-region-chips .chip[aria-pressed="true"] { background: var(--lavender); border-color: rgb(92 0 96 / 0.3); color: var(--plum); font-weight: 500; }
+.flw-pane-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.flw-pane-count { font-size: 0.76rem; font-weight: 500; color: var(--muted); }
+.mf-bulk { display: flex; align-items: center; gap: 4px; flex: none; }
+.mf-link { height: 26px; padding: 0 8px; border: 0; border-radius: 6px; background: none; font: 500 0.78rem var(--font-display); color: var(--plum); cursor: pointer; }
+.mf-link:hover { background: var(--lavender); }
+.mf-link + .mf-link { color: var(--muted); }
+.mf-link + .mf-link:hover { color: var(--deep); background: var(--warm); }
+
+/* Rows */
+.flw-pane-body { padding: 6px 8px 10px; }
+.flw-bulk-list { display: grid; gap: 1px; }
+.mf-row { display: flex; align-items: center; gap: 12px; min-width: 0; margin: 0; padding: 9px 10px; border-radius: 10px; cursor: pointer; user-select: none; background: none; border: 0; transition: background 0.15s; }
+.mf-row:hover { background: var(--warm); }
+.mf-row.is-checked { background: #fbf6fc; }
+.mf-row input[type="checkbox"] { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--plum); cursor: pointer; }
+.mf-flag { flex: none; width: 26px; height: 19px; border-radius: 4px; object-fit: cover; box-shadow: 0 0 0 1px rgb(26 10 30 / 0.08); }
+.mf-topic-ico { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--lavender); color: var(--plum); }
+.mf-topic-ico .icon { width: 15px; height: 15px; }
+.mf-text { display: grid; gap: 1px; flex: 1; min-width: 0; }
+.mf-text strong { font: 500 0.88rem/1.3 var(--font-display); color: var(--deep); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mf-text span { font-size: 0.74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Topic in a country */
+.flw-pair-builder { display: grid; gap: 4px; margin: 12px 16px 0; padding: 14px; border-radius: 12px; background: var(--warm); border: 1px solid var(--line); }
+.flw-pair-title { font: 600 0.88rem var(--font-display); color: var(--deep); }
+.flw-pair-sub { margin: 0 0 6px; font-size: 0.78rem; color: var(--muted); }
+.flw-pair-controls { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 8px; }
+.flw-pair-select { height: 38px; border-radius: 10px; font-size: 0.84rem; background-color: #fff; }
+.flw-pair-add-btn { height: 38px; min-height: 38px; gap: 6px; }
+.pair-row.mf-row { cursor: default; border: 1px solid var(--line); background: #fff; margin-bottom: 6px; }
+.mf-remove { flex: none; width: 30px; height: 30px; color: var(--muted); }
+.mf-remove:hover { color: var(--danger); background: #fdecef; }
+
+dialog:has(.flw-tabs-bar) .cpm-empty { padding: 32px 16px; }
+dialog:has(.flw-tabs-bar) .sheet-foot { padding: 10px 16px; }
+dialog:has(.flw-tabs-bar) .sheet-foot .btn { min-height: 38px; height: 38px; padding: 0 16px; font-size: 0.84rem; }
+
+@media (max-width: 480px) {
+  .flw-tabs-bar .chip { font-size: 0.78rem; gap: 4px; }
+  .flw-pair-controls { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .flw-pair-add-btn { grid-column: 1 / -1; }
+}
+
+/* Safety net: a closed dialog must never render, whatever other rules set its display to. */
+dialog:not([open]) { display: none !important; }

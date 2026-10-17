@@ -133,12 +133,11 @@ export default function following(main, { query, setTitle, navigate }) {
                   <span class="flw-dd-chev" aria-hidden="true">${icon('chevron-down')}</span>
                 </button>
 
-                <div class="flw-summary-actions">
-                  <button class="btn btn-outline btn-sm flw-action-btn" type="button" data-manage-countries>${icon('plus')} <span>Manage countries & topics</span></button>
-                  ${activeSelection.type !== 'all' ? `
+                ${activeSelection.type !== 'all' ? `
+                  <div class="flw-summary-actions">
                     <button class="btn btn-outline btn-sm flw-action-btn" type="button" data-reset-all>${icon('close')} <span>View all</span></button>
-                  ` : ''}
-                </div>
+                  </div>
+                ` : ''}
               </div>
             </div>
           </div>
