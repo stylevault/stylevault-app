@@ -28,11 +28,13 @@ const routes = [
   ['/sources', null, () => import('./views/sources.js')],
   ['/about', null, () => import('./views/about.js')],
   ['/privacy', null, () => import('./views/privacy.js')],
+  ['/explore', 'countries', () => import('./views/explore.js')],
+  ['/admin', 'admin', () => import('./views/admin.js')],
 ].map(([path, nav, load]) => ({ nav, load, re: new RegExp(`^${path.replace(/:(\w+)/g, '(?<$1>[^/]+)')}/?$`) }));
 
 export function isRestrictedRoute(pathname) {
   if (pathname === '/tools' || pathname.startsWith('/tools/') || pathname === '/eta-tracker' || pathname === '/contraband-guide' || pathname === '/womens-safety-africa' || pathname === '/tourism-at-a-glance') return false;
-  const publicPaths = ['/', '/login', '/signup', '/forgot-password', '/reset-password', '/about', '/sources', '/privacy'];
+  const publicPaths = ['/', '/login', '/signup', '/forgot-password', '/reset-password', '/about', '/sources', '/privacy', '/explore', '/admin'];
   return !publicPaths.includes(pathname);
 }
 
@@ -118,6 +120,7 @@ function accountHtml(compact) {
       <button type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Account menu"><span class="avatar">${esc(initials(u.name))}</span></button>
       <div class="menu-pop" role="menu">
         <div class="menu-head"><strong>${esc(u.name)}</strong><span>${esc(u.email)}</span></div>
+        <a href="/admin" role="menuitem">${icon('sparkles')} Admin Analytics</a>
         <a href="/tools" role="menuitem">${icon('layers')} Travel tools</a>
         <a href="/about" role="menuitem">${icon('globe')} About Style Vault</a>
         <a href="/account" role="menuitem">${icon('user')} Account settings</a>

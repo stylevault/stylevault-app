@@ -55,7 +55,7 @@ export default async function country(main, { params, setTitle }) {
   store.recordVisit('country', base.code);
 
   const followBtn = () => {
-    const on = !!store.followFor('country', base.code);
+    const on = store.isFollowed('country', base.code);
     return `<button class="btn btn-sm ${on ? 'is-on' : 'btn-plum'}" type="button" data-follow-country aria-pressed="${on}">${icon(on ? 'star-fill' : 'star')} ${on ? 'Following' : 'Follow'}</button>`;
   };
 

@@ -28,6 +28,33 @@ function criteria(m) {
   return pills.join('');
 }
 
+function scopeSummary(m) {
+  const cCount = m.countries?.length || 0;
+  const tCount = m.topics?.length || 0;
+  const kwCount = m.keywords ? m.keywords.split(',').map((k) => k.trim()).filter(Boolean).length : 0;
+  const total = cCount + tCount + kwCount;
+  if (!total) return { label: 'All 54 African countries', count: 54, iconHtml: '🌍' };
+  if (cCount && !tCount && !kwCount) {
+    if (cCount === 1) {
+      const c = store.countryByCode.get(m.countries[0]);
+      return { label: c ? c.name : m.countries[0], count: 1, iconHtml: c ? flag(c.code, 'flag', '') : '🌍' };
+    }
+    return { label: `${cCount} Countries`, count: cCount, iconHtml: '🌍' };
+  }
+  if (!cCount && tCount && !kwCount) {
+    if (tCount === 1) {
+      const t = store.topicBySlug.get(m.topics[0]);
+      return { label: t ? t.name : m.topics[0], count: 1, iconHtml: '📌' };
+    }
+    return { label: `${tCount} Topics`, count: tCount, iconHtml: '📌' };
+  }
+  const parts = [];
+  if (cCount) parts.push(`${cCount} ${cCount === 1 ? 'country' : 'countries'}`);
+  if (tCount) parts.push(`${tCount} ${tCount === 1 ? 'topic' : 'topics'}`);
+  if (kwCount) parts.push(`${kwCount} ${kwCount === 1 ? 'keyword' : 'keywords'}`);
+  return { label: parts.join(' · '), count: total, iconHtml: '✨' };
+}
+
 export default function following(main, { query, setTitle, navigate }) {
   setTitle('Following');
   let viewMode = localStorage.getItem('sv_flw_view') || 'grid';
@@ -82,6 +109,7 @@ export default function following(main, { query, setTitle, navigate }) {
     const activeId = list.some((m) => m.id === query.get('m')) ? query.get('m') : list[0].id;
     const m = list.find((x) => x.id === activeId);
     const singleCountry = m.countries?.length === 1 ? store.countryByCode.get(m.countries[0]) : null;
+    const scope = scopeSummary(m);
 
     main.innerHTML = `
       ${head}
@@ -111,7 +139,23 @@ export default function following(main, { query, setTitle, navigate }) {
 
               <div class="flw-scope-row">
                 <span class="flw-scope-lbl">Includes</span>
-                <div class="crit">${criteria(m)}</div>
+                <div class="flw-scope-dd-wrap" data-scope-dd-wrap>
+                  <button type="button" class="flw-scope-trigger-btn" data-scope-toggle aria-expanded="false" aria-haspopup="true">
+                    <span class="flw-scope-trigger-icon">${scope.iconHtml}</span>
+                    <span class="flw-scope-trigger-label">${esc(scope.label)}</span>
+                    <span class="flw-scope-trigger-count">${scope.count}</span>
+                    <span class="flw-scope-trigger-arrow">${icon('chevron-down')}</span>
+                  </button>
+                  <div class="flw-scope-dropdown-panel" data-scope-panel hidden>
+                    <div class="flw-scope-panel-header">
+                      <strong>Included in this feed (${scope.count})</strong>
+                      <span class="flw-scope-panel-hint">Tap any item to explore</span>
+                    </div>
+                    <div class="crit flw-scope-panel-crit">
+                      ${criteria(m)}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -197,9 +241,34 @@ export default function following(main, { query, setTitle, navigate }) {
       } catch (err) {
         toast(err.message, 'error');
       }
+      return;
+    }
+    const scopeBtn = e.target.closest('[data-scope-toggle]');
+    if (scopeBtn) {
+      const wrap = scopeBtn.closest('[data-scope-dd-wrap]');
+      const panel = wrap?.querySelector('[data-scope-panel]');
+      if (panel) {
+        const isHidden = panel.hidden;
+        panel.hidden = !isHidden;
+        scopeBtn.setAttribute('aria-expanded', String(isHidden));
+      }
+      return;
     }
   });
 
+  const onDocClick = (e) => {
+    if (!e.target.closest('[data-scope-dd-wrap]')) {
+      const panel = $('[data-scope-panel]', main);
+      const btn = $('[data-scope-toggle]', main);
+      if (panel && !panel.hidden) {
+        panel.hidden = true;
+        btn?.setAttribute('aria-expanded', 'false');
+      }
+    }
+  };
+  document.addEventListener('click', onDocClick);
+
   draw();
+  return () => document.removeEventListener('click', onDocClick);
 }
 

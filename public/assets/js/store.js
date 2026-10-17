@@ -182,19 +182,53 @@ export const store = {
     emit();
   },
 
-  /** A "follow" is a monitor for exactly one country or one topic. */
+  /** Check if a country code or topic slug is followed in any monitor. */
+  isFollowed(kind, value) {
+    if (!value) return false;
+    return this.monitors.some((m) =>
+      kind === 'country'
+        ? Array.isArray(m.countries) && m.countries.includes(value)
+        : Array.isArray(m.topics) && m.topics.includes(value),
+    );
+  },
+
+  /** A "follow" is a monitor for exactly one country or one topic, or the monitor containing it. */
   followFor(kind, value) {
+    if (!value) return null;
+    const exact = this.monitors.find((m) =>
+      kind === 'country'
+        ? m.countries?.length === 1 && m.countries[0] === value && !m.topics?.length && !m.keywords
+        : m.topics?.length === 1 && m.topics[0] === value && !m.countries?.length && !m.keywords,
+    );
+    if (exact) return exact;
     return this.monitors.find((m) =>
       kind === 'country'
-        ? m.countries.length === 1 && m.countries[0] === value && !m.topics.length && !m.keywords
-        : m.topics.length === 1 && m.topics[0] === value && !m.countries.length && !m.keywords,
+        ? Array.isArray(m.countries) && m.countries.includes(value)
+        : Array.isArray(m.topics) && m.topics.includes(value),
     );
   },
 
   async toggleFollow(kind, value) {
     const existing = this.followFor(kind, value);
     if (existing) {
-      await this.removeMonitor(existing.id);
+      const isSingleCountry = kind === 'country' && existing.countries?.length === 1 && !existing.topics?.length && !existing.keywords;
+      const isSingleTopic = kind === 'topic' && existing.topics?.length === 1 && !existing.countries?.length && !existing.keywords;
+      if (isSingleCountry || isSingleTopic) {
+        await this.removeMonitor(existing.id);
+        return false;
+      }
+      // In a multi-item monitor, remove this item
+      const nextCountries = kind === 'country' ? existing.countries.filter((c) => c !== value) : existing.countries;
+      const nextTopics = kind === 'topic' ? existing.topics.filter((t) => t !== value) : existing.topics;
+      if (!nextCountries.length && !nextTopics.length && !existing.keywords) {
+        await this.removeMonitor(existing.id);
+      } else {
+        await this.saveMonitor({
+          ...existing,
+          countries: nextCountries,
+          topics: nextTopics,
+        }, existing.id);
+      }
       return false;
     }
     const name = kind === 'country' ? this.countryByCode.get(value)?.name : this.topicBySlug.get(value)?.name;

@@ -74,7 +74,7 @@ export default function topic(main, { params, query, setTitle }) {
   const related = store.meta.topics.filter((x) => x.slug !== t.slug);
 
   const followBtn = () => {
-    const on = !!store.followFor('topic', t.slug);
+    const on = store.isFollowed('topic', t.slug);
     return `<button class="btn btn-sm ${on ? 'is-on' : 'btn-plum'}" type="button" data-follow-topic aria-pressed="${on}">${icon(on ? 'star-fill' : 'star')} ${on ? 'Following' : 'Follow'}</button>`;
   };
 

@@ -265,7 +265,7 @@ function shapeMonitor(r) {
 
 function cleanMonitor(input) {
   const countries = [...new Set((input.countries || []).filter((c) => /^[A-Z]{2}$/.test(c)))].slice(0, 54);
-  const topics = [...new Set((input.topics || []).filter((t) => /^[a-z-]{2,30}$/.test(t)))].slice(0, 20);
+  const topics = [...new Set((input.topics || []).filter((t) => /^[a-z-]{2,30}$/.test(t)))].slice(0, 50);
   const keywords = String(input.keywords || '').slice(0, 300).trim();
   const name = String(input.name || '').trim().slice(0, 80);
   if (!name) throw new HttpError(400, 'Give your monitor a name');
@@ -273,7 +273,7 @@ function cleanMonitor(input) {
   return { name, countries, topics, keywords };
 }
 
-const MAX_MONITORS = 30;
+const MAX_MONITORS = 100;
 
 export async function createMonitor(request, env) {
   const user = await requireUser(env.DB, request);

@@ -5,6 +5,7 @@
 import { HttpError, assertSameOrigin, json } from './lib/http.js';
 import { getArticles, getCountry, getMeta, getSources, getTopStories, postCollect, postIndicators } from './api/public.js';
 import * as account from './api/account.js';
+import * as admin from './api/admin.js';
 import { pruneOldData, runCollection } from './collector/collect.js';
 import { refreshIndicators, staleIndicators } from './collector/indicators.js';
 
@@ -14,8 +15,9 @@ const routes = [
   ['GET', '/api/top-stories', getTopStories],
   ['GET', '/api/sources', getSources],
   ['GET', '/api/countries/:code', getCountry],
-  ['POST', '/api/admin/collect', postCollect],
-  ['POST', '/api/admin/indicators', postIndicators],
+  ['GET', '/api/admin/metrics', admin.getAdminMetrics],
+  ['POST', '/api/admin/collect', admin.postCollectAdmin],
+  ['POST', '/api/admin/indicators', admin.postIndicatorsAdmin],
 
   ['POST', '/api/auth/signup', account.signup],
   ['POST', '/api/auth/login', account.login],
@@ -76,6 +78,14 @@ const ROUTE_SEO = {
   '/privacy': {
     title: 'Privacy Policy · Style Vault',
     desc: 'Style Vault privacy practices: zero third-party tracking, open public access, and strict data protection standards.',
+  },
+  '/explore': {
+    title: 'Explore Countries & Topics · Style Vault',
+    desc: 'Directory of all 54 African countries and 13 strategic sectors: news, economic indicators, and verified reporting.',
+  },
+  '/admin': {
+    title: 'Admin Analytics & Data · Style Vault',
+    desc: 'Style Vault platform metrics, user analytics, ingestion health, and newsroom monitoring.',
   },
 };
 

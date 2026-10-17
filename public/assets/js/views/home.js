@@ -371,11 +371,14 @@ function followsSentence(countryCodes, topicSlugs) {
     ...topicSlugs.map((slug) => store.topicBySlug.get(slug)).filter(Boolean)
       .map((t) => `<a href="/topic/${t.slug}">${esc(t.name)}</a>`),
   ];
-  const shown = links.slice(0, 3);
+  if (!links.length) return '';
+  if (links.length <= 6) {
+    if (links.length === 1) return links[0];
+    return `${links.slice(0, -1).join(', ')} and ${links.at(-1)}`;
+  }
+  const shown = links.slice(0, 5);
   const extra = links.length - shown.length;
-  if (extra > 0) return `${shown.join(', ')} and ${extra} more`;
-  if (shown.length < 2) return shown.join('');
-  return `${shown.slice(0, -1).join(', ')} and ${shown.at(-1)}`;
+  return `${shown.join(', ')} and ${extra} more`;
 }
 
 /** Diversify stories so the same publisher doesn't appear 3 times in a row. */
@@ -713,23 +716,23 @@ async function renderUserHome(main, { setTitle, navigate }) {
   const curatedBox = $('[data-curated-feed]', main);
   const curatedSub = $('[data-curated-subtitle]', main);
 
-  const curQuery = { kind: 'news', limit: 8 };
+  const curQuery = { kind: 'news', limit: 12 };
   if (activity.topCountries.length) {
-    curQuery.country = activity.topCountries.slice(0, 3);
+    curQuery.country = activity.topCountries.slice(0, 6);
   } else if (followedCountries.length) {
-    curQuery.country = followedCountries.slice(0, 3);
+    curQuery.country = followedCountries.slice(0, 10);
   }
   if (activity.topTopics.length) {
-    curQuery.topic = activity.topTopics.slice(0, 2);
+    curQuery.topic = activity.topTopics.slice(0, 4);
   } else if (followedTopics.length) {
-    curQuery.topic = followedTopics.slice(0, 2);
+    curQuery.topic = followedTopics.slice(0, 4);
   }
 
   api.articles(curQuery).then(({ items }) => {
     if (!curatedBox) return;
     let curated = (items || []).filter((a) => !briefIds.has(a.id));
     if (!curated.length) curated = items || [];
-    curated = curated.slice(0, 3);
+    curated = curated.slice(0, 6);
 
     if (!curated.length) {
       curatedBox.innerHTML = '<p class="hint">Read articles and explore country profiles to see stories curated for your interests here.</p>';
