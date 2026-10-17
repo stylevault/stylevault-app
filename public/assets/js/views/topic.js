@@ -3,6 +3,7 @@ import { $, $$, esc, icon, nf } from '../lib.js';
 import { store } from '../store.js';
 import { anyCard, emptyState, mountFeed, openDialog, readCard, toast } from '../ui.js';
 import { TOPIC_BLURBS } from './topics.js';
+import { brandSelect } from '../brand-select.js';
 
 // Sprite icons that stand in for each topic, where the country page shows a flag.
 const TOPIC_ICONS = {
@@ -205,6 +206,7 @@ export default function topic(main, { params, query, setTitle }) {
   };
   const current = () => $('[data-tab].on', main)?.dataset.tab || 'latest';
 
+  brandSelect($('[data-country-select]', main));
   $('[data-country-select]', main).addEventListener('change', (e) => {
     country = e.target.value;
     const p = new URLSearchParams(location.search);

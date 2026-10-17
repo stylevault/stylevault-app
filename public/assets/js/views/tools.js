@@ -1,70 +1,8 @@
 import { $, $$, esc, flag, icon, nf } from '../lib.js';
 import { store } from '../store.js';
 import { errorState, skeletonRows } from '../ui.js';
+import { brandSelect, dropParens } from '../brand-select.js';
 
-/**
- * Swaps a native <select> for a compact, on-brand dropdown. The select stays in the DOM (hidden)
- * as the source of truth: picking an option sets its value and fires 'change', so existing
- * listeners keep working untouched.
- */
-// Button shows a short form of the option ("WPS Index (Best first)" → "WPS Index"); the menu keeps the full text.
-const dropParens = (text) => text.replace(/\s*\([^)]*\)/g, '').trim();
-
-function brandSelect(select, { prefix = '', short = dropParens } = {}) {
-  const wrap = document.createElement('div');
-  wrap.className = 'bsel';
-  const label = (opt) => `${prefix ? `<span class="bsel-prefix">${esc(prefix)}</span>` : ''}<span class="bsel-value">${esc(short(opt?.textContent.trim() || ''))}</span>`;
-  wrap.innerHTML = `
-    <button type="button" class="bsel-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="${esc(select.getAttribute('aria-label') || prefix)}">
-      <span class="bsel-label">${label(select.selectedOptions[0])}</span>${icon('chevron-down')}
-    </button>
-    <div class="bsel-menu" role="listbox" hidden>
-      ${[...select.options].map((o) => `
-        <button type="button" class="bsel-opt" role="option" data-value="${esc(o.value)}" aria-selected="${o.selected}">
-          <span>${esc(o.textContent.trim())}</span>${icon('check')}
-        </button>`).join('')}
-    </div>`;
-  select.hidden = true;
-  select.tabIndex = -1;
-  select.after(wrap);
-
-  const btn = wrap.querySelector('.bsel-btn');
-  const menu = wrap.querySelector('.bsel-menu');
-  const opts = [...menu.querySelectorAll('.bsel-opt')];
-  const setOpen = (open) => {
-    menu.hidden = !open;
-    btn.setAttribute('aria-expanded', open);
-    if (open) (opts.find((o) => o.getAttribute('aria-selected') === 'true') || opts[0])?.focus();
-  };
-  btn.addEventListener('click', () => setOpen(menu.hidden));
-  menu.addEventListener('click', (e) => {
-    const opt = e.target.closest('.bsel-opt');
-    if (!opt) return;
-    opts.forEach((o) => o.setAttribute('aria-selected', o === opt));
-    btn.querySelector('.bsel-label').innerHTML = label([...select.options].find((o) => o.value === opt.dataset.value));
-    setOpen(false);
-    btn.focus();
-    if (select.value !== opt.dataset.value) {
-      select.value = opt.dataset.value;
-      select.dispatchEvent(new Event('change', { bubbles: true }));
-    }
-  });
-  menu.addEventListener('keydown', (e) => {
-    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
-    e.preventDefault();
-    const i = opts.indexOf(document.activeElement);
-    opts[(i + (e.key === 'ArrowDown' ? 1 : opts.length - 1)) % opts.length].focus();
-  });
-  // Close on outside click / Escape; listeners remove themselves once the view is gone.
-  const onDoc = (e) => {
-    if (!wrap.isConnected) { document.removeEventListener('click', onDoc); document.removeEventListener('keydown', onKey); return; }
-    if (!menu.hidden && !wrap.contains(e.target)) setOpen(false);
-  };
-  const onKey = (e) => { if (e.key === 'Escape' && !menu.hidden) { setOpen(false); btn.focus(); } };
-  document.addEventListener('click', onDoc);
-  document.addEventListener('keydown', onKey);
-  return wrap;
-}
 
 // The 4 official Ria's Colony Travel & Border Tools
 const TOOLS_METADATA = [

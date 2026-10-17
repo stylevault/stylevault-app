@@ -2,6 +2,7 @@ import { api } from '../api.js';
 import { $, esc, flag, icon, initials } from '../lib.js';
 import { store } from '../store.js';
 import { confirmDialog, toast } from '../ui.js';
+import { brandSelect } from '../brand-select.js';
 
 const PASSPORT_KEY = 'sv_eta_passport'; // shared with the ETA tracker tool
 const ACTIVITY_KEY = 'sv_reading_activity';
@@ -159,6 +160,7 @@ export default function account(main, { setTitle, navigate }) {
       </section>
     </div></div></div>`;
 
+  brandSelect($('[data-passport]', main));
   $('[data-passport]', main).addEventListener('change', (e) => {
     writeLocal(PASSPORT_KEY, e.target.value || null);
     toast(e.target.value ? 'Passport saved' : 'Passport cleared');

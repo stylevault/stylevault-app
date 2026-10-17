@@ -378,25 +378,6 @@ function followsSentence(countryCodes, topicSlugs) {
   return `${shown.slice(0, -1).join(', ')} and ${shown.at(-1)}`;
 }
 
-function followedCountryCard(c) {
-  const pop = c.snapshot?.population;
-  const growth = c.snapshot?.growth;
-  return `
-    <article class="uh-country">
-      <div class="uh-country-top">
-        ${flag(c.code, 'flag', '')}
-        <div>
-          <h3><a href="/country/${c.slug}">${esc(c.name)}</a></h3>
-          <span class="uh-country-region">${REGION_NAMES[c.region] || ''}${c.capital ? ` · ${esc(c.capital)}` : ''}</span>
-        </div>
-      </div>
-      <div class="uh-country-stats">
-        <div><span>Population${pop ? ` <em>${pop.year}</em>` : ''}</span><strong>${pop ? formatIndicator(pop.value, 'people') : 'N/A'}</strong></div>
-        <div><span>GDP growth${growth ? ` <em>${growth.year}</em>` : ''}</span><strong>${growth ? formatIndicator(growth.value, 'pct') : 'N/A'}</strong></div>
-      </div>
-    </article>`;
-}
-
 /** Diversify stories so the same publisher doesn't appear 3 times in a row. */
 function diversifyBySource(items, max = 4) {
   const result = [];
@@ -503,7 +484,6 @@ async function renderUserHome(main, { setTitle, navigate }) {
           <div class="wrap">
             <div class="uh-head">
               <div>
-                <span class="eyebrow">${icon('compass')} Suggestions</span>
                 <h2>Places and topics you might like</h2>
                 <p>Follow in one tap to add live updates into your home feed.</p>
               </div>
@@ -515,22 +495,6 @@ async function renderUserHome(main, { setTitle, navigate }) {
           </div>
         </section>
 
-        <section class="uh-block warm">
-          <div class="wrap">
-            <div class="uh-head">
-              <div>
-                <span class="eyebrow accent">Country snapshots</span>
-                <h2>Countries you follow</h2>
-                <p>Population and economic growth numbers from the World Bank.</p>
-              </div>
-              <a class="text-link" href="/countries">See all 54 countries ${icon('arrow-right')}</a>
-            </div>
-            <div class="uh-countries">
-              ${followedCountries.slice(0, 7).map((code) => store.countryByCode.get(code)).filter(Boolean).map(followedCountryCard).join('')}
-              <button type="button" class="uh-add" data-follow-country>${icon('plus')}<span>Follow another country</span></button>
-            </div>
-          </div>
-        </section>
       ` : `
         <section class="uh-block">
           <div class="wrap">

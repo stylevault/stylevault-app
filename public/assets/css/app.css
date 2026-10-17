@@ -5915,3 +5915,29 @@ h1, h2, h3 { overflow-wrap: break-word; }
   /* Top-to-bottom gentle gradient overlay on mobile */
   .gh-hero::before { background: linear-gradient(180deg, rgb(26 10 30 / 0.78) 0%, rgb(46 4 52 / 0.72) 55%, rgb(26 10 30 / 0.90) 100%); }
 }
+
+/* Branded dropdown: long lists scroll and get a filter box */
+.bsel-list { display: grid; }
+.bsel-menu.is-long { width: max(100%, 260px); padding: 0; overflow: hidden; }
+.bsel-menu.is-long .bsel-list { max-height: min(300px, 50vh); overflow-y: auto; overscroll-behavior: contain; padding: 4px 6px 6px; }
+.bsel-search { display: flex; align-items: center; gap: 8px; margin: 0; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.bsel-search .icon { flex: none; width: 15px; height: 15px; color: var(--muted); }
+.bsel-search input { width: 100%; min-width: 0; border: 0; outline: none; background: none; font: 400 0.86rem var(--font-body); color: var(--deep); }
+.bsel-opt[hidden] { display: none; }
+
+/* Where it's used */
+.acc-row .bsel { flex: none; width: 220px; }
+.acc-row .bsel-menu { left: auto; right: 0; }
+.tp-filter .bsel { flex: none; width: 260px; }
+.tp-filter .bsel-menu { left: auto; right: 0; }
+@media (max-width: 640px) {
+  .acc-row .bsel, .tp-filter .bsel { width: 100%; }
+  .acc-row .bsel-menu, .tp-filter .bsel-menu { left: 0; right: 0; width: auto; }
+}
+
+/* Following page: never wider than the screen, however long the name or however many countries */
+.flw-container { grid-template-columns: minmax(0, 1fr); }
+.flw-container > *, .flw-panel, .flw-bar, .flw-bar-top, .flw-scope-row, .flw-bar .crit, .flw-feed-section { min-width: 0; }
+.flw-dropdown-btn { min-width: 0; max-width: 100%; }
+.flw-dd-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.flw-bar .crit > * { max-width: 100%; }
