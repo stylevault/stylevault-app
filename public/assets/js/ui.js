@@ -124,14 +124,11 @@ export function wireCard(a) {
   </article>`;
 }
 
-/** Elevated card for Following feeds. */
+/** Elevated card for Following feeds (text-only, clean readable editorial cards). */
 export function streamCard(a) {
   registry.set(a.id, a);
   const kind = a.source.kind || 'news';
   const isResearch = kind !== 'news';
-  const imgHtml = a.imageUrl
-    ? `<div class="sc-thumb"><img src="${esc(a.imageUrl)}" alt="" loading="lazy" onerror="this.parentElement.remove()"></div>`
-    : '';
   return `
   <article class="stream-card ${isResearch ? 'is-research' : ''}">
     <div class="sc-head">
@@ -142,7 +139,6 @@ export function streamCard(a) {
       </div>
       <span class="sc-time">${time(a)}</span>
     </div>
-    ${imgHtml}
     <div class="sc-body">
       <div class="sc-copy">
         <h3 class="sc-title"><a href="${esc(a.url)}" data-open-article="${a.id}">${esc(a.title)}</a></h3>
@@ -627,63 +623,184 @@ export function openCountrySectionModal({ country: c, activeTab = 'overview', on
   });
 }
 
+export const TOPIC_ICONS = {
+  business: '💼',
+  politics: '🏛️',
+  trade: '🚢',
+  technology: '📱',
+  agriculture: '🌾',
+  education: '🎓',
+  tourism: '✈️',
+  style: '✨',
+  energy: '⚡',
+  health: '🏥',
+  climate: '🌱',
+  security: '🛡️',
+  sport: '⚽',
+};
+
+export const TOPIC_BLURBS = {
+  business: 'Markets, banks, enterprise and the money moving the continent.',
+  politics: 'Elections, governments, parliaments and institutions.',
+  trade: 'AfCFTA, ports, corridors and goods crossing borders.',
+  technology: 'Fintech, telecoms, start-ups and digital infrastructure.',
+  agriculture: 'Farming, food prices, cocoa, coffee and food security.',
+  education: 'Schools, universities, exams and skills.',
+  tourism: 'Travel, visas, airlines, hotels and heritage.',
+  style: 'Fashion, music, film, art and design.',
+  energy: 'Power, oil and gas, renewables and mining.',
+  health: 'Hospitals, outbreaks, medicines and public health.',
+  climate: 'Weather, conservation, drought, floods and green transition.',
+  security: 'Conflict, peace efforts, policing and justice.',
+  sport: 'Football, athletics and African sports stars.',
+};
+
 /**
- * Full-screen / bottom sheet modal for multi-country bulk follow.
- * Allows readers to follow multiple countries or whole regions with 1 tap.
+ * Comprehensive modal for managing followed countries, topics, and topic-in-country pairs.
+ * Readers can follow multiple countries, select continental topics, or focus on a specific topic in a country.
  */
-export function openBulkCountryFollowModal({ onSaved } = {}) {
+export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}) {
   const allCountries = store.meta.countries || [];
-  const selected = new Set(store.followedCountries);
+  const allTopics = store.meta.topics || [];
+  const selectedCountries = new Set(store.followedCountries);
+  const selectedTopics = new Set(store.followedTopics);
+  let selectedPairs = [...store.countryTopicPairs];
+
+  let currentTab = initialTab; // 'countries' | 'topics' | 'pairs'
   let activeRegion = 'all';
-  let searchQuery = '';
+  let countryQuery = '';
+  let topicQuery = '';
 
   return openDialog(`
     <div class="sheet-drag-handle" aria-hidden="true"></div>
     <div class="sheet-head sec-modal-head">
       <div>
-        <h2 style="margin:0;font-size:1.15rem">Follow African countries</h2>
-        <p class="sec-modal-sub" data-bulk-sub>Choose countries to include together in your personal feed</p>
+        <h2 style="margin:0;font-size:1.15rem">Manage what you follow</h2>
+        <p class="sec-modal-sub" data-manage-sub>Follow African countries, continental topics, or specific topics in a country</p>
       </div>
       <button type="button" class="icon-btn" data-close aria-label="Close">${icon('close')}</button>
     </div>
 
-    <div class="cpm-toolbar" style="padding-bottom:12px;gap:8px">
-      <div class="cpm-search-bar">
-        <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
-        <input type="search" class="input cpm-input" placeholder="Find a country or capital…" data-bulk-search aria-label="Find a country or capital">
-      </div>
-      <div class="chips wrap-chips" style="gap:5px" data-bulk-regions>
-        <button type="button" class="chip" data-region="all" aria-pressed="true">All regions</button>
-        ${Object.entries(REGION_NAMES).map(([k, v]) => `<button type="button" class="chip" data-region="${k}" aria-pressed="false">${v}</button>`).join('')}
-      </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:2px">
-        <span style="font-size:0.80rem;font-weight:500;color:var(--plum)" data-bulk-count>${selected.size} of 54 countries followed</span>
-        <div style="display:flex;gap:6px">
-          <button type="button" class="btn btn-outline btn-sm" data-select-region style="font-size:0.75rem;height:28px;padding:0 8px">Select all</button>
-          <button type="button" class="btn btn-outline btn-sm" data-deselect-region style="font-size:0.75rem;height:28px;padding:0 8px">Deselect all</button>
+    <!-- Segmented Tab Bar -->
+    <div class="flw-tabs-bar" style="display:flex;gap:6px;padding:0 14px 10px;border-bottom:1px solid rgb(26 10 30 / 0.08);background:var(--paper)">
+      <button type="button" class="chip" data-tab-nav="countries" aria-pressed="${currentTab === 'countries'}" style="font-weight:600">
+        Countries <span data-tab-count="countries" style="margin-left:4px;font-size:0.75rem;padding:1px 6px;border-radius:8px;background:rgb(26 10 30 / 0.06)">${selectedCountries.size}</span>
+      </button>
+      <button type="button" class="chip" data-tab-nav="topics" aria-pressed="${currentTab === 'topics'}" style="font-weight:600">
+        Topics <span data-tab-count="topics" style="margin-left:4px;font-size:0.75rem;padding:1px 6px;border-radius:8px;background:rgb(26 10 30 / 0.06)">${selectedTopics.size}</span>
+      </button>
+      <button type="button" class="chip" data-tab-nav="pairs" aria-pressed="${currentTab === 'pairs'}" style="font-weight:600">
+        Topic in Country <span data-tab-count="pairs" style="margin-left:4px;font-size:0.75rem;padding:1px 6px;border-radius:8px;background:rgb(26 10 30 / 0.06)">${selectedPairs.length}</span>
+      </button>
+    </div>
+
+    <!-- Pane 1: Countries -->
+    <div class="flw-manage-pane" data-pane="countries" ${currentTab !== 'countries' ? 'hidden' : ''}>
+      <div class="cpm-toolbar" style="padding-bottom:12px;gap:8px">
+        <div class="cpm-search-bar">
+          <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
+          <input type="search" class="input cpm-input" placeholder="Find a country or capital…" data-country-search aria-label="Find a country or capital">
+        </div>
+        <div class="chips wrap-chips" style="gap:5px" data-country-regions>
+          <button type="button" class="chip" data-region="all" aria-pressed="true">All regions</button>
+          ${Object.entries(REGION_NAMES).map(([k, v]) => `<button type="button" class="chip" data-region="${k}" aria-pressed="false">${v}</button>`).join('')}
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:2px">
+          <span style="font-size:0.80rem;font-weight:500;color:var(--plum)" data-country-summary>${selectedCountries.size} of 54 countries followed</span>
+          <div style="display:flex;gap:6px">
+            <button type="button" class="btn btn-outline btn-sm" data-select-all-countries style="font-size:0.75rem;height:28px;padding:0 8px">Select all</button>
+            <button type="button" class="btn btn-outline btn-sm" data-deselect-all-countries style="font-size:0.75rem;height:28px;padding:0 8px">Deselect all</button>
+          </div>
         </div>
       </div>
+      <div class="sheet-body sec-modal-body" style="padding:6px 14px 14px;max-height:48vh;overflow-y:auto">
+        <div class="flw-bulk-list" data-country-list></div>
+      </div>
     </div>
 
-    <div class="sheet-body sec-modal-body" style="padding:6px 14px 14px;max-height:52vh;overflow-y:auto">
-      <div class="flw-bulk-list" data-bulk-list></div>
+    <!-- Pane 2: Topics -->
+    <div class="flw-manage-pane" data-pane="topics" ${currentTab !== 'topics' ? 'hidden' : ''}>
+      <div class="cpm-toolbar" style="padding-bottom:12px;gap:8px">
+        <div class="cpm-search-bar">
+          <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
+          <input type="search" class="input cpm-input" placeholder="Find a topic (e.g. Technology, Politics, Agriculture)…" data-topic-search aria-label="Find a topic">
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:2px">
+          <span style="font-size:0.80rem;font-weight:500;color:var(--plum)" data-topic-summary>${selectedTopics.size} of ${allTopics.length} topics followed</span>
+          <div style="display:flex;gap:6px">
+            <button type="button" class="btn btn-outline btn-sm" data-select-all-topics style="font-size:0.75rem;height:28px;padding:0 8px">Select all</button>
+            <button type="button" class="btn btn-outline btn-sm" data-deselect-all-topics style="font-size:0.75rem;height:28px;padding:0 8px">Deselect all</button>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-body sec-modal-body" style="padding:6px 14px 14px;max-height:48vh;overflow-y:auto">
+        <div class="flw-bulk-list" data-topic-list></div>
+      </div>
     </div>
 
+    <!-- Pane 3: Topic in Country -->
+    <div class="flw-manage-pane" data-pane="pairs" ${currentTab !== 'pairs' ? 'hidden' : ''}>
+      <div style="padding:12px 14px;background:var(--subtle);border-radius:10px;margin:10px 14px 12px;border:1px solid rgb(26 10 30 / 0.08)">
+        <strong style="display:block;font-size:0.85rem;color:var(--deep);margin-bottom:4px">Add a country-specific topic</strong>
+        <p style="margin:0 0 10px;font-size:0.76rem;color:var(--muted)">Follow stories on a specific subject in one country (e.g. Technology in Kenya, Style in Nigeria, or Energy in Ghana).</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <select class="input" data-pair-country-select style="flex:1;min-width:140px;height:36px;font-size:0.84rem;background:var(--paper);border:1px solid var(--border);border-radius:8px;color:var(--deep)">
+            <option value="">Choose country…</option>
+            ${allCountries.slice().sort((a, b) => a.name.localeCompare(b.name)).map((c) => `<option value="${c.code}">${esc(c.name)}</option>`).join('')}
+          </select>
+          <select class="input" data-pair-topic-select style="flex:1;min-width:140px;height:36px;font-size:0.84rem;background:var(--paper);border:1px solid var(--border);border-radius:8px;color:var(--deep)">
+            <option value="">Choose topic…</option>
+            ${allTopics.map((t) => `<option value="${t.slug}">${esc(t.name)}</option>`).join('')}
+          </select>
+          <button type="button" class="btn btn-plum btn-sm" data-add-pair style="height:36px;padding:0 12px;white-space:nowrap;font-size:0.82rem;border-radius:8px">
+            ${icon('plus')} Add focus
+          </button>
+        </div>
+      </div>
+      <div class="sheet-body sec-modal-body" style="padding:4px 14px 14px;max-height:44vh;overflow-y:auto">
+        <div data-pair-list></div>
+      </div>
+    </div>
+
+    <!-- Sheet Foot -->
     <div class="sheet-foot" style="justify-content:space-between">
       <button type="button" class="btn btn-outline btn-sm" data-close>Cancel</button>
-      <button type="button" class="btn btn-plum btn-sm" data-bulk-save>${icon('check')} <span>Save followed countries</span></button>
+      <button type="button" class="btn btn-plum btn-sm" data-manage-save>${icon('check')} <span>Save preferences</span></button>
     </div>
   `, (dialog, close) => {
-    const listEl = $('[data-bulk-list]', dialog);
-    const countEl = $('[data-bulk-count]', dialog);
-    const searchInput = $('[data-bulk-search]', dialog);
+    // Tab switching
+    const tabBtns = $$('[data-tab-nav]', dialog);
+    const panes = $$('[data-pane]', dialog);
 
-    const updateCount = () => {
-      if (countEl) countEl.textContent = `${selected.size} of 54 countries followed`;
+    const switchTab = (tab) => {
+      currentTab = tab;
+      tabBtns.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.dataset.tabNav === tab)));
+      panes.forEach((pane) => {
+        pane.hidden = pane.dataset.pane !== tab;
+      });
     };
 
-    const render = () => {
-      const q = searchQuery.toLowerCase().trim();
+    tabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tabNav));
+    });
+
+    const updateBadges = () => {
+      const cBadge = $('[data-tab-count="countries"]', dialog);
+      if (cBadge) cBadge.textContent = selectedCountries.size;
+      const tBadge = $('[data-tab-count="topics"]', dialog);
+      if (tBadge) tBadge.textContent = selectedTopics.size;
+      const pBadge = $('[data-tab-count="pairs"]', dialog);
+      if (pBadge) pBadge.textContent = selectedPairs.length;
+      const cSummary = $('[data-country-summary]', dialog);
+      if (cSummary) cSummary.textContent = `${selectedCountries.size} of 54 countries followed`;
+      const tSummary = $('[data-topic-summary]', dialog);
+      if (tSummary) tSummary.textContent = `${selectedTopics.size} of ${allTopics.length} topics followed`;
+    };
+
+    // Render Countries
+    const countryListEl = $('[data-country-list]', dialog);
+    const renderCountries = () => {
+      const q = countryQuery.toLowerCase().trim();
       const filtered = allCountries.filter((c) => {
         if (activeRegion !== 'all' && c.region !== activeRegion) return false;
         if (q && !c.name.toLowerCase().includes(q) && !(c.capital || '').toLowerCase().includes(q)) return false;
@@ -691,16 +808,16 @@ export function openBulkCountryFollowModal({ onSaved } = {}) {
       });
 
       if (!filtered.length) {
-        listEl.innerHTML = `
+        countryListEl.innerHTML = `
           <div class="cpm-empty">
-            <strong>No country matches “${esc(searchQuery)}”</strong>
+            <strong>No country matches “${esc(countryQuery)}”</strong>
             <span>Try another search or change the region filter</span>
           </div>`;
         return;
       }
 
-      listEl.innerHTML = filtered.map((c) => {
-        const isChecked = selected.has(c.code);
+      countryListEl.innerHTML = filtered.map((c) => {
+        const isChecked = selectedCountries.has(c.code);
         return `
           <label class="check-row ${isChecked ? 'is-checked' : ''}" style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;cursor:pointer;user-select:none;transition:background 0.15s;margin-bottom:2px" data-code="${c.code}">
             <input type="checkbox" value="${c.code}" ${isChecked ? 'checked' : ''} style="width:18px;height:18px;accent-color:var(--plum);cursor:pointer">
@@ -715,57 +832,205 @@ export function openBulkCountryFollowModal({ onSaved } = {}) {
         `;
       }).join('');
 
-      $$('input[type="checkbox"]', listEl).forEach((cb) => {
+      $$('input[type="checkbox"]', countryListEl).forEach((cb) => {
         cb.addEventListener('change', () => {
-          if (cb.checked) selected.add(cb.value);
-          else selected.delete(cb.value);
+          if (cb.checked) selectedCountries.add(cb.value);
+          else selectedCountries.delete(cb.value);
           cb.closest('.check-row')?.classList.toggle('is-checked', cb.checked);
-          updateCount();
+          updateBadges();
         });
       });
     };
 
-    render();
+    renderCountries();
 
-    searchInput?.addEventListener('input', () => {
-      searchQuery = searchInput.value;
-      render();
+    $('[data-country-search]', dialog)?.addEventListener('input', (e) => {
+      countryQuery = e.target.value;
+      renderCountries();
     });
 
-    $('[data-bulk-regions]', dialog)?.addEventListener('click', (e) => {
+    $('[data-country-regions]', dialog)?.addEventListener('click', (e) => {
       const chip = e.target.closest('[data-region]');
       if (!chip) return;
       activeRegion = chip.dataset.region;
       $$('[data-region]', dialog).forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
-      render();
+      renderCountries();
     });
 
-    $('[data-select-region]', dialog)?.addEventListener('click', () => {
-      $$('input[type="checkbox"]', listEl).forEach((cb) => {
+    $('[data-select-all-countries]', dialog)?.addEventListener('click', () => {
+      $$('input[type="checkbox"]', countryListEl).forEach((cb) => {
         cb.checked = true;
-        selected.add(cb.value);
+        selectedCountries.add(cb.value);
         cb.closest('.check-row')?.classList.add('is-checked');
       });
-      updateCount();
+      updateBadges();
     });
 
-    $('[data-deselect-region]', dialog)?.addEventListener('click', () => {
-      $$('input[type="checkbox"]', listEl).forEach((cb) => {
+    $('[data-deselect-all-countries]', dialog)?.addEventListener('click', () => {
+      $$('input[type="checkbox"]', countryListEl).forEach((cb) => {
         cb.checked = false;
-        selected.delete(cb.value);
+        selectedCountries.delete(cb.value);
         cb.closest('.check-row')?.classList.remove('is-checked');
       });
-      updateCount();
+      updateBadges();
     });
 
-    $('[data-bulk-save]', dialog)?.addEventListener('click', async () => {
-      const saveBtn = $('[data-bulk-save]', dialog);
+    // Render Topics
+    const topicListEl = $('[data-topic-list]', dialog);
+    const renderTopics = () => {
+      const q = topicQuery.toLowerCase().trim();
+      const filtered = allTopics.filter((t) => !q || t.name.toLowerCase().includes(q) || (TOPIC_BLURBS[t.slug] || '').toLowerCase().includes(q));
+
+      if (!filtered.length) {
+        topicListEl.innerHTML = `
+          <div class="cpm-empty">
+            <strong>No topic matches “${esc(topicQuery)}”</strong>
+            <span>Try searching for keywords like “tech”, “business”, or “energy”</span>
+          </div>`;
+        return;
+      }
+
+      topicListEl.innerHTML = filtered.map((t) => {
+        const isChecked = selectedTopics.has(t.slug);
+        const iconChar = TOPIC_ICONS[t.slug] || '📌';
+        const blurb = TOPIC_BLURBS[t.slug] || '';
+        return `
+          <label class="check-row ${isChecked ? 'is-checked' : ''}" style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;cursor:pointer;user-select:none;transition:background 0.15s;margin-bottom:2px" data-slug="${t.slug}">
+            <input type="checkbox" value="${t.slug}" ${isChecked ? 'checked' : ''} style="width:18px;height:18px;accent-color:var(--plum);cursor:pointer">
+            <div style="flex:none;width:32px;height:32px;border-radius:8px;background:var(--subtle);display:flex;align-items:center;justify-content:center;font-size:1.1rem">
+              ${iconChar}
+            </div>
+            <div style="flex:1;min-width:0">
+              <strong style="display:block;font-size:0.90rem;font-weight:500;color:var(--deep)">${esc(t.name)}</strong>
+              ${blurb ? `<span style="font-size:0.75rem;color:var(--muted)">${esc(blurb)}</span>` : ''}
+            </div>
+          </label>
+        `;
+      }).join('');
+
+      $$('input[type="checkbox"]', topicListEl).forEach((cb) => {
+        cb.addEventListener('change', () => {
+          if (cb.checked) selectedTopics.add(cb.value);
+          else selectedTopics.delete(cb.value);
+          cb.closest('.check-row')?.classList.toggle('is-checked', cb.checked);
+          updateBadges();
+        });
+      });
+    };
+
+    renderTopics();
+
+    $('[data-topic-search]', dialog)?.addEventListener('input', (e) => {
+      topicQuery = e.target.value;
+      renderTopics();
+    });
+
+    $('[data-select-all-topics]', dialog)?.addEventListener('click', () => {
+      $$('input[type="checkbox"]', topicListEl).forEach((cb) => {
+        cb.checked = true;
+        selectedTopics.add(cb.value);
+        cb.closest('.check-row')?.classList.add('is-checked');
+      });
+      updateBadges();
+    });
+
+    $('[data-deselect-all-topics]', dialog)?.addEventListener('click', () => {
+      $$('input[type="checkbox"]', topicListEl).forEach((cb) => {
+        cb.checked = false;
+        selectedTopics.delete(cb.value);
+        cb.closest('.check-row')?.classList.remove('is-checked');
+      });
+      updateBadges();
+    });
+
+    // Render Pairs (Topic in Country)
+    const pairListEl = $('[data-pair-list]', dialog);
+    const renderPairs = () => {
+      if (!selectedPairs.length) {
+        pairListEl.innerHTML = `
+          <div class="cpm-empty" style="padding:24px 16px;text-align:center">
+            <div style="font-size:1.8rem;margin-bottom:6px">📌</div>
+            <strong>No topic-in-country focus pairs yet</strong>
+            <p style="margin:4px 0 0;font-size:0.78rem;color:var(--muted)">Select a country and a topic above to create a focused feed.</p>
+          </div>`;
+        return;
+      }
+
+      pairListEl.innerHTML = selectedPairs.map((p, idx) => {
+        const c = store.countryByCode.get(p.country);
+        const t = store.topicBySlug.get(p.topic);
+        const cName = c ? c.name : p.country;
+        const tName = t ? t.name : p.topic;
+        const iconChar = TOPIC_ICONS[p.topic] || '📌';
+        return `
+          <div class="pair-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border-radius:10px;background:var(--card);border:1px solid rgb(26 10 30 / 0.08);margin-bottom:6px">
+            <div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1">
+              <div style="flex:none;width:28px;height:28px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 1px rgb(26 10 30 / 0.1)">
+                ${flag(p.country, 'flag', '')}
+              </div>
+              <div style="min-width:0">
+                <strong style="display:block;font-size:0.88rem;color:var(--deep)">${esc(tName)} in ${esc(cName)}</strong>
+                <span style="font-size:0.74rem;color:var(--muted)">${iconChar} ${esc(tName)} · ${esc(cName)}</span>
+              </div>
+            </div>
+            <button type="button" class="icon-btn act" data-remove-pair="${idx}" title="Remove focus" aria-label="Remove focus" style="color:var(--muted)">
+              ${icon('close')}
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      $$('[data-remove-pair]', pairListEl).forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const idx = Number(btn.dataset.removePair);
+          selectedPairs.splice(idx, 1);
+          renderPairs();
+          updateBadges();
+        });
+      });
+    };
+
+    renderPairs();
+
+    $('[data-add-pair]', dialog)?.addEventListener('click', () => {
+      const cSelect = $('[data-pair-country-select]', dialog);
+      const tSelect = $('[data-pair-topic-select]', dialog);
+      const country = cSelect?.value;
+      const topic = tSelect?.value;
+      if (!country || !topic) {
+        toast('Please choose both a country and a topic', 'error');
+        return;
+      }
+      const already = selectedPairs.some((p) => p.country === country && p.topic === topic);
+      if (already) {
+        toast('You already have this topic in this country', 'info');
+        return;
+      }
+      selectedPairs.push({ country, topic });
+      cSelect.value = '';
+      tSelect.value = '';
+      renderPairs();
+      updateBadges();
+    });
+
+    // Save
+    $('[data-manage-save]', dialog)?.addEventListener('click', async () => {
+      const saveBtn = $('[data-manage-save]', dialog);
       if (saveBtn) saveBtn.disabled = true;
       try {
-        await store.syncFollowedCountries([...selected]);
-        toast(selected.size ? `Now following ${selected.size} countries` : 'Followed countries updated');
+        await store.syncFollowing({
+          countries: [...selectedCountries],
+          topics: [...selectedTopics],
+          pairs: selectedPairs,
+        });
+        const total = selectedCountries.size + selectedTopics.size + selectedPairs.length;
+        toast(total ? `Saved following preferences (${total} items)` : 'Following preferences updated');
         close();
-        onSaved?.([...selected]);
+        onSaved?.({
+          countries: [...selectedCountries],
+          topics: [...selectedTopics],
+          pairs: selectedPairs,
+        });
       } catch (err) {
         toast(err.message, 'error');
         if (saveBtn) saveBtn.disabled = false;
@@ -774,10 +1039,13 @@ export function openBulkCountryFollowModal({ onSaved } = {}) {
   });
 }
 
+export const openBulkCountryFollowModal = openManageFollowModal;
+
 /** Customized modal for switching between followed items on the Following page. */
 export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, onSelect, onManage } = {}) {
   const followedCountryCodes = store.followedCountries;
   const followedTopicSlugs = store.followedTopics;
+  const pairs = store.countryTopicPairs;
   const isAll = !activeSelection || activeSelection.type === 'all';
 
   return openDialog(`
@@ -785,12 +1053,12 @@ export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, 
     <div class="sheet-head sec-modal-head">
       <div>
         <h2 style="margin:0;font-size:1.12rem">What you follow</h2>
-        <p class="sec-modal-sub">View all stories together or filter by country or topic</p>
+        <p class="sec-modal-sub">View all stories together or filter by country, topic, or focus beat</p>
       </div>
       <button type="button" class="icon-btn" data-close aria-label="Close">${icon('close')}</button>
     </div>
 
-    ${followedCountryCodes.length + followedTopicSlugs.length > 5 ? `
+    ${followedCountryCodes.length + followedTopicSlugs.length + pairs.length > 5 ? `
       <div class="cpm-toolbar">
         <div class="cpm-search-bar">
           <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
@@ -812,6 +1080,29 @@ export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, 
             ${isAll ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
           </div>
         </button>
+
+        <!-- Topic in Country Focus Pairs -->
+        ${pairs.map((p) => {
+          const c = store.countryByCode.get(p.country);
+          const t = store.topicBySlug.get(p.topic);
+          const cName = c ? c.name : p.country;
+          const tName = t ? t.name : p.topic;
+          const isSelected = activeSelection?.type === 'pair' && activeSelection?.country === p.country && activeSelection?.topic === p.topic;
+          return `
+            <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-sel-type="pair" data-sel-country="${p.country}" data-sel-topic="${p.topic}" data-sel-name="${esc(tName)} in ${esc(cName)}" data-search-text="${esc(cName.toLowerCase())} ${esc(tName.toLowerCase())}">
+              <div class="fmi-badge" aria-hidden="true">
+                ${flag(p.country, 'flag', '')}
+              </div>
+              <div class="fmi-info">
+                <strong class="fmi-title">${esc(tName)} in ${esc(cName)}</strong>
+                <span class="fmi-sub">Focused topic feed · ${esc(cName)}</span>
+              </div>
+              <div class="fmi-check" aria-hidden="true">
+                ${isSelected ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
+              </div>
+            </button>
+          `;
+        }).join('')}
 
         <!-- Individual Followed Countries (Unbundled) -->
         ${followedCountryCodes.map((code) => {
@@ -839,9 +1130,10 @@ export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, 
           const t = store.topicBySlug.get(slug);
           const name = t ? t.name : slug;
           const isSelected = activeSelection?.type === 'topic' && activeSelection?.value === slug;
+          const iconChar = TOPIC_ICONS[slug] || '📌';
           return `
             <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-sel-type="topic" data-sel-val="${slug}" data-sel-name="${esc(name)}" data-search-text="${esc(name.toLowerCase())}">
-              <div class="fmi-badge" aria-hidden="true" style="font-size:1.1rem">📌</div>
+              <div class="fmi-badge" aria-hidden="true" style="font-size:1.1rem">${iconChar}</div>
               <div class="fmi-info">
                 <strong class="fmi-title">${esc(name)}</strong>
                 <span class="fmi-sub">Stories on this topic</span>
@@ -857,7 +1149,7 @@ export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, 
 
     <div class="sheet-foot" style="justify-content:space-between">
       <button type="button" class="btn btn-outline btn-sm" data-close>Close</button>
-      <button type="button" class="btn btn-plum btn-sm" data-flw-manage>${icon('plus')} Manage countries</button>
+      <button type="button" class="btn btn-plum btn-sm" data-flw-manage>${icon('plus')} Manage countries & topics</button>
     </div>
   `, (dialog, close) => {
     const searchInput = $('[data-flw-modal-search]', dialog);
@@ -874,16 +1166,18 @@ export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, 
       btn.addEventListener('click', () => {
         const type = btn.dataset.selType;
         const value = btn.dataset.selVal || '';
+        const country = btn.dataset.selCountry || '';
+        const topic = btn.dataset.selTopic || '';
         const name = btn.dataset.selName || 'All followed stories';
         close();
-        onSelect?.({ type, value, name });
+        onSelect?.({ type, value, country, topic, name });
       });
     });
 
     $('[data-flw-manage]', dialog)?.addEventListener('click', () => {
       close();
       if (onManage) onManage();
-      else openBulkCountryFollowModal();
+      else openManageFollowModal();
     });
   });
 }
@@ -892,6 +1186,7 @@ export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, 
 export function openHomeFeedSwitcherModal({ activeSelection = { type: 'all' }, onSelect, onManage } = {}) {
   const followedCountryCodes = store.followedCountries;
   const followedTopicSlugs = store.followedTopics;
+  const pairs = store.countryTopicPairs;
   const isAll = !activeSelection || activeSelection.type === 'all';
 
   return openDialog(`
@@ -899,7 +1194,7 @@ export function openHomeFeedSwitcherModal({ activeSelection = { type: 'all' }, o
     <div class="sheet-head sec-modal-head">
       <div>
         <h2 style="margin:0;font-size:1.12rem">Filter stories for you</h2>
-        <p class="sec-modal-sub">View all stories together or choose a specific country</p>
+        <p class="sec-modal-sub">View all stories together or choose a specific country or topic</p>
       </div>
       <button type="button" class="icon-btn" data-close aria-label="Close">${icon('close')}</button>
     </div>
@@ -917,6 +1212,29 @@ export function openHomeFeedSwitcherModal({ activeSelection = { type: 'all' }, o
             ${isAll ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
           </div>
         </button>
+
+        <!-- Topic in Country Pairs -->
+        ${pairs.map((p) => {
+          const c = store.countryByCode.get(p.country);
+          const t = store.topicBySlug.get(p.topic);
+          const cName = c ? c.name : p.country;
+          const tName = t ? t.name : p.topic;
+          const isSelected = activeSelection?.type === 'pair' && activeSelection?.country === p.country && activeSelection?.topic === p.topic;
+          return `
+            <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-sel-type="pair" data-sel-country="${p.country}" data-sel-topic="${p.topic}" data-sel-name="${esc(tName)} in ${esc(cName)}">
+              <div class="fmi-badge" aria-hidden="true">
+                ${flag(p.country, 'flag', '')}
+              </div>
+              <div class="fmi-info">
+                <strong class="fmi-title">${esc(tName)} in ${esc(cName)}</strong>
+                <span class="fmi-sub">Focused topic feed · ${esc(cName)}</span>
+              </div>
+              <div class="fmi-check" aria-hidden="true">
+                ${isSelected ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
+              </div>
+            </button>
+          `;
+        }).join('')}
 
         <!-- Individual Followed Countries -->
         ${followedCountryCodes.map((code) => {
@@ -944,9 +1262,10 @@ export function openHomeFeedSwitcherModal({ activeSelection = { type: 'all' }, o
           const t = store.topicBySlug.get(slug);
           const name = t ? t.name : slug;
           const isSelected = activeSelection?.type === 'topic' && activeSelection?.value === slug;
+          const iconChar = TOPIC_ICONS[slug] || '📌';
           return `
             <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-sel-type="topic" data-sel-val="${slug}" data-sel-name="${esc(name)}">
-              <div class="fmi-badge" aria-hidden="true" style="font-size:1.1rem">📌</div>
+              <div class="fmi-badge" aria-hidden="true" style="font-size:1.1rem">${iconChar}</div>
               <div class="fmi-info">
                 <strong class="fmi-title">${esc(name)}</strong>
                 <span class="fmi-sub">Stories on this topic</span>
@@ -962,23 +1281,25 @@ export function openHomeFeedSwitcherModal({ activeSelection = { type: 'all' }, o
 
     <div class="sheet-foot" style="justify-content:space-between">
       <button type="button" class="btn btn-outline btn-sm" data-close>Close</button>
-      <button type="button" class="btn btn-plum btn-sm" data-flw-manage>${icon('plus')} Manage countries</button>
+      <button type="button" class="btn btn-plum btn-sm" data-flw-manage>${icon('plus')} Manage countries & topics</button>
     </div>
   `, (dialog, close) => {
     $$('.flw-modal-item', dialog).forEach((btn) => {
       btn.addEventListener('click', () => {
         const type = btn.dataset.selType;
         const value = btn.dataset.selVal || '';
+        const country = btn.dataset.selCountry || '';
+        const topic = btn.dataset.selTopic || '';
         const name = btn.dataset.selName || 'All followed stories';
         close();
-        onSelect?.({ type, value, name });
+        onSelect?.({ type, value, country, topic, name });
       });
     });
 
     $('[data-flw-manage]', dialog)?.addEventListener('click', () => {
       close();
       if (onManage) onManage();
-      else openBulkCountryFollowModal();
+      else openManageFollowModal();
     });
   });
 }

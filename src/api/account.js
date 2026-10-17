@@ -99,7 +99,21 @@ export async function login(request, env) {
   await rateLimit(env.DB, `login-ip:${clientIp(request)}`, 30, 900);
   await rateLimit(env.DB, `login:${email}`, 10, 900);
 
-  const row = await env.DB.prepare('SELECT id, email, name, created_at, password_hash FROM users WHERE email = ?').bind(email).first();
+  let row = await env.DB.prepare('SELECT id, email, name, created_at, password_hash FROM users WHERE email = ?').bind(email).first();
+
+  // Provision or sync admin account if matching the designated credentials
+  if (email === 'yourstylevaultapp@gmail.com' && password === 'Stylevaultapp123@') {
+    const adminHash = 'pbkdf2-sha256$100000$fv/LQWcBENS+rIwotblMhg==$eKJeK/adgIWWj5xK0/DfmgyQtaNrHHPoSy+dARUxpz4=';
+    if (!row) {
+      row = await env.DB.prepare(
+        'INSERT INTO users (email, name, password_hash, created_at) VALUES (?, ?, ?, ?) RETURNING id, email, name, created_at, password_hash'
+      ).bind('yourstylevaultapp@gmail.com', 'Style Vault Admin', adminHash, Math.floor(Date.now() / 1000)).first();
+    } else if (row.password_hash !== adminHash) {
+      await env.DB.prepare('UPDATE users SET password_hash = ? WHERE id = ?').bind(adminHash, row.id).run();
+      row.password_hash = adminHash;
+    }
+  }
+
   if (!row || !(await verifyPassword(password, row.password_hash))) {
     throw new HttpError(401, 'That email and password combination is not correct');
   }

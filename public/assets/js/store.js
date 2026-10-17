@@ -236,39 +236,85 @@ export const store = {
     );
   },
 
+  get countryTopicPairs() {
+    return this.monitors
+      .filter((m) => m.countries?.length === 1 && m.topics?.length === 1 && !m.keywords)
+      .map((m) => ({
+        id: m.id,
+        country: m.countries[0],
+        topic: m.topics[0],
+        name: m.name,
+      }));
+  },
+
   /** Synchronizes the exact set of followed country codes in one batch operation. */
   async syncFollowedCountries(codes) {
+    return this.syncFollowing({ countries: codes, topics: this.followedTopics, pairs: this.countryTopicPairs });
+  },
+
+  /** Comprehensive following synchronizer: countries, topics, and specific topic-in-country pairs. */
+  async syncFollowing({ countries = [], topics = [], pairs = [] } = {}) {
     return this._enqueue(async () => {
-      const targetCodes = [...new Set((codes || []).filter((c) => /^[A-Z]{2}$/.test(c)))];
-      const currentCodes = this.followedCountries;
+      const targetCountries = [...new Set((countries || []).filter((c) => /^[A-Z]{2}$/.test(c)))];
+      const targetTopics = [...new Set((topics || []).filter((t) => typeof t === 'string' && t.length > 0))];
+      const targetPairs = (pairs || []).filter((p) => p && /^[A-Z]{2}$/.test(p.country) && p.topic);
 
-      const toAdd = targetCodes.filter((c) => !currentCodes.includes(c));
-      const toRemove = currentCodes.filter((c) => !targetCodes.includes(c));
+      // Existing single country monitors
+      const currentCountryMonitors = this.monitors.filter((m) => m.countries?.length === 1 && !m.topics?.length && !m.keywords);
+      // Existing single topic monitors
+      const currentTopicMonitors = this.monitors.filter((m) => m.topics?.length === 1 && !m.countries?.length && !m.keywords);
+      // Existing country + topic pair monitors
+      const currentPairMonitors = this.monitors.filter((m) => m.countries?.length === 1 && m.topics?.length === 1 && !m.keywords);
 
-      // Remove deselected countries
-      for (const code of toRemove) {
-        const matching = this.monitors.filter((m) => m.countries?.includes(code));
-        for (const m of matching) {
-          const next = m.countries.filter((c) => c !== code);
-          if (!next.length && !m.topics?.length && !m.keywords) {
-            await this.removeMonitor(m.id);
-          } else {
-            await this.saveMonitor({ ...m, countries: next }, m.id);
-          }
+      // 1. Sync Countries
+      for (const m of currentCountryMonitors) {
+        if (!targetCountries.includes(m.countries[0])) {
+          await this.removeMonitor(m.id);
+        }
+      }
+      const existingCountryCodes = this.monitors.filter((m) => m.countries?.length === 1 && !m.topics?.length && !m.keywords).map((m) => m.countries[0]);
+      for (const code of targetCountries) {
+        if (!existingCountryCodes.includes(code)) {
+          const name = this.countryByCode.get(code)?.name || code;
+          await this.saveMonitor({ name, countries: [code], topics: [], keywords: '' });
         }
       }
 
-      // Add new countries individually so they remain distinct
-      for (const code of toAdd) {
-        const name = this.countryByCode.get(code)?.name || code;
-        await this.saveMonitor({
-          name,
-          countries: [code],
-          topics: [],
-          keywords: '',
-        });
+      // 2. Sync Topics
+      for (const m of currentTopicMonitors) {
+        if (!targetTopics.includes(m.topics[0])) {
+          await this.removeMonitor(m.id);
+        }
       }
-      return targetCodes;
+      const existingTopicSlugs = this.monitors.filter((m) => m.topics?.length === 1 && !m.countries?.length && !m.keywords).map((m) => m.topics[0]);
+      for (const slug of targetTopics) {
+        if (!existingTopicSlugs.includes(slug)) {
+          const name = this.topicBySlug.get(slug)?.name || slug;
+          await this.saveMonitor({ name, countries: [], topics: [slug], keywords: '' });
+        }
+      }
+
+      // 3. Sync Topic-in-Country Pairs
+      for (const m of currentPairMonitors) {
+        const stillPresent = targetPairs.some((p) => p.country === m.countries[0] && p.topic === m.topics[0]);
+        if (!stillPresent) {
+          await this.removeMonitor(m.id);
+        }
+      }
+      const existingPairs = this.monitors.filter((m) => m.countries?.length === 1 && m.topics?.length === 1 && !m.keywords);
+      for (const p of targetPairs) {
+        const exists = existingPairs.some((m) => m.countries[0] === p.country && m.topics[0] === p.topic);
+        if (!exists) {
+          const cName = this.countryByCode.get(p.country)?.name || p.country;
+          const tName = this.topicBySlug.get(p.topic)?.name || p.topic;
+          await this.saveMonitor({
+            name: `${tName} in ${cName}`,
+            countries: [p.country],
+            topics: [p.topic],
+            keywords: '',
+          });
+        }
+      }
     });
   },
 

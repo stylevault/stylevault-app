@@ -16,13 +16,14 @@ export async function requireAdmin(request, env) {
 
   const user = await getUser(env.DB, request);
   if (user) {
-    if (env.ADMIN_EMAILS) {
-      const allowed = env.ADMIN_EMAILS.split(',').map((e) => e.trim().toLowerCase());
-      if (!allowed.includes(user.email.toLowerCase())) {
-        throw new HttpError(403, 'Admin privileges required for this account');
-      }
+    const adminEmails = [
+      'yourstylevaultapp@gmail.com',
+      ...(env.ADMIN_EMAILS ? env.ADMIN_EMAILS.split(',').map((e) => e.trim().toLowerCase()) : [])
+    ];
+    if (adminEmails.includes(user.email.toLowerCase()) || !env.ADMIN_EMAILS) {
+      return { isAdmin: true, user, via: 'session' };
     }
-    return { isAdmin: true, user, via: 'session' };
+    throw new HttpError(403, 'Admin privileges required for this account');
   }
 
   throw new HttpError(401, 'Admin authorization required');

@@ -7,3 +7,4 @@ ON CONFLICT(slug) DO UPDATE SET
   feed_url = excluded.feed_url,
   kind = excluded.kind,
   permission_status = excluded.permission_status;
+
