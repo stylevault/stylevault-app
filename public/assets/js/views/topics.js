@@ -80,9 +80,6 @@ export default function topics(main, { setTitle }) {
             ${icon('search')}
             <input type="search" placeholder="Find a topic (e.g. Trade, Technology, Farming)…" aria-label="Find a topic" data-topic-search>
           </label>
-          <div class="cl-meta-count">
-            <span>Showing <strong data-topic-visible-count>${allTopics.length}</strong> of ${allTopics.length} topics</span>
-          </div>
         </div>
 
         <div class="topic-grid" data-topic-grid>
@@ -99,7 +96,6 @@ export default function topics(main, { setTitle }) {
 
   const searchInput = $('[data-topic-search]', main);
   const cards = $$('[data-topic-card]', main);
-  const countEl = $('[data-topic-visible-count]', main);
   const emptyEl = $('[data-topic-empty]', main);
 
   const applyFilter = () => {
@@ -113,7 +109,6 @@ export default function topics(main, { setTitle }) {
       card.hidden = !match;
       if (match) visible++;
     });
-    if (countEl) countEl.textContent = String(visible);
     if (emptyEl) emptyEl.hidden = visible > 0;
   };
 

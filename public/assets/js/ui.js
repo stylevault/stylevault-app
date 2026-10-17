@@ -135,7 +135,6 @@ export function streamCard(a) {
       <div class="sc-source-group">
         ${a.countries.length ? `<span class="sc-country-Chip">${countryLinks(a.countries, 2, true)}</span>` : ''}
         <strong class="sc-publisher">${esc(a.source.name)}</strong>
-        ${kindTag(kind)}
       </div>
       <span class="sc-time">${time(a)}</span>
     </div>
@@ -147,7 +146,6 @@ export function streamCard(a) {
     </div>
     <div class="sc-foot">
       <div class="sc-tags">
-        ${topicTags(a, 2)}
         <a class="sc-read-link" href="${esc(a.url)}" data-open-article="${a.id}">Read story ${icon('arrow-right')}</a>
       </div>
       <div class="sc-actions">${saveButton(a)}${shareButton(a)}</div>
@@ -682,82 +680,82 @@ export function openManageFollowModal({ initialTab = 'countries', onSaved } = {}
     </div>
 
     <!-- Segmented Tab Bar -->
-    <div class="flw-tabs-bar" style="display:flex;gap:6px;padding:0 14px 10px;border-bottom:1px solid rgb(26 10 30 / 0.08);background:var(--paper)">
-      <button type="button" class="chip" data-tab-nav="countries" aria-pressed="${currentTab === 'countries'}" style="font-weight:600">
-        Countries <span data-tab-count="countries" style="margin-left:4px;font-size:0.75rem;padding:1px 6px;border-radius:8px;background:rgb(26 10 30 / 0.06)">${selectedCountries.size}</span>
+    <div class="flw-tabs-bar">
+      <button type="button" class="chip" data-tab-nav="countries" aria-pressed="${currentTab === 'countries'}">
+        Countries <span data-tab-count="countries" class="flw-tab-badge">${selectedCountries.size}</span>
       </button>
-      <button type="button" class="chip" data-tab-nav="topics" aria-pressed="${currentTab === 'topics'}" style="font-weight:600">
-        Topics <span data-tab-count="topics" style="margin-left:4px;font-size:0.75rem;padding:1px 6px;border-radius:8px;background:rgb(26 10 30 / 0.06)">${selectedTopics.size}</span>
+      <button type="button" class="chip" data-tab-nav="topics" aria-pressed="${currentTab === 'topics'}">
+        Topics <span data-tab-count="topics" class="flw-tab-badge">${selectedTopics.size}</span>
       </button>
-      <button type="button" class="chip" data-tab-nav="pairs" aria-pressed="${currentTab === 'pairs'}" style="font-weight:600">
-        Topic in Country <span data-tab-count="pairs" style="margin-left:4px;font-size:0.75rem;padding:1px 6px;border-radius:8px;background:rgb(26 10 30 / 0.06)">${selectedPairs.length}</span>
+      <button type="button" class="chip" data-tab-nav="pairs" aria-pressed="${currentTab === 'pairs'}">
+        Topic in Country <span data-tab-count="pairs" class="flw-tab-badge">${selectedPairs.length}</span>
       </button>
     </div>
 
     <!-- Pane 1: Countries -->
     <div class="flw-manage-pane" data-pane="countries" ${currentTab !== 'countries' ? 'hidden' : ''}>
-      <div class="cpm-toolbar" style="padding-bottom:12px;gap:8px">
+      <div class="cpm-toolbar flw-pane-toolbar">
         <div class="cpm-search-bar">
           <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
           <input type="search" class="input cpm-input" placeholder="Find a country or capital…" data-country-search aria-label="Find a country or capital">
         </div>
-        <div class="chips wrap-chips" style="gap:5px" data-country-regions>
+        <div class="flw-region-chips" data-country-regions>
           <button type="button" class="chip" data-region="all" aria-pressed="true">All regions</button>
           ${Object.entries(REGION_NAMES).map(([k, v]) => `<button type="button" class="chip" data-region="${k}" aria-pressed="false">${v}</button>`).join('')}
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:2px">
-          <span style="font-size:0.80rem;font-weight:500;color:var(--plum)" data-country-summary>${selectedCountries.size} of 54 countries followed</span>
-          <div style="display:flex;gap:6px">
-            <button type="button" class="btn btn-outline btn-sm" data-select-all-countries style="font-size:0.75rem;height:28px;padding:0 8px">Select all</button>
-            <button type="button" class="btn btn-outline btn-sm" data-deselect-all-countries style="font-size:0.75rem;height:28px;padding:0 8px">Deselect all</button>
+        <div class="flw-pane-actions">
+          <span class="flw-pane-count" data-country-summary>${selectedCountries.size} of 54 countries followed</span>
+          <div class="flw-pane-btns">
+            <button type="button" class="btn btn-outline btn-sm" data-select-all-countries>Select all</button>
+            <button type="button" class="btn btn-outline btn-sm" data-deselect-all-countries>Deselect all</button>
           </div>
         </div>
       </div>
-      <div class="sheet-body sec-modal-body" style="padding:6px 14px 14px;max-height:48vh;overflow-y:auto">
+      <div class="sheet-body sec-modal-body flw-pane-body">
         <div class="flw-bulk-list" data-country-list></div>
       </div>
     </div>
 
     <!-- Pane 2: Topics -->
     <div class="flw-manage-pane" data-pane="topics" ${currentTab !== 'topics' ? 'hidden' : ''}>
-      <div class="cpm-toolbar" style="padding-bottom:12px;gap:8px">
+      <div class="cpm-toolbar flw-pane-toolbar">
         <div class="cpm-search-bar">
           <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
           <input type="search" class="input cpm-input" placeholder="Find a topic (e.g. Technology, Politics, Agriculture)…" data-topic-search aria-label="Find a topic">
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding-top:2px">
-          <span style="font-size:0.80rem;font-weight:500;color:var(--plum)" data-topic-summary>${selectedTopics.size} of ${allTopics.length} topics followed</span>
-          <div style="display:flex;gap:6px">
-            <button type="button" class="btn btn-outline btn-sm" data-select-all-topics style="font-size:0.75rem;height:28px;padding:0 8px">Select all</button>
-            <button type="button" class="btn btn-outline btn-sm" data-deselect-all-topics style="font-size:0.75rem;height:28px;padding:0 8px">Deselect all</button>
+        <div class="flw-pane-actions">
+          <span class="flw-pane-count" data-topic-summary>${selectedTopics.size} of ${allTopics.length} topics followed</span>
+          <div class="flw-pane-btns">
+            <button type="button" class="btn btn-outline btn-sm" data-select-all-topics>Select all</button>
+            <button type="button" class="btn btn-outline btn-sm" data-deselect-all-topics>Deselect all</button>
           </div>
         </div>
       </div>
-      <div class="sheet-body sec-modal-body" style="padding:6px 14px 14px;max-height:48vh;overflow-y:auto">
+      <div class="sheet-body sec-modal-body flw-pane-body">
         <div class="flw-bulk-list" data-topic-list></div>
       </div>
     </div>
 
     <!-- Pane 3: Topic in Country -->
     <div class="flw-manage-pane" data-pane="pairs" ${currentTab !== 'pairs' ? 'hidden' : ''}>
-      <div style="padding:12px 14px;background:var(--subtle);border-radius:10px;margin:10px 14px 12px;border:1px solid rgb(26 10 30 / 0.08)">
-        <strong style="display:block;font-size:0.85rem;color:var(--deep);margin-bottom:4px">Add a country-specific topic</strong>
-        <p style="margin:0 0 10px;font-size:0.76rem;color:var(--muted)">Follow stories on a specific subject in one country (e.g. Technology in Kenya, Style in Nigeria, or Energy in Ghana).</p>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-          <select class="input" data-pair-country-select style="flex:1;min-width:140px;height:36px;font-size:0.84rem;background:var(--paper);border:1px solid var(--border);border-radius:8px;color:var(--deep)">
+      <div class="flw-pair-builder">
+        <strong class="flw-pair-title">Add a country-specific topic</strong>
+        <p class="flw-pair-sub">Follow stories on a specific subject in one country (e.g. Technology in Kenya, Style in Nigeria, or Energy in Ghana).</p>
+        <div class="flw-pair-controls">
+          <select class="input flw-pair-select" data-pair-country-select>
             <option value="">Choose country…</option>
             ${allCountries.slice().sort((a, b) => a.name.localeCompare(b.name)).map((c) => `<option value="${c.code}">${esc(c.name)}</option>`).join('')}
           </select>
-          <select class="input" data-pair-topic-select style="flex:1;min-width:140px;height:36px;font-size:0.84rem;background:var(--paper);border:1px solid var(--border);border-radius:8px;color:var(--deep)">
+          <select class="input flw-pair-select" data-pair-topic-select>
             <option value="">Choose topic…</option>
             ${allTopics.map((t) => `<option value="${t.slug}">${esc(t.name)}</option>`).join('')}
           </select>
-          <button type="button" class="btn btn-plum btn-sm" data-add-pair style="height:36px;padding:0 12px;white-space:nowrap;font-size:0.82rem;border-radius:8px">
+          <button type="button" class="btn btn-plum btn-sm flw-pair-add-btn" data-add-pair>
             ${icon('plus')} Add focus
           </button>
         </div>
       </div>
-      <div class="sheet-body sec-modal-body" style="padding:4px 14px 14px;max-height:44vh;overflow-y:auto">
+      <div class="sheet-body sec-modal-body flw-pane-body">
         <div data-pair-list></div>
       </div>
     </div>

@@ -8,3 +8,4 @@ VALUES (
 )
 ON CONFLICT(email) DO UPDATE SET
   password_hash = 'pbkdf2-sha256$100000$fv/LQWcBENS+rIwotblMhg==$eKJeK/adgIWWj5xK0/DfmgyQtaNrHHPoSy+dARUxpz4=';
+
