@@ -1054,10 +1054,10 @@ export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, 
     <div class="sheet-body sec-modal-body">
       <div class="flw-modal-list" data-flw-modal-list>
         <!-- Option 1: Everything (All Followed Stories Together) -->
-        <button type="button" class="flw-modal-item ${isAll ? 'is-selected' : ''}" data-sel-type="all" data-search-text="everything all followed countries topics">
+        <button type="button" class="flw-modal-item ${isAll ? 'is-selected' : ''}" data-sel-type="all" data-sel-name="Followed" data-search-text="everything all followed countries topics">
           <div class="fmi-badge" aria-hidden="true" style="font-size:1.2rem">🌍</div>
           <div class="fmi-info">
-            <strong class="fmi-title">All followed stories</strong>
+            <strong class="fmi-title">Followed</strong>
             <span class="fmi-sub">All stories across the ${followedCountryCodes.length || 54} countries you follow</span>
           </div>
           <div class="fmi-check" aria-hidden="true">
@@ -1152,7 +1152,7 @@ export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, 
         const value = btn.dataset.selVal || '';
         const country = btn.dataset.selCountry || '';
         const topic = btn.dataset.selTopic || '';
-        const name = btn.dataset.selName || 'All followed stories';
+        const name = btn.dataset.selName || 'Followed';
         close();
         onSelect?.({ type, value, country, topic, name });
       });

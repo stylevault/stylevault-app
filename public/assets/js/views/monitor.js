@@ -36,7 +36,7 @@ export default function following(main, { query, setTitle, navigate }) {
                 ` : ''}
               </div>
             ` : ''}
-            <button class="btn btn-plum flw-new-btn" type="button" data-manage-countries>${icon('plus')} Manage countries & topics</button>
+            <button class="btn btn-plum flw-new-btn" type="button" data-manage-countries>${icon('plus')} Manage</button>
           </div>
         </div>
       </header>`;
@@ -66,7 +66,7 @@ export default function following(main, { query, setTitle, navigate }) {
     const topicParam = query.get('topic');
     const monitorParam = query.get('m');
 
-    let activeSelection = { type: 'all', name: 'All followed stories' };
+    let activeSelection = { type: 'all', name: 'Followed' };
     let activeCountry = null;
     let activeTopic = null;
     let activeMonitor = null;
@@ -92,7 +92,7 @@ export default function following(main, { query, setTitle, navigate }) {
 
     // Prepare control bar metadata
     let indicatorHtml = '<span class="flw-dd-dot"></span>';
-    let label = 'All followed stories';
+    let label = 'Followed';
     let countBadge = `${followedCountries.length || 54} countries`;
 
     if (activeSelection.type === 'pair') {
@@ -112,7 +112,7 @@ export default function following(main, { query, setTitle, navigate }) {
       countBadge = 'Watchlist';
     } else {
       indicatorHtml = '🌍';
-      label = 'All followed stories';
+      label = 'Followed';
       countBadge = `${followedCountries.length} countries`;
     }
 
