@@ -6,7 +6,7 @@ let tableEnsured = false;
 export async function ensureAdsTable(db) {
   if (tableEnsured) return;
   try {
-    await db.prepare(`
+    const p = db?.prepare?.(`
       CREATE TABLE IF NOT EXISTS ads (
         id TEXT PRIMARY KEY,
         type TEXT NOT NULL CHECK (type IN ('banner', 'native', 'interstitial')),
@@ -22,9 +22,13 @@ export async function ensureAdsTable(db) {
         clicks INTEGER NOT NULL DEFAULT 0,
         created_at INTEGER NOT NULL
       )
-    `).run();
-    await db.prepare('CREATE INDEX IF NOT EXISTS idx_ads_active_type ON ads (active, type)').run().catch(() => {});
-    await db.prepare('CREATE INDEX IF NOT EXISTS idx_ads_placement ON ads (active, placement)').run().catch(() => {});
+    `);
+    if (typeof p?.run === 'function') await p.run();
+    try { await db?.prepare?.('CREATE INDEX IF NOT EXISTS idx_ads_active_type ON ads (active, type)')?.run?.(); } catch {}
+    try { await db?.prepare?.('CREATE INDEX IF NOT EXISTS idx_ads_placement ON ads (active, placement)')?.run?.(); } catch {}
+    try { await db?.prepare?.('ALTER TABLE ads ADD COLUMN target_pages TEXT DEFAULT "all"')?.run?.(); } catch {}
+    try { await db?.prepare?.('ALTER TABLE ads ADD COLUMN html_code TEXT')?.run?.(); } catch {}
+    try { await db?.prepare?.('ALTER TABLE ads ADD COLUMN source_type TEXT DEFAULT "image"')?.run?.(); } catch {}
     tableEnsured = true;
   } catch (err) {
     console.error('Failed to ensure ads table:', err);
@@ -33,7 +37,7 @@ export async function ensureAdsTable(db) {
 
 /**
  * Public: GET /api/ads
- * Returns active ads matching optional ?placement= and ?type=
+ * Returns active ads matching optional ?placement=, ?path= and ?type=
  */
 export async function getAds(request, env) {
   await ensureAdsTable(env.DB);
@@ -41,24 +45,34 @@ export async function getAds(request, env) {
   const placement = url.searchParams.get('placement') || '';
   const type = url.searchParams.get('type') || '';
 
-  let query = 'SELECT id, type, title, sponsor, body, image_url, link_url, cta_text, placement FROM ads WHERE active = 1';
+  let query = 'SELECT id, type, title, sponsor, body, image_url, link_url, cta_text, placement, target_pages, html_code, source_type FROM ads WHERE active = 1';
   const params = [];
 
   if (placement && placement !== 'all') {
-    query += ' AND (placement = ? OR placement = "all")';
-    params.push(placement);
+    query += ' AND (placement = ? OR placement = "all" OR target_pages LIKE ?)';
+    params.push(placement, `%${placement}%`);
   }
   if (type) {
     query += ' AND type = ?';
     params.push(type);
   }
 
-  query += ' ORDER BY created_at DESC LIMIT 20';
+  query += ' ORDER BY created_at DESC LIMIT 30';
 
-  const { results } = await env.DB.prepare(query).bind(...params).all();
+  let results = [];
+  try {
+    const res = await env.DB.prepare(query).bind(...params).all();
+    results = res?.results || [];
+  } catch {
+    // Fallback if extended columns are not yet in SQLite table
+    const fallbackRes = await env.DB.prepare(
+      'SELECT id, type, title, sponsor, body, image_url, link_url, cta_text, placement FROM ads WHERE active = 1 ORDER BY created_at DESC LIMIT 30'
+    ).all().catch(() => ({ results: [] }));
+    results = fallbackRes?.results || [];
+  }
 
   return json({
-    ads: (results || []).map((r) => ({
+    ads: results.map((r) => ({
       id: r.id,
       type: r.type,
       title: r.title,
@@ -68,6 +82,9 @@ export async function getAds(request, env) {
       linkUrl: r.link_url,
       ctaText: r.cta_text || 'Learn More',
       placement: r.placement,
+      targetPages: r.target_pages || r.placement || 'all',
+      htmlCode: r.html_code || null,
+      sourceType: r.source_type || 'image',
     })),
   });
 }
@@ -99,11 +116,20 @@ export async function adminGetAds(request, env) {
   await requireAdmin(request, env);
   await ensureAdsTable(env.DB);
 
-  const { results } = await env.DB.prepare(
-    'SELECT id, type, title, sponsor, body, image_url, link_url, cta_text, placement, active, impressions, clicks, created_at FROM ads ORDER BY created_at DESC',
-  ).all();
+  let results = [];
+  try {
+    const res = await env.DB.prepare(
+      'SELECT id, type, title, sponsor, body, image_url, link_url, cta_text, placement, active, impressions, clicks, created_at, target_pages, html_code, source_type FROM ads ORDER BY created_at DESC',
+    ).all();
+    results = res?.results || [];
+  } catch {
+    const res = await env.DB.prepare(
+      'SELECT id, type, title, sponsor, body, image_url, link_url, cta_text, placement, active, impressions, clicks, created_at FROM ads ORDER BY created_at DESC',
+    ).all().catch(() => ({ results: [] }));
+    results = res?.results || [];
+  }
 
-  const ads = (results || []).map((r) => ({
+  const ads = results.map((r) => ({
     id: r.id,
     type: r.type,
     title: r.title,
@@ -113,6 +139,9 @@ export async function adminGetAds(request, env) {
     linkUrl: r.link_url,
     ctaText: r.cta_text,
     placement: r.placement,
+    targetPages: r.target_pages || r.placement || 'all',
+    htmlCode: r.html_code || null,
+    sourceType: r.source_type || 'image',
     active: Boolean(r.active),
     impressions: r.impressions || 0,
     clicks: r.clicks || 0,
@@ -134,11 +163,14 @@ export async function adminCreateAd(request, env) {
   const type = String(body.type || '').trim().toLowerCase();
   const title = String(body.title || '').trim();
   const sponsor = String(body.sponsor || '').trim();
-  const linkUrl = String(body.linkUrl || body.link_url || '').trim();
+  let linkUrl = String(body.linkUrl || body.link_url || '').trim();
   const adBody = String(body.body || '').trim();
   const imageUrl = String(body.imageUrl || body.image_url || '').trim();
   const ctaText = String(body.ctaText || body.cta_text || 'Learn More').trim();
-  const placement = String(body.placement || 'all').trim().toLowerCase();
+  const rawPlacement = String(body.placement || 'all').trim().toLowerCase();
+  const targetPages = String(body.targetPages || body.target_pages || body.placement || 'all').trim() || 'all';
+  const sourceType = String(body.sourceType || body.source_type || 'image').trim().toLowerCase() === 'html' ? 'html' : 'image';
+  const htmlCode = String(body.htmlCode || body.html_code || '').trim() || null;
   const active = body.active !== false && body.active !== 0 ? 1 : 0;
 
   if (!['banner', 'native', 'interstitial'].includes(type)) {
@@ -146,19 +178,35 @@ export async function adminCreateAd(request, env) {
   }
   if (!title) throw new HttpError(400, 'Ad title is required');
   if (!sponsor) throw new HttpError(400, 'Sponsor / Advertiser name is required');
+
+  if (sourceType === 'html' && !linkUrl) {
+    linkUrl = 'https://stylevault.app';
+  }
+
   if (!linkUrl || !/^https?:\/\//i.test(linkUrl)) {
     throw new HttpError(400, 'A valid destination link URL (https://...) is required');
   }
 
+  // Ensure placement matches legacy CHECK constraint if present
+  const validPlacements = ['all', 'home', 'news', 'countries', 'topics', 'directory'];
+  const safePlacement = validPlacements.includes(rawPlacement) ? rawPlacement : 'all';
+
   const id = `ad_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
   const now = Math.floor(Date.now() / 1000);
 
-  await env.DB.prepare(
-    `INSERT INTO ads (id, type, title, sponsor, body, image_url, link_url, cta_text, placement, active, impressions, clicks, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?)`
-  ).bind(id, type, title, sponsor, adBody || null, imageUrl || null, linkUrl, ctaText, placement, active, now).run();
+  try {
+    await env.DB.prepare(
+      `INSERT INTO ads (id, type, title, sponsor, body, image_url, link_url, cta_text, placement, active, impressions, clicks, created_at, target_pages, html_code, source_type)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?, ?, ?)`
+    ).bind(id, type, title, sponsor, adBody || null, imageUrl || null, linkUrl, ctaText, safePlacement, active, now, targetPages, htmlCode, sourceType).run();
+  } catch {
+    await env.DB.prepare(
+      `INSERT INTO ads (id, type, title, sponsor, body, image_url, link_url, cta_text, placement, active, impressions, clicks, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?)`
+    ).bind(id, type, title, sponsor, adBody || null, imageUrl || null, linkUrl, ctaText, safePlacement, active, now).run();
+  }
 
-  return json({ ok: true, ad: { id, type, title, sponsor, linkUrl, active } });
+  return json({ ok: true, ad: { id, type, title, sponsor, linkUrl, targetPages, sourceType, active } });
 }
 
 /**
@@ -205,6 +253,18 @@ export async function adminUpdateAd(request, env, ctx, { id }) {
   if (body.placement !== undefined) {
     sets.push('placement = ?');
     params.push(String(body.placement).trim());
+  }
+  if (body.targetPages !== undefined || body.target_pages !== undefined) {
+    sets.push('target_pages = ?');
+    params.push(String(body.targetPages || body.target_pages).trim());
+  }
+  if (body.htmlCode !== undefined || body.html_code !== undefined) {
+    sets.push('html_code = ?');
+    params.push(String(body.htmlCode || body.html_code).trim() || null);
+  }
+  if (body.sourceType !== undefined || body.source_type !== undefined) {
+    sets.push('source_type = ?');
+    params.push(String(body.sourceType || body.source_type).trim().toLowerCase() === 'html' ? 'html' : 'image');
   }
 
   if (!sets.length) return json({ ok: true, message: 'Nothing to update' });

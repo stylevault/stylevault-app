@@ -167,7 +167,19 @@ export async function adminCreateArticle(request, env) {
 
   const body = await request.json().catch(() => ({}));
   const title = String(body.title || '').trim();
+  if (!title) throw new HttpError(400, 'Article headline / title is required');
+
+  // Ensure editorial columns exist
+  try {
+    const p1 = env.DB?.prepare?.('ALTER TABLE articles ADD COLUMN content_html TEXT');
+    if (typeof p1?.run === 'function') await p1.run();
+    const p2 = env.DB?.prepare?.("ALTER TABLE articles ADD COLUMN target_scope TEXT NOT NULL DEFAULT 'targeted'");
+    if (typeof p2?.run === 'function') await p2.run();
+  } catch {}
+
   const summary = String(body.summary || '').trim();
+  const contentHtml = String(body.contentHtml || body.content_html || body.body || '').trim();
+  const targetScope = String(body.targetScope || body.target_scope || 'targeted').trim().toLowerCase() === 'everyone' ? 'everyone' : 'targeted';
   const imageUrl = String(body.imageUrl || body.image_url || '').trim();
   let url = String(body.url || '').trim();
   const sourceName = String(body.sourceName || body.source_name || 'StyleVault Editorial').trim();
@@ -180,10 +192,9 @@ export async function adminCreateArticle(request, env) {
     : (body.topic ? [body.topic] : (typeof body.topics === 'string' ? body.topics.split(',').map((s) => s.trim()).filter(Boolean) : []));
   const publishedAt = Number(body.publishedAt) || Math.floor(Date.now() / 1000);
 
-  if (!title) throw new HttpError(400, 'Article headline / title is required');
-
+  const isInternal = !url;
   if (!url) {
-    url = `https://stylevault.app/news#editorial-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    url = `https://stylevault.app/article/pending-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
   }
 
   // Find or create source
@@ -202,15 +213,24 @@ export async function adminCreateArticle(request, env) {
   const hash = await sha256Hex(url);
 
   // Insert article
-  const primaryCountry = countryList[0] || null;
+  const primaryCountry = countryList[0] || (targetScope === 'everyone' ? 'AFRICA' : null);
   const insRes = await env.DB.prepare(
-    `INSERT INTO articles (source_id, url, url_hash, title, summary, image_url, language, published_at, fetched_at, primary_country, is_duplicate, off_topic)
-     VALUES (?, ?, ?, ?, ?, ?, 'en', ?, ?, ?, 0, 0)`
-  ).bind(sourceId, url, hash, title, summary || null, imageUrl || null, publishedAt, publishedAt, primaryCountry).run();
+    `INSERT INTO articles (source_id, url, url_hash, title, summary, content_html, target_scope, image_url, language, published_at, fetched_at, primary_country, is_duplicate, off_topic)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'en', ?, ?, ?, 0, 0)`
+  ).bind(sourceId, url, hash, title, summary || null, contentHtml || null, targetScope, imageUrl || null, publishedAt, publishedAt, primaryCountry).run();
 
   const articleId = insRes.meta?.last_row_id;
   if (articleId) {
-    await env.DB.prepare('UPDATE articles SET cluster_id = id WHERE id = ?').bind(articleId).run().catch(() => {});
+    let finalUrl = url;
+    if (isInternal) {
+      finalUrl = `/article/${articleId}`;
+      const newHash = await sha256Hex(finalUrl);
+      await env.DB.prepare('UPDATE articles SET url = ?, url_hash = ?, cluster_id = id WHERE id = ?')
+        .bind(finalUrl, newHash, articleId).run().catch(() => {});
+      url = finalUrl;
+    } else {
+      await env.DB.prepare('UPDATE articles SET cluster_id = id WHERE id = ?').bind(articleId).run().catch(() => {});
+    }
 
     for (const c of countryList) {
       if (/^[A-Z]{2}$/i.test(c)) {
@@ -233,6 +253,9 @@ export async function adminCreateArticle(request, env) {
       id: articleId,
       title,
       url,
+      summary: summary || null,
+      contentHtml: contentHtml || null,
+      targetScope,
       imageUrl: imageUrl || null,
       source: { name: sourceName },
       countries: countryList,

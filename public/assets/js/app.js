@@ -9,6 +9,7 @@ const routes = [
   ['/country/:slug', 'countries', () => import('./views/country.js')],
   ['/research', 'research', () => import('./views/research.js')],
   ['/news', 'news', () => import('./views/news.js')],
+  ['/article/:id', 'news', () => import('./views/article.js')],
   ['/topics', 'topics', () => import('./views/topics.js')],
   ['/topic/:slug', 'topics', () => import('./views/topic.js')],
   ['/search', 'search', () => import('./views/search.js')],
@@ -103,7 +104,7 @@ async function render() {
 
   // Trigger non-intrusive interstitial if configured and not seen this session
   if (pathname !== '/admin') {
-    maybeShowInterstitial(route?.nav || 'all');
+    maybeShowInterstitial(pathname);
   }
 }
 

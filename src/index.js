@@ -3,7 +3,7 @@
  * single-page app served from ./public via Workers Static Assets.
  */
 import { HttpError, assertSameOrigin, json } from './lib/http.js';
-import { getArticles, getCountry, getMeta, getSources, getTopStories, postCollect, postIndicators } from './api/public.js';
+import { getArticleById, getArticles, getCountry, getMeta, getSources, getTopStories, postCollect, postIndicators } from './api/public.js';
 import * as account from './api/account.js';
 import * as admin from './api/admin.js';
 import * as ads from './api/ads.js';
@@ -13,6 +13,7 @@ import { refreshIndicators, staleIndicators } from './collector/indicators.js';
 const routes = [
   ['GET', '/api/meta', getMeta],
   ['GET', '/api/articles', getArticles],
+  ['GET', '/api/articles/:id', getArticleById],
   ['GET', '/api/top-stories', getTopStories],
   ['GET', '/api/sources', getSources],
   ['GET', '/api/countries/:code', getCountry],

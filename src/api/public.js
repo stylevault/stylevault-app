@@ -91,6 +91,49 @@ export function getArticles(request, env, ctx) {
   return cached(request, ctx, 120, () => queryArticles(env.DB, parseArticleFilters(params)));
 }
 
+export async function getArticleById(request, env, ctx, { id }) {
+  const articleId = Number(id);
+  if (!articleId) throw new HttpError(400, 'Invalid article id');
+
+  // Ensure editorial columns exist
+  await env.DB.prepare('ALTER TABLE articles ADD COLUMN content_html TEXT').run().catch(() => {});
+  await env.DB.prepare("ALTER TABLE articles ADD COLUMN target_scope TEXT NOT NULL DEFAULT 'targeted'").run().catch(() => {});
+
+  const article = await env.DB.prepare(
+    `SELECT a.id, a.title, a.url, a.summary, a.content_html, a.target_scope, a.image_url, a.published_at,
+            s.name AS source_name, s.slug AS source_slug, s.homepage AS source_homepage, s.country_code AS source_country, s.kind AS source_kind,
+            (SELECT group_concat(country_code) FROM (SELECT country_code FROM article_countries WHERE article_id = a.id ORDER BY score DESC)) AS countries,
+            (SELECT group_concat(topic_slug)   FROM (SELECT topic_slug   FROM article_topics    WHERE article_id = a.id ORDER BY score DESC)) AS topics
+       FROM articles a
+       JOIN sources s ON s.id = a.source_id
+      WHERE a.id = ? LIMIT 1`
+  ).bind(articleId).first();
+
+  if (!article) throw new HttpError(404, 'Article not found');
+
+  return json({
+    article: {
+      id: article.id,
+      title: article.title,
+      url: article.url,
+      summary: article.summary,
+      contentHtml: article.content_html || null,
+      targetScope: article.target_scope || 'targeted',
+      imageUrl: article.image_url,
+      publishedAt: article.published_at,
+      source: {
+        name: article.source_name,
+        slug: article.source_slug,
+        homepage: article.source_homepage,
+        country: article.source_country,
+        kind: article.source_kind,
+      },
+      countries: article.countries ? article.countries.split(',') : [],
+      topics: article.topics ? article.topics.split(',') : [],
+    },
+  });
+}
+
 export function getTopStories(request, env, ctx) {
   const params = new URL(request.url).searchParams;
   const country = /^[A-Z]{2}$/.test(params.get('country') || '') ? params.get('country') : null;

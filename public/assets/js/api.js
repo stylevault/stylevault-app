@@ -38,6 +38,7 @@ const qs = (params) => {
 export const api = {
   meta: () => request('GET', '/api/meta'),
   articles: (params = {}) => request('GET', `/api/articles${qs(params)}`),
+  article: (id) => request('GET', `/api/articles/${encodeURIComponent(id)}`),
   topStories: (params = {}) => request('GET', `/api/top-stories${qs(params)}`),
   sources: () => request('GET', '/api/sources'),
   country: (code) => request('GET', `/api/countries/${encodeURIComponent(code)}`),

@@ -483,6 +483,8 @@ export function openArticleReader(a) {
   const countries = (a.countries || []).map((code) => store.countryByCode.get(code)).filter(Boolean);
   const topics = (a.topics || []).map((slug) => store.topicBySlug.get(slug)).filter(Boolean);
 
+  const isInternal = Boolean(a.contentHtml) || (a.url && a.url.startsWith('/article/'));
+
   return openDialog(`
     <div class="sheet-drag-handle" aria-hidden="true"></div>
     <div class="sheet-head ar-head">
@@ -498,8 +500,11 @@ export function openArticleReader(a) {
       ${a.imageUrl ? `<div class="ar-hero-img"><img src="${esc(a.imageUrl)}" alt="" onerror="this.parentElement.remove()"></div>` : ''}
       <h2 class="ar-title">${esc(a.title)}</h2>
       ${a.summary ? `<p class="ar-summary">${esc(a.summary)}</p>` : `<p class="ar-summary">This story was published by <strong>${esc(a.source?.name || 'an African newsroom')}</strong>. You can read the full reporting from the publisher below.</p>`}
+      <div class="ar-prose prose" data-ar-body style="${a.contentHtml ? 'margin-top:16px;border-top:1px solid var(--line);padding-top:16px;' : 'display:none;'}">
+        ${a.contentHtml || ''}
+      </div>
       ${countries.length || topics.length ? `
-        <div class="ar-related">
+        <div class="ar-related" style="margin-top:20px">
           <div class="ar-chips">
             ${countries.map((c) => `<a class="crit-pill is-country" href="/country/${c.slug}" data-ar-nav>${flag(c.code)} ${esc(c.name)}</a>`).join('')}
             ${topics.map((t) => `<a class="crit-pill is-topic" href="/topic/${t.slug}" data-ar-nav>${esc(t.name)}</a>`).join('')}
@@ -516,14 +521,38 @@ export function openArticleReader(a) {
           ${icon('share')} <span>Share</span>
         </button>
       </div>
-      <a class="btn btn-plum btn-sm ar-read-btn" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
-        <span>Read on ${esc(a.source?.name || 'source')}</span> ${icon('arrow-right')}
-      </a>
+      ${isInternal ? `
+        <a class="btn btn-plum btn-sm ar-read-btn" href="/article/${a.id}" data-ar-nav>
+          <span>Open Full Page</span> ${icon('arrow-right')}
+        </a>
+      ` : `
+        <a class="btn btn-plum btn-sm ar-read-btn" href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">
+          <span>Read on ${esc(a.source?.name || 'source')}</span> ${icon('arrow-right')}
+        </a>
+      `}
     </div>
   `, (dialog, close) => {
     $$('[data-ar-nav]', dialog).forEach((link) => {
       link.addEventListener('click', () => close());
     });
+
+    // If internal and contentHtml isn't yet loaded, fetch it
+    if (isInternal && !a.contentHtml) {
+      api.article(a.id).then((res) => {
+        if (res.article?.contentHtml) {
+          a.contentHtml = res.article.contentHtml;
+          const bodyEl = $('[data-ar-body]', dialog);
+          if (bodyEl) {
+            bodyEl.innerHTML = a.contentHtml;
+            bodyEl.style.display = 'block';
+            bodyEl.style.marginTop = '16px';
+            bodyEl.style.borderTop = '1px solid var(--line)';
+            bodyEl.style.paddingTop = '16px';
+          }
+        }
+      }).catch(() => {});
+    }
+
     const saveBtn = $('[data-ar-save]', dialog);
     if (saveBtn) {
       saveBtn.addEventListener('click', async () => {

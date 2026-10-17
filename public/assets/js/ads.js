@@ -19,11 +19,23 @@ export async function getActiveAds() {
   return fetchPromise;
 }
 
-export function filterAds(ads, { type, placement }) {
+export function matchesTargetPages(targetPages, path) {
+  if (!targetPages || targetPages === 'all') return true;
+  if (!path) return false;
+  return targetPages
+    .split(',')
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .some((prefix) => path === prefix || (prefix !== '/' && path.startsWith(prefix)));
+}
+
+export function filterAds(ads, { type, placement, path } = {}) {
   if (!ads || !ads.length) return [];
   return ads.filter((ad) => {
     if (type && ad.type !== type) return false;
-    if (placement && ad.placement !== 'all' && ad.placement !== placement) return false;
+    const target = ad.targetPages || ad.target_pages || ad.placement || 'all';
+    if (path && !matchesTargetPages(target, path)) return false;
+    if (placement && placement !== 'all' && target !== 'all' && !matchesTargetPages(target, placement === 'home' ? '/' : `/${placement}`)) return false;
     return true;
   });
 }
@@ -33,6 +45,21 @@ export function filterAds(ads, { type, placement }) {
  */
 export function renderBannerAdHtml(ad) {
   if (!ad) return '';
+
+  if (ad.sourceType === 'html' && ad.htmlCode) {
+    return `
+      <aside class="sv-ad-banner sv-ad-raw-html" data-ad-id="${esc(ad.id)}" role="complementary" aria-label="Sponsored Content">
+        <div class="wrap sv-ad-banner-inner" style="position:relative">
+          <span class="sv-ad-kicker">Sponsored · ${esc(ad.sponsor || 'Partner')}</span>
+          <button type="button" class="sv-ad-dismiss-btn" data-ad-dismiss title="Dismiss ad" aria-label="Dismiss">
+            ${icon('close')}
+          </button>
+          <div class="sv-ad-embed-body">${ad.htmlCode}</div>
+        </div>
+      </aside>
+    `;
+  }
+
   return `
     <aside class="sv-ad-banner" data-ad-id="${esc(ad.id)}" role="complementary" aria-label="Sponsored Content">
       <div class="wrap sv-ad-banner-inner">
@@ -62,6 +89,20 @@ export function renderBannerAdHtml(ad) {
  */
 export function renderNativeAdHtml(ad) {
   if (!ad) return '';
+
+  if (ad.sourceType === 'html' && ad.htmlCode) {
+    return `
+      <article class="news-row sv-ad-native-card sv-ad-raw-html" data-ad-id="${esc(ad.id)}">
+        <div class="news-content" style="width:100%">
+          <div class="news-meta">
+            <span class="sv-ad-badge">${icon('sparkles')} Sponsored · ${esc(ad.sponsor || 'Partner')}</span>
+          </div>
+          <div class="sv-ad-embed-body" style="margin-top:8px">${ad.htmlCode}</div>
+        </div>
+      </article>
+    `;
+  }
+
   return `
     <article class="news-row has-thumb sv-ad-native-card" data-ad-id="${esc(ad.id)}">
       <div class="news-content">
@@ -91,10 +132,10 @@ export function renderNativeAdHtml(ad) {
 /**
  * Checks if an Interstitial Takeover ad is eligible and displays it once per session
  */
-export async function maybeShowInterstitial(placement = 'all') {
+export async function maybeShowInterstitial(targetPath = '/') {
   try {
     const ads = await getActiveAds();
-    const matches = filterAds(ads, { type: 'interstitial', placement });
+    const matches = filterAds(ads, { type: 'interstitial', path: targetPath });
     if (!matches.length) return;
 
     // Pick first matching interstitial
@@ -126,10 +167,13 @@ export async function maybeShowInterstitial(placement = 'all') {
           <span class="sv-ad-interstitial-kicker">Sponsored Message · ${esc(ad.sponsor)}</span>
           <h2>${esc(ad.title)}</h2>
           ${ad.body ? `<p>${esc(ad.body)}</p>` : ''}
+          ${ad.sourceType === 'html' && ad.htmlCode ? `<div class="sv-ad-embed-body" style="margin:12px 0">${ad.htmlCode}</div>` : ''}
           <div class="sv-ad-interstitial-actions">
-            <a class="btn btn-plum sv-ad-interstitial-btn" href="${esc(ad.linkUrl)}" target="_blank" rel="noopener sponsored" data-ad-link="${esc(ad.id)}">
-              ${esc(ad.ctaText || 'Learn More')} ↗
-            </a>
+            ${ad.linkUrl ? `
+              <a class="btn btn-plum sv-ad-interstitial-btn" href="${esc(ad.linkUrl)}" target="_blank" rel="noopener sponsored" data-ad-link="${esc(ad.id)}">
+                ${esc(ad.ctaText || 'Learn More')} ↗
+              </a>
+            ` : ''}
             <button type="button" class="btn btn-outline" data-ad-modal-close>Continue Reading</button>
           </div>
         </div>
