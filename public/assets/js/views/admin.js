@@ -30,7 +30,7 @@ export default function adminView(main, { setTitle, navigate }) {
   let newsImageUrl = '';
   let newsKind = 'news';
   let newsCountries = new Set(['NG', 'GH', 'KE', 'ZA', 'EG']);
-  let newsTopics = new Set(['business', 'tech', 'policy']);
+  let newsTopics = new Set(['business', 'technology', 'politics']);
   let isPublishing = false;
 
   // Ad manager state (riascolony style formats, creatives, page targeting)
@@ -335,26 +335,24 @@ export default function adminView(main, { setTitle, navigate }) {
     const REGIONS = ['North', 'West', 'Central', 'East', 'Southern'];
 
     return `
-      ${secHead('Publish a story', 'Post long-form HTML news reports, analysis, official releases, or editorial stories.')}
+      ${secHead('Publish a story', 'Write and publish news, analysis or official releases on Style Vault.')}
       <div class="adm-compose">
         <form class="adm-card adm-form" data-publish-form>
           <div class="adm-field is-full">
-            <label>Distribution Scope</label>
+            <label>Who sees it</label>
             <div class="adm-scope-selector">
               <button type="button" class="adm-scope-btn ${newsScope === 'everyone' ? 'is-active' : ''}" data-set-scope="everyone">
-                <strong>🌍 Everyone (Pan-African)</strong>
-                <span>Delivered to all readers across Africa, appearing on all feeds regardless of regions or topics followed</span>
+                <span class="adm-scope-ico">${icon('globe')}</span><span class="adm-scope-text"><strong>Everyone</strong><span>Every reader, on every feed</span></span>
               </button>
               <button type="button" class="adm-scope-btn ${newsScope === 'targeted' ? 'is-active' : ''}" data-set-scope="targeted">
-                <strong>🎯 Targeted Audience</strong>
-                <span>Target specific regions, countries, or industry topics</span>
+                <span class="adm-scope-ico">${icon('sliders')}</span><span class="adm-scope-text"><strong>Targeted</strong><span>Pick regions, countries or topics</span></span>
               </button>
             </div>
           </div>
 
           ${newsScope === 'targeted' ? `
             <div class="adm-field is-full">
-              <label>Regions <span class="adm-opt">Quick toggle all countries in an African Union region</span></label>
+              <label>Regions <span class="adm-opt">selects every country in the region</span></label>
               <div class="adm-region-pills">
                 ${REGIONS.map((r) => {
                   const regCountries = (store.meta.countries || []).filter((c) => c.region === r);
@@ -384,9 +382,7 @@ export default function adminView(main, { setTitle, navigate }) {
             </div>
           ` : `
             <div class="adm-field is-full">
-              <p class="adm-opt" style="margin:0;padding:10px 14px;background:var(--warm);border-radius:8px;color:var(--deep)">
-                ✨ <strong>Pan-African Story:</strong> Will be shown to every reader and appear in all country and topic feeds across StyleVault.
-              </p>
+              <p class="adm-note">${icon('globe')}<span>This story will appear for every reader, in all country and topic feeds.</span></p>
             </div>
           `}
 
@@ -396,12 +392,12 @@ export default function adminView(main, { setTitle, navigate }) {
           </div>
 
           <div class="adm-field is-full">
-            <label for="adm-news-summary">Teaser / Summary <span class="adm-req">required</span> <span class="adm-opt">Shown on feed cards before readers tap</span></label>
+            <label for="adm-news-summary">Summary <span class="adm-req">required</span> <span class="adm-opt">shown on feed cards</span></label>
             <textarea class="input" id="adm-news-summary" data-input-news-summary rows="2" placeholder="Two or three sentences readers see on their home and news feeds" required>${esc(newsSummary)}</textarea>
           </div>
 
           <div class="adm-field is-full">
-            <label>Full Story Content <span class="adm-opt">Proper HTML article body for long-form news (like riascolony blog)</span></label>
+            <label>Story <span class="adm-opt">the full article readers open from the feed</span></label>
             <div class="adm-editor-box">
               <div class="adm-editor-top">
                 <div class="adm-editor-toolbar">
@@ -414,7 +410,7 @@ export default function adminView(main, { setTitle, navigate }) {
                   <button type="button" class="adm-toolbar-btn" data-edit-block="p" title="Paragraph">¶</button>
                   <button type="button" class="adm-toolbar-btn" data-edit-block="blockquote" title="Quote / Callout">“ ”</button>
                   <span class="adm-toolbar-sep"></span>
-                  <button type="button" class="adm-toolbar-btn" data-edit-cmd="insertUnorderedList" title="Bullet List">• List</button>
+                  <button type="button" class="adm-toolbar-btn" data-edit-cmd="insertUnorderedList" title="Bullet list">• List</button>
                   <button type="button" class="adm-toolbar-btn" data-edit-cmd="insertOrderedList" title="Numbered List">1. List</button>
                   <button type="button" class="adm-toolbar-btn" data-edit-link title="Insert Link">Link</button>
                   <button type="button" class="adm-toolbar-btn" data-edit-img title="Insert Image">Image</button>
@@ -422,8 +418,8 @@ export default function adminView(main, { setTitle, navigate }) {
                 </div>
                 <div class="adm-editor-tabs">
                   <button type="button" class="adm-editor-tab-btn ${newsEditorTab === 'visual' ? 'is-active' : ''}" data-editor-tab="visual">Visual</button>
-                  <button type="button" class="adm-editor-tab-btn ${newsEditorTab === 'html' ? 'is-active' : ''}" data-editor-tab="html">&lt;HTML&gt;</button>
-                  <button type="button" class="adm-editor-tab-btn ${newsEditorTab === 'preview' ? 'is-active' : ''}" data-editor-tab="preview">Article Preview</button>
+                  <button type="button" class="adm-editor-tab-btn ${newsEditorTab === 'html' ? 'is-active' : ''}" data-editor-tab="html">HTML</button>
+                  <button type="button" class="adm-editor-tab-btn ${newsEditorTab === 'preview' ? 'is-active' : ''}" data-editor-tab="preview">Preview</button>
                 </div>
               </div>
               <div class="adm-editor-content">
@@ -432,8 +428,8 @@ export default function adminView(main, { setTitle, navigate }) {
                 ` : newsEditorTab === 'html' ? `
                   <textarea class="adm-raw-html" data-raw-html rows="14" placeholder="<p>Write or paste your raw HTML here...</p>">${esc(newsContentHtml)}</textarea>
                 ` : `
-                  <div class="adm-preview-article prose" style="padding:16px 20px;background:#fff;min-height:220px">
-                    ${newsContentHtml || '<p style="color:var(--muted);font-style:italic">No story content written yet. Switch to Visual or HTML to write.</p>'}
+                  <div class="adm-preview-article prose">
+                    ${newsContentHtml || '<p class="adm-muted">Nothing written yet. Switch to Visual or HTML to start.</p>'}
                   </div>
                 `}
               </div>
@@ -441,7 +437,7 @@ export default function adminView(main, { setTitle, navigate }) {
           </div>
 
           <div class="adm-field">
-            <label for="adm-news-source">Publisher / Byline</label>
+            <label for="adm-news-source">Byline</label>
             <input class="input" type="text" id="adm-news-source" data-input-news-source value="${esc(newsSource)}">
           </div>
           <div class="adm-field">
@@ -451,11 +447,11 @@ export default function adminView(main, { setTitle, navigate }) {
             </select>
           </div>
           <div class="adm-field is-full">
-            <label for="adm-news-url">Original external link <span class="adm-opt">optional; leave blank to publish as an internal StyleVault article</span></label>
-            <input class="input" type="url" id="adm-news-url" data-input-news-url placeholder="Leave blank to publish directly on StyleVault (/article/...)" value="${esc(newsUrl)}">
+            <label for="adm-news-url">Original link <span class="adm-opt">optional · leave blank to publish on Style Vault</span></label>
+            <input class="input" type="url" id="adm-news-url" data-input-news-url placeholder="https://…" value="${esc(newsUrl)}">
           </div>
           <div class="adm-field is-full">
-            <label>Cover / Hero Image <span class="adm-opt">optional, max 2 MB</span></label>
+            <label>Cover image <span class="adm-opt">optional · max 2 MB</span></label>
             ${imageField(newsImageUrl, { removeAttr: 'data-remove-news-img', fileAttr: 'data-upload-news-file', urlAttr: 'data-input-news-img-url' })}
           </div>
 
@@ -502,7 +498,7 @@ export default function adminView(main, { setTitle, navigate }) {
     ];
 
     return `
-      ${secHead('Ads', 'Create and manage sponsored banners, in-feed cards and pop-ups (just like riascolony).',
+      ${secHead('Ads', 'Create and manage sponsored banners, in-feed cards and pop-ups.',
         `<button type="button" class="btn btn-outline btn-sm" data-refresh-ads>Refresh</button>`)}
       <div class="adm-stats">
         ${stat('Campaigns', nf(adsList.length), `${activeCount} active`)}
@@ -536,40 +532,38 @@ export default function adminView(main, { setTitle, navigate }) {
             </li>`).join('')}</ul>`}
       </section>
 
-      ${secHead('New campaign', 'Select format, creative type, and target pages. Preview updates in real-time.')}
+      ${secHead('New campaign', 'Choose a format and where it shows. The preview updates as you type.')}
       <div class="adm-compose is-stacked">
         <form class="adm-card adm-form" data-ad-form>
           <div class="adm-field">
             <label for="adm-ad-type">Format</label>
             <select class="select" id="adm-ad-type" data-input-ad-type>
-              <option value="banner" ${adType === 'banner' ? 'selected' : ''}>Banner strip (Header / Footer)</option>
-              <option value="native" ${adType === 'native' ? 'selected' : ''}>In-feed card (Story feed)</option>
-              <option value="interstitial" ${adType === 'interstitial' ? 'selected' : ''}>Pop-up / Interstitial (Screen takeover)</option>
+              <option value="banner" ${adType === 'banner' ? 'selected' : ''}>Banner strip</option>
+              <option value="native" ${adType === 'native' ? 'selected' : ''}>In-feed card</option>
+              <option value="interstitial" ${adType === 'interstitial' ? 'selected' : ''}>Pop-up</option>
             </select>
           </div>
 
           <div class="adm-field">
-            <label for="adm-ad-source-type">Creative Format</label>
+            <label for="adm-ad-source-type">Creative</label>
             <select class="select" id="adm-ad-source-type" data-input-ad-source-type>
               <option value="image" ${adSourceType === 'image' ? 'selected' : ''}>Image + Link</option>
-              <option value="html" ${adSourceType === 'html' ? 'selected' : ''}>Raw HTML / Network Code (AdSense, Sponsor Tag)</option>
+              <option value="html" ${adSourceType === 'html' ? 'selected' : ''}>HTML / ad network code</option>
             </select>
           </div>
 
           <div class="adm-field is-full">
-            <label>Target Pages</label>
+            <label>Where it shows</label>
             <div class="adm-scope-selector">
               <button type="button" class="adm-scope-btn ${adTargetPagesMode === 'all' ? 'is-active' : ''}" data-ad-target-mode="all">
-                <strong>🌐 All Pages (Site-wide)</strong>
-                <span>Shows everywhere across the entire StyleVault platform</span>
+                <span class="adm-scope-ico">${icon('globe')}</span><span class="adm-scope-text"><strong>All pages</strong><span>Everywhere on Style Vault</span></span>
               </button>
               <button type="button" class="adm-scope-btn ${adTargetPagesMode === 'custom' ? 'is-active' : ''}" data-ad-target-mode="custom">
-                <strong>📑 Specific Pages</strong>
-                <span>Choose exactly which pages or sections this ad will appear on</span>
+                <span class="adm-scope-ico">${icon('layers')}</span><span class="adm-scope-text"><strong>Specific pages</strong><span>Choose the pages or sections</span></span>
               </button>
             </div>
             ${adTargetPagesMode === 'custom' ? `
-              <div class="adm-pages-grid" style="margin-top:10px">
+              <div class="adm-pages-grid">
                 ${PAGE_TARGET_OPTIONS.map((opt) => `
                   <label class="adm-page-label">
                     <input type="checkbox" data-ad-page-check="${esc(opt.path)}" ${adSelectedPages.has(opt.path) ? 'checked' : ''}>
@@ -577,8 +571,8 @@ export default function adminView(main, { setTitle, navigate }) {
                   </label>
                 `).join('')}
               </div>
-              <div style="margin-top:8px">
-                <label for="adm-ad-custom-pages" style="font-size:0.78rem;color:var(--muted)">Additional custom paths (comma-separated, e.g. /topic/tech, /country/ghana):</label>
+              <div class="adm-custom-paths">
+                <label for="adm-ad-custom-pages">Other paths <span class="adm-opt">comma-separated, e.g. /topic/energy, /country/ghana</span></label>
                 <input class="input" type="text" id="adm-ad-custom-pages" data-input-ad-custom-pages placeholder="/news, /topic/energy" value="${esc(adCustomPagesInput)}">
               </div>
             ` : ''}
@@ -599,7 +593,7 @@ export default function adminView(main, { setTitle, navigate }) {
               <textarea class="input" id="adm-ad-body" data-input-ad-body rows="2" placeholder="One short sentence">${esc(adBody)}</textarea>
             </div>
             <div class="adm-field">
-              <label for="adm-ad-link">Destination Link URL <span class="adm-req">required</span></label>
+              <label for="adm-ad-link">Link <span class="adm-req">required</span></label>
               <input class="input" type="url" id="adm-ad-link" data-input-ad-link placeholder="https://…" value="${esc(adLinkUrl)}" required>
             </div>
             <div class="adm-field">
@@ -607,13 +601,13 @@ export default function adminView(main, { setTitle, navigate }) {
               <input class="input" type="text" id="adm-ad-cta" data-input-ad-cta value="${esc(adCtaText)}">
             </div>
             <div class="adm-field is-full">
-              <label>Creative Image <span class="adm-opt">optional, max 2 MB</span></label>
+              <label>Image <span class="adm-opt">optional · max 2 MB</span></label>
               ${imageField(adImageUrl, { removeAttr: 'data-remove-ad-img', fileAttr: 'data-upload-ad-file', urlAttr: 'data-input-ad-img-url' })}
             </div>
           ` : `
             <div class="adm-field is-full">
-              <label for="adm-ad-html">Raw HTML / Embed Code <span class="adm-req">required</span></label>
-              <textarea class="input font-mono" id="adm-ad-html" data-input-ad-html rows="8" placeholder="Paste Google AdSense tag, GAM code, sponsor widget iframe, or raw HTML here..." required>${esc(adHtmlCode)}</textarea>
+              <label for="adm-ad-html">Embed code <span class="adm-req">required</span></label>
+              <textarea class="input font-mono" id="adm-ad-html" data-input-ad-html rows="8" placeholder="Paste an AdSense tag, sponsor widget or HTML" required>${esc(adHtmlCode)}</textarea>
             </div>
             <div class="adm-field is-full">
               <label for="adm-ad-link">Click-through URL <span class="adm-opt">optional</span></label>
@@ -621,7 +615,7 @@ export default function adminView(main, { setTitle, navigate }) {
             </div>
           `}
 
-          <label class="adm-check is-full"><input type="checkbox" data-input-ad-active ${adActive ? 'checked' : ''}><span>Start showing it straight away (Active)</span></label>
+          <label class="adm-check is-full"><input type="checkbox" data-input-ad-active ${adActive ? 'checked' : ''}><span>Start showing it straight away</span></label>
           <div class="adm-form-foot is-full">
             <button type="submit" class="btn btn-plum" ${isSavingAd ? 'disabled' : ''}>${icon('check')}<span>${isSavingAd ? 'Saving…' : 'Save campaign'}</span></button>
           </div>
@@ -637,8 +631,8 @@ export default function adminView(main, { setTitle, navigate }) {
   function renderAdPreviewHtml(ad) {
     if (ad.sourceType === 'html' && ad.htmlCode) {
       return `
-        <div class="sv-ad-preview-wrap" style="padding:14px;border:1px solid var(--line);border-radius:8px;background:#fff">
-          <span class="sv-ad-kicker" style="display:block;margin-bottom:8px">Sponsored · ${esc(ad.sponsor || 'Partner')}</span>
+        <div class="sv-ad-preview-wrap">
+          <span class="sv-ad-kicker">Sponsored · ${esc(ad.sponsor || 'Partner')}</span>
           <div class="sv-ad-embed-body">${ad.htmlCode}</div>
         </div>`;
     }

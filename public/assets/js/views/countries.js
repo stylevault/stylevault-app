@@ -1,6 +1,6 @@
 import { $, $$, esc, flag, formatIndicator, icon } from '../lib.js';
 import { store } from '../store.js';
-import { REGION_NAMES, toast } from '../ui.js';
+import { REGION_NAMES, openBulkCountryFollowModal, toast } from '../ui.js';
 
 export function countryCard(c) {
   const following = store.isFollowed('country', c.code);
@@ -51,6 +51,7 @@ export default function countries(main, { query, setTitle, navigate }) {
     <div class="cl-body"><div class="wrap cl-page">
       <div class="cl-toolbar">
         <label class="cl-search">${icon('search')}<input type="search" placeholder="Find a country or capital" aria-label="Find a country or capital" data-q></label>
+        <button class="btn btn-plum btn-sm cl-bulk-btn" type="button" data-follow-multiple style="height:38px;padding:0 14px;border-radius:10px;font-size:0.84rem;flex:none;display:inline-flex;align-items:center;gap:6px">${icon('star')} <span>Follow multiple</span></button>
         <div class="chips cl-chips" role="toolbar" aria-label="Filter by region" data-regions>
           <button class="chip" type="button" data-region="" aria-pressed="${!region}">All regions</button>
           ${Object.entries(REGION_NAMES).map(([k, v]) => `<button class="chip" type="button" data-region="${k}" aria-pressed="${region === k}">${v}</button>`).join('')}
@@ -120,7 +121,13 @@ export default function countries(main, { query, setTitle, navigate }) {
   const onKey = (e) => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); menuBtn.focus(); } };
   document.addEventListener('click', onDocClick);
   document.addEventListener('keydown', onKey);
-  main.addEventListener('click', handleFollow);
+  main.addEventListener('click', (e) => {
+    if (e.target.closest('[data-follow-multiple]')) {
+      openBulkCountryFollowModal({ onSaved: draw });
+      return;
+    }
+    handleFollow(e);
+  });
   const off = store.on(draw);
   return () => {
     off?.();

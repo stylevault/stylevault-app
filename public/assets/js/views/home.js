@@ -2,7 +2,7 @@ import { api } from '../api.js';
 import { $, $$, esc, flag, formatIndicator, icon, KIND_LABELS, nf, shortDate } from '../lib.js';
 import { renderMap } from '../map.js';
 import { store } from '../store.js';
-import { REGION_NAMES, editionItem, editionLead, homeReadCard, openCountryPickerModal, openDialog, openHomeFeedSwitcherModal, openSectorPickerModal, openSignupPromptModal, skeletonRows, wireCard } from '../ui.js';
+import { REGION_NAMES, editionItem, editionLead, homeReadCard, openBulkCountryFollowModal, openCountryPickerModal, openDialog, openHomeFeedSwitcherModal, openSectorPickerModal, openSignupPromptModal, skeletonRows, wireCard } from '../ui.js';
 import { TOPIC_BLURBS } from './topics.js';
 import { filterAds, getActiveAds, renderBannerAdHtml, renderNativeAdHtml } from '../ads.js';
 
@@ -611,15 +611,17 @@ async function renderUserHome(main, { setTitle, navigate }) {
   const briefIds = new Set();
   let briefReq = Promise.resolve([]);
 
-  function monitorQuery(tab) {
+  function monitorQuery(sel) {
     const q = { limit: 8 };
-    if (tab === 'all') {
-      if (followedCountries.length) q.country = followedCountries.slice(0, 10);
-      if (followedTopics.length) q.topic = followedTopics.slice(0, 5);
-      const keywords = monitors.map((m) => m.keywords).filter(Boolean);
-      if (!q.country && !q.topic && keywords.length) q.q = keywords[0];
-    } else {
-      const m = monitors[Number(tab)];
+    if (!sel || sel === 'all' || sel.type === 'all') {
+      if (followedCountries.length) q.country = followedCountries.slice(0, 54);
+      else if (followedTopics.length) q.topic = followedTopics.slice(0, 50);
+    } else if (sel.type === 'country') {
+      q.country = [sel.value];
+    } else if (sel.type === 'topic') {
+      q.topic = [sel.value];
+    } else if (typeof sel === 'string') {
+      const m = monitors[Number(sel)];
       if (m?.countries?.length) q.country = m.countries;
       if (m?.topics?.length) q.topic = m.topics;
       if (m?.keywords) q.q = m.keywords;
@@ -627,10 +629,10 @@ async function renderUserHome(main, { setTitle, navigate }) {
     return q;
   }
 
-  function loadBrief(tab) {
+  function loadBrief(sel) {
     const box = $('[data-brief]', main);
     box.innerHTML = `<div class="skeleton ed-sk-lead"></div><div>${skeletonRows(3)}</div>`;
-    const req = api.articles(monitorQuery(tab)).then(({ items }) => items || []);
+    const req = api.articles(monitorQuery(sel)).then(({ items }) => items || []);
     req.then((items) => {
       if (!items.length) {
         box.innerHTML = `
@@ -653,20 +655,24 @@ async function renderUserHome(main, { setTitle, navigate }) {
   }
 
   if (monitors.length) {
-    let activeTab = 'all';
-    briefReq = loadBrief('all');
+    let activeSelection = { type: 'all', name: 'All followed stories' };
+    briefReq = loadBrief(activeSelection);
 
     const switcherBtn = $('[data-open-home-switcher]', main);
     if (switcherBtn) {
       switcherBtn.addEventListener('click', () => {
         openHomeFeedSwitcherModal({
-          list: monitors,
-          activeTab,
-          onSelect: (tab, name) => {
-            activeTab = tab;
+          activeSelection,
+          onSelect: (sel) => {
+            activeSelection = sel;
             const labelEl = $('[data-home-tab-name]', main);
-            if (labelEl) labelEl.textContent = name;
-            loadBrief(tab);
+            if (labelEl) labelEl.textContent = sel.name || 'All followed stories';
+            loadBrief(sel);
+          },
+          onManage: () => {
+            openBulkCountryFollowModal({
+              onSaved: () => rerender(),
+            });
           },
         });
       });
@@ -793,22 +799,8 @@ async function renderUserHome(main, { setTitle, navigate }) {
     $$('[data-country-chips] .chip, [data-topic-chips] .chip', main).forEach(bindChip);
 
     $('[data-more-countries]', main)?.addEventListener('click', () => {
-      openCountryPickerModal({
-        onSelect: (c) => {
-          if (!c) return;
-          const chipBox = $('[data-country-chips]', main);
-          let chip = chipBox.querySelector(`[data-code="${c.code}"]`);
-          if (!chip) {
-            chip = document.createElement('button');
-            chip.type = 'button';
-            chip.className = 'chip';
-            chip.dataset.code = c.code;
-            chip.innerHTML = `${flag(c.code, 'flag', '')} ${esc(c.name)}`;
-            bindChip(chip);
-            chipBox.appendChild(chip);
-          }
-          chip.setAttribute('aria-pressed', 'true');
-        },
+      openBulkCountryFollowModal({
+        onSaved: () => rerender(),
       });
     });
 
@@ -822,17 +814,19 @@ async function renderUserHome(main, { setTitle, navigate }) {
         return;
       }
       saveBtn.disabled = true;
-      const nameParts = [
-        ...countries.map((c) => store.countryByCode.get(c)?.name),
-        ...topics.map((t) => store.topicBySlug.get(t)?.name),
-      ].filter(Boolean);
-      let name = 'My feed';
-      if (nameParts.length === 1) name = nameParts[0];
-      else if (nameParts.length === 2) name = `${nameParts[0]} & ${nameParts[1]}`;
-      else if (nameParts.length <= 3) name = `${nameParts.slice(0, -1).join(', ')} & ${nameParts.at(-1)}`;
-      else if (nameParts.length > 3) name = `${nameParts.slice(0, 2).join(', ')} +${nameParts.length - 2} more`;
       try {
-        await store.saveMonitor({ name, countries, topics, keywords: '' });
+        if (countries.length) {
+          await store.syncFollowedCountries(countries);
+        }
+        for (const slug of topics) {
+          const t = store.topicBySlug.get(slug);
+          await store.saveMonitor({
+            name: t ? t.name : slug,
+            countries: [],
+            topics: [slug],
+            keywords: '',
+          });
+        }
         rerender();
       } catch (err) {
         hint.textContent = err.message;

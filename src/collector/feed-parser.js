@@ -129,3 +129,56 @@ export function parseFeed(xml) {
   }
   return items;
 }
+
+/**
+ * Extracts analytical blog posts from Ria's Colony blog (riascolony.org/blog).
+ *
+ * @param {string} html
+ * @returns {{ title: string, link: string, summary: string, publishedAt: number, image: string|null, categories: string[] }[]}
+ */
+export function parseRiasColony(html) {
+  if (!html) return [];
+  const cardRe = /<h2[^>]*><a[^>]*href="(\/blog\/[^"]+)"[^>]*>([\s\S]*?)<\/a><\/h2>/gi;
+  const items = [];
+
+  for (const match of html.matchAll(cardRe)) {
+    if (items.length >= MAX_ITEMS) break;
+    const path = match[1];
+    if (path === '/blog/series' || path === '/blog/archive' || path.startsWith('/blog/series/')) continue;
+    const title = decodeEntities(match[2].replace(/<[^>]+>/g, '').trim());
+    const link = `https://riascolony.org${path}`;
+
+    const pos = match.index;
+    const chunkBefore = html.slice(Math.max(0, pos - 1200), pos);
+    const chunkAfter = html.slice(pos, pos + 1200);
+
+    const dateMatch = chunkBefore.match(/(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+\d{4}/i);
+    const publishedAt = dateMatch ? Math.floor(Date.parse(dateMatch[0]) / 1000) : Math.floor(Date.now() / 1000);
+
+    const summaryMatch = chunkAfter.match(/<\/h2>\s*<p[^>]*>([\s\S]*?)<\/p>/i);
+    const summary = summaryMatch ? decodeEntities(summaryMatch[1].replace(/<[^>]+>/g, '').trim()) : '';
+
+    const imgMatch = chunkBefore.match(/<img[^>]+(?:src|srcset)="([^" ]+)/i) || chunkAfter.match(/<img[^>]+(?:src|srcset)="([^" ]+)/i);
+    let image = imgMatch ? decodeEntities(imgMatch[1]) : null;
+    if (image && image.startsWith('/')) {
+      const nextUrlMatch = image.match(/url=([^&]+)/);
+      if (nextUrlMatch) {
+        image = decodeURIComponent(nextUrlMatch[1]);
+        if (image.startsWith('/')) image = `https://riascolony.org${image}`;
+      } else {
+        image = `https://riascolony.org${image}`;
+      }
+    }
+
+    items.push({
+      title,
+      link,
+      summary,
+      publishedAt,
+      image,
+      categories: ['analysis', 'trade', 'culture'],
+    });
+  }
+
+  return items;
+}

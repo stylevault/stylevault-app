@@ -42,6 +42,7 @@ export const SOURCES = [
   { slug: 'techcabal', name: 'TechCabal', homepage: 'https://techcabal.com', feed: 'https://techcabal.com/feed/', country: null, lang: 'en' },
   { slug: 'disrupt-africa', name: 'Disrupt Africa', homepage: 'https://disrupt-africa.com', feed: 'https://disrupt-africa.com/feed/', country: null, lang: 'en' },
   { slug: 'weetracker', name: 'WeeTracker', homepage: 'https://weetracker.com', feed: 'https://weetracker.com/feed/', country: null, lang: 'en' },
+  { slug: 'rias-colony', name: "Ria's Colony", homepage: 'https://riascolony.org/blog', feed: 'https://riascolony.org/blog', country: null, lang: 'en', kind: 'analysis' },
   { slug: 'jeune-afrique', name: 'Jeune Afrique', homepage: 'https://www.jeuneafrique.com', feed: 'https://www.jeuneafrique.com/feed/', country: null, lang: 'fr' },
   { slug: 'rfi-afrique', name: 'RFI Afrique', homepage: 'https://www.rfi.fr/fr/afrique/', feed: 'https://www.rfi.fr/fr/afrique/rss', country: null, lang: 'fr' },
 

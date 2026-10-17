@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseFeed } from '../src/collector/feed-parser.js';
+import { parseFeed, parseRiasColony } from '../src/collector/feed-parser.js';
 import { normalizeUrl, titleTokens, similarity } from '../src/collector/normalize.js';
 
 test('parses RSS 2.0 with CDATA, entities and media images', () => {
@@ -45,4 +45,20 @@ test('headline similarity spots the same story across publishers', () => {
   const a = titleTokens('Ghana central bank holds policy rate at 21.5% amid easing inflation');
   const b = titleTokens('Bank of Ghana holds policy rate at 21.5% as inflation eases');
   assert.ok(similarity(a, b).jaccard >= 0.45);
+});
+
+test('parses Ria\'s Colony blog post HTML cards', () => {
+  const html = `
+    <div>
+      <p class="text-sm">October 7, 2026</p>
+      <h2><a href="/blog/nigeria-economy-trade">How Nigeria Makes Its Money</a></h2>
+      <p>How Nigeria's economy earns and spends: its main exports and imports.</p>
+    </div>
+  `;
+  const items = parseRiasColony(html);
+  assert.equal(items.length, 1);
+  assert.equal(items[0].title, 'How Nigeria Makes Its Money');
+  assert.equal(items[0].link, 'https://riascolony.org/blog/nigeria-economy-trade');
+  assert.equal(items[0].summary, "How Nigeria's economy earns and spends: its main exports and imports.");
+  assert.ok(items[0].publishedAt > 0);
 });

@@ -1,102 +1,52 @@
 import { api } from '../api.js';
 import { $, $$, esc, flag, icon } from '../lib.js';
 import { store } from '../store.js';
-import { confirmDialog, emptyState, followEditor, mountFeed, openFollowingSwitcherModal, streamCard, toast } from '../ui.js';
+import { confirmDialog, emptyState, followEditor, mountFeed, openBulkCountryFollowModal, openFollowingSwitcherModal, streamCard, toast } from '../ui.js';
 
 const syncNote = () => store.user ? '' : `
   <div class="note flw-sync-note">${icon('lock')}<span>What you follow is saved in this browser. <a href="/signup">Create a free account</a> to keep it on every device.</span></div>`;
-
-function criteria(m) {
-  const pills = [];
-  if (!m.countries.length) {
-    pills.push(`<span class="crit-pill is-country">🌍 All 54 countries</span>`);
-  } else {
-    m.countries.forEach((code) => {
-      const c = store.countryByCode.get(code);
-      if (c) pills.push(`<a class="crit-pill is-country" href="/country/${c.slug}">${flag(code)} ${esc(c.name)}</a>`);
-    });
-  }
-  m.topics.forEach((slug) => {
-    const t = store.topicBySlug.get(slug);
-    if (t) pills.push(`<a class="crit-pill is-topic" href="/topic/${slug}">${esc(t.name)}</a>`);
-  });
-  if (m.keywords) {
-    m.keywords.split(',').map((k) => k.trim()).filter(Boolean).forEach((k) => {
-      pills.push(`<span class="crit-pill is-keyword">“${esc(k)}”</span>`);
-    });
-  }
-  return pills.join('');
-}
-
-function scopeSummary(m) {
-  const cCount = m.countries?.length || 0;
-  const tCount = m.topics?.length || 0;
-  const kwCount = m.keywords ? m.keywords.split(',').map((k) => k.trim()).filter(Boolean).length : 0;
-  const total = cCount + tCount + kwCount;
-  if (!total) return { label: 'All 54 African countries', count: 54, iconHtml: '🌍' };
-  if (cCount && !tCount && !kwCount) {
-    if (cCount === 1) {
-      const c = store.countryByCode.get(m.countries[0]);
-      return { label: c ? c.name : m.countries[0], count: 1, iconHtml: c ? flag(c.code, 'flag', '') : '🌍' };
-    }
-    return { label: `${cCount} Countries`, count: cCount, iconHtml: '🌍' };
-  }
-  if (!cCount && tCount && !kwCount) {
-    if (tCount === 1) {
-      const t = store.topicBySlug.get(m.topics[0]);
-      return { label: t ? t.name : m.topics[0], count: 1, iconHtml: '📌' };
-    }
-    return { label: `${tCount} Topics`, count: tCount, iconHtml: '📌' };
-  }
-  const parts = [];
-  if (cCount) parts.push(`${cCount} ${cCount === 1 ? 'country' : 'countries'}`);
-  if (tCount) parts.push(`${tCount} ${tCount === 1 ? 'topic' : 'topics'}`);
-  if (kwCount) parts.push(`${kwCount} ${kwCount === 1 ? 'keyword' : 'keywords'}`);
-  return { label: parts.join(' · '), count: total, iconHtml: '✨' };
-}
 
 export default function following(main, { query, setTitle, navigate }) {
   setTitle('Following');
   let viewMode = localStorage.getItem('sv_flw_view') || 'grid';
 
   const draw = () => {
+    const followedCountries = store.followedCountries;
+    const followedTopics = store.followedTopics;
     const list = store.monitors;
-    const totalCountries = new Set(list.flatMap((m) => m.countries)).size;
-    const totalTopics = new Set(list.flatMap((m) => m.topics)).size;
+    const totalFollows = followedCountries.length + followedTopics.length + list.filter((m) => m.keywords).length;
 
     const head = `
       <header class="flw-header">
         <div class="wrap flw-header-inner">
           <div class="flw-header-copy">
             <h1>Following</h1>
-            <p class="flw-lede">Keep up with the countries, topics, and keywords you care about. We check for new stories every hour.</p>
+            <p class="flw-lede">All stories from the countries and topics you follow, brought together in one place.</p>
           </div>
           <div class="flw-header-right">
-            ${list.length ? `
+            ${totalFollows ? `
               <div class="flw-stats">
-                <div class="flw-stat"><strong>${list.length}</strong><span>Following</span></div>
+                <div class="flw-stat"><strong>${followedCountries.length}</strong><span>${followedCountries.length === 1 ? 'Country' : 'Countries'}</span></div>
                 <span class="flw-stat-sep"></span>
-                <div class="flw-stat"><strong>${totalCountries || 54}</strong><span>Countries</span></div>
-                <span class="flw-stat-sep"></span>
-                <div class="flw-stat"><strong>${totalTopics}</strong><span>${totalTopics === 1 ? 'Topic' : 'Topics'}</span></div>
+                <div class="flw-stat"><strong>${followedTopics.length}</strong><span>${followedTopics.length === 1 ? 'Topic' : 'Topics'}</span></div>
               </div>
             ` : ''}
-            <button class="btn btn-plum flw-new-btn" type="button" data-new>${icon('plus')} Follow something new</button>
+            <button class="btn btn-plum flw-new-btn" type="button" data-manage-countries>${icon('plus')} Manage countries</button>
           </div>
         </div>
       </header>`;
 
-    if (!list.length) {
+    if (!totalFollows && !list.length) {
       main.innerHTML = `
         ${head}
         <section class="flw-body">
           <div class="wrap flw-container">
             ${syncNote()}
             ${emptyState({
-              title: 'You’re not following anything yet',
-              body: 'Follow any country or topic to get your own feed here. For example, try <strong>Rwanda + Technology</strong>, or <strong>All 54 countries + Agriculture &amp; Food</strong>.',
+              title: 'You’re not following any countries or topics yet',
+              body: 'Choose the countries you want to follow to see their latest stories here together.',
               action: `<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
-                <button class="btn btn-plum" type="button" data-new>${icon('plus')} Choose what to follow</button>
+                <button class="btn btn-plum" type="button" data-manage-countries>${icon('plus')} Choose countries to follow</button>
                 <a class="btn btn-outline" href="/countries">Browse 54 countries</a>
               </div>`,
               iconName: 'star',
@@ -106,10 +56,50 @@ export default function following(main, { query, setTitle, navigate }) {
       return;
     }
 
-    const activeId = list.some((m) => m.id === query.get('m')) ? query.get('m') : list[0].id;
-    const m = list.find((x) => x.id === activeId);
-    const singleCountry = m.countries?.length === 1 ? store.countryByCode.get(m.countries[0]) : null;
-    const scope = scopeSummary(m);
+    // Determine filter state
+    const countryParam = query.get('country');
+    const topicParam = query.get('topic');
+    const monitorParam = query.get('m');
+
+    let activeSelection = { type: 'all', name: 'All followed stories' };
+    let activeCountry = null;
+    let activeTopic = null;
+    let activeMonitor = null;
+
+    if (countryParam && followedCountries.includes(countryParam)) {
+      activeCountry = store.countryByCode.get(countryParam);
+      activeSelection = { type: 'country', value: countryParam, name: activeCountry ? activeCountry.name : countryParam };
+    } else if (topicParam && followedTopics.includes(topicParam)) {
+      activeTopic = store.topicBySlug.get(topicParam);
+      activeSelection = { type: 'topic', value: topicParam, name: activeTopic ? activeTopic.name : topicParam };
+    } else if (monitorParam) {
+      activeMonitor = list.find((m) => m.id === monitorParam);
+      if (activeMonitor) {
+        activeSelection = { type: 'monitor', value: monitorParam, name: activeMonitor.name };
+      }
+    }
+
+    // Prepare control bar metadata
+    let indicatorHtml = '<span class="flw-dd-dot"></span>';
+    let label = 'All followed stories';
+    let countBadge = `${followedCountries.length || 54} countries`;
+
+    if (activeSelection.type === 'country' && activeCountry) {
+      indicatorHtml = flag(activeCountry.code, 'flag', '');
+      label = activeCountry.name;
+      countBadge = '1 country';
+    } else if (activeSelection.type === 'topic' && activeTopic) {
+      indicatorHtml = '📌';
+      label = activeTopic.name;
+      countBadge = 'Topic';
+    } else if (activeSelection.type === 'monitor' && activeMonitor) {
+      label = activeMonitor.name;
+      countBadge = 'Watchlist';
+    } else {
+      indicatorHtml = '🌍';
+      label = 'All followed stories';
+      countBadge = `${followedCountries.length} countries`;
+    }
 
     main.innerHTML = `
       ${head}
@@ -117,43 +107,22 @@ export default function following(main, { query, setTitle, navigate }) {
         <div class="wrap flw-container">
           ${syncNote()}
 
-          <!-- Cohesive Compact Control Bar -->
+          <!-- Unbundled Control Bar -->
           <div class="flw-panel">
             <div class="flw-bar">
               <div class="flw-bar-top">
-                <button type="button" class="flw-dropdown-btn" data-open-switcher aria-haspopup="dialog" title="Switch what you are viewing">
-                  <span class="flw-dd-indicator">
-                    ${singleCountry ? flag(singleCountry.code, 'flag', '') : '<span class="flw-dd-dot"></span>'}
-                  </span>
-                  <span class="flw-dd-name">${esc(m.name)}</span>
-                  <span class="flw-dd-count">${list.length} ${list.length === 1 ? 'feed' : 'feeds'}</span>
+                <button type="button" class="flw-dropdown-btn" data-open-switcher aria-haspopup="dialog" title="Filter what you are viewing">
+                  <span class="flw-dd-indicator">${indicatorHtml}</span>
+                  <span class="flw-dd-name">${esc(label)}</span>
+                  <span class="flw-dd-count">${countBadge}</span>
                   <span class="flw-dd-chev" aria-hidden="true">${icon('chevron-down')}</span>
                 </button>
 
                 <div class="flw-summary-actions">
-                  <button class="btn btn-outline btn-sm flw-action-btn" type="button" data-edit>${icon('edit')} <span>Edit</span></button>
-                  <button class="btn btn-outline btn-sm flw-action-btn flw-add-btn" type="button" data-new>${icon('plus')} <span>Add</span></button>
-                  <button class="btn btn-danger btn-sm flw-action-btn flw-delete-btn" type="button" data-delete aria-label="Stop following" title="Stop following">${icon('trash')}</button>
-                </div>
-              </div>
-
-              <div class="flw-scope-row">
-                <span class="flw-scope-lbl">Includes</span>
-                <div class="flw-scope-dd-wrap" data-scope-dd-wrap>
-                  <button type="button" class="flw-scope-trigger-btn" data-scope-toggle aria-expanded="false" aria-haspopup="true">
-                    <span class="flw-scope-trigger-icon">${scope.iconHtml}</span>
-                    <span class="flw-scope-trigger-label">${esc(scope.label)}</span>
-                    <span class="flw-scope-trigger-arrow">${icon('chevron-down')}</span>
-                  </button>
-                  <div class="flw-scope-dropdown-panel" data-scope-panel hidden>
-                    <div class="flw-scope-panel-header">
-                      <strong>Included in this feed (${scope.count})</strong>
-                      <span class="flw-scope-panel-hint">Tap any item to explore</span>
-                    </div>
-                    <div class="crit flw-scope-panel-crit">
-                      ${criteria(m)}
-                    </div>
-                  </div>
+                  <button class="btn btn-outline btn-sm flw-action-btn" type="button" data-manage-countries>${icon('plus')} <span>Manage countries</span></button>
+                  ${activeSelection.type !== 'all' ? `
+                    <button class="btn btn-outline btn-sm flw-action-btn" type="button" data-reset-all>${icon('close')} <span>View all</span></button>
+                  ` : ''}
                 </div>
               </div>
             </div>
@@ -163,11 +132,11 @@ export default function following(main, { query, setTitle, navigate }) {
           <div class="flw-feed-section">
             <div class="flw-feed-head">
               <div>
-                <span class="eyebrow">Picked for you</span>
-                <h3>Latest stories and reports</h3>
+                <span class="eyebrow">${activeSelection.type === 'all' ? 'All followed countries' : esc(label)}</span>
+                <h3>${activeSelection.type === 'all' ? 'Latest stories across your followed countries' : `Latest stories · ${esc(label)}`}</h3>
               </div>
               <div class="flw-feed-controls">
-                <span class="flw-feed-meta"><span class="live-dot-sm"></span> Updated hourly</span>
+                <span class="flw-feed-meta"><span class="live-dot-sm"></span> Updated live</span>
                 <div class="flw-view-switch" role="group" aria-label="Feed layout">
                   <button type="button" class="flw-view-btn ${viewMode === 'grid' ? 'active' : ''}" data-view="grid">Cards</button>
                   <button type="button" class="flw-view-btn ${viewMode === 'list' ? 'active' : ''}" data-view="list">List</button>
@@ -179,28 +148,40 @@ export default function following(main, { query, setTitle, navigate }) {
         </div>
       </section>`;
 
-    mountFeed($('[data-feed]', main), (before) => api.articles({ country: m.countries, topic: m.topics, keywords: m.keywords, before }), {
+    // Build feed loader query
+    const feedQuery = { limit: 20 };
+    if (activeSelection.type === 'country') {
+      feedQuery.country = [activeSelection.value];
+    } else if (activeSelection.type === 'topic') {
+      feedQuery.topic = [activeSelection.value];
+    } else if (activeSelection.type === 'monitor' && activeMonitor) {
+      if (activeMonitor.countries?.length) feedQuery.country = activeMonitor.countries;
+      if (activeMonitor.topics?.length) feedQuery.topic = activeMonitor.topics;
+      if (activeMonitor.keywords) feedQuery.keywords = activeMonitor.keywords;
+    } else {
+      // Default: ALL followed countries together!
+      if (followedCountries.length) {
+        feedQuery.country = followedCountries.slice(0, 54);
+      }
+    }
+
+    mountFeed($('[data-feed]', main), (before) => api.articles({ ...feedQuery, before }), {
       render: streamCard,
       empty: emptyState({
-        title: 'No stories match this right now',
-        body: 'We couldn’t find any recent stories for this exact mix. Try adding a few more countries, topics, or keywords.',
-        action: `<button class="btn btn-outline btn-sm" type="button" data-edit>${icon('edit')} Edit what’s included</button>`,
+        title: 'No new stories right now',
+        body: 'There are no recent stories matching this selection. Try choosing a few more countries.',
+        action: `<button class="btn btn-outline btn-sm" type="button" data-manage-countries>${icon('plus')} Follow more countries</button>`,
         iconName: 'star',
       }),
     });
   };
 
-  const handleCreateNew = async () => {
-    const saved = await followEditor();
-    if (saved) {
-      const count = (saved.countries?.length || 0) + (saved.topics?.length || 0);
-      if (count > 2) {
-        toast(`Now following ${count} places & topics (${saved.name})`);
-      } else {
-        toast(`Now following “${saved.name}”`);
-      }
-      navigate(`/following?m=${encodeURIComponent(saved.id)}`, { replace: true });
-    }
+  const handleManage = () => {
+    openBulkCountryFollowModal({
+      onSaved: () => {
+        draw();
+      },
+    });
   };
 
   main.addEventListener('click', async (e) => {
@@ -216,63 +197,42 @@ export default function following(main, { query, setTitle, navigate }) {
       }
       return;
     }
+
+    if (e.target.closest('[data-manage-countries]')) {
+      handleManage();
+      return;
+    }
+
+    if (e.target.closest('[data-reset-all]')) {
+      navigate('/following', { replace: true });
+      return;
+    }
+
     if (e.target.closest('[data-open-switcher]')) {
-      const list = store.monitors;
-      const activeId = list.some((m) => m.id === query.get('m')) ? query.get('m') : list[0]?.id;
+      const countryParam = query.get('country');
+      const topicParam = query.get('topic');
+      let activeSelection = { type: 'all' };
+      if (countryParam) activeSelection = { type: 'country', value: countryParam };
+      else if (topicParam) activeSelection = { type: 'topic', value: topicParam };
+
       openFollowingSwitcherModal({
-        list,
-        activeId,
-        onSelect: (id) => navigate(`/following?m=${encodeURIComponent(id)}`),
-        onNew: handleCreateNew,
+        activeSelection,
+        onSelect: (sel) => {
+          if (!sel || sel.type === 'all') {
+            navigate('/following', { replace: true });
+          } else if (sel.type === 'country') {
+            navigate(`/following?country=${encodeURIComponent(sel.value)}`, { replace: true });
+          } else if (sel.type === 'topic') {
+            navigate(`/following?topic=${encodeURIComponent(sel.value)}`, { replace: true });
+          }
+        },
+        onManage: handleManage,
       });
-      return;
-    }
-    if (e.target.closest('[data-new]')) {
-      await handleCreateNew();
-      return;
-    }
-    const current = store.monitors.find((x) => x.id === query.get('m')) || store.monitors[0];
-    if (e.target.closest('[data-edit]') && current) {
-      if (await followEditor(current)) { toast('Updated'); draw(); }
-    }
-    if (e.target.closest('[data-delete]') && current) {
-      const ok = await confirmDialog({ title: 'Stop following?', body: `“${current.name}” will be removed. Your saved items are not affected.`, confirmLabel: 'Stop following', danger: true });
-      if (!ok) return;
-      try {
-        await store.removeMonitor(current.id);
-        toast('Removed');
-        navigate('/following', { replace: true });
-      } catch (err) {
-        toast(err.message, 'error');
-      }
-      return;
-    }
-    const scopeBtn = e.target.closest('[data-scope-toggle]');
-    if (scopeBtn) {
-      const wrap = scopeBtn.closest('[data-scope-dd-wrap]');
-      const panel = wrap?.querySelector('[data-scope-panel]');
-      if (panel) {
-        const isHidden = panel.hidden;
-        panel.hidden = !isHidden;
-        scopeBtn.setAttribute('aria-expanded', String(isHidden));
-      }
       return;
     }
   });
 
-  const onDocClick = (e) => {
-    if (!e.target.closest('[data-scope-dd-wrap]')) {
-      const panel = $('[data-scope-panel]', main);
-      const btn = $('[data-scope-toggle]', main);
-      if (panel && !panel.hidden) {
-        panel.hidden = true;
-        btn?.setAttribute('aria-expanded', 'false');
-      }
-    }
-  };
-  document.addEventListener('click', onDocClick);
-
+  const off = store.on(draw);
   draw();
-  return () => document.removeEventListener('click', onDocClick);
+  return () => off?.();
 }
-

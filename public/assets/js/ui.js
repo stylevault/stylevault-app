@@ -627,56 +627,224 @@ export function openCountrySectionModal({ country: c, activeTab = 'overview', on
   });
 }
 
-/** Customized modal for switching between followed items on the Following page. */
-export function openFollowingSwitcherModal({ list = [], activeId = '', onSelect, onNew } = {}) {
-  const describeItem = (m) => {
-    const parts = [];
-    if (!m.countries?.length) parts.push('🌍 All 54 countries');
-    else {
-      m.countries.slice(0, 2).forEach((code) => {
-        const c = store.countryByCode.get(code);
-        if (c) parts.push(`${c.name}`);
+/**
+ * Full-screen / bottom sheet modal for multi-country bulk follow.
+ * Allows readers to follow multiple countries or whole regions with 1 tap.
+ */
+export function openBulkCountryFollowModal({ onSaved } = {}) {
+  const allCountries = store.meta.countries || [];
+  const selected = new Set(store.followedCountries);
+  let activeRegion = 'all';
+  let searchQuery = '';
+
+  return openDialog(`
+    <div class="sheet-drag-handle" aria-hidden="true"></div>
+    <div class="sheet-head sec-modal-head">
+      <div>
+        <h2 style="margin:0;font-size:1.15rem">Follow African countries</h2>
+        <p class="sec-modal-sub" data-bulk-sub>Choose countries to include together in your personal feed</p>
+      </div>
+      <button type="button" class="icon-btn" data-close aria-label="Close">${icon('close')}</button>
+    </div>
+
+    <div class="cpm-toolbar" style="padding-bottom:12px;gap:8px">
+      <div class="cpm-search-bar">
+        <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
+        <input type="search" class="input cpm-input" placeholder="Find a country or capital…" data-bulk-search aria-label="Find a country or capital">
+      </div>
+      <div class="chips wrap-chips" style="gap:5px" data-bulk-regions>
+        <button type="button" class="chip" data-region="all" aria-pressed="true">All regions</button>
+        ${Object.entries(REGION_NAMES).map(([k, v]) => `<button type="button" class="chip" data-region="${k}" aria-pressed="false">${v}</button>`).join('')}
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:2px">
+        <span style="font-size:0.80rem;font-weight:500;color:var(--plum)" data-bulk-count>${selected.size} of 54 countries followed</span>
+        <div style="display:flex;gap:6px">
+          <button type="button" class="btn btn-outline btn-sm" data-select-region style="font-size:0.75rem;height:28px;padding:0 8px">Select all</button>
+          <button type="button" class="btn btn-outline btn-sm" data-deselect-region style="font-size:0.75rem;height:28px;padding:0 8px">Deselect all</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-body sec-modal-body" style="padding:6px 14px 14px;max-height:52vh;overflow-y:auto">
+      <div class="flw-bulk-list" data-bulk-list></div>
+    </div>
+
+    <div class="sheet-foot" style="justify-content:space-between">
+      <button type="button" class="btn btn-outline btn-sm" data-close>Cancel</button>
+      <button type="button" class="btn btn-plum btn-sm" data-bulk-save>${icon('check')} <span>Save followed countries</span></button>
+    </div>
+  `, (dialog, close) => {
+    const listEl = $('[data-bulk-list]', dialog);
+    const countEl = $('[data-bulk-count]', dialog);
+    const searchInput = $('[data-bulk-search]', dialog);
+
+    const updateCount = () => {
+      if (countEl) countEl.textContent = `${selected.size} of 54 countries followed`;
+    };
+
+    const render = () => {
+      const q = searchQuery.toLowerCase().trim();
+      const filtered = allCountries.filter((c) => {
+        if (activeRegion !== 'all' && c.region !== activeRegion) return false;
+        if (q && !c.name.toLowerCase().includes(q) && !(c.capital || '').toLowerCase().includes(q)) return false;
+        return true;
       });
-      if (m.countries.length > 2) parts.push(`+${m.countries.length - 2} more`);
-    }
-    m.topics?.slice(0, 2).forEach((slug) => {
-      const t = store.topicBySlug.get(slug);
-      if (t) parts.push(t.name);
+
+      if (!filtered.length) {
+        listEl.innerHTML = `
+          <div class="cpm-empty">
+            <strong>No country matches “${esc(searchQuery)}”</strong>
+            <span>Try another search or change the region filter</span>
+          </div>`;
+        return;
+      }
+
+      listEl.innerHTML = filtered.map((c) => {
+        const isChecked = selected.has(c.code);
+        return `
+          <label class="check-row ${isChecked ? 'is-checked' : ''}" style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;cursor:pointer;user-select:none;transition:background 0.15s;margin-bottom:2px" data-code="${c.code}">
+            <input type="checkbox" value="${c.code}" ${isChecked ? 'checked' : ''} style="width:18px;height:18px;accent-color:var(--plum);cursor:pointer">
+            <div style="flex:none;width:30px;height:30px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 1px rgb(26 10 30 / 0.1)">
+              ${flag(c.code, 'flag', '')}
+            </div>
+            <div style="flex:1;min-width:0">
+              <strong style="display:block;font-size:0.90rem;font-weight:500;color:var(--deep)">${esc(c.name)}</strong>
+              <span style="font-size:0.75rem;color:var(--muted)">${esc(c.capital || '')}${c.capital ? ' · ' : ''}${REGION_NAMES[c.region] || c.region}</span>
+            </div>
+          </label>
+        `;
+      }).join('');
+
+      $$('input[type="checkbox"]', listEl).forEach((cb) => {
+        cb.addEventListener('change', () => {
+          if (cb.checked) selected.add(cb.value);
+          else selected.delete(cb.value);
+          cb.closest('.check-row')?.classList.toggle('is-checked', cb.checked);
+          updateCount();
+        });
+      });
+    };
+
+    render();
+
+    searchInput?.addEventListener('input', () => {
+      searchQuery = searchInput.value;
+      render();
     });
-    if (m.keywords) parts.push(`“${m.keywords}”`);
-    return parts.join(' · ');
-  };
+
+    $('[data-bulk-regions]', dialog)?.addEventListener('click', (e) => {
+      const chip = e.target.closest('[data-region]');
+      if (!chip) return;
+      activeRegion = chip.dataset.region;
+      $$('[data-region]', dialog).forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      render();
+    });
+
+    $('[data-select-region]', dialog)?.addEventListener('click', () => {
+      $$('input[type="checkbox"]', listEl).forEach((cb) => {
+        cb.checked = true;
+        selected.add(cb.value);
+        cb.closest('.check-row')?.classList.add('is-checked');
+      });
+      updateCount();
+    });
+
+    $('[data-deselect-region]', dialog)?.addEventListener('click', () => {
+      $$('input[type="checkbox"]', listEl).forEach((cb) => {
+        cb.checked = false;
+        selected.delete(cb.value);
+        cb.closest('.check-row')?.classList.remove('is-checked');
+      });
+      updateCount();
+    });
+
+    $('[data-bulk-save]', dialog)?.addEventListener('click', async () => {
+      const saveBtn = $('[data-bulk-save]', dialog);
+      if (saveBtn) saveBtn.disabled = true;
+      try {
+        await store.syncFollowedCountries([...selected]);
+        toast(selected.size ? `Now following ${selected.size} countries` : 'Followed countries updated');
+        close();
+        onSaved?.([...selected]);
+      } catch (err) {
+        toast(err.message, 'error');
+        if (saveBtn) saveBtn.disabled = false;
+      }
+    });
+  });
+}
+
+/** Customized modal for switching between followed items on the Following page. */
+export function openFollowingSwitcherModal({ activeSelection = { type: 'all' }, onSelect, onManage } = {}) {
+  const followedCountryCodes = store.followedCountries;
+  const followedTopicSlugs = store.followedTopics;
+  const isAll = !activeSelection || activeSelection.type === 'all';
 
   return openDialog(`
     <div class="sheet-drag-handle" aria-hidden="true"></div>
     <div class="sheet-head sec-modal-head">
       <div>
         <h2 style="margin:0;font-size:1.12rem">What you follow</h2>
-        <p class="sec-modal-sub">Pick any item below to see its latest stories</p>
+        <p class="sec-modal-sub">View all stories together or filter by country or topic</p>
       </div>
       <button type="button" class="icon-btn" data-close aria-label="Close">${icon('close')}</button>
     </div>
-    ${list.length > 4 ? `
+
+    ${followedCountryCodes.length + followedTopicSlugs.length > 5 ? `
       <div class="cpm-toolbar">
         <div class="cpm-search-bar">
           <span class="cpm-search-icon" aria-hidden="true">${icon('search')}</span>
-          <input type="search" class="input cpm-input" placeholder="Search what you follow…" data-flw-modal-search aria-label="Search what you follow">
+          <input type="search" class="input cpm-input" placeholder="Filter followed items…" data-flw-modal-search aria-label="Filter what you follow">
         </div>
       </div>
     ` : ''}
+
     <div class="sheet-body sec-modal-body">
       <div class="flw-modal-list" data-flw-modal-list>
-        ${list.map((m) => {
-          const isSelected = m.id === activeId;
-          const firstCountry = m.countries?.length === 1 ? store.countryByCode.get(m.countries[0]) : null;
+        <!-- Option 1: Everything (All Followed Stories Together) -->
+        <button type="button" class="flw-modal-item ${isAll ? 'is-selected' : ''}" data-sel-type="all" data-search-text="everything all followed countries topics">
+          <div class="fmi-badge" aria-hidden="true" style="font-size:1.2rem">🌍</div>
+          <div class="fmi-info">
+            <strong class="fmi-title">All followed stories</strong>
+            <span class="fmi-sub">All stories across the ${followedCountryCodes.length || 54} countries you follow</span>
+          </div>
+          <div class="fmi-check" aria-hidden="true">
+            ${isAll ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
+          </div>
+        </button>
+
+        <!-- Individual Followed Countries (Unbundled) -->
+        ${followedCountryCodes.map((code) => {
+          const c = store.countryByCode.get(code);
+          const name = c ? c.name : code;
+          const isSelected = activeSelection?.type === 'country' && activeSelection?.value === code;
           return `
-            <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-item-id="${esc(m.id)}" data-search-text="${esc((m.name + ' ' + describeItem(m)).toLowerCase())}">
+            <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-sel-type="country" data-sel-val="${code}" data-sel-name="${esc(name)}" data-search-text="${esc(name.toLowerCase())}">
               <div class="fmi-badge" aria-hidden="true">
-                ${firstCountry ? flag(firstCountry.code, 'flag', '') : '<span class="fmi-dot"></span>'}
+                ${flag(code, 'flag', '')}
               </div>
               <div class="fmi-info">
-                <strong class="fmi-title">${esc(m.name)}</strong>
-                <span class="fmi-sub">${esc(describeItem(m))}</span>
+                <strong class="fmi-title">${esc(name)}</strong>
+                <span class="fmi-sub">All stories from ${esc(name)}</span>
+              </div>
+              <div class="fmi-check" aria-hidden="true">
+                ${isSelected ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
+              </div>
+            </button>
+          `;
+        }).join('')}
+
+        <!-- Individual Followed Topics -->
+        ${followedTopicSlugs.map((slug) => {
+          const t = store.topicBySlug.get(slug);
+          const name = t ? t.name : slug;
+          const isSelected = activeSelection?.type === 'topic' && activeSelection?.value === slug;
+          return `
+            <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-sel-type="topic" data-sel-val="${slug}" data-sel-name="${esc(name)}" data-search-text="${esc(name.toLowerCase())}">
+              <div class="fmi-badge" aria-hidden="true" style="font-size:1.1rem">📌</div>
+              <div class="fmi-info">
+                <strong class="fmi-title">${esc(name)}</strong>
+                <span class="fmi-sub">Stories on this topic</span>
               </div>
               <div class="fmi-check" aria-hidden="true">
                 ${isSelected ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
@@ -686,9 +854,10 @@ export function openFollowingSwitcherModal({ list = [], activeId = '', onSelect,
         }).join('')}
       </div>
     </div>
+
     <div class="sheet-foot" style="justify-content:space-between">
       <button type="button" class="btn btn-outline btn-sm" data-close>Close</button>
-      <button type="button" class="btn btn-plum btn-sm" data-flw-modal-new>${icon('plus')} Follow something new</button>
+      <button type="button" class="btn btn-plum btn-sm" data-flw-manage>${icon('plus')} Manage countries</button>
     </div>
   `, (dialog, close) => {
     const searchInput = $('[data-flw-modal-search]', dialog);
@@ -700,76 +869,87 @@ export function openFollowingSwitcherModal({ list = [], activeId = '', onSelect,
         });
       });
     }
+
     $$('.flw-modal-item', dialog).forEach((btn) => {
       btn.addEventListener('click', () => {
-        const id = btn.dataset.itemId;
+        const type = btn.dataset.selType;
+        const value = btn.dataset.selVal || '';
+        const name = btn.dataset.selName || 'All followed stories';
         close();
-        onSelect?.(id);
+        onSelect?.({ type, value, name });
       });
     });
-    const newBtn = $('[data-flw-modal-new]', dialog);
-    if (newBtn) {
-      newBtn.addEventListener('click', () => {
-        close();
-        onNew?.();
-      });
-    }
+
+    $('[data-flw-manage]', dialog)?.addEventListener('click', () => {
+      close();
+      if (onManage) onManage();
+      else openBulkCountryFollowModal();
+    });
   });
 }
 
 /** Dropdown menu modal for filtering Stories for you on the signed-in Home page. */
-export function openHomeFeedSwitcherModal({ list = [], activeTab = 'all', onSelect } = {}) {
-  const describeItem = (m) => {
-    const parts = [];
-    if (!m.countries?.length) parts.push('🌍 All 54 countries');
-    else {
-      m.countries.slice(0, 2).forEach((code) => {
-        const c = store.countryByCode.get(code);
-        if (c) parts.push(c.name);
-      });
-      if (m.countries.length > 2) parts.push(`+${m.countries.length - 2} more`);
-    }
-    m.topics?.slice(0, 2).forEach((slug) => {
-      const t = store.topicBySlug.get(slug);
-      if (t) parts.push(t.name);
-    });
-    return parts.join(' · ');
-  };
+export function openHomeFeedSwitcherModal({ activeSelection = { type: 'all' }, onSelect, onManage } = {}) {
+  const followedCountryCodes = store.followedCountries;
+  const followedTopicSlugs = store.followedTopics;
+  const isAll = !activeSelection || activeSelection.type === 'all';
 
   return openDialog(`
     <div class="sheet-drag-handle" aria-hidden="true"></div>
     <div class="sheet-head sec-modal-head">
       <div>
         <h2 style="margin:0;font-size:1.12rem">Filter stories for you</h2>
-        <p class="sec-modal-sub">Choose a followed place or topic</p>
+        <p class="sec-modal-sub">View all stories together or choose a specific country</p>
       </div>
       <button type="button" class="icon-btn" data-close aria-label="Close">${icon('close')}</button>
     </div>
+
     <div class="sheet-body sec-modal-body">
       <div class="flw-modal-list">
-        <button type="button" class="flw-modal-item ${activeTab === 'all' ? 'is-selected' : ''}" data-tab-value="all" data-tab-name="Everything">
+        <!-- Option 1: Everything -->
+        <button type="button" class="flw-modal-item ${isAll ? 'is-selected' : ''}" data-sel-type="all">
           <div class="fmi-badge" aria-hidden="true" style="font-size:1.2rem">🌍</div>
           <div class="fmi-info">
-            <strong class="fmi-title">Everything</strong>
-            <span class="fmi-sub">All stories across the ${list.length} places and topics you follow</span>
+            <strong class="fmi-title">All followed stories</strong>
+            <span class="fmi-sub">All stories across the ${followedCountryCodes.length || 54} countries you follow</span>
           </div>
           <div class="fmi-check" aria-hidden="true">
-            ${activeTab === 'all' ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
+            ${isAll ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
           </div>
         </button>
 
-        ${list.map((m, i) => {
-          const tabKey = String(i);
-          const isSelected = activeTab === tabKey;
-          const firstCountry = m.countries?.length === 1 ? store.countryByCode.get(m.countries[0]) : null;
+        <!-- Individual Followed Countries -->
+        ${followedCountryCodes.map((code) => {
+          const c = store.countryByCode.get(code);
+          const name = c ? c.name : code;
+          const isSelected = activeSelection?.type === 'country' && activeSelection?.value === code;
           return `
-            <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-tab-value="${tabKey}" data-tab-name="${esc(m.name)}">
+            <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-sel-type="country" data-sel-val="${code}" data-sel-name="${esc(name)}">
               <div class="fmi-badge" aria-hidden="true">
-                ${firstCountry ? flag(firstCountry.code, 'flag', '') : '<span class="fmi-dot"></span>'}
+                ${flag(code, 'flag', '')}
               </div>
               <div class="fmi-info">
-                <strong class="fmi-title">${esc(m.name)}</strong>
-                <span class="fmi-sub">${esc(describeItem(m))}</span>
+                <strong class="fmi-title">${esc(name)}</strong>
+                <span class="fmi-sub">Stories from ${esc(name)}</span>
+              </div>
+              <div class="fmi-check" aria-hidden="true">
+                ${isSelected ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
+              </div>
+            </button>
+          `;
+        }).join('')}
+
+        <!-- Individual Followed Topics -->
+        ${followedTopicSlugs.map((slug) => {
+          const t = store.topicBySlug.get(slug);
+          const name = t ? t.name : slug;
+          const isSelected = activeSelection?.type === 'topic' && activeSelection?.value === slug;
+          return `
+            <button type="button" class="flw-modal-item ${isSelected ? 'is-selected' : ''}" data-sel-type="topic" data-sel-val="${slug}" data-sel-name="${esc(name)}">
+              <div class="fmi-badge" aria-hidden="true" style="font-size:1.1rem">📌</div>
+              <div class="fmi-info">
+                <strong class="fmi-title">${esc(name)}</strong>
+                <span class="fmi-sub">Stories on this topic</span>
               </div>
               <div class="fmi-check" aria-hidden="true">
                 ${isSelected ? `<span class="fmi-active-pill">${icon('check')} Viewing</span>` : icon('arrow-right')}
@@ -779,17 +959,26 @@ export function openHomeFeedSwitcherModal({ list = [], activeTab = 'all', onSele
         }).join('')}
       </div>
     </div>
-    <div class="sheet-foot">
+
+    <div class="sheet-foot" style="justify-content:space-between">
       <button type="button" class="btn btn-outline btn-sm" data-close>Close</button>
+      <button type="button" class="btn btn-plum btn-sm" data-flw-manage>${icon('plus')} Manage countries</button>
     </div>
   `, (dialog, close) => {
-    $$('[data-tab-value]', dialog).forEach((btn) => {
+    $$('.flw-modal-item', dialog).forEach((btn) => {
       btn.addEventListener('click', () => {
-        const val = btn.dataset.tabValue;
-        const name = btn.dataset.tabName;
+        const type = btn.dataset.selType;
+        const value = btn.dataset.selVal || '';
+        const name = btn.dataset.selName || 'All followed stories';
         close();
-        onSelect?.(val, name);
+        onSelect?.({ type, value, name });
       });
+    });
+
+    $('[data-flw-manage]', dialog)?.addEventListener('click', () => {
+      close();
+      if (onManage) onManage();
+      else openBulkCountryFollowModal();
     });
   });
 }

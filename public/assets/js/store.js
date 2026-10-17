@@ -157,6 +157,34 @@ export const store = {
   },
 
   // ── Monitors ────────────────────────────────────────────────────────────
+  _opQueue: Promise.resolve(),
+  _enqueue(fn) {
+    const run = () => fn();
+    const p = this._opQueue.then(run, run);
+    this._opQueue = p.catch(() => {});
+    return p;
+  },
+
+  get followedCountries() {
+    const set = new Set();
+    for (const m of this.monitors) {
+      if (Array.isArray(m.countries)) {
+        for (const c of m.countries) if (c) set.add(c);
+      }
+    }
+    return [...set];
+  },
+
+  get followedTopics() {
+    const set = new Set();
+    for (const m of this.monitors) {
+      if (Array.isArray(m.topics)) {
+        for (const t of m.topics) if (t) set.add(t);
+      }
+    }
+    return [...set];
+  },
+
   async saveMonitor(monitor, id = null) {
     if (this.user) {
       const { monitor: saved } = id ? await api.updateMonitor(id, monitor) : await api.createMonitor(monitor);
@@ -165,7 +193,7 @@ export const store = {
       return saved;
     }
     if (!monitor.name?.trim()) throw new Error('Give your monitor a name');
-    if (!monitor.countries.length && !monitor.topics.length && !monitor.keywords.trim()) {
+    if (!monitor.countries.length && !monitor.topics.length && !monitor.keywords?.trim()) {
       throw new Error('Choose at least one country, topic or keyword');
     }
     const saved = { ...monitor, id: id || `local-${Date.now().toString(36)}`, createdAt: Math.floor(Date.now() / 1000) };
@@ -208,37 +236,75 @@ export const store = {
     );
   },
 
+  /** Synchronizes the exact set of followed country codes in one batch operation. */
+  async syncFollowedCountries(codes) {
+    return this._enqueue(async () => {
+      const targetCodes = [...new Set((codes || []).filter((c) => /^[A-Z]{2}$/.test(c)))];
+      const currentCodes = this.followedCountries;
+
+      const toAdd = targetCodes.filter((c) => !currentCodes.includes(c));
+      const toRemove = currentCodes.filter((c) => !targetCodes.includes(c));
+
+      // Remove deselected countries
+      for (const code of toRemove) {
+        const matching = this.monitors.filter((m) => m.countries?.includes(code));
+        for (const m of matching) {
+          const next = m.countries.filter((c) => c !== code);
+          if (!next.length && !m.topics?.length && !m.keywords) {
+            await this.removeMonitor(m.id);
+          } else {
+            await this.saveMonitor({ ...m, countries: next }, m.id);
+          }
+        }
+      }
+
+      // Add new countries individually so they remain distinct
+      for (const code of toAdd) {
+        const name = this.countryByCode.get(code)?.name || code;
+        await this.saveMonitor({
+          name,
+          countries: [code],
+          topics: [],
+          keywords: '',
+        });
+      }
+      return targetCodes;
+    });
+  },
+
   async toggleFollow(kind, value) {
-    const existing = this.followFor(kind, value);
-    if (existing) {
-      const isSingleCountry = kind === 'country' && existing.countries?.length === 1 && !existing.topics?.length && !existing.keywords;
-      const isSingleTopic = kind === 'topic' && existing.topics?.length === 1 && !existing.countries?.length && !existing.keywords;
-      if (isSingleCountry || isSingleTopic) {
-        await this.removeMonitor(existing.id);
+    return this._enqueue(async () => {
+      const existing = this.followFor(kind, value);
+      if (existing) {
+        const isSingleCountry = kind === 'country' && existing.countries?.length === 1 && !existing.topics?.length && !existing.keywords;
+        const isSingleTopic = kind === 'topic' && existing.topics?.length === 1 && !existing.countries?.length && !existing.keywords;
+        if (isSingleCountry || isSingleTopic) {
+          await this.removeMonitor(existing.id);
+          return false;
+        }
+        // In a multi-item monitor, remove this item
+        const nextCountries = kind === 'country' ? existing.countries.filter((c) => c !== value) : existing.countries;
+        const nextTopics = kind === 'topic' ? existing.topics.filter((t) => t !== value) : existing.topics;
+        if (!nextCountries.length && !nextTopics.length && !existing.keywords) {
+          await this.removeMonitor(existing.id);
+        } else {
+          await this.saveMonitor({
+            ...existing,
+            countries: nextCountries,
+            topics: nextTopics,
+          }, existing.id);
+        }
         return false;
       }
-      // In a multi-item monitor, remove this item
-      const nextCountries = kind === 'country' ? existing.countries.filter((c) => c !== value) : existing.countries;
-      const nextTopics = kind === 'topic' ? existing.topics.filter((t) => t !== value) : existing.topics;
-      if (!nextCountries.length && !nextTopics.length && !existing.keywords) {
-        await this.removeMonitor(existing.id);
-      } else {
-        await this.saveMonitor({
-          ...existing,
-          countries: nextCountries,
-          topics: nextTopics,
-        }, existing.id);
-      }
-      return false;
-    }
-    const name = kind === 'country' ? this.countryByCode.get(value)?.name : this.topicBySlug.get(value)?.name;
-    await this.saveMonitor({
-      name: name || value,
-      countries: kind === 'country' ? [value] : [],
-      topics: kind === 'topic' ? [value] : [],
-      keywords: '',
+      const name = kind === 'country' ? this.countryByCode.get(value)?.name : this.topicBySlug.get(value)?.name;
+      await this.saveMonitor({
+        name: name || value,
+        countries: kind === 'country' ? [value] : [],
+        topics: kind === 'topic' ? [value] : [],
+        keywords: '',
+      });
+      return true;
     });
-    return true;
   },
 
   // ── Reading activity tracking ──────────────────────────────────────────────

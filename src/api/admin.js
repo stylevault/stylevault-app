@@ -151,6 +151,13 @@ export async function getAdminMetrics(request, env) {
 
 export async function postCollectAdmin(request, env) {
   await requireAdmin(request, env);
+  try {
+    await env.DB?.prepare?.(`
+      INSERT INTO sources (slug, name, homepage, feed_url, country_code, language, kind, scope, permission_status, next_check_at)
+      VALUES ('rias-colony', 'Ria''s Colony', 'https://riascolony.org/blog', 'https://riascolony.org/blog', NULL, 'en', 'analysis', 'africa', 'permitted', 0)
+      ON CONFLICT(slug) DO UPDATE SET feed_url = excluded.feed_url, homepage = excluded.homepage
+    `)?.run?.();
+  } catch {}
   const all = new URL(request.url).searchParams.get('all') === '1';
   const result = await runCollection(env, { trigger: 'admin_manual', all });
   return json(result);

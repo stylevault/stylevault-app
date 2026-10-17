@@ -9,7 +9,7 @@
  * A run therefore handles a small batch of sources (COLLECT_BATCH_SIZE) and the cron
  * fires often enough that every active source is still checked about hourly.
  */
-import { parseFeed } from './feed-parser.js';
+import { parseFeed, parseRiasColony } from './feed-parser.js';
 import { classifyCountries, classifyTopics } from './classify.js';
 import { normalizeUrl, sha256Hex, titleTokens, similarity, clampSummary } from './normalize.js';
 
@@ -25,7 +25,7 @@ const FAILING_MAX_INTERVAL_MIN = 1_440;
 const now = () => Math.floor(Date.now() / 1000);
 
 async function fetchFeed(source) {
-  const headers = { 'User-Agent': USER_AGENT, Accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.5' };
+  const headers = { 'User-Agent': USER_AGENT, Accept: 'application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8, text/html;q=0.7, */*;q=0.5' };
   if (source.etag) headers['If-None-Match'] = source.etag;
   if (source.last_modified) headers['If-Modified-Since'] = source.last_modified;
 
@@ -34,6 +34,17 @@ async function fetchFeed(source) {
     if (res.status === 304) return { ok: true, notModified: true, items: [] };
     if (!res.ok) return { ok: false, error: `HTTP ${res.status}` };
     const text = (await res.text()).slice(0, MAX_FEED_BYTES);
+
+    // Ria's Colony publishes HTML blog posts directly at riascolony.org/blog
+    if (source.slug === 'rias-colony' || /riascolony\.org/i.test(source.feed_url)) {
+      return {
+        ok: true,
+        items: parseRiasColony(text),
+        etag: res.headers.get('ETag'),
+        lastModified: res.headers.get('Last-Modified'),
+      };
+    }
+
     if (!/<(rss|feed|rdf:RDF)[\s>]/i.test(text.slice(0, 3000))) return { ok: false, error: 'Response is not an RSS/Atom feed' };
     return {
       ok: true,
